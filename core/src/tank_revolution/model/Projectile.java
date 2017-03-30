@@ -10,5 +10,11 @@ package tank_revolution.model;
 public abstract class Projectile implements Shootable{
 
     protected float blastRadius;
-    
+
+    /**
+     * @return blastRadius of the projectile
+     */
+    protected float getBlastRadius(){
+        return blastRadius;
+    }
 }
