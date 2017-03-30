@@ -5,9 +5,6 @@ import com.badlogic.gdx.InputProcessor;
 import tank_revolution.model.GameModel;
 import tank_revolution.view.GameView;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class TankRevolutionController implements ApplicationListener, InputProcessor {
 	private GameModel model;
 	private GameView view;
@@ -49,7 +46,6 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 		deltaY = Math.abs(releaseY - touchY);
 		return true;
 	}
-
 
 	@Override
 	public void resize(int width, int height) {
