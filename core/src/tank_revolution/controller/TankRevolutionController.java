@@ -20,7 +20,7 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 
 	@Override
 	public void create() {
-		//model = new GameModel();
+		//mmodel = new GameModel();
 		view = new GameView(model);
 	}
 
