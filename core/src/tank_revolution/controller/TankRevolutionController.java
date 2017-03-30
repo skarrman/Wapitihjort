@@ -1,18 +1,16 @@
 package tank_revolution.controller;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import tank_revolution.model.GameModel;
+import tank_revolution.view.GameView;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class TankRevolutionController implements ApplicationListener, InputProcessor {
-	
+	private GameModel model;
+	private GameView view;
 	private float deltaX;
 	private float deltaY;
 	private float touchX;
@@ -20,60 +18,17 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 	private float releaseX;
 	private float releaseY;
 
-	public TankRevolutionController() {
-
-	}
-
-
-
-
-
-
 	@Override
-	public void create () {
-
+	public void create() {
+		model = new GameModel();
+		view = new GameView();
 	}
 
 	@Override
-	public void resize(int width, int height) {
+	public void render() {
 
 	}
-
-	@Override
-	public void render () {
-
-	}
-
-	@Override
-	public void pause() {
-
-	}
-
-	@Override
-	public void resume() {
-
-	}
-
-	@Override
-	public void dispose () {
-
-	}
-
-	@Override
-	public boolean keyDown(int keycode) {
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		return false;
-	}
-
+	
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		touchX = screenX;
@@ -93,6 +48,42 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 		deltaX = Math.abs(releaseX - touchX);
 		deltaY = Math.abs(releaseY - touchY);
 		return true;
+	}
+
+
+	@Override
+	public void resize(int width, int height) {
+
+	}
+
+	@Override
+	public void pause() {
+
+	}
+
+	@Override
+	public void resume() {
+
+	}
+
+	@Override
+	public void dispose() {
+
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		return false;
 	}
 
 	@Override
