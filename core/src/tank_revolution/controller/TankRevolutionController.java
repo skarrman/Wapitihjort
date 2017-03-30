@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TankRevolutionController implements ApplicationListener, InputProcessor {
-
+	
 	private float deltaX;
 	private float deltaY;
 	private float touchX;
@@ -20,14 +20,18 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 	private float releaseX;
 	private float releaseY;
 
+	public TankRevolutionController() {
+
+	}
+
+
+
+
 
 
 	@Override
 	public void create () {
-		Gdx.input.setInputProcessor(this);
-		for(int i = 0; i < 2; i++){
-			touches.put(i, new TouchInfo());
-		}
+
 	}
 
 	@Override
@@ -37,11 +41,7 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+
 	}
 
 	@Override
@@ -83,18 +83,15 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		if(pointer < 2){
-			touches.get(pointer).releaseX = screenX;
-			touches.get(pointer).releaseY = screenY;
-			touches.get(pointer).touched = false;
-		}
+		releaseX = screenX;
+		releaseY = screenY;
 		return true;
 	}
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		deltaX = touches.get(2).touchX - touches.get(1).touchX;
-		deltaY = touches.get(2).touchY - touches.get(1).touchY;
+		deltaX = Math.abs(releaseX - touchX);
+		deltaY = Math.abs(releaseY - touchY);
 		return true;
 	}
 
