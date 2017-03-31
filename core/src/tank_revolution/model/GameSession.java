@@ -13,8 +13,8 @@ public class GameSession {
 
     //All these values are in meter and affects all tanks
     private final float tankWidth = 3f;
-    private final float tankHeight = 1f;
-    private final float mapWidth = 100f;
+    private final float tankHeight = 2f;
+    private final float mapWidth = 50f;
 
     //Gives the tank a mass of 300kg
     private final float tankDensity = 100;
