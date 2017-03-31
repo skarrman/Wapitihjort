@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import tank_revolution.model.Character;
 import tank_revolution.model.GameModel;
+import tank_revolution.model.GameSession;
 
 import javax.swing.text.Position;
 import java.util.List;
@@ -17,16 +18,17 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
  */
 public class GameView {
     private Batch batch;
-    private TextureAtlas textureAtlas;
-    private GameModel model;
+    private List<TextureAtlas> textureAtlases;
+    private GameSession session;
     private List<Character> characterList;
 
 
-    public GameView(GameModel model){
-        this.model = model;
+    public GameView(GameSession session){
+        this.session = session;
         batch = new SpriteBatch();
-        characterList = model.getCharacterList();
-        textureAtlas = new TextureAtlas(Gdx.files.internal("GreenTank.txt"));
+        characterList = session.getCharacterList();
+        textureAtlases.add(new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
+        textureAtlases.add(new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
 
     }
 
@@ -34,8 +36,10 @@ public class GameView {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
         batch.begin();
-        Vector2 pos = characterList.get(0).getTank().getBody().getPosition();
-        batch.draw(textureAtlas.getRegions().first(),pos.x,pos.y);
+        for(int i = 0; i < characterList.size(); i++) {
+            Vector2 pos = characterList.get(i).getTank().getBody().getPosition();
+            batch.draw(textureAtlases.get(i).getRegions().first(), pos.x, pos.y);
+        }
         batch.end();
     }
 
