@@ -84,7 +84,7 @@ public class GameSession {
     public GameSession(){}
 
     public void shoot(float deltaX, float deltaY){
-
+        characterList.get(characterTurn).getTank().shoot(deltaX, deltaY);
     }
 
     private void endTurn(){
