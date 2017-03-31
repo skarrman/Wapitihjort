@@ -26,7 +26,8 @@ public class GameSession {
     private List<Character> characterList;
 
     /**
-     * Creates a new gameSession from a list of characters. (max four)
+     * Creates a new gameSession from a list of characters and gives the characters tanks and addes the tanks to the world.
+     * (max four characters)
      * Note that this is the first iteration and is only made for two characters
      *
      * @param characterList
