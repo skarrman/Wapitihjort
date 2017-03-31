@@ -9,6 +9,7 @@ import java.util.List;
 public class GameModel {
     private final List<Character> characterList;
 
+
     //For custom setup from the main menu
     public GameModel(List<Character> characterList){
         this.characterList = characterList;
@@ -27,8 +28,6 @@ public class GameModel {
     }
 
 
-
-
     public GameSession newGame(){
         return new GameSession(characterList);
     }
@@ -36,4 +35,6 @@ public class GameModel {
     public List<Character> getCharacterList() {
         return characterList;
     }
+
+
 }

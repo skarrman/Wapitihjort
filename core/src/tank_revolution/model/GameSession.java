@@ -11,10 +11,10 @@ import java.util.List;
  */
 public class GameSession {
 
-    //All these values is in meter and affects all tanks
+    //All these values are in meter and affects all tanks
     private final float tankWidth = 3f;
     private final float tankHeight = 1f;
-    private final float mapWidth = 300f;
+    private final float mapWidth = 100f;
 
     //Gives the tank a mass of 300kg
     private final float tankDensity = 100;
@@ -25,15 +25,18 @@ public class GameSession {
     private World world;
     private List<Character> characterList;
 
+    //The index of the current character in characterList
+    private int characterTurn = 0;
+
     /**
      * Creates a new gameSession from a list of characters and gives the characters tanks and addes the tanks to the world.
      * (max four characters)
      * Note that this is the first iteration and is only made for two characters
      *
-     * @param characterList
+     //* @param characterList
      */
 
-    GameSession(List<Character> characterList) {
+    public GameSession(List<Character> characterList) {
         this.characterList = characterList;
         world = new World(g, true);
 
@@ -76,6 +79,20 @@ public class GameSession {
 
 
 
+    }
+
+    public GameSession(){}
+
+    public void shoot(float deltaX, float deltaY){
+
+    }
+
+    private void endTurn(){
+        characterTurn = (characterTurn++)%3;
+    }
+
+    public int getCharacterTurn() {
+        return characterTurn;
     }
 
     public List<Character> getCharacterList() {
