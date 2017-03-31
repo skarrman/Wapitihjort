@@ -1,138 +1,138 @@
 GreenTank.png
-size: 2048, 2048
+size: 1024, 1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 GreenTank0
   rotate: false
   xy: 0, 0
-  size: 480, 234
-  orig: 480, 234
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank10
   rotate: false
-  xy: 480, 0
-  size: 480, 234
-  orig: 480, 234
+  xy: 180, 0
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank20
   rotate: false
-  xy: 960, 0
-  size: 480, 234
-  orig: 480, 234
+  xy: 360, 0
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank30
   rotate: false
-  xy: 1440, 0
-  size: 480, 234
-  orig: 480, 234
+  xy: 540, 0
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank40
   rotate: false
-  xy: 0, 234
-  size: 480, 234
-  orig: 480, 234
+  xy: 720, 0
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank50
   rotate: false
-  xy: 480, 234
-  size: 480, 234
-  orig: 480, 234
+  xy: 0, 176
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank60
   rotate: false
-  xy: 960, 234
-  size: 480, 234
-  orig: 480, 234
+  xy: 180, 176
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank70
   rotate: false
-  xy: 1440, 234
-  size: 480, 234
-  orig: 480, 234
+  xy: 360, 176
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank80
   rotate: false
-  xy: 0, 468
-  size: 480, 234
-  orig: 480, 234
+  xy: 540, 176
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank90
   rotate: false
-  xy: 480, 468
-  size: 480, 234
-  orig: 480, 234
+  xy: 720, 176
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank100
   rotate: false
-  xy: 960, 468
-  size: 480, 234
-  orig: 480, 234
+  xy: 0, 352
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank110
   rotate: false
-  xy: 1440, 468
-  size: 480, 234
-  orig: 480, 234
+  xy: 180, 352
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank120
   rotate: false
-  xy: 0, 702
-  size: 480, 234
-  orig: 480, 234
+  xy: 360, 352
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank130
   rotate: false
-  xy: 480, 702
-  size: 480, 234
-  orig: 480, 234
+  xy: 540, 352
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank140
   rotate: false
-  xy: 960, 702
-  size: 480, 234
-  orig: 480, 234
+  xy: 720, 352
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank150
   rotate: false
-  xy: 1440, 702
-  size: 480, 234
-  orig: 480, 234
+  xy: 0, 528
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank160
   rotate: false
-  xy: 0, 936
-  size: 480, 234
-  orig: 480, 234
+  xy: 180, 528
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank170
   rotate: false
-  xy: 480, 936
-  size: 480, 234
-  orig: 480, 234
+  xy: 360, 528
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1
 GreenTank180
   rotate: false
-  xy: 960, 936
-  size: 480, 234
-  orig: 480, 234
+  xy: 540, 528
+  size: 180, 176
+  orig: 180, 176
   offset: 0, 0
   index: -1

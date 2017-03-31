@@ -22,6 +22,7 @@ public class GameView {
     private List<TextureAtlas> textureAtlases;
     private GameSession session;
     private List<Character> characterList;
+    private final float pixelsToMeter = 19.2f;
 
 
     public GameView(GameSession session){
@@ -40,7 +41,7 @@ public class GameView {
         batch.begin();
         for(int i = 0; i < characterList.size(); i++) {
             Vector2 pos = characterList.get(i).getTank().getBody().getPosition();
-            batch.draw(textureAtlases.get(i).getRegions().first(), pos.x, pos.y);
+            batch.draw(textureAtlases.get(i).getRegions().first(), pos.x *pixelsToMeter, pos.y * pixelsToMeter);
         }
         batch.end();
     }
