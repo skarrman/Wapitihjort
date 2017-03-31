@@ -33,7 +33,7 @@ public class GameSession {
      * (max four characters)
      * Note that this is the first iteration and is only made for two characters
      *
-     //* @param characterList
+     * @param characterList
      */
 
     public GameSession(List<Character> characterList) {
