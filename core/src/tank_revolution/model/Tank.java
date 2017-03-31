@@ -8,13 +8,20 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class Tank{
 
+    private float health;
     private Body body;
+
 
     Tank(Body body){
         this.body = body;
+        health = 100;
     }
 
     public Body getBody() {
         return body;
+    }
+
+    public float getHealth(){
+        return health;
     }
 }
