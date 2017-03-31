@@ -25,14 +25,6 @@ public abstract class Character {
         return name;
     }
 
-    public Sprite getSprite() {
-        return sprite;
-    }
-
-    public void setSprite(Sprite sprite) {
-        this.sprite = sprite;
-    }
-
     public void setTank(Tank tank) {
         this.tank = tank;
     }

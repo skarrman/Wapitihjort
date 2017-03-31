@@ -11,23 +11,29 @@ import java.util.List;
  */
 public class GameSession {
 
-    float tankWidth = 3f;
-    float tankHeight = 1f;
-    float mapWidth = 300f;
+    //All these values is in meter and affects all tanks
+    private final float tankWidth = 3f;
+    private final float tankHeight = 1f;
+    private final float mapWidth = 300f;
 
     //Gives the tank a mass of 300kg
-    float tankDensity = 100;
+    private final float tankDensity = 100;
 
-    Vector2 g = new Vector2(0f, -10f);
-    World world;
+    //The gravity in the world
+    private Vector2 g = new Vector2(0f, -10f);
+    // The world
+    private World world;
+    private List<Character> characterList;
 
     /**
      * Creates a new gameSession from a list of characters. (max four)
      * Note that this is the first iteration and is only made for two characters
+     *
      * @param characterList
      */
 
     GameSession(List<Character> characterList) {
+        this.characterList = characterList;
         world = new World(g, true);
 
         for (int i = 0; i < characterList.size(); i++) {
@@ -54,8 +60,9 @@ public class GameSession {
 
             Body body = world.createBody(bodyDef);
 
-            FixtureDef fixtureDef = new FixtureDef();
             PolygonShape shape = new PolygonShape();
+            shape.setAsBox(tankWidth / 2, tankHeight / 2);
+            FixtureDef fixtureDef = new FixtureDef();
             fixtureDef.shape = shape;
             fixtureDef.density = tankDensity;
 
