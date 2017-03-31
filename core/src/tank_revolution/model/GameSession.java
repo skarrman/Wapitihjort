@@ -74,7 +74,10 @@ public class GameSession {
         }
 
 
+
     }
 
-
+    public List<Character> getCharacterList() {
+        return characterList;
+    }
 }
