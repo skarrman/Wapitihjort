@@ -3,22 +3,22 @@ package tank_revolution.controller;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.InputProcessor;
 import tank_revolution.model.GameModel;
+import tank_revolution.model.GameSession;
 import tank_revolution.view.GameView;
 
 public class TankRevolutionController implements ApplicationListener, InputProcessor {
 	private GameModel model;
 	private GameView view;
-	private float deltaX;
-	private float deltaY;
+	private GameSession currentGame;
 	private float touchX;
 	private float touchY;
-	private float releaseX;
-	private float releaseY;
 
 	@Override
 	public void create() {
 		model = new GameModel();
-		view = new GameView(model.newGame());
+		currentGame = model.newGame();
+		view = new GameView(currentGame);
+
 	}
 
 	@Override
@@ -35,32 +35,21 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		releaseX = screenX;
-		releaseY = screenY;
+		currentGame.shoot(screenX-touchX,screenY-touchY);
 		return true;
 	}
 
 	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		deltaX = Math.abs(releaseX - touchX);
-		deltaY = Math.abs(releaseY - touchY);
-		return true;
-	}
+	public boolean touchDragged(int screenX, int screenY, int pointer) {return false;}
 
 	@Override
-	public void resize(int width, int height) {
-
-	}
+	public void resize(int width, int height) {}
 
 	@Override
-	public void pause() {
-
-	}
+	public void pause() {}
 
 	@Override
-	public void resume() {
-
-	}
+	public void resume() {}
 
 	@Override
 	public void dispose() {
