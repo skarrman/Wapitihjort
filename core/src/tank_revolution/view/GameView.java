@@ -9,6 +9,7 @@ import tank_revolution.model.GameModel;
 import tank_revolution.model.GameSession;
 
 import javax.swing.text.Position;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
@@ -27,6 +28,7 @@ public class GameView {
         this.session = session;
         batch = new SpriteBatch();
         characterList = session.getCharacterList();
+        textureAtlases = new ArrayList<TextureAtlas>();
         textureAtlases.add(new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
         textureAtlases.add(new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
 
