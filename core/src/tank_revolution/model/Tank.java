@@ -3,6 +3,7 @@ package tank_revolution.model;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import tank_revolution.model.ShootablePackage.Projectile;
+import tank_revolution.model.ShootablePackage.ProjectileFactory;
 import tank_revolution.model.ShootablePackage.SmallMissile;
 
 /**
@@ -25,9 +26,7 @@ public class Tank{
     }
 
     public void shoot(float deltaX, float deltaY){
-
-
-        //new Vector2(de)
+        ProjectileFactory.shootSmallMissile(deltaX, deltaY, body.getPosition().x, body.getPosition().y);
     }
 
     public Body getBody() {

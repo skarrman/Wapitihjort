@@ -12,11 +12,11 @@ public class ProjectileFactory {
     private static float missileDensity = 100f;
     private static World world;
 
-    static void shootSmallMissile(float deltaX, float deltaY, float tankX, float tankY){
+    public static void shootSmallMissile(float deltaX, float deltaY, float tankX, float tankY){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
 
-        //Fix this, since box2D is working with the center coordinates, these coordinates need to be changed
+        //Fix this, since box2D is working with the center coordinates, the missile will be fired from the center of the tank
         bodyDef.position.set(tankX, tankY);
         Body body = world.createBody(bodyDef);
 
@@ -29,6 +29,7 @@ public class ProjectileFactory {
         body.createFixture(fixtureDef);
         shape.dispose();
 
+        //Translation will be needed, this vector will suck
         Vector2 force = new Vector2(deltaX, deltaY);
         body.applyForceToCenter(force, true);
 
