@@ -16,7 +16,7 @@ public class GameSession {
     private final float tankHeight = 2f;
     private final float mapWidth = 50f;
 
-    //Gives the tank a mass of 300kg
+    //Gives the tank a mass of 600kg
     private final float tankDensity = 100;
 
     //The gravity in the world
@@ -38,6 +38,13 @@ public class GameSession {
 
     public GameSession(List<Character> characterList) {
         this.characterList = characterList;
+
+        gameSessionSetup(characterList);
+
+
+    }
+
+    private void gameSessionSetup(List<Character> characterList){
         world = new World(g, true);
 
         for (int i = 0; i < characterList.size(); i++) {
@@ -76,12 +83,7 @@ public class GameSession {
             Tank tank = new Tank(body);
             characterList.get(i).setTank(tank);
         }
-
-
-
     }
-
-    public GameSession(){}
 
     public void shoot(float deltaX, float deltaY){
         characterList.get(characterTurn).getTank().shoot(deltaX, deltaY);

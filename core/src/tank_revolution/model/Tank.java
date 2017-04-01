@@ -1,10 +1,8 @@
 package tank_revolution.model;
 
 import com.badlogic.gdx.physics.box2d.Body;
-import tank_revolution.model.ShootablePackage.Shootable;
 import tank_revolution.model.ShootablePackage.Projectile;
-import tank_revolution.model.ShootablePackage.SmallMissilePackage.*;
-import tank_revolution.model.ShootablePackage.SmallMissilePackage.SmallMissile;
+import tank_revolution.model.ShootablePackage.SmallMissile;
 
 /**
  * Created by antonhagermalm on 2017-03-30.
@@ -14,14 +12,14 @@ public class Tank{
     private float health;
     private Body body;
 
-    //This will be further developed later
-    private Projectile currentProjectile;
+    //smallMissile = 0
+    private int currentProjectile;
 
 
     Tank(Body body){
         this.body = body;
         //Will be changed
-        currentProjectile = new SmallMissile();
+        currentProjectile = 0;
         health = 100;
     }
 
@@ -35,7 +33,7 @@ public class Tank{
         return body;
     }
 
-    public Projectile getCurrentProjectile() {
+    public int getCurrentProjectile() {
         return currentProjectile;
     }
 

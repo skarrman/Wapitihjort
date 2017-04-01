@@ -1,4 +1,4 @@
-package tank_revolution.model.ShootablePackage.SmallMissilePackage;
+package tank_revolution.model.ShootablePackage;
 
 import tank_revolution.model.ShootablePackage.Projectile;
 
