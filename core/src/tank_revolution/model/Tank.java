@@ -1,6 +1,7 @@
 package tank_revolution.model;
 
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 import tank_revolution.model.ShootablePackage.Projectile;
 import tank_revolution.model.ShootablePackage.SmallMissile;
 

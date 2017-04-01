@@ -3,6 +3,7 @@ package tank_revolution.model;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import tank_revolution.model.ShootablePackage.ProjectileFactory;
 
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class GameSession {
 
     private void gameSessionSetup(List<Character> characterList){
         world = new World(g, true);
+        ProjectileFactory.setWorld(world);
 
         for (int i = 0; i < characterList.size(); i++) {
             BodyDef bodyDef = new BodyDef();

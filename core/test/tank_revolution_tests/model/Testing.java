@@ -11,9 +11,9 @@ import static org.junit.Assert.*;
  */
 
 public class Testing {
+    Testing(){}
+
     @Test public void testNr1() {
-        GameSession gameSession = new GameSession();
-        assertEquals(0, gameSession.getCharacterTurn());
         assertTrue(true);
     }
 
