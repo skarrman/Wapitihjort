@@ -11,7 +11,6 @@ import static org.junit.Assert.*;
  */
 
 public class Testing {
-    Testing(){}
 
     @Test public void testNr1() {
         assertTrue(true);
