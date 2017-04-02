@@ -23,6 +23,7 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 
 	@Override
 	public void render() {
+		currentGame.update();
 		view.update();
 	}
 	

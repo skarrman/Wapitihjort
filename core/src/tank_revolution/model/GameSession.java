@@ -54,10 +54,10 @@ public class GameSession {
             bodyDef.type = BodyDef.BodyType.DynamicBody;
 
             if (i == 0)
-                bodyDef.position.set(15f, 5f);
+                bodyDef.position.set(5f, 7f);
 
             else if (i == 1)
-                bodyDef.position.set(mapWidth - 15f, 5f);
+                bodyDef.position.set(mapWidth - 5f, 7f);
 
             /*else if (i == 2) {
                 if (characterList.size() == 3) {
@@ -85,6 +85,21 @@ public class GameSession {
             Tank tank = new Tank(body);
             characterList.get(i).setTank(tank);
         }
+        Body terrain;
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+
+        bodyDef.position.set(0,0);
+        FixtureDef fixtureDef3 = new FixtureDef();
+
+        EdgeShape edgeShape = new EdgeShape();
+        edgeShape.set(0,3,50,3);
+        fixtureDef3.shape = edgeShape;
+
+
+        terrain = world.createBody(bodyDef);
+        terrain.createFixture(fixtureDef3);
+        edgeShape.dispose();
     }
 
     public void shoot(float deltaX, float deltaY){
@@ -101,5 +116,9 @@ public class GameSession {
 
     public List<Character> getCharacterList() {
         return characterList;
+    }
+
+    public void update(){
+        world.step(1/60f, 6, 2);
     }
 }
