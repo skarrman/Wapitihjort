@@ -22,7 +22,7 @@ public class GameView {
     private List<TextureAtlas> textureAtlases;
     private GameSession session;
     private List<Character> characterList;
-    private final float pixelsToMeter = 19.2f;
+    private float pixelsToMeter = 38.4f;
 
 
     public GameView(GameSession session){
@@ -32,6 +32,7 @@ public class GameView {
         textureAtlases = new ArrayList<TextureAtlas>();
         textureAtlases.add(new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
         textureAtlases.add(new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
+        pixelsToMeter = Gdx.graphics.getWidth()/50;
 
     }
 
@@ -39,9 +40,12 @@ public class GameView {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
         batch.begin();
+        TextureAtlas.AtlasRegion atlasRegion;
         for(int i = 0; i < characterList.size(); i++) {
+            atlasRegion = textureAtlases.get(i).getRegions().first();
             Vector2 pos = characterList.get(i).getTank().getBody().getPosition();
-            batch.draw(textureAtlases.get(i).getRegions().first(), pos.x *pixelsToMeter, pos.y * pixelsToMeter);
+            batch.draw(atlasRegion, (pos.x *pixelsToMeter) - atlasRegion.getRegionWidth()/2,
+                    (pos.y * pixelsToMeter) - atlasRegion.getRegionHeight()/2);
         }
         batch.end();
     }
