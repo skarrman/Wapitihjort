@@ -12,8 +12,8 @@ import com.badlogic.gdx.physics.box2d.*;
  */
 public abstract class Projectile implements Shootable {
 
-    protected float missileRadius;
-    protected float missileDensity;
+    protected float missileRadius = 0.54f;
+    protected float missileDensity = 100;
     protected float blastRadius;
     protected World world;
     protected Body body;
@@ -43,7 +43,7 @@ public abstract class Projectile implements Shootable {
 
         //Translation will be needed, this vector will suck
         Vector2 force = new Vector2(deltaX, deltaY);
-        body.setLinearVelocity(force);
+        body.applyForceToCenter(force,true);
         return body;
 
     }

@@ -1,5 +1,6 @@
 package tank_revolution.model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -132,6 +133,6 @@ public class GameSession {
     }
 
     public void update(){
-        world.step(1/60f, 6, 2);
+        world.step(Gdx.graphics.getDeltaTime(), 6, 2);
     }
 }
