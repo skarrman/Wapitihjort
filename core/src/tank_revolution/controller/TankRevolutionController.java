@@ -48,8 +48,8 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		if(Math.sqrt((screenX-touchX)*(screenX-touchX) + (screenY-touchY)*(screenY-touchY)) > 3){
-			currentGame.shoot(screenX-touchX,screenY-touchY);
+		if(Math.sqrt((screenX-touchX)*(screenX-touchX) + (screenY-touchY)*(screenY-touchY)) > 6){
+			currentGame.shoot(touchX - screenX,screenY - touchY);
 		}else{
 			// write code to be able to press buttons around the GUI
 		}
