@@ -13,6 +13,7 @@ public class Tank{
 
     private float health;
     private Body body;
+    private int fuel;
 
     //smallMissile = 0
     private int currentProjectile;
@@ -23,6 +24,7 @@ public class Tank{
         //Will be changed
         currentProjectile = 0;
         health = 100;
+        fuel = 100;
     }
 
     public void shoot(float deltaX, float deltaY){
@@ -39,5 +41,10 @@ public class Tank{
 
     public float getHealth(){
         return health;
+    }
+
+    public void drive(){
+        //Move body,
+        //Lower fuel level.
     }
 }
