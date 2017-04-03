@@ -8,32 +8,18 @@ import com.badlogic.gdx.physics.box2d.*;
  */
 public class ProjectileFactory {
 
-    private static float missileRadius = 0.5f;
-    private static float missileDensity = 100f;
     private static World world;
 
+    /**
+     * Maybe return the projectile-object to the gameSession
+     * @param deltaX
+     * @param deltaY
+     * @param tankX
+     * @param tankY
+     */
+
     public static void shootSmallMissile(float deltaX, float deltaY, float tankX, float tankY){
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-
-        //Fix this, since box2D is working with the center coordinates, the missile will be fired from the center of the tank
-        bodyDef.position.set(tankX, tankY);
-        Body body = world.createBody(bodyDef);
-
-        PolygonShape shape = new PolygonShape();
-        shape.setRadius(missileRadius);
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = shape;
-        fixtureDef.density = missileDensity;
-
-        body.createFixture(fixtureDef);
-        shape.dispose();
-
-        //Translation will be needed, this vector will suck
-        Vector2 force = new Vector2(deltaX, deltaY);
-        body.applyForceToCenter(force, true);
-
-
+        new SmallMissile(deltaX, deltaY, tankX, tankY);
     }
 
     public static void setWorld(World inputWorld){
