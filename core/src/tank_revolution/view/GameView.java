@@ -1,6 +1,7 @@
 package tank_revolution.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import tank_revolution.model.Character;
@@ -29,6 +30,9 @@ public class GameView {
     /** A constant that convert meters to pixels */
     private final float metersToPixels;
 
+    /** The graphical representation of the flying projectile */
+    private Sprite projectile;
+
     /**
      * The standard constructor that initialize everything to make the graphics work.
      * @param session The current game session.
@@ -40,17 +44,24 @@ public class GameView {
         textureAtlases = new ArrayList<TextureAtlas>();
         textureAtlases.add(new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
         textureAtlases.add(new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
-        metersToPixels = Gdx.graphics.getWidth()/50; //
+        projectile = new Sprite(new Texture(Gdx.files.internal("Projectile.png")));
+        metersToPixels = Gdx.graphics.getWidth()/50; //Calculates the ratio between the pixels of the display to meters in the world.
 
     }
 
     /**
      * This is the method that is called every time the physical world is updated.
+     * It draws out all the graphical representation of the objects in the world.
      */
     public void update(){
         Gdx.gl.glClearColor(0.980392f, 0.980392f, 0.823529f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
         batch.begin();
+        if(session.isProjectileFlying){
+            Vector2 projectilePos = session.getProjectilePosition();
+            projectile.setPosition(projectilePos.x, projectilePos.y);
+            projectile.draw(batch);
+        }
         TextureAtlas.AtlasRegion atlasRegion;
         for(int i = 0; i < characterList.size(); i++) {
             atlasRegion = textureAtlases.get(i).getRegions().first();
