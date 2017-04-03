@@ -6,6 +6,10 @@ package tank_revolution.model;
 public class Player extends Character{
 
     Player(String name) {
-        super(name);
+        super(name, false);
+    }
+
+    public void play(){
+        //Wait for shoot.
     }
 }

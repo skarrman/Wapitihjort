@@ -12,9 +12,15 @@ import jdk.nashorn.internal.objects.annotations.Getter;
 public abstract class Character {
     private Tank tank;
     private final String name;
+    private final boolean isNPC;
 
-    Character(String name){
+    Character(String name, boolean isNPC){
         this.name = name;
+        this.isNPC = isNPC;
+    }
+
+    public void setTank(Tank tank) {
+        this.tank = tank;
     }
 
     public Tank getTank(){
@@ -25,7 +31,11 @@ public abstract class Character {
         return name;
     }
 
-    public void setTank(Tank tank) {
-        this.tank = tank;
+    public abstract void play();
+
+    public boolean isNPC(){
+        return isNPC;
     }
+
+
 }
