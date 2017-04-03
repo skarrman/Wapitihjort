@@ -1,6 +1,7 @@
 package tank_revolution.controller;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import tank_revolution.model.GameModel;
 import tank_revolution.model.GameSession;
@@ -29,7 +30,7 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 		model = new GameModel();
 		currentGame = model.newGame();
 		view = new GameView(currentGame);
-
+		Gdx.input.setInputProcessor(this);
 	}
 
 	@Override

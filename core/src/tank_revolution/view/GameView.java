@@ -57,8 +57,8 @@ public class GameView {
         Gdx.gl.glClearColor(0.980392f, 0.980392f, 0.823529f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
         batch.begin();
-        if(session.isProjectileFlying){
-            Vector2 projectilePos = session.getProjectilePosition();
+        if(session.isProjectileFlying()){
+            Vector2 projectilePos = session.getProjectilePosision();
             projectile.setPosition(projectilePos.x, projectilePos.y);
             projectile.draw(batch);
         }
