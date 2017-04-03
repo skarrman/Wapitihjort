@@ -6,11 +6,22 @@ import tank_revolution.model.GameModel;
 import tank_revolution.model.GameSession;
 import tank_revolution.view.GameView;
 
+/**
+ * Main controller class for both game sessions and menu screens, updates view, model
+ * and active game session based on input from user.
+ */
+
 public class TankRevolutionController implements ApplicationListener, InputProcessor {
 	private GameModel model;
 	private GameView view;
 	private GameSession currentGame;
+	/**
+	 * x-coordinate of the users initial input.
+	 */
 	private float touchX;
+	/**
+	 * y-coordinate of the users initial input.
+	 */
 	private float touchY;
 
 	@Override
@@ -36,7 +47,11 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		currentGame.shoot(screenX-touchX,screenY-touchY);
+		if(screenX-touchX > 5 && screenY-touchY > 5){
+			currentGame.shoot(screenX-touchX,screenY-touchY);
+		}else{
+			// write code to be able to press buttons around the GUI
+		}
 		return true;
 	}
 
