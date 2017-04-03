@@ -8,8 +8,4 @@ public class NPC extends Character{
         super(name);
     }
 
-    //Just for testing jUnit
-    public int print1(){
-        return 1;
-    }
 }
