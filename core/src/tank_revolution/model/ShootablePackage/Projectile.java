@@ -18,12 +18,13 @@ public abstract class Projectile implements Shootable {
     protected World world;
     protected Body body;
 
-    protected Projectile(float deltaX, float deltaY, float tankX, float tankY) {
-        this.body = projectileSetup(deltaX, deltaY, tankX, tankY);
+    protected Projectile(float deltaX, float deltaY, float tankX, float tankY, World world) {
+        this.body = projectileSetup(deltaX, deltaY, tankX, tankY, world);
 
     }
 
-    private Body projectileSetup(float deltaX, float deltaY, float tankX, float tankY) {
+    private Body projectileSetup(float deltaX, float deltaY, float tankX, float tankY, World world) {
+        this.world = world;
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
 

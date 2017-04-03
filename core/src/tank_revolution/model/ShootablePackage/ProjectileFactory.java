@@ -19,7 +19,7 @@ public class ProjectileFactory {
      */
 
     public static Body shootSmallMissile(float deltaX, float deltaY, float tankX, float tankY){
-        return new SmallMissile(deltaX, deltaY, tankX, tankY).getBody();
+        return new SmallMissile(deltaX, deltaY, tankX, tankY, world).getBody();
     }
 
     public static void setWorld(World inputWorld){
