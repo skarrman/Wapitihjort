@@ -3,7 +3,9 @@ package tank_revolution.model;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import tank_revolution.model.ShootablePackage.Projectile;
 import tank_revolution.model.ShootablePackage.ProjectileFactory;
+import tank_revolution.model.ShootablePackage.Shootable;
 
 import java.util.List;
 
@@ -25,6 +27,9 @@ public class GameSession {
     // The world
     private World world;
     private List<Character> characterList;
+
+    private Body flyingProjectile;
+
 
     //The index of the current character in characterList
     private int characterTurn = 0;
@@ -103,15 +108,23 @@ public class GameSession {
     }
 
     public void shoot(float deltaX, float deltaY){
-        characterList.get(characterTurn).getTank().shoot(deltaX, deltaY);
+        flyingProjectile = characterList.get(characterTurn).getTank().shoot(deltaX, deltaY);
     }
 
     private void endTurn(){
-        characterTurn = (characterTurn++)%3;
+        characterTurn = (characterTurn++)%characterList.size();
     }
 
     public int getCharacterTurn() {
         return characterTurn;
+    }
+
+    public boolean isProjectileFlying(){
+        return flyingProjectile != null;
+    }
+
+    public Vector2 getProjectilePosision(){
+        return flyingProjectile.getPosition();
     }
 
     public List<Character> getCharacterList() {

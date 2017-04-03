@@ -27,8 +27,8 @@ public class Tank{
         fuel = 100;
     }
 
-    public void shoot(float deltaX, float deltaY){
-        ProjectileFactory.shootSmallMissile(deltaX, deltaY, body.getPosition().x, body.getPosition().y);
+    public Body shoot(float deltaX, float deltaY){
+        return ProjectileFactory.shootSmallMissile(deltaX, deltaY, body.getPosition().x, body.getPosition().y);
     }
 
     public Body getBody() {

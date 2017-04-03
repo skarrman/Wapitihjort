@@ -10,18 +10,20 @@ import com.badlogic.gdx.physics.box2d.*;
 /**
  * The abstract class for projectiles, includes the fields blastRadius..
  */
-public abstract class Projectile implements Shootable{
+public abstract class Projectile implements Shootable {
 
-    protected static float missileRadius;
-    protected static float missileDensity;
-    protected static World world;
+    protected float missileRadius;
+    protected float missileDensity;
+    protected float blastRadius;
+    protected World world;
+    protected Body body;
 
-    Projectile (float deltaX, float deltaY, float tankX, float tankY){
-        projectileSetup(deltaX, deltaY, tankX, tankY);
+    protected Projectile(float deltaX, float deltaY, float tankX, float tankY) {
+        this.body = projectileSetup(deltaX, deltaY, tankX, tankY);
 
     }
 
-    protected void projectileSetup(float deltaX, float deltaY, float tankX, float tankY){
+    private Body projectileSetup(float deltaX, float deltaY, float tankX, float tankY) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
 
@@ -40,17 +42,19 @@ public abstract class Projectile implements Shootable{
 
         //Translation will be needed, this vector will suck
         Vector2 force = new Vector2(deltaX, deltaY);
-        body.applyForceToCenter(force, true);
+        body.setLinearVelocity(force);
+        return body;
 
     }
-
-
-    protected float blastRadius;
 
     /**
      * @return blastRadius of the projectile
      */
-    protected float getBlastRadius(){
+    protected float getBlastRadius() {
         return blastRadius;
+    }
+
+    protected Body getBody (){
+        return body;
     }
 }
