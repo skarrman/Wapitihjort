@@ -125,6 +125,7 @@ public class GameSession {
         }
     }
 
+    //TODO Shouldnt this be in the tank class to avoid to much tank functionality in the session?
     /**
      * @return true if there's nothing to stop the tank from moving
      */
