@@ -59,7 +59,7 @@ public class GameView {
         batch.begin();
         if(session.isProjectileFlying()){
             Vector2 projectilePos = session.getProjectilePosision();
-            projectile.setPosition(projectilePos.x, projectilePos.y);
+            projectile.setPosition(projectilePos.x * metersToPixels - projectile.getWidth()/2, projectilePos.y * metersToPixels - projectile.getHeight()/2);
             projectile.draw(batch);
         }
         TextureAtlas.AtlasRegion atlasRegion;

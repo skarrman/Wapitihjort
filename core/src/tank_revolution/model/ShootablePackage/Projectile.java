@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.*;
  */
 public abstract class Projectile implements Shootable {
 
-    protected float missileRadius = 0.54f;
+    protected float missileRadius = 0.27f;
     protected float missileDensity = 100;
     protected float blastRadius;
     protected World world;
@@ -29,11 +29,11 @@ public abstract class Projectile implements Shootable {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
 
         //Fix this, since box2D is working with the center coordinates, the missile will be fired from the center of the tank
-        bodyDef.position.set(tankX, tankY);
+        bodyDef.position.set(tankX, tankY+5);
         Body body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setRadius(missileRadius);
+        shape.setAsBox(missileRadius, missileRadius);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = missileDensity;
@@ -42,7 +42,7 @@ public abstract class Projectile implements Shootable {
         shape.dispose();
 
         //Translation will be needed, this vector will suck
-        Vector2 force = new Vector2(deltaX, deltaY);
+        Vector2 force = new Vector2(deltaX*1000, deltaY*1000);
         body.applyForceToCenter(force,true);
         return body;
 
