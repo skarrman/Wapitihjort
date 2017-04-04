@@ -51,6 +51,12 @@ public class GameView {
 
     private ShapeRenderer shapeRenderer;
 
+    private boolean arrowIsActive = false;
+
+    private Vector3 aimingArrowBottom;
+
+    private Vector3 getAimingArrowTop;
+
     /**
      * The standard constructor that initialize everything to make the graphics work.
      * @param session The current game session.
@@ -84,6 +90,11 @@ public class GameView {
         batch.setProjectionMatrix(camera.combined);
         debugMatrix = batch.getProjectionMatrix().cpy().scale(metersToPixels, metersToPixels, 0);
         camera.position.set(new Vector3(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 0));
+
+        if(arrowIsActive){
+            drawVector();
+        }
+
         batch.begin();
 
         if(session.isProjectileFlying()){
@@ -103,17 +114,23 @@ public class GameView {
         debugRenderer.render(characterList.get(0).getTank().getBody().getWorld(), debugMatrix);
     }
 
-    public void drawVector(float startX, float startY, float endX, float endY){
+    private void drawVector(){
         shapeRenderer.begin(ShapeType.Line);
         shapeRenderer.setColor(Color.BLACK);
-        shapeRenderer.line(startX, startY, 0, endX, endY, 0);
-        int lineWidth = 10; // pixels
-        //Gdx.gl20.glLineWidth(lineWidth / camera.zoom);
+        shapeRenderer.line(aimingArrowBottom.x, aimingArrowBottom.y, getAimingArrowTop.x, getAimingArrowTop.y);
         shapeRenderer.end();
     }
 
-    public void removeVector(){
+    public void createArrow(float startX, float startY, float endX, float endY){
+        aimingArrowBottom = new Vector3(startX,startY, 0);
+        getAimingArrowTop = new Vector3(endX, endY, 0);
+        camera.unproject(aimingArrowBottom);
+        camera.unproject(getAimingArrowTop);
+        arrowIsActive = true;
+    }
 
+    public void removeVector(){
+        arrowIsActive = false;
     }
 
     /**

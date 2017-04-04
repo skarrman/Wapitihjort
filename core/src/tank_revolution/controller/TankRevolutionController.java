@@ -49,6 +49,7 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		if(Math.sqrt((screenX-touchX)*(screenX-touchX) + (screenY-touchY)*(screenY-touchY)) > 6){
+			view.removeVector();
 			currentGame.shoot(touchX - screenX,screenY - touchY);
 		}else{
 			// write code to be able to press buttons around the GUI
@@ -59,7 +60,7 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		if(Math.sqrt((screenX-touchX)*(screenX-touchX) + (screenY-touchY)*(screenY-touchY)) > 6){
-			view.drawVector(touchX, touchY, screenX, screenY);
+			view.createArrow(touchX, touchY, screenX, screenY);
 			return true;
 		}
 		return false;}
