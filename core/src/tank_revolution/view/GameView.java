@@ -102,6 +102,10 @@ public class GameView {
      * This disposes the graphical items.
      */
     public void dispose(){
+        for(TextureAtlas textureAtlas: textureAtlases){
+            textureAtlas.dispose();
+        }
+        debugRenderer.dispose();
         batch.dispose();
     }
 }
