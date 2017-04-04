@@ -1,5 +1,6 @@
 package tank_revolution.model;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import tank_revolution.model.ShootablePackage.Projectile;
@@ -13,7 +14,7 @@ public class Tank{
 
     private float health;
     private Body body;
-    private int fuel;
+    private float fuel;
 
     //smallMissile = 0
     private int currentProjectile;
@@ -43,8 +44,19 @@ public class Tank{
         return health;
     }
 
-    public void drive(){
-        //Move body,
-        //Lower fuel level.
+    public float getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(float n) {
+        fuel = n;
+    }
+
+    public Vector2 getPosition() {
+        return body.getPosition();
+    }
+
+    public void drive(int direction){
+        body.setLinearVelocity(direction,0);
     }
 }

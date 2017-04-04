@@ -109,7 +109,25 @@ public class GameSession {
     }
 
     public void shoot(float deltaX, float deltaY){
-        flyingProjectile = characterList.get(characterTurn).getTank().shoot(deltaX/100, deltaY/100);
+        flyingProjectile = characterList.get(characterTurn).getTank().shoot(deltaX/20, deltaY/20);
+    }
+
+    /**
+     * Gives the tank a linear velocity depending on which way we want to move it.
+     * @param direction -1 if left button is pressed, 1 if right button is pressed.
+     */
+    public void moveTank(int direction){
+        if(canMove()){
+            characterList.get(characterTurn).getTank().drive(direction);
+            characterList.get(characterTurn).getTank().setFuel(characterList.get(characterTurn).getTank().getFuel()-1);
+        }
+    }
+
+    /**
+     * @return true if there's nothing to stop the tank from moving
+     */
+    public boolean canMove(){
+        return characterList.get(characterTurn).getTank().getFuel() > 0;
     }
 
     private void endTurn(){
