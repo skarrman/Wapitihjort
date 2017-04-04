@@ -70,6 +70,7 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 
 	@Override
 	public void dispose() {
+		currentGame.dispose();
 		view.dispose();
 	}
 

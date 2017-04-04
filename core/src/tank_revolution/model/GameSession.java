@@ -153,4 +153,8 @@ public class GameSession {
     public void update(){
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
     }
+
+    public void dispose(){
+        world.dispose();
+    }
 }
