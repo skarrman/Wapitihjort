@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
 import tank_revolution.model.Character;
 import tank_revolution.model.GameSession;
 import java.util.ArrayList;
@@ -48,6 +49,8 @@ public class GameView {
     /** A matrix to help the debug process */
     private Matrix4 debugMatrix;
 
+    private ShapeRenderer shapeRenderer;
+
     /**
      * The standard constructor that initialize everything to make the graphics work.
      * @param session The current game session.
@@ -64,6 +67,7 @@ public class GameView {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         debugMatrix = new Matrix4(camera.combined);
         debugRenderer = new Box2DDebugRenderer();
+        shapeRenderer = new ShapeRenderer();
 
     }
 
@@ -94,8 +98,22 @@ public class GameView {
             batch.draw(atlasRegion, (pos.x * metersToPixels) - atlasRegion.getRegionWidth()/2,
                                     (pos.y * metersToPixels) - atlasRegion.getRegionHeight()/4);
         }
+
         batch.end();
         debugRenderer.render(characterList.get(0).getTank().getBody().getWorld(), debugMatrix);
+    }
+
+    public void drawVector(float startX, float startY, float endX, float endY){
+        shapeRenderer.begin(ShapeType.Line);
+        shapeRenderer.setColor(Color.BLACK);
+        shapeRenderer.line(startX, startY, 0, endX, endY, 0);
+        int lineWidth = 10; // pixels
+        //Gdx.gl20.glLineWidth(lineWidth / camera.zoom);
+        shapeRenderer.end();
+    }
+
+    public void removeVector(){
+
     }
 
     /**
