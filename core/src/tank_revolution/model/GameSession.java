@@ -109,7 +109,9 @@ public class GameSession {
     }
 
     public void shoot(float deltaX, float deltaY){
-        flyingProjectile = characterList.get(characterTurn).getTank().shoot(deltaX/20, deltaY/20);
+        if(!isProjectileFlying()) {
+            flyingProjectile = characterList.get(characterTurn).getTank().shoot(deltaX / 20, deltaY / 20);
+        }
     }
 
     /**
