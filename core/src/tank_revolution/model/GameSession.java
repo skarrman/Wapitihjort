@@ -35,6 +35,8 @@ public class GameSession {
     //The index of the current character in characterList
     private int characterTurn = 0;
 
+    private boolean projectileHasHit = false;
+
     /**
      * Creates a new gameSession from a list of characters and gives the characters tanks and addes the tanks to the world.
      * (max four characters)
@@ -45,10 +47,8 @@ public class GameSession {
 
     public GameSession(List<Character> characterList) {
         this.characterList = characterList;
-
         gameSessionSetup(characterList);
-
-
+        createContactListener();
     }
 
     private void gameSessionSetup(List<Character> characterList){
@@ -151,10 +151,48 @@ public class GameSession {
     }
 
     public void update(){
+        if(projectileHasHit)
+            destroyProjectile();
+
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
+    }
+
+    private void destroyProjectile(){
+        if(!world.isLocked()){
+            world.destroyBody(flyingProjectile);
+            flyingProjectile = null;
+            projectileHasHit = false;
+        }
     }
 
     public void dispose(){
         world.dispose();
+    }
+
+    private void createContactListener(){
+        world.setContactListener(new ContactListener() {
+            @Override
+            public void beginContact(Contact contact) {
+                if(contact.getFixtureA().getBody().equals(flyingProjectile) || contact.getFixtureB().getBody().equals(flyingProjectile)){
+                    projectileHasHit = true;
+                }
+
+            }
+
+            @Override
+            public void endContact(Contact contact) {
+
+            }
+
+            @Override
+            public void preSolve(Contact contact, Manifold oldManifold) {
+
+            }
+
+            @Override
+            public void postSolve(Contact contact, ContactImpulse impulse) {
+
+            }
+        });
     }
 }
