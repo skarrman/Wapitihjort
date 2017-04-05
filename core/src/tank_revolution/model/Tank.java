@@ -1,8 +1,7 @@
 package tank_revolution.model;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import tank_revolution.model.ShootablePackage.Projectile;
 import tank_revolution.model.ShootablePackage.ProjectileFactory;
 import tank_revolution.model.ShootablePackage.SmallMissile;
@@ -25,12 +24,27 @@ public class Tank {
     private int currentProjectile;
 
 
-    Tank(Body body) {
-        this.body = body;
-        //Will be changed
+    Tank(World world, float startX, float startY) {
+        initTank(world, startX, startY);
         currentProjectile = 0;
         health = 100;
         fuel = 100;
+    }
+
+    private void initTank(World world, float startX, float startY){
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(startX, startY);
+
+        body = world.createBody(bodyDef);
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(width / 2, height / 2);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.density = density;
+        body.createFixture(fixtureDef);
+        shape.dispose();
+
     }
 
     public Body shoot(float deltaX, float deltaY) {

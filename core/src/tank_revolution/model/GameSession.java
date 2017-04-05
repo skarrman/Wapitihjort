@@ -43,23 +43,29 @@ public class GameSession {
 
     public GameSession(List<Character> characterList) {
         this.characterList = characterList;
-        gameSessionSetup(characterList);
+        gameSessionSetup();
         createContactListener();
     }
 
-    private void gameSessionSetup(List<Character> characterList) {
+    private void gameSessionSetup() {
+
+        //The gravity force is connected to the world.
         world = new World(g, true);
+
+        //The world is given to the ProjectileFactory.
         ProjectileFactory.setWorld(world);
 
+
         for (int i = 0; i < characterList.size(); i++) {
-            BodyDef bodyDef = new BodyDef();
-            bodyDef.type = BodyDef.BodyType.DynamicBody;
+            if (i == 0) {
 
-            if (i == 0)
-                bodyDef.position.set(5f, 7f);
-
-            else if (i == 1)
-                bodyDef.position.set(mapWidth - 5f, 7f);
+                Tank tank = new Tank(world, 5f, 7f);
+                characterList.get(i).setTank(tank);
+            }
+            else if (i == 1) {
+                Tank tank = new Tank(world, mapWidth - 5f, 7f);
+                characterList.get(i).setTank(tank);
+            }
 
             /*else if (i == 2) {
                 if (characterList.size() == 3) {
@@ -73,19 +79,6 @@ public class GameSession {
                     bodyDef.position.set(mapWidth/2f, 5f);
                */
 
-            Body body = world.createBody(bodyDef);
-
-            Tank tank = new Tank(body);
-            characterList.get(i).setTank(tank);
-
-            PolygonShape shape = new PolygonShape();
-            shape.setAsBox(tank.getWidth() / 2, tank.getHeight() / 2);
-            FixtureDef fixtureDef = new FixtureDef();
-            fixtureDef.shape = shape;
-            fixtureDef.density = tank.getDensity();
-
-            body.createFixture(fixtureDef);
-            shape.dispose();
         }
 
         Body terrain;
