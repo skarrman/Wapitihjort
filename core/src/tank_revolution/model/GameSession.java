@@ -37,6 +37,8 @@ public class GameSession implements Observable {
 
     private boolean projectileHasHit = false;
 
+    private boolean isActive;
+
     /**
      * Creates a new gameSession from a list of characters and gives the characters tanks and addes the tanks to the world.
      * (max four characters)
@@ -52,6 +54,8 @@ public class GameSession implements Observable {
     }
 
     private void gameSessionSetup() {
+
+        setIsActive();
 
         //The gravity force is connected to the world.
         world = new World(g, true);
@@ -131,9 +135,9 @@ public class GameSession implements Observable {
     }
 
     public void shoot(float deltaX, float deltaY) {
-        if (!isProjectileFlying()) {
+        if (isActive) {
             flyingProjectile = characterList.get(characterTurn).getTank().shoot(deltaX / 20, deltaY / 20);
-            endTurn();
+            isActive = false;
         }
     }
 
@@ -170,6 +174,7 @@ public class GameSession implements Observable {
         else{
             characterTurn = characterTurn + 1;
         }
+        setIsActive();
     }
 
     public int getCharacterTurn() {
@@ -211,6 +216,18 @@ public class GameSession implements Observable {
         this.projectileHasHit = projectileHasHit;
     }
 
+    public void setIsActive(){
+        if(!characterList.get(characterTurn).isNPC()){
+            isActive = true;
+        }else{
+            isActive = false;
+        }
+    }
+
+    public void setIsActive(boolean b){
+        isActive = b;
+    }
+
     public void dispose() {
         world.dispose();
     }
@@ -225,6 +242,7 @@ public class GameSession implements Observable {
                         notifyObservers(flyingProjectile.getBody().getPosition(), flyingProjectile.getBlastRadius());
                     }
                 }
+                endTurn();
 
             }
 
