@@ -7,11 +7,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
 import tank_revolution.Utils.Observer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import tank_revolution.controller.MoveButton;
 import tank_revolution.model.Character;
 import tank_revolution.model.GameSession;
 import java.util.ArrayList;
@@ -41,7 +43,7 @@ public class GameView implements Observer {
     /** The graphical representation of the flying projectile */
     private Sprite projectile;
 
-    /** An orthoginal camera */
+    /** An orthogonal camera */
     private OrthographicCamera camera;
 
     /** A debug renderer to debug the box2d bodies */
@@ -71,6 +73,14 @@ public class GameView implements Observer {
     private int blastRadius;
 
     private float animationTime;
+    /** Button allowing the user to move the tank to the right */
+    private MoveButton rightButton;
+
+    /** Button allowing the user to move the tank to the left */
+    private MoveButton leftButton;
+
+    private Stage stage;
+
 
     /**
      * The standard constructor that initialize everything to make the graphics work.
@@ -84,6 +94,12 @@ public class GameView implements Observer {
         textureAtlases.add(new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
         textureAtlases.add(new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
         projectile = new Sprite(new Texture(Gdx.files.internal("Projectile.png")));
+        rightButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")));
+        leftButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")));
+        stage = new Stage();
+        stage.addActor(leftButton);
+        stage.addActor(rightButton);
+        Gdx.input.setInputProcessor(stage);
         metersToPixels = Gdx.graphics.getWidth()/50f; //Calculates the ratio between the pixels of the display to meters in the world.
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         debugMatrix = new Matrix4(camera.combined);
@@ -106,6 +122,10 @@ public class GameView implements Observer {
         batch.setProjectionMatrix(camera.combined);
         debugMatrix = batch.getProjectionMatrix().cpy().scale(metersToPixels, metersToPixels, 0);
         camera.position.set(new Vector3(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 0));
+
+        leftButton.setBounds(metersToPixels, 0, 2*metersToPixels, Gdx.graphics.getHeight());
+        rightButton.setBounds(Gdx.graphics.getWidth()-(2*metersToPixels), 0, 2*metersToPixels, Gdx.graphics.getHeight());
+        stage.draw();
 
         if(arrowIsActive){
             drawVector();
