@@ -11,4 +11,6 @@ public interface Shootable {
 
     int getBlastRadius();
 
+    int getDamage();
+
 }

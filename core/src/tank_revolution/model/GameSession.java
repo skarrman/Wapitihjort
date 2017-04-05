@@ -232,6 +232,21 @@ public class GameSession implements Observable {
         world.dispose();
     }
 
+    private int calculateDamage(int damage, float distance, float blastRadius){
+        return (int) ((blastRadius - distance) / blastRadius * damage);
+    }
+
+    private void projectileImpacted(){
+        for(Character character : characterList){
+            Tank tank = character.getTank();
+            float distance = tank.distanceTo(flyingProjectile.getBody().getPosition());
+            if(distance < flyingProjectile.getBlastRadius()){
+                tank.reduceHealth(calculateDamage(flyingProjectile.getDamage(), distance, flyingProjectile.getBlastRadius()));
+            }
+            System.out.println(tank.getHealth());
+        }
+    }
+
     private void createContactListener() {
         world.setContactListener(new ContactListener() {
             @Override
@@ -240,6 +255,7 @@ public class GameSession implements Observable {
                     if (contact.getFixtureA().getBody().equals(flyingProjectile.getBody()) || contact.getFixtureB().getBody().equals(flyingProjectile.getBody())) {
                         projectileHasHit = true;
                         notifyObservers(flyingProjectile.getBody().getPosition(), flyingProjectile.getBlastRadius());
+                        projectileImpacted();
                     }
                 }
                 endTurn();

@@ -17,6 +17,7 @@ public class Tank {
     private float fuel;
     private final float width = 3f;
     private final float height = 2f;
+    private boolean alive = true;
 
     //Gives the tank a mass of 600kg
     private final float density = 100;
@@ -66,14 +67,17 @@ public class Tank {
 
     public void reduceHealth(int damage) {
         health = health - damage;
+        if (health < 0){
+            alive = false;
+        }
     }
 
-    public int distanceTo(Vector2 vector2) {
+    public float distanceTo(Vector2 vector2) {
         return distanceTo(vector2.x, vector2.y);
     }
 
-    public int distanceTo(float x, float y) {
-        return (int) Math.sqrt((body.getPosition().x - x) * (body.getPosition().x - x)
+    public float distanceTo(float x, float y) {
+        return (float) Math.sqrt((body.getPosition().x - x) * (body.getPosition().x - x)
                 + (body.getPosition().y - y) * (body.getPosition().y - y));
     }
 
@@ -108,6 +112,10 @@ public class Tank {
 
     public float getDensity() {
         return density;
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 
     public boolean hasFuel() {

@@ -77,6 +77,7 @@ public abstract class Projectile implements Shootable {
     /**
      * @return blastRadius of the projectile
      */
+    @Override
     public int getBlastRadius() {
         return blastRadius;
     }
@@ -85,6 +86,7 @@ public abstract class Projectile implements Shootable {
      *
      * @return The damage the projectile will inflict (will reduce if not a direct hit)
      */
+    @Override
     public int getDamage() {
         return damage;
     }
@@ -93,6 +95,7 @@ public abstract class Projectile implements Shootable {
      *
      * @return the blastRadius of the projectile
      */
+    @Override
     public Body getBody (){
         return body;
     }
