@@ -91,22 +91,16 @@ public class TankRevolutionController implements ApplicationListener, InputProce
         view.dispose();
     }
 
+    private void newGame(){
+        dispose();
+        currentGame = model.newGame();
+        view = new GameView(currentGame);
+    }
+
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.SPACE) {
-            //List<Character> characters =  currentGame.getCharacterList();
-            //for (Character character : currentGame.getCharacterList()) {
-            for (int i = 0; i < currentGame.getCharacterList().size(); i++) {
-                Body body = currentGame.getCharacterList().get(i).getTank().getBody();
-                if (i == 0) {
-                    body.getPosition().set(5f, 7f);
-                } else if (i == 1) {
-                    body.getPosition().set(currentGame.getMapWidth() - 5f, 7f);
-                }
-                body.setLinearVelocity(0, 0);
-                body.setAngularVelocity(0f);
-            }
-            currentGame.setProjectileHasHit(true);
+            newGame();
             return true;
         } else
             return false;
