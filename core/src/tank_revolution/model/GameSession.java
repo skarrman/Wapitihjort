@@ -172,6 +172,14 @@ public class GameSession {
         }
     }
 
+    public float getMapWidth() {
+        return mapWidth;
+    }
+
+    public void setProjectileHasHit(boolean projectileHasHit) {
+        this.projectileHasHit = projectileHasHit;
+    }
+
     public void dispose() {
         world.dispose();
     }
