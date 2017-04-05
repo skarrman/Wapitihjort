@@ -116,7 +116,7 @@ public class GameSession {
 
         bodyDef.type = BodyDef.BodyType.StaticBody;
 
-        bodyDef.position.set(50,0);
+        bodyDef.position.set(0,0);
 
         EdgeShape rightWall = new EdgeShape();
         rightWall.set(50,0,50,100);
