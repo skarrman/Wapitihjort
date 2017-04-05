@@ -49,12 +49,16 @@ public class GameView {
     /** A matrix to help the debug process */
     private Matrix4 debugMatrix;
 
+    /** A rendering tool that can draw polygon shapes */
     private ShapeRenderer shapeRenderer;
 
+    /** This tells if a user is aiming */
     private boolean arrowIsActive = false;
 
+    /** This is the value where the user is touching */
     private Vector3 aimingArrowBottom;
 
+    /** Value of where the user started to drag on the screen */
     private Vector3 getAimingArrowTop;
 
     /**
@@ -114,6 +118,9 @@ public class GameView {
         debugRenderer.render(characterList.get(0).getTank().getBody().getWorld(), debugMatrix);
     }
 
+    /**
+     * This method is called if the user is aiming and is about to shoot.
+     */
     private void drawVector(){
         shapeRenderer.begin(ShapeType.Line);
         shapeRenderer.setColor(Color.BLACK);
@@ -121,6 +128,14 @@ public class GameView {
         shapeRenderer.end();
     }
 
+    /**
+     * This method is called when a user makes a drag on the screen.
+     *
+     * @param startX The x-coordinate of the start point of the drag.
+     * @param startY The y-coordinate of the start point of the drag.
+     * @param endX The x-coordinate of where the user is touching at the moment.
+     * @param endY The y-coordinate of where the user is touching at the moment.
+     */
     public void createArrow(float startX, float startY, float endX, float endY){
         aimingArrowBottom = new Vector3(startX,startY, 0);
         getAimingArrowTop = new Vector3(endX, endY, 0);
@@ -129,6 +144,9 @@ public class GameView {
         arrowIsActive = true;
     }
 
+    /**
+     * This method is called when a user end a touch on the screen.
+     */
     public void removeVector(){
         arrowIsActive = false;
     }
