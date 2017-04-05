@@ -12,7 +12,7 @@ import tank_revolution.model.ShootablePackage.SmallMissile;
  */
 public class Tank {
 
-    private float health;
+    private int health;
     private Body body;
     private float fuel;
     private final float width = 3f;
@@ -32,7 +32,7 @@ public class Tank {
         fuel = 100;
     }
 
-    private void initTank(World world, float startX, float startY){
+    private void initTank(World world, float startX, float startY) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(startX, startY);
@@ -60,8 +60,21 @@ public class Tank {
         return currentProjectile;
     }
 
-    public void setHealth(float n) {
+    public void setHealth(int n) {
         health = n;
+    }
+
+    public void reduceHealth(int damage) {
+        health = health - damage;
+    }
+
+    public int distanceTo(Vector2 vector2) {
+        return distanceTo(vector2.x, vector2.y);
+    }
+
+    public int distanceTo(float x, float y) {
+        return (int) Math.sqrt((body.getPosition().x - x) * (body.getPosition().x - x)
+                + (body.getPosition().y - y) * (body.getPosition().y - y));
     }
 
     public float getHealth() {
