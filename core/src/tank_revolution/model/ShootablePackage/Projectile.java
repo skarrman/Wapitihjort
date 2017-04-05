@@ -17,12 +17,13 @@ public abstract class Projectile implements Shootable {
     /** The density of the Projectile (should cbe renamed to projectileDensity) */
     protected float missileDensity = 100;
     /** The radius of the destruction caused by the projectile */
-    protected int blastRadius;
+    protected final int blastRadius;
     /** The world the projectile lives in */
     protected World world;
     /** The body of the projectile */
     protected Body body;
-
+    /** The damage the projectile will inflict (will reduce if not a direct hit)*/
+    protected final int damage;
     /**
      * The constructor for the projectile. The body of the projectile is created from the shooting vector given by the character (deltaX and deltaY) and a starting point
      * tankX and tankY. All the logic is in the projectileSetup method.
@@ -32,8 +33,10 @@ public abstract class Projectile implements Shootable {
      * @param tankY The starting point in the y-axis of the projectile
      * @param world The world the current gameSession lives in
      */
-    protected Projectile(float deltaX, float deltaY, float tankX, float tankY, World world) {
+    protected Projectile(float deltaX, float deltaY, float tankX, float tankY,int damage, int blastRadius, World world) {
         this.body = projectileSetup(deltaX, deltaY, tankX, tankY, world);
+        this.blastRadius = blastRadius;
+        this.damage = damage;
 
     }
 
@@ -76,6 +79,14 @@ public abstract class Projectile implements Shootable {
      */
     public int getBlastRadius() {
         return blastRadius;
+    }
+
+    /**
+     *
+     * @return The damage the projectile will inflict (will reduce if not a direct hit)
+     */
+    public int getDamage() {
+        return damage;
     }
 
     /**

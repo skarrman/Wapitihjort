@@ -10,8 +10,10 @@ import tank_revolution.model.ShootablePackage.Projectile;
  *
  */
 public class SmallMissile extends Projectile {
+
     protected SmallMissile(float deltaX, float deltaY, float tankX, float tankY, World world) {
-        super(deltaX, deltaY, tankX, tankY, world);
+        super(deltaX, deltaY, tankX, tankY,10, 10, world);
+
 
     }
 
