@@ -62,11 +62,15 @@ public class GameView implements Observer {
     /** Value of where the user started to drag on the screen */
     private Vector3 getAimingArrowTop;
 
+    Animation<TextureRegion> explosionAnimation;
+
     private boolean isAnimatingExplosion = false;
 
     private Vector2 explosionPosition;
 
     private int blastRadius;
+
+    private float animationTime;
 
     /**
      * The standard constructor that initialize everything to make the graphics work.
@@ -85,7 +89,8 @@ public class GameView implements Observer {
         debugMatrix = new Matrix4(camera.combined);
         debugRenderer = new Box2DDebugRenderer();
         shapeRenderer = new ShapeRenderer();
-
+        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("Explosion.txt"));
+        explosionAnimation = new Animation<TextureRegion>(1/20f, textureAtlas.getRegions());
     }
 
     /**
@@ -113,6 +118,15 @@ public class GameView implements Observer {
             projectile.setPosition(projectilePos.x * metersToPixels - projectile.getWidth()/2, projectilePos.y * metersToPixels - projectile.getHeight()/2);
             projectile.draw(batch);
         }else if(isAnimatingExplosion){
+            animationTime += Gdx.graphics.getDeltaTime();
+            if(!explosionAnimation.isAnimationFinished(animationTime)){
+                TextureRegion animationFrame = new TextureRegion(explosionAnimation.getKeyFrame(animationTime, false));
+                float x = (explosionPosition.x * metersToPixels) - (animationFrame.getRegionWidth()/2);
+                float y = (explosionPosition.y * metersToPixels) - (animationFrame.getRegionHeight()/2);
+                batch.draw(animationFrame, x, y);
+            }else{
+                isAnimatingExplosion = false;
+            }
             
         }
         TextureAtlas.AtlasRegion atlasRegion;
@@ -163,6 +177,7 @@ public class GameView implements Observer {
     @Override
     public void actOnChange(Vector2 position, int value) {
         isAnimatingExplosion = true;
+        animationTime = 0;
         explosionPosition = position;
         blastRadius = value;
     }
