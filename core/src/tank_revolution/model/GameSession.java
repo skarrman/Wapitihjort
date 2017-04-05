@@ -47,7 +47,7 @@ public class GameSession {
         createContactListener();
     }
 
-    private void gameSessionSetup(List<Character> characterList){
+    private void gameSessionSetup(List<Character> characterList) {
         world = new World(g, true);
         ProjectileFactory.setWorld(world);
 
@@ -92,11 +92,11 @@ public class GameSession {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
 
-        bodyDef.position.set(0,0);
+        bodyDef.position.set(0, 0);
         FixtureDef fixtureDef3 = new FixtureDef();
 
         EdgeShape edgeShape = new EdgeShape();
-        edgeShape.set(0,3,50,3);
+        edgeShape.set(0, 3, 50, 3);
         fixtureDef3.shape = edgeShape;
 
 
@@ -105,44 +105,51 @@ public class GameSession {
         edgeShape.dispose();
     }
 
-    public void shoot(float deltaX, float deltaY){
-        if(!isProjectileFlying()) {
+    public void shoot(float deltaX, float deltaY) {
+        if (!isProjectileFlying()) {
             flyingProjectile = characterList.get(characterTurn).getTank().shoot(deltaX / 20, deltaY / 20);
         }
     }
 
     /**
-     * Gives the tank a linear velocity depending on which way we want to move it.
+     * If the tank can move, gives the it a linear velocity depending on which way we want to move it.
+     * <p>Returns a boolean to make it easier to test</p>
+     *
      * @param direction -1 if left button is pressed, 1 if right button is pressed.
      */
-    public void moveTank(int direction){
-        if(canMove()){
-            characterList.get(characterTurn).getTank().drive(direction);
-            characterList.get(characterTurn).getTank().setFuel(characterList.get(characterTurn).getTank().getFuel()-1);
+    public boolean moveTank(int direction) {
+        Tank tank = characterList.get(characterTurn).getTank();
+        if (tank.hasFuel()) {
+            tank.setFuel(tank.getFuel() - 1);
+            if (tankCanMove()) {
+                tank.drive(direction);
+                return true;
+            }
+
         }
+        return false;
     }
 
-    //TODO Shouldnt this be in the tank class to avoid to much tank functionality in the session?
     /**
-     * @return true if there's nothing to stop the tank from moving
+     * @return true if the terrain allows the tank to move
      */
-    public boolean canMove(){
-        return characterList.get(characterTurn).getTank().getFuel() > 0;
+    public boolean tankCanMove() {
+        return true;
     }
 
-    private void endTurn(){
-        characterTurn = (characterTurn++)%characterList.size();
+    private void endTurn() {
+        characterTurn = (characterTurn++) % characterList.size();
     }
 
     public int getCharacterTurn() {
         return characterTurn;
     }
 
-    public boolean isProjectileFlying(){
+    public boolean isProjectileFlying() {
         return flyingProjectile != null;
     }
 
-    public Vector2 getProjectilePosision(){
+    public Vector2 getProjectilePosision() {
         return flyingProjectile.getPosition();
     }
 
@@ -150,30 +157,30 @@ public class GameSession {
         return characterList;
     }
 
-    public void update(){
-        if(projectileHasHit)
+    public void update() {
+        if (projectileHasHit)
             destroyProjectile();
 
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
     }
 
-    private void destroyProjectile(){
-        if(!world.isLocked()){
+    private void destroyProjectile() {
+        if (!world.isLocked()) {
             world.destroyBody(flyingProjectile);
             flyingProjectile = null;
             projectileHasHit = false;
         }
     }
 
-    public void dispose(){
+    public void dispose() {
         world.dispose();
     }
 
-    private void createContactListener(){
+    private void createContactListener() {
         world.setContactListener(new ContactListener() {
             @Override
             public void beginContact(Contact contact) {
-                if(contact.getFixtureA().getBody().equals(flyingProjectile) || contact.getFixtureB().getBody().equals(flyingProjectile)){
+                if (contact.getFixtureA().getBody().equals(flyingProjectile) || contact.getFixtureB().getBody().equals(flyingProjectile)) {
                     projectileHasHit = true;
                 }
 

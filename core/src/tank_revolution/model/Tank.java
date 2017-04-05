@@ -10,7 +10,7 @@ import tank_revolution.model.ShootablePackage.SmallMissile;
 /**
  * Created by antonhagermalm on 2017-03-30.
  */
-public class Tank{
+public class Tank {
 
     private float health;
     private Body body;
@@ -25,7 +25,7 @@ public class Tank{
     private int currentProjectile;
 
 
-    Tank(Body body){
+    Tank(Body body) {
         this.body = body;
         //Will be changed
         currentProjectile = 0;
@@ -33,7 +33,7 @@ public class Tank{
         fuel = 100;
     }
 
-    public Body shoot(float deltaX, float deltaY){
+    public Body shoot(float deltaX, float deltaY) {
         return ProjectileFactory.shootSmallMissile(deltaX, deltaY, body.getPosition().x, body.getPosition().y);
     }
 
@@ -45,11 +45,11 @@ public class Tank{
         return currentProjectile;
     }
 
-    public void setHealth(float n){
+    public void setHealth(float n) {
         health = n;
     }
 
-    public float getHealth(){
+    public float getHealth() {
         return health;
     }
 
@@ -65,19 +65,26 @@ public class Tank{
         return body.getPosition();
     }
 
-    public void drive(int direction){
-        body.setLinearVelocity(direction,0);
+    public void drive(int direction) {
+
+        body.setLinearVelocity(direction, 0);
     }
 
-    public float getWidth(){
+    public float getWidth() {
         return width;
     }
 
-    public float getHeight(){
+    public float getHeight() {
         return height;
     }
 
-    public float getDensity(){
+    public float getDensity() {
         return density;
     }
+
+    public boolean hasFuel() {
+        return (fuel > 0);
+
+    }
+
 }
