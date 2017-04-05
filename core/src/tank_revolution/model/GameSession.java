@@ -91,7 +91,7 @@ public class GameSession {
         FixtureDef fixtureDef3 = new FixtureDef();
 
         EdgeShape ground = new EdgeShape();
-        ground.set(0, 3, 50, 3);
+        ground.set(-1, 3, mapWidth+1, 3);
         fixtureDef3.shape = ground;
 
         terrain = world.createBody(bodyDef);
@@ -105,7 +105,7 @@ public class GameSession {
         bodyDef.position.set(0,0);
 
         EdgeShape leftWall = new EdgeShape();
-        leftWall.set(0,0,0,100);
+        leftWall.set(-1,0,-1,mapWidth*2);
         fixtureDef3.shape = leftWall;
 
         terrain = world.createBody(bodyDef);
@@ -119,7 +119,7 @@ public class GameSession {
         bodyDef.position.set(0,0);
 
         EdgeShape rightWall = new EdgeShape();
-        rightWall.set(50,0,50,100);
+        rightWall.set(mapWidth+1,0,mapWidth+1,mapWidth*2);
         fixtureDef3.shape = rightWall;
 
         terrain = world.createBody(bodyDef);

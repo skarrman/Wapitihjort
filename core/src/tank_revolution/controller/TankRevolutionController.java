@@ -64,11 +64,13 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        if (Math.sqrt((screenX - touchX) * (screenX - touchX) + (screenY - touchY) * (screenY - touchY)) > 6) {
-            view.createArrow(touchX, touchY, screenX, screenY);
-            return true;
-        }
-        return false;
+        if (!currentGame.isProjectileFlying()) {
+            if (Math.sqrt((screenX - touchX) * (screenX - touchX) + (screenY - touchY) * (screenY - touchY)) > 6) {
+                view.createArrow(touchX, touchY, screenX, screenY);
+                return true;
+            }
+
+        }return false;
     }
 
     @Override
