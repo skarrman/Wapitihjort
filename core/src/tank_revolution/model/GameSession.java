@@ -5,16 +5,19 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.sun.javafx.geom.Edge;
+import tank_revolution.Utils.Observable;
+import tank_revolution.Utils.Observer;
 import tank_revolution.model.ShootablePackage.Projectile;
 import tank_revolution.model.ShootablePackage.ProjectileFactory;
 import tank_revolution.model.ShootablePackage.Shootable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by antonhagermalm on 2017-03-30.
  */
-public class GameSession {
+public class GameSession implements Observable {
 
     //All these values are in meter and affects all tanks
     private final float mapWidth = 50f;
@@ -26,7 +29,7 @@ public class GameSession {
     private World world;
     private List<Character> characterList;
 
-    private Body flyingProjectile;
+    private Shootable flyingProjectile;
 
 
     //The index of the current character in characterList
@@ -178,7 +181,7 @@ public class GameSession {
     }
 
     public Vector2 getProjectilePosision() {
-        return flyingProjectile.getPosition();
+        return flyingProjectile.getBody().getPosition();
     }
 
     public List<Character> getCharacterList() {
@@ -194,7 +197,7 @@ public class GameSession {
 
     private void destroyProjectile() {
         if (!world.isLocked()) {
-            world.destroyBody(flyingProjectile);
+            world.destroyBody(flyingProjectile.getBody());
             flyingProjectile = null;
             projectileHasHit = false;
         }
@@ -216,8 +219,11 @@ public class GameSession {
         world.setContactListener(new ContactListener() {
             @Override
             public void beginContact(Contact contact) {
-                if (contact.getFixtureA().getBody().equals(flyingProjectile) || contact.getFixtureB().getBody().equals(flyingProjectile)) {
-                    projectileHasHit = true;
+                if(isProjectileFlying()) {
+                    if (contact.getFixtureA().getBody().equals(flyingProjectile.getBody()) || contact.getFixtureB().getBody().equals(flyingProjectile.getBody())) {
+                        projectileHasHit = true;
+                        notifyObservers(flyingProjectile.getBody().getPosition(), flyingProjectile.getBlastRadius());
+                    }
                 }
 
             }
@@ -237,5 +243,26 @@ public class GameSession {
 
             }
         });
+    }
+
+    //Observer handling
+
+    List<Observer> observers = new ArrayList<Observer>();
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(Vector2 position, int value) {
+        for(Observer o : observers){
+            o.actOnChange(position, value);
+        }
     }
 }

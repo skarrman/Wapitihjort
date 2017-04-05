@@ -17,7 +17,7 @@ public abstract class Projectile implements Shootable {
     /** The density of the Projectile (should cbe renamed to projectileDensity) */
     protected float missileDensity = 100;
     /** The radius of the destruction caused by the projectile */
-    protected float blastRadius;
+    protected int blastRadius;
     /** The world the projectile lives in */
     protected World world;
     /** The body of the projectile */
@@ -74,7 +74,7 @@ public abstract class Projectile implements Shootable {
     /**
      * @return blastRadius of the projectile
      */
-    protected float getBlastRadius() {
+    public int getBlastRadius() {
         return blastRadius;
     }
 
@@ -82,7 +82,7 @@ public abstract class Projectile implements Shootable {
      *
      * @return the blastRadius of the projectile
      */
-    protected Body getBody (){
+    public Body getBody (){
         return body;
     }
 }

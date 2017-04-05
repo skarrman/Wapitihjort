@@ -35,6 +35,7 @@ public class TankRevolutionController implements ApplicationListener, InputProce
         model = new GameModel();
         currentGame = model.newGame();
         view = new GameView(currentGame);
+        currentGame.addObserver(view);
         Gdx.input.setInputProcessor(this);
     }
 

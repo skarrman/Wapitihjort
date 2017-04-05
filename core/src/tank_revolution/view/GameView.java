@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
+import tank_revolution.Utils.Observer;
 import tank_revolution.model.Character;
 import tank_revolution.model.GameSession;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
  * GameView is the class that present the game to the user.
  * Its responsibility is to render the graphics of the game.
  */
-public class GameView {
+public class GameView implements Observer {
     private Batch batch;
 
     /** List of the tank sprite sheets. */
@@ -60,6 +61,12 @@ public class GameView {
 
     /** Value of where the user started to drag on the screen */
     private Vector3 getAimingArrowTop;
+
+    private boolean isAnimatingExplosion = false;
+
+    private Vector2 explosionPosition;
+
+    private int blastRadius;
 
     /**
      * The standard constructor that initialize everything to make the graphics work.
@@ -105,6 +112,8 @@ public class GameView {
             Vector2 projectilePos = session.getProjectilePosision();
             projectile.setPosition(projectilePos.x * metersToPixels - projectile.getWidth()/2, projectilePos.y * metersToPixels - projectile.getHeight()/2);
             projectile.draw(batch);
+        }else if(isAnimatingExplosion){
+            
         }
         TextureAtlas.AtlasRegion atlasRegion;
         for(int i = 0; i < characterList.size(); i++) {
@@ -149,6 +158,13 @@ public class GameView {
      */
     public void removeVector(){
         arrowIsActive = false;
+    }
+
+    @Override
+    public void actOnChange(Vector2 position, int value) {
+        isAnimatingExplosion = true;
+        explosionPosition = position;
+        blastRadius = value;
     }
 
     /**
