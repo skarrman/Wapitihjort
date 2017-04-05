@@ -52,7 +52,7 @@ public abstract class Projectile implements Shootable {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
 
         //Fix this, since box2D is working with the center coordinates, the missile will be fired from the center of the tank
-        bodyDef.position.set(tankX, tankY+5);
+        bodyDef.position.set(tankX, tankY+3);
         Body body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();

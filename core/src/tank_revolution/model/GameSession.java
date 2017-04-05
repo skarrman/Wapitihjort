@@ -57,14 +57,15 @@ public class GameSession {
 
 
         for (int i = 0; i < characterList.size(); i++) {
-            if (i == 0) {
 
+            if (i == 0) {
                 Tank tank = new Tank(world, 5f, 7f);
-                characterList.get(i).setTank(tank);
+                characterList.get(0).setTank(tank);
             }
+
             else if (i == 1) {
                 Tank tank = new Tank(world, mapWidth - 5f, 7f);
-                characterList.get(i).setTank(tank);
+                characterList.get(1).setTank(tank);
             }
 
             /*else if (i == 2) {
@@ -101,6 +102,7 @@ public class GameSession {
     public void shoot(float deltaX, float deltaY) {
         if (!isProjectileFlying()) {
             flyingProjectile = characterList.get(characterTurn).getTank().shoot(deltaX / 20, deltaY / 20);
+            endTurn();
         }
     }
 
@@ -131,7 +133,7 @@ public class GameSession {
     }
 
     private void endTurn() {
-        characterTurn = (characterTurn++) % characterList.size();
+        characterTurn = characterTurn++ % characterList.size()+1;
     }
 
     public int getCharacterTurn() {
