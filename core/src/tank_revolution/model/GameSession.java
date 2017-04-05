@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.sun.javafx.geom.Edge;
 import tank_revolution.model.ShootablePackage.Projectile;
 import tank_revolution.model.ShootablePackage.ProjectileFactory;
 import tank_revolution.model.ShootablePackage.Shootable;
@@ -81,7 +82,7 @@ public class GameSession {
                */
 
         }
-
+        // Create the ground
         Body terrain;
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -89,14 +90,41 @@ public class GameSession {
         bodyDef.position.set(0, 0);
         FixtureDef fixtureDef3 = new FixtureDef();
 
-        EdgeShape edgeShape = new EdgeShape();
-        edgeShape.set(0, 3, 50, 3);
-        fixtureDef3.shape = edgeShape;
-
+        EdgeShape ground = new EdgeShape();
+        ground.set(0, 3, 50, 3);
+        fixtureDef3.shape = ground;
 
         terrain = world.createBody(bodyDef);
         terrain.createFixture(fixtureDef3);
-        edgeShape.dispose();
+        ground.dispose();
+
+
+        //Create the left and right walls
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+
+        bodyDef.position.set(0,0);
+
+        EdgeShape leftWall = new EdgeShape();
+        leftWall.set(0,0,0,100);
+        fixtureDef3.shape = leftWall;
+
+        terrain = world.createBody(bodyDef);
+        terrain.createFixture(fixtureDef3);
+        leftWall.dispose();
+
+
+
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+
+        bodyDef.position.set(50,0);
+
+        EdgeShape rightWall = new EdgeShape();
+        rightWall.set(50,0,50,100);
+        fixtureDef3.shape = rightWall;
+
+        terrain = world.createBody(bodyDef);
+        terrain.createFixture(fixtureDef3);
+        rightWall.dispose();
     }
 
     public void shoot(float deltaX, float deltaY) {
