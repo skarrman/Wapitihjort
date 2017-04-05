@@ -161,7 +161,12 @@ public class GameSession {
     }
 
     private void endTurn() {
-        characterTurn = characterTurn++ % characterList.size()+1;
+        if (characterTurn == characterList.size()-1){
+            characterTurn = 0;
+        }
+        else{
+            characterTurn = characterTurn + 1;
+        }
     }
 
     public int getCharacterTurn() {
