@@ -15,6 +15,11 @@ public class Tank{
     private float health;
     private Body body;
     private float fuel;
+    private final float width = 3f;
+    private final float height = 2f;
+
+    //Gives the tank a mass of 600kg
+    private final float density = 100;
 
     //smallMissile = 0
     private int currentProjectile;
@@ -40,6 +45,10 @@ public class Tank{
         return currentProjectile;
     }
 
+    public void setHealth(float n){
+        health = n;
+    }
+
     public float getHealth(){
         return health;
     }
@@ -58,5 +67,17 @@ public class Tank{
 
     public void drive(int direction){
         body.setLinearVelocity(direction,0);
+    }
+
+    public float getWidth(){
+        return width;
+    }
+
+    public float getHeight(){
+        return height;
+    }
+
+    public float getDensity(){
+        return density;
     }
 }

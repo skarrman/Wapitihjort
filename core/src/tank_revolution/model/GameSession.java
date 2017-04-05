@@ -16,12 +16,8 @@ import java.util.List;
 public class GameSession {
 
     //All these values are in meter and affects all tanks
-    private final float tankWidth = 3f;
-    private final float tankHeight = 2f;
     private final float mapWidth = 50f;
 
-    //Gives the tank a mass of 600kg
-    private final float tankDensity = 100;
 
     //The gravity in the world
     private Vector2 g = new Vector2(0f, -10f);
@@ -79,18 +75,19 @@ public class GameSession {
 
             Body body = world.createBody(bodyDef);
 
+            Tank tank = new Tank(body);
+            characterList.get(i).setTank(tank);
+
             PolygonShape shape = new PolygonShape();
-            shape.setAsBox(tankWidth / 2, tankHeight / 2);
+            shape.setAsBox(tank.getWidth() / 2, tank.getHeight() / 2);
             FixtureDef fixtureDef = new FixtureDef();
             fixtureDef.shape = shape;
-            fixtureDef.density = tankDensity;
+            fixtureDef.density = tank.getDensity();
 
             body.createFixture(fixtureDef);
             shape.dispose();
-
-            Tank tank = new Tank(body);
-            characterList.get(i).setTank(tank);
         }
+
         Body terrain;
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
