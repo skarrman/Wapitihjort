@@ -8,7 +8,7 @@ import java.util.List;
  * <p>The top level of the game, model handles the list of players and starts a new game session.
  * The model will stay the same between game sessions</p>
  */
-public class GameModel {
+public class TankRevolution {
     /**
      * The list of characters
      */
@@ -20,14 +20,14 @@ public class GameModel {
      *
      * @param characterList The list of characters received from the meny setup
      */
-    public GameModel(List<Character> characterList) {
+    public TankRevolution(List<Character> characterList) {
         this.characterList = characterList;
     }
 
     /**
      * For a quick setup
      */
-    public GameModel() {
+    public TankRevolution() {
         characterList = setupQuick();
     }
 

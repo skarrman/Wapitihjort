@@ -4,14 +4,9 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import tank_revolution.model.Character;
-import tank_revolution.model.GameModel;
+import tank_revolution.model.TankRevolution;
 import tank_revolution.model.GameSession;
 import tank_revolution.view.GameView;
-
-import java.util.List;
 
 /**
  * Main controller class for both game sessions and menu screens, updates view, model
@@ -19,7 +14,7 @@ import java.util.List;
  */
 
 public class TankRevolutionController implements ApplicationListener, InputProcessor {
-    private GameModel model;
+    private TankRevolution model;
     private GameView view;
     private GameSession currentGame;
     /**
@@ -33,7 +28,7 @@ public class TankRevolutionController implements ApplicationListener, InputProce
 
     @Override
     public void create() {
-        model = new GameModel();
+        model = new TankRevolution();
         currentGame = model.newGame();
         view = new GameView(currentGame);
         currentGame.addObserver(view);
