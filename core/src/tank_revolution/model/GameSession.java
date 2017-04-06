@@ -31,6 +31,8 @@ public class GameSession implements Observable {
 
     private Shootable flyingProjectile;
 
+    private List<Explosion> explosions;
+
 
     //The index of the current character in characterList
     private int characterTurn = 0;
@@ -254,7 +256,7 @@ public class GameSession implements Observable {
                 if(isProjectileFlying()) {
                     if (contact.getFixtureA().getBody().equals(flyingProjectile.getBody()) || contact.getFixtureB().getBody().equals(flyingProjectile.getBody())) {
                         projectileHasHit = true;
-                        notifyObservers(flyingProjectile.getBody().getPosition(), flyingProjectile.getBlastRadius());
+                        explosions.add(new Explosion(flyingProjectile.getBody().getPosition().x, flyingProjectile.getBody().getPosition().y, flyingProjectile.getBlastRadius()));
                         projectileImpacted();
                     }
                 }
