@@ -39,7 +39,7 @@ public class Environment {
     }
 
     private void setupSides(){
-        leftSide = setupSide(-1f):
+        leftSide = setupSide(-1f);
         rightSide = setupSide(mapWidth + 1);
     }
 
@@ -65,8 +65,22 @@ public class Environment {
 
     }
 
-    public void addProjectile(){
+    public void addTank(Tank tank, float startX, float startY, float width, float height, float density) {
+        Body body;
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(startX, startY);
 
+        body = world.createBody(bodyDef);
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(width / 2, height / 2);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.density = density;
+        body.createFixture(fixtureDef);
+        shape.dispose();
+
+        //TODO Connect tank and body in map.
     }
 
     public void setTerrain(float y){
