@@ -121,6 +121,8 @@ public class GameView implements Observer {
 
     private Stage stage;
 
+    private List<ExplosionAnimation> explosionAnimations;
+
 
     /**
      * The standard constructor that initialize everything to make the graphics work.
@@ -147,6 +149,7 @@ public class GameView implements Observer {
         createDebugger();
         TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("Explosion.txt"));
         explosionAnimation = new Animation<TextureRegion>(1 / 20f, textureAtlas.getRegions());
+        explosionAnimations = new ArrayList<ExplosionAnimation>();
     }
 
     /**
@@ -176,15 +179,10 @@ public class GameView implements Observer {
         if (session.isProjectileFlying()) {
             drawProjectile();
         } else if (session.getExplosions().size() > 0) {
-            Explosion explosion = session.getExplosions().remove(0);
-            /*for(int i = 0; i < explosions.size(); i++) {
-            Explosion explosion = explosions.remove(0);
-            explosion.
-        }*/
-            animationTime = 0;
-            explosionPosition = new Vector2(explosion.x, explosion.y);
-            blastRadius = explosion.blastRadius;
-            isAnimatingExplosion = true;
+            for(int i = 0; i < session.getExplosions().size(); i++) {
+                explosionAnimations.add(new ExplosionAnimation(session.getExplosions().remove(0)));
+        }
+
         }
         if (isAnimatingExplosion) {
             animationTime += Gdx.graphics.getDeltaTime();
