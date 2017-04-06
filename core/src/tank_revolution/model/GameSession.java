@@ -45,6 +45,7 @@ public class GameSession implements Observable {
 
     public GameSession(List<Character> characterList) {
         this.characterList = characterList;
+        environment = new Environment(mapWidth);
         gameSessionSetup();
         createContactListener();
     }

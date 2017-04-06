@@ -6,14 +6,16 @@ import tank_revolution.model.ShootablePackage.Projectile;
 import tank_revolution.model.ShootablePackage.ProjectileFactory;
 import tank_revolution.model.ShootablePackage.Shootable;
 import tank_revolution.model.ShootablePackage.SmallMissile;
+import java.awt.*;
 
 /**
  * Created by antonhagermalm on 2017-03-30.
  */
 public class Tank {
 
+    private float startX;
+    private float startY;
     private int health;
-    private Body body;
     private float fuel;
     private final float width = 3f;
     private final float height = 2f;
@@ -26,11 +28,16 @@ public class Tank {
     private int currentProjectile;
 
 
-    Tank(World world, float startX, float startY) {
-        initTank(world, startX, startY);
+    public Tank(float startX, float startY, int health, int fuel) {
+        this.startX = startX;
+        this.startY = startY;
         currentProjectile = 0;
-        health = 100;
-        fuel = 100;
+        this.health = health;
+        this.fuel = fuel;
+    }
+
+    public Tank(float startX, float startY){
+        this(startX, startY, 100, 100);
     }
 
     private void initTank(World world, float startX, float startY) {
@@ -53,9 +60,6 @@ public class Tank {
         return ProjectileFactory.shootSmallMissile(deltaX, deltaY, body.getPosition().x, body.getPosition().y);
     }
 
-    public Body getBody() {
-        return body;
-    }
 
     public int getCurrentProjectile() {
         return currentProjectile;

@@ -88,7 +88,7 @@ public class Environment {
         body.applyForceToCenter(force,true);
     }
 
-    public void addTank(Tank tank, float startX, float startY, float width, float height, float density) {
+    public void addTank(Tank tank) {
         Body body;
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
