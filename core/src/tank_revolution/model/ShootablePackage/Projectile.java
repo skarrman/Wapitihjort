@@ -16,7 +16,7 @@ public abstract class Projectile implements Shootable {
     protected float missileRadius = 0.27f;
 
     /** The density of the Projectile (should cbe renamed to projectileDensity) */
-    protected float missileDensity = 100;
+    protected float missileDensity = 100f;
 
     /** The radius of the destruction caused by the projectile */
     protected final int blastRadius;

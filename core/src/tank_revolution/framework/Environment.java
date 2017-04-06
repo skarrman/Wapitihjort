@@ -43,6 +43,7 @@ public class Environment {
         Vector2 g = new Vector2(0f, -10f);
         world = new World(g, true);
 
+        setTerrain(3f);
         setupSides();
     }
 
@@ -90,7 +91,7 @@ public class Environment {
         shape.dispose();
 
         //Translation will be needed, this vector will suck
-        Vector2 force = new Vector2(deltaX*1000, deltaY*1000);
+        Vector2 force = new Vector2(deltaX*50, deltaY*50);
         body.applyForceToCenter(force,true);
 
         projectiles.put(projectile, body);
@@ -134,6 +135,14 @@ public class Environment {
 
     public float getMapWidth(){
         return mapWidth;
+    }
+
+    public World getWorld(){
+        return world;
+    }
+
+    public Body getTank(Tank tank){
+        return tanks.get(tank);
     }
 
     public void dispose() {

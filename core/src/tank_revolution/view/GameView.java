@@ -135,7 +135,7 @@ public class GameView implements Observer {
         }
         drawTanks();
         batch.end();
-        debugRenderer.render(characterList.get(0).getTank().getBody().getWorld(), debugMatrix);
+        debugRenderer.render(session.getEnvironment().getWorld(), debugMatrix);
     }
 
     /**
@@ -201,7 +201,7 @@ public class GameView implements Observer {
         TextureAtlas.AtlasRegion atlasRegion;
         for(int i = 0; i < characterList.size(); i++) {
             atlasRegion = textureAtlases.get(i).getRegions().first();
-            Vector2 pos = characterList.get(i).getTank().getBody().getPosition();
+            Vector2 pos = session.getEnvironment().getTank(characterList.get(i).getTank()).getPosition();
             batch.draw(atlasRegion, (pos.x * metersToPixels) - atlasRegion.getRegionWidth()/2,
                     (pos.y * metersToPixels) - atlasRegion.getRegionHeight()/4);
         }

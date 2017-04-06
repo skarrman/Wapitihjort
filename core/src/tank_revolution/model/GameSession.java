@@ -48,6 +48,7 @@ public class GameSession implements Observable, ContactObserver {
         this.characterList = characterList;
         environment = new Environment(mapWidth);
         environment.addContactObserver(this);
+        explosions = new ArrayList<Explosion>();
         gameSessionSetup();
     }
 
@@ -165,6 +166,10 @@ public class GameSession implements Observable, ContactObserver {
 
     public float getMapWidth() {
         return mapWidth;
+    }
+
+    public Environment getEnvironment(){
+        return environment;
     }
 
     public void setProjectileHasHit(boolean projectileHasHit) {
