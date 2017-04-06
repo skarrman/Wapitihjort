@@ -115,48 +115,25 @@ public class GameView implements Observer {
      */
     public void update(){
         camera.update();
-
         Gdx.gl.glClearColor(0.980392f, 0.980392f, 0.823529f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
-
-        batch.setProjectionMatrix(camera.combined);
-        debugMatrix = batch.getProjectionMatrix().cpy().scale(metersToPixels, metersToPixels, 0);
-        camera.position.set(new Vector3(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 0));
-
-        leftButton.setBounds(metersToPixels, 0, 2*metersToPixels, Gdx.graphics.getHeight());
-        rightButton.setBounds(Gdx.graphics.getWidth()-(2*metersToPixels), 0, 2*metersToPixels, Gdx.graphics.getHeight());
-        stage.draw();
-
+        setCamera();
+        placeButtons();
         if(arrowIsActive){
             drawVector();
         }
-
         batch.begin();
-
         if(session.isProjectileFlying()){
-            Vector2 projectilePos = session.getProjectilePosision();
-            projectile.setPosition(projectilePos.x * metersToPixels - projectile.getWidth()/2, projectilePos.y * metersToPixels - projectile.getHeight()/2);
-            projectile.draw(batch);
+            drawProjectile();
         }else if(isAnimatingExplosion){
             animationTime += Gdx.graphics.getDeltaTime();
             if(!explosionAnimation.isAnimationFinished(animationTime)){
-                TextureRegion animationFrame = new TextureRegion(explosionAnimation.getKeyFrame(animationTime, false));
-                float x = (explosionPosition.x * metersToPixels) - (animationFrame.getRegionWidth()/2);
-                float y = (explosionPosition.y * metersToPixels) - (animationFrame.getRegionHeight()/2);
-                batch.draw(animationFrame, x, y);
+                animateExplosion();
             }else{
                 isAnimatingExplosion = false;
             }
-            
         }
-        TextureAtlas.AtlasRegion atlasRegion;
-        for(int i = 0; i < characterList.size(); i++) {
-            atlasRegion = textureAtlases.get(i).getRegions().first();
-            Vector2 pos = characterList.get(i).getTank().getBody().getPosition();
-            batch.draw(atlasRegion, (pos.x * metersToPixels) - atlasRegion.getRegionWidth()/2,
-                                    (pos.y * metersToPixels) - atlasRegion.getRegionHeight()/4);
-        }
-
+        drawTanks();
         batch.end();
         debugRenderer.render(characterList.get(0).getTank().getBody().getWorld(), debugMatrix);
     }
@@ -202,6 +179,41 @@ public class GameView implements Observer {
         blastRadius = value;
     }
 
+    private void placeButtons(){
+        leftButton.setBounds(metersToPixels, 0, 2*metersToPixels, Gdx.graphics.getHeight());
+        rightButton.setBounds(Gdx.graphics.getWidth()-(2*metersToPixels), 0, 2*metersToPixels, Gdx.graphics.getHeight());
+        stage.draw();
+    }
+
+    private void setCamera(){
+        batch.setProjectionMatrix(camera.combined);
+        debugMatrix = batch.getProjectionMatrix().cpy().scale(metersToPixels, metersToPixels, 0);
+        camera.position.set(new Vector3(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 0));
+    }
+
+    private void drawProjectile(){
+        Vector2 projectilePos = session.getProjectilePosision();
+        projectile.setPosition(projectilePos.x * metersToPixels - projectile.getWidth()/2, projectilePos.y * metersToPixels - projectile.getHeight()/2);
+        projectile.draw(batch);
+    }
+
+    private void drawTanks(){
+        TextureAtlas.AtlasRegion atlasRegion;
+        for(int i = 0; i < characterList.size(); i++) {
+            atlasRegion = textureAtlases.get(i).getRegions().first();
+            Vector2 pos = characterList.get(i).getTank().getBody().getPosition();
+            batch.draw(atlasRegion, (pos.x * metersToPixels) - atlasRegion.getRegionWidth()/2,
+                    (pos.y * metersToPixels) - atlasRegion.getRegionHeight()/4);
+        }
+    }
+
+    private void animateExplosion(){
+        TextureRegion animationFrame = new TextureRegion(explosionAnimation.getKeyFrame(animationTime, false));
+        float x = (explosionPosition.x * metersToPixels) - (animationFrame.getRegionWidth()/2);
+        float y = (explosionPosition.y * metersToPixels) - (animationFrame.getRegionHeight()/2);
+        batch.draw(animationFrame, x, y);
+    }
+
     /**
      * This disposes the graphical items.
      */
@@ -212,4 +224,5 @@ public class GameView implements Observer {
         debugRenderer.dispose();
         batch.dispose();
     }
+
 }
