@@ -40,26 +40,9 @@ public class Tank {
         this(startX, startY, 100, 100);
     }
 
-    private void initTank(World world, float startX, float startY) {
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(startX, startY);
-
-        body = world.createBody(bodyDef);
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width / 2, height / 2);
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = shape;
-        fixtureDef.density = density;
-        body.createFixture(fixtureDef);
-        shape.dispose();
-
+    public Shootable shoot() {
+        return ProjectileFactory.shootSmallMissile();
     }
-
-    public Shootable shoot(float deltaX, float deltaY) {
-        return ProjectileFactory.shootSmallMissile(deltaX, deltaY, body.getPosition().x, body.getPosition().y);
-    }
-
 
     public int getCurrentProjectile() {
         return currentProjectile;
@@ -76,15 +59,6 @@ public class Tank {
         }
     }
 
-    public float distanceTo(Vector2 vector2) {
-        return distanceTo(vector2.x, vector2.y);
-    }
-
-    public float distanceTo(float x, float y) {
-        return (float) Math.sqrt((body.getPosition().x - x) * (body.getPosition().x - x)
-                + (body.getPosition().y - y) * (body.getPosition().y - y));
-    }
-
     public float getHealth() {
         return health;
     }
@@ -97,14 +71,7 @@ public class Tank {
         fuel = n;
     }
 
-    public Vector2 getPosition() {
-        return body.getPosition();
-    }
-
-    public void drive(int direction) {
-
-        body.setLinearVelocity(direction, 0);
-    }
+    public void drive(int direction) { }
 
     public float getWidth() {
         return width;
@@ -120,6 +87,14 @@ public class Tank {
 
     public boolean isAlive() {
         return alive;
+    }
+
+    public float getStartX() {
+        return startX;
+    }
+
+    public float getStartY() {
+        return startY;
     }
 
     public boolean hasFuel() {

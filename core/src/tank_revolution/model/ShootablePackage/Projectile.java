@@ -14,63 +14,25 @@ public abstract class Projectile implements Shootable {
 
     /** The radius of the Projectile (should cbe renamed to projectileRadius) */
     protected float missileRadius = 0.27f;
+
     /** The density of the Projectile (should cbe renamed to projectileDensity) */
     protected float missileDensity = 100;
+
     /** The radius of the destruction caused by the projectile */
     protected final int blastRadius;
-    /** The world the projectile lives in */
-    protected World world;
-    /** The body of the projectile */
-    protected Body body;
+
     /** The damage the projectile will inflict (will reduce if not a direct hit)*/
     protected final int damage;
+
     /**
      * The constructor for the projectile. The body of the projectile is created from the shooting vector given by the character (deltaX and deltaY) and a starting point
      * tankX and tankY. All the logic is in the projectileSetup method.
      * @param deltaX The speed in x-axis given by the character
      * @param deltaY The speed in y-axis given by the character
-     * @param tankX The starting point in the x-axis of the projectile
-     * @param tankY The starting point in the y-axis of the projectile
-     * @param world The world the current gameSession lives in
      */
-    protected Projectile(float deltaX, float deltaY, float tankX, float tankY,int damage, int blastRadius, World world) {
-        this.body = projectileSetup(deltaX, deltaY, tankX, tankY, world);
+    protected Projectile(int damage, int blastRadius) {
         this.blastRadius = blastRadius;
         this.damage = damage;
-
-    }
-
-    /**
-     * The logic of the setup, see constructor
-     * @param deltaX The speed in x-axis given by the character
-     * @param deltaY The speed in y-axis given by the character
-     * @param tankX The starting point in the x-axis of the projectile
-     * @param tankY The starting point in the y-axis of the projectile
-     * @param world The world the current gameSession lives in
-     * @return The body of the projectile
-     */
-    private Body projectileSetup(float deltaX, float deltaY, float tankX, float tankY, World world) {
-        this.world = world;
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-
-        //Fix this, since box2D is working with the center coordinates, the missile will be fired from the center of the tank
-        bodyDef.position.set(tankX, tankY+3);
-        Body body = world.createBody(bodyDef);
-
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(missileRadius, missileRadius);
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = shape;
-        fixtureDef.density = missileDensity;
-
-        body.createFixture(fixtureDef);
-        shape.dispose();
-
-        //Translation will be needed, this vector will suck
-        Vector2 force = new Vector2(deltaX*1000, deltaY*1000);
-        body.applyForceToCenter(force,true);
-        return body;
 
     }
 
@@ -82,6 +44,10 @@ public abstract class Projectile implements Shootable {
         return blastRadius;
     }
 
+    public float getMissileRadius() {
+        return missileRadius;
+    }
+
     /**
      *
      * @return The damage the projectile will inflict (will reduce if not a direct hit)
@@ -91,12 +57,10 @@ public abstract class Projectile implements Shootable {
         return damage;
     }
 
-    /**
-     *
-     * @return the blastRadius of the projectile
-     */
-    @Override
-    public Body getBody (){
-        return body;
+
+    public float getMissileDensity() {
+        return missileDensity;
     }
+
+
 }

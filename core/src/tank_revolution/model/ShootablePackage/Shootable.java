@@ -7,10 +7,12 @@ import com.badlogic.gdx.physics.box2d.Body;
  */
 public interface Shootable {
 
-    Body getBody();
-
     int getBlastRadius();
 
     int getDamage();
+
+    float getMissileRadius();
+
+    float getMissileDensity();
 
 }

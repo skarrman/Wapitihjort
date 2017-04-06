@@ -192,7 +192,7 @@ public class GameView implements Observer {
     }
 
     private void drawProjectile(){
-        Vector2 projectilePos = session.getProjectilePosision();
+        Vector2 projectilePos = new Vector2(session.getProjectileX(), session.getProjectileY());
         projectile.setPosition(projectilePos.x * metersToPixels - projectile.getWidth()/2, projectilePos.y * metersToPixels - projectile.getHeight()/2);
         projectile.draw(batch);
     }

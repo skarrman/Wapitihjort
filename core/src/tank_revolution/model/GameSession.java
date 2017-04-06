@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import tank_revolution.Utils.Observable;
 import tank_revolution.Utils.Observer;
+import tank_revolution.framework.ContactObserver;
 import tank_revolution.framework.Environment;
 import tank_revolution.model.ShootablePackage.ProjectileFactory;
 import tank_revolution.model.ShootablePackage.Shootable;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * Created by antonhagermalm on 2017-03-30.
  */
-public class GameSession implements Observable {
+public class GameSession implements Observable, ContactObserver {
 
     //All these values are in meter and affects all tanks
     private final float mapWidth = 50f;
@@ -46,8 +47,8 @@ public class GameSession implements Observable {
     public GameSession(List<Character> characterList) {
         this.characterList = characterList;
         environment = new Environment(mapWidth);
+        environment.addContactObserver(this);
         gameSessionSetup();
-        createContactListener();
     }
 
     private void gameSessionSetup() {
@@ -57,13 +58,15 @@ public class GameSession implements Observable {
         for (int i = 0; i < characterList.size(); i++) {
 
             if (i == 0) {
-                Tank tank = new Tank(world, 5f, 7f);
+                Tank tank = new Tank( 5f, 7f);
                 characterList.get(0).setTank(tank);
+                environment.addTank(tank);
             }
 
             else if (i == 1) {
-                Tank tank = new Tank(world, mapWidth - 5f, 7f);
+                Tank tank = new Tank( mapWidth - 5f, 7f);
                 characterList.get(1).setTank(tank);
+                environment.addTank(tank);
             }
 
             /*else if (i == 2) {
@@ -83,7 +86,8 @@ public class GameSession implements Observable {
 
     public void shoot(float deltaX, float deltaY) {
         if (isActive) {
-            flyingProjectile = characterList.get(characterTurn).getTank().shoot(deltaX / 20, deltaY / 20);
+            flyingProjectile = characterList.get(characterTurn).getTank().shoot();
+            environment.addProjectile(flyingProjectile, deltaX, deltaY, characterList.get(characterTurn).getTank());
             isActive = false;
         }
     }
@@ -132,8 +136,12 @@ public class GameSession implements Observable {
         return flyingProjectile != null;
     }
 
-    public Vector2 getProjectilePosision() {
-        return flyingProjectile.getBody().getPosition();
+    public float getProjectileX() {
+        return environment.getProjectileX(flyingProjectile);
+    }
+
+    public float getProjectileY() {
+        return environment.getProjectileY(flyingProjectile);
     }
 
     public List<Character> getCharacterList() {
@@ -144,12 +152,12 @@ public class GameSession implements Observable {
         if (projectileHasHit)
             destroyProjectile();
 
-        world.step(Gdx.graphics.getDeltaTime(), 6, 2);
+        environment.update();
     }
 
     private void destroyProjectile() {
-        if (!world.isLocked()) {
-            world.destroyBody(flyingProjectile.getBody());
+        if (!environment.isLocked()) {
+            environment.destroyProjectile(flyingProjectile);
             flyingProjectile = null;
             projectileHasHit = false;
         }
@@ -183,7 +191,7 @@ public class GameSession implements Observable {
     private void projectileImpacted(){
         for(Character character : characterList){
             Tank tank = character.getTank();
-            float distance = tank.distanceTo(flyingProjectile.getBody().getPosition());
+            float distance = environment.distanceTo(tank, flyingProjectile);
             if(distance < flyingProjectile.getBlastRadius()){
                 tank.reduceHealth(calculateDamage(flyingProjectile.getDamage(), distance, flyingProjectile.getBlastRadius()));
             }
@@ -191,40 +199,17 @@ public class GameSession implements Observable {
         }
     }
 
-    private void createContactListener() {
-        world.setContactListener(new ContactListener() {
-            @Override
-            public void beginContact(Contact contact) {
-                if(isProjectileFlying()) {
-                    if (contact.getFixtureA().getBody().equals(flyingProjectile.getBody())
-                            || contact.getFixtureB().getBody().equals(flyingProjectile.getBody())) {
-                        projectileHasHit = true;
-                        explosions.add(new Explosion(flyingProjectile.getBody().getPosition().x,
-                                flyingProjectile.getBody().getPosition().y,
-                                flyingProjectile.getBlastRadius()));
-                        projectileImpacted();
-                    }
-                }
-                endTurn();
-
-            }
-
-            @Override
-            public void endContact(Contact contact) {
-
-            }
-
-            @Override
-            public void preSolve(Contact contact, Manifold oldManifold) {
-
-            }
-
-            @Override
-            public void postSolve(Contact contact, ContactImpulse impulse) {
-
-            }
-        });
+    public void actOnContact(float x, float y){
+        projectileHasHit = true;
+        explosions.add(new Explosion(x,
+                y,
+                flyingProjectile.getBlastRadius()));
+        //TODO find the blastradius from somewhere else.
+        projectileImpacted();
+        endTurn();
+        //TODO end turn should not be here for when we have multiple projectiles.
     }
+
 
     //Observer handling
 
