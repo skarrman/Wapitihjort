@@ -25,6 +25,8 @@ public class Environment {
 
     public Environment(float mapWidth){
         this.mapWidth = mapWidth;
+        tanks = new HashMap<Tank, Body>();
+        projectiles = new HashMap<Projectile, Body>();
         setupWorld();
     }
 
@@ -61,8 +63,29 @@ public class Environment {
         return body;
     }
 
-    public void addProjektile(){
+    public void addProjektile(float deltaX, float deltaY, Tank shooter, float radius, float density){
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
 
+        float x = tanks.get(shooter).getPosition().x;
+        float y = tanks.get(shooter).getPosition().y;
+
+        //TODO Fix this, since box2D is working with the center coordinates, the missile will be fired from the center of the tank
+        bodyDef.position.set(x, y+3);
+        Body body = world.createBody(bodyDef);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(radius, radius);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.density = density;
+
+        body.createFixture(fixtureDef);
+        shape.dispose();
+
+        //Translation will be needed, this vector will suck
+        Vector2 force = new Vector2(deltaX*1000, deltaY*1000);
+        body.applyForceToCenter(force,true);
     }
 
     public void addTank(Tank tank, float startX, float startY, float width, float height, float density) {
@@ -80,9 +103,10 @@ public class Environment {
         body.createFixture(fixtureDef);
         shape.dispose();
 
-        //TODO Connect tank and body in map.
+        tanks.put(tank, body);
     }
 
+    //TODO create different terrains.
     public void setTerrain(float y){
         Body terrain;
         BodyDef bodyDef = new BodyDef();
@@ -104,4 +128,7 @@ public class Environment {
         return mapWidth;
     }
 
+    public void dispose() {
+        world.dispose();
+    }
 }

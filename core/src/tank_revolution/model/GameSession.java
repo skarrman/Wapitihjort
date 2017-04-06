@@ -1,13 +1,11 @@
 package tank_revolution.model;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.sun.javafx.geom.Edge;
 import tank_revolution.Utils.Observable;
 import tank_revolution.Utils.Observer;
-import tank_revolution.model.ShootablePackage.Projectile;
+import tank_revolution.framework.Environment;
 import tank_revolution.model.ShootablePackage.ProjectileFactory;
 import tank_revolution.model.ShootablePackage.Shootable;
 
@@ -22,17 +20,11 @@ public class GameSession implements Observable {
     //All these values are in meter and affects all tanks
     private final float mapWidth = 50f;
 
-
-    //The gravity in the world
-    private Vector2 g = new Vector2(0f, -10f);
-    // The world
-    private World world;
     private List<Character> characterList;
 
     private Shootable flyingProjectile;
 
     private List<Explosion> explosions;
-
 
     //The index of the current character in characterList
     private int characterTurn = 0;
@@ -40,6 +32,8 @@ public class GameSession implements Observable {
     private boolean projectileHasHit = false;
 
     private boolean isActive;
+
+    private Environment environment;
 
     /**
      * Creates a new gameSession from a list of characters and gives the characters tanks and addes the tanks to the world.
@@ -58,13 +52,6 @@ public class GameSession implements Observable {
     private void gameSessionSetup() {
 
         setIsActive();
-
-        //The gravity force is connected to the world.
-        world = new World(g, true);
-
-        //The world is given to the ProjectileFactory.
-        ProjectileFactory.setWorld(world);
-
 
         for (int i = 0; i < characterList.size(); i++) {
 
@@ -91,49 +78,6 @@ public class GameSession implements Observable {
                */
 
         }
-        // Create the ground
-        Body terrain;
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-
-        bodyDef.position.set(0, 0);
-        FixtureDef fixtureDef3 = new FixtureDef();
-
-        EdgeShape ground = new EdgeShape();
-        ground.set(-1, 3, mapWidth+1, 3);
-        fixtureDef3.shape = ground;
-
-        terrain = world.createBody(bodyDef);
-        terrain.createFixture(fixtureDef3);
-        ground.dispose();
-
-
-        //Create the left and right walls
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-
-        bodyDef.position.set(0,0);
-
-        EdgeShape leftWall = new EdgeShape();
-        leftWall.set(-1,0,-1,mapWidth*2);
-        fixtureDef3.shape = leftWall;
-
-        terrain = world.createBody(bodyDef);
-        terrain.createFixture(fixtureDef3);
-        leftWall.dispose();
-
-
-
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-
-        bodyDef.position.set(0,0);
-
-        EdgeShape rightWall = new EdgeShape();
-        rightWall.set(mapWidth+1,0,mapWidth+1,mapWidth*2);
-        fixtureDef3.shape = rightWall;
-
-        terrain = world.createBody(bodyDef);
-        terrain.createFixture(fixtureDef3);
-        rightWall.dispose();
     }
 
     public void shoot(float deltaX, float deltaY) {
@@ -230,9 +174,6 @@ public class GameSession implements Observable {
         isActive = b;
     }
 
-    public void dispose() {
-        world.dispose();
-    }
 
     private int calculateDamage(int damage, float distance, float blastRadius){
         return (int) ((blastRadius - distance) / blastRadius * damage);

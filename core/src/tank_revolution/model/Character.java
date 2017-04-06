@@ -1,7 +1,5 @@
 package tank_revolution.model;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import jdk.nashorn.internal.objects.annotations.Getter;
 
 /**
  * Created by antonhagermalm on 2017-03-30.
