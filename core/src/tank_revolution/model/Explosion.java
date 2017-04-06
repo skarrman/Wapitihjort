@@ -5,11 +5,11 @@ package tank_revolution.model;
  */
 public class Explosion {
 
-    float x;
-    float y;
-    int blastRadius;
+    public float x;
+    public float y;
+    public int blastRadius;
 
-    Explosion(float x, float y, int blastRadius){
+    public Explosion(float x, float y, int blastRadius){
     this.x = x;
     this.y = y;
     this.blastRadius = blastRadius;

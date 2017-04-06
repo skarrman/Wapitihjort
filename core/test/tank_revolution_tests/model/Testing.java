@@ -12,8 +12,34 @@ import static org.junit.Assert.*;
 
 public class Testing {
 
-    @Test public void testNr1() {
-        assertTrue(true);
+    @Test public void ArrayListTesting() {
+        ArrayListTest arrayListTest = new ArrayListTest();
+        long time = System.nanoTime();
+        arrayListTest.add();
+        arrayListTest.remove();
+        long timeDif = System.nanoTime() - time;
+
+        System.out.println("ArrayList = " + timeDif);
+    }
+
+    @Test public void LinkedListTesting() {
+        LinkedListTest linkedListTest = new LinkedListTest();
+        long time = System.nanoTime();
+        linkedListTest.add();
+        linkedListTest.remove();
+        long timeDif = System.nanoTime() - time;
+
+        System.out.println("LinkedList = " + timeDif);
+    }
+
+    @Test public void StackTesting() {
+        StackTest StackTest = new StackTest();
+        long time = System.nanoTime();
+        StackTest.add();
+        StackTest.remove();
+        long timeDif = System.nanoTime() - time;
+
+        System.out.println("Stack = " + timeDif);
     }
 
 }

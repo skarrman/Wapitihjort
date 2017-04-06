@@ -10,6 +10,7 @@ import tank_revolution.model.ShootablePackage.Shootable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by antonhagermalm on 2017-03-30.
@@ -186,6 +187,9 @@ public class GameSession implements Observable, ContactObserver {
         isActive = b;
     }
 
+    public List<Explosion> getExplosions() {
+        return explosions;
+    }
 
     private int calculateDamage(int damage, float distance, float blastRadius){
         return (int) ((blastRadius - distance) / blastRadius * damage);
