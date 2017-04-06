@@ -254,9 +254,12 @@ public class GameSession implements Observable {
             @Override
             public void beginContact(Contact contact) {
                 if(isProjectileFlying()) {
-                    if (contact.getFixtureA().getBody().equals(flyingProjectile.getBody()) || contact.getFixtureB().getBody().equals(flyingProjectile.getBody())) {
+                    if (contact.getFixtureA().getBody().equals(flyingProjectile.getBody())
+                            || contact.getFixtureB().getBody().equals(flyingProjectile.getBody())) {
                         projectileHasHit = true;
-                        explosions.add(new Explosion(flyingProjectile.getBody().getPosition().x, flyingProjectile.getBody().getPosition().y, flyingProjectile.getBlastRadius()));
+                        explosions.add(new Explosion(flyingProjectile.getBody().getPosition().x,
+                                flyingProjectile.getBody().getPosition().y,
+                                flyingProjectile.getBlastRadius()));
                         projectileImpacted();
                     }
                 }
