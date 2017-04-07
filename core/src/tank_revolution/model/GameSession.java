@@ -18,20 +18,25 @@ import java.util.Stack;
  */
 public class GameSession implements ContactObserver, NextMoveObserver {
 
-    //All these values are in meter and affects all tanks
+    /** The width of the map in meters */
     private final float mapWidth = 50f;
 
+    /** list of the playing character */
     private List<Character> characterList;
 
+    /** The projectile, will hold the projectile in air */
     private Shootable flyingProjectile;
 
+    /** List of current explosions */
     private List<Explosion> explosions;
 
-    //The index of the current character in characterList
+    /** The index of the current playing character */
     private int characterTurn = 0;
 
+    /** if the projectile has hit something and will be removed */
     private boolean projectileHasHit = false;
 
+    /** true if the current character is a player, false if npc */
     private boolean isActive;
     /**
      * The world in which all bodies and the libGDX framework are contained.
@@ -141,6 +146,9 @@ public class GameSession implements ContactObserver, NextMoveObserver {
         return true;
     }
 
+    /**
+     * ends the turn of the current playing character and gives the turn too the next player
+     */
     private void setNextCharacter() {
         if (characterTurn == characterList.size()-1){
             characterTurn = 0;
@@ -150,26 +158,44 @@ public class GameSession implements ContactObserver, NextMoveObserver {
         }
     }
 
+    /**
+     * @return the index of the current playing character
+     */
     public int getCharacterTurn() {
         return characterTurn;
     }
 
+    /**
+     * @return true if the projectile is currently in the air
+     */
     public boolean isProjectileFlying() {
         return flyingProjectile != null;
     }
 
+    /**
+     * @return the x-coordinate of the projectile
+     */
     public float getProjectileX() {
         return environment.getProjectileX(flyingProjectile);
     }
 
+    /**
+     * @return the y-coordinate of the projectile
+     */
     public float getProjectileY() {
         return environment.getProjectileY(flyingProjectile);
     }
 
+    /**
+     * @return the list of the characters
+     */
     public List<Character> getCharacterList() {
         return characterList;
     }
 
+    /**
+     * updating the model and tells the environment to update
+     */
     public void update() {
         if (projectileHasHit) {
             destroyProjectile();
@@ -177,6 +203,9 @@ public class GameSession implements ContactObserver, NextMoveObserver {
         environment.update();
     }
 
+    /**
+     * safely removes a projectile
+     */
     private void destroyProjectile() {
         if (!environment.isLocked()) {
             environment.destroyProjectile(flyingProjectile);
@@ -184,18 +213,23 @@ public class GameSession implements ContactObserver, NextMoveObserver {
         }
     }
 
+    /**
+     * @return the mapWidth
+     */
     public float getMapWidth() {
         return mapWidth;
     }
 
+    /**
+     * @return the environment
+     */
     public Environment getEnvironment(){
         return environment;
     }
 
-    public void setProjectileHasHit(boolean projectileHasHit) {
-        this.projectileHasHit = projectileHasHit;
-    }
-
+    /**
+     * sets that the current character is a player
+     */
     public void setIsActive(){
         if(!getCurrentCharacter().isNPC()){
             isActive = true;
@@ -204,19 +238,35 @@ public class GameSession implements ContactObserver, NextMoveObserver {
         }
     }
 
-    public void setIsActive(boolean b){
-        isActive = b;
-    }
-
+    /**
+     * @return the list of explosions
+     */
     public List<Explosion> getExplosions() {
         return explosions;
     }
 
+    /**
+     * calculates the damage that will be inflicted on a tank
+     * @param damage the starting damage of the projectile
+     * @param distance the distance from the tanks center to the hitdown
+     * @param blastRadius the projectiles blast radius
+     * @return the damage inflicted to the tank
+     */
     private int calculateDamage(int damage, float distance, float blastRadius){
         return (int) ((blastRadius - distance) / blastRadius * damage);
     }
 
-    private void projectileImpacted(){
+    /**
+     * called when a projectile hits something
+     * @param x the x-coordinate of the impact
+     * @param y the y-coordinate of the impact
+     */
+    private void projectileImpacted(float x, float y){
+        projectileHasHit = true;
+
+        //TODO find the blastradius from somewhere else.
+        explosions.add(new Explosion(x, y, flyingProjectile.getBlastRadius()));
+
         for(Character character : characterList){
             Tank tank = character.getTank();
             float distance = environment.distanceTo(tank, flyingProjectile);
@@ -227,13 +277,15 @@ public class GameSession implements ContactObserver, NextMoveObserver {
         }
     }
 
+    /**
+     * this method is called when a object collides with another
+     * @param x the x-coordinate of the collision
+     * @param y the y-coordinate of the collision
+     */
     public void actOnContact(float x, float y){
-        projectileHasHit = true;
-        explosions.add(new Explosion(x,
-                y,
-                flyingProjectile.getBlastRadius()));
-        //TODO find the blastradius from somewhere else.
-        projectileImpacted();
+        
+        projectileImpacted(x, y);
+        setNextCharacter();
         //TODO end turn should not be here for when we have multiple projectiles.
     }
 }

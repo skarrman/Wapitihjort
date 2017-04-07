@@ -219,7 +219,7 @@ public class GameView {
         debugMatrix = batch.getProjectionMatrix().cpy().scale(metersToPixels, metersToPixels, 0);
         debugRenderer.render(session.getEnvironment().getWorld(), debugMatrix);
     }
-    
+
     public void placeButtons(MoveButton leftButton, MoveButton rightButton){
         stage.addActor(leftButton);
         stage.addActor(rightButton);
