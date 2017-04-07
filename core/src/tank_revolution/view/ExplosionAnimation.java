@@ -1,33 +1,43 @@
 package tank_revolution.view;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.*;
 import tank_revolution.model.Explosion;
 
 /**
  * Created by antonhagermalm on 2017-04-06.
  */
 public class ExplosionAnimation{
-    float x;
-    float y;
-    float time;
-    int blastRadius;
-    Animation<TextureRegion> explosionAnimation;
+    private float x;
+    private float y;
+    private float time;
+    private int blastRadius;
+    private float metersToPixels;
 
-    ExplosionAnimation(Explosion explosion){
-        x = explosion.x;
-        y = explosion.y;
-        blastRadius = explosion.blastRadius;
+    Animation<TextureRegion> animation;
+
+    ExplosionAnimation(Explosion explosion, float metersToPixels){
+        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("Explosion.txt"));
+        animation = new Animation<TextureRegion>(1 / 20f, textureAtlas.getRegions());
+        this.metersToPixels = metersToPixels;
         time = 0;
+        TextureRegion animationFrame = new TextureRegion(animation.getKeyFrame(time, false));
+        x = (explosion.x * metersToPixels) - (animationFrame.getRegionWidth() / 2);
+        y = (explosion.y * metersToPixels) - (animationFrame.getRegionHeight() / 2);
+        blastRadius = explosion.blastRadius;
     }
 
-    void draw(SpriteBatch batch){
-        TextureRegion animationFrame = new TextureRegion(explosionAnimation.getKeyFrame(animationTime, false));
-        float x = (explosionPosition.x * metersToPixels) - (animationFrame.getRegionWidth() / 2);
-        float y = (explosionPosition.y * metersToPixels) - (animationFrame.getRegionHeight() / 2);
+    boolean isAnimationFinished(){
+        return animation.isAnimationFinished(time);
+    }
+
+    void draw(Batch batch){
+        time += Gdx.graphics.getDeltaTime();
+        TextureRegion animationFrame = new TextureRegion(animation.getKeyFrame(time, false));
         batch.draw(animationFrame, x, y);
     }
+
+
 
 
 }

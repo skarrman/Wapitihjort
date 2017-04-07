@@ -53,7 +53,7 @@ public class GameView implements Observer {
     /**
      * A constant that convert meters to pixels
      */
-    private final float metersToPixels;
+    final float metersToPixels;
 
     /**
      * The graphical representation of the flying projectile
@@ -178,21 +178,21 @@ public class GameView implements Observer {
         batch.begin();
         if (session.isProjectileFlying()) {
             drawProjectile();
-        } else if (session.getExplosions().size() > 0) {
-            for(int i = 0; i < session.getExplosions().size(); i++) {
-                explosionAnimations.add(new ExplosionAnimation(session.getExplosions().remove(0)));
         }
-
-        }
-        if (isAnimatingExplosion) {
-            animationTime += Gdx.graphics.getDeltaTime();
-            if (!explosionAnimation.isAnimationFinished(animationTime)) {
-                animateExplosion();
-            } else {
-                isAnimatingExplosion = false;
+        if (session.getExplosions().size() > 0) {
+            for (int i = 0; i < session.getExplosions().size(); i++) {
+                explosionAnimations.add(new ExplosionAnimation(session.getExplosions().remove(0), metersToPixels));
             }
-
         }
+        if (explosionAnimations.size() > 0) {
+            for (int i = 0; i < explosionAnimations.size(); i++) {
+                if (!explosionAnimations.get(i).isAnimationFinished())
+                    explosionAnimations.get(i).draw(batch);
+                else
+                    explosionAnimations.remove(i);
+            }
+        }
+
         drawTanks();
         batch.end();
 
@@ -269,9 +269,9 @@ public class GameView implements Observer {
         camera.position.set(new Vector3(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0));
     }
 
-    private void drawProjectile(){
+    private void drawProjectile() {
         Vector2 projectilePos = new Vector2(session.getProjectileX(), session.getProjectileY());
-        projectile.setPosition(projectilePos.x * metersToPixels - projectile.getWidth()/2, projectilePos.y * metersToPixels - projectile.getHeight()/2);
+        projectile.setPosition(projectilePos.x * metersToPixels - projectile.getWidth() / 2, projectilePos.y * metersToPixels - projectile.getHeight() / 2);
         projectile.draw(batch);
     }
 
@@ -280,8 +280,8 @@ public class GameView implements Observer {
         for (int i = 0; i < characterList.size(); i++) {
             atlasRegion = textureAtlases.get(i).getRegions().first();
             Vector2 pos = session.getEnvironment().getTank(characterList.get(i).getTank()).getPosition();
-            batch.draw(atlasRegion, (pos.x * metersToPixels) - atlasRegion.getRegionWidth()/2,
-                    (pos.y * metersToPixels) - atlasRegion.getRegionHeight()/4);
+            batch.draw(atlasRegion, (pos.x * metersToPixels) - atlasRegion.getRegionWidth() / 2,
+                    (pos.y * metersToPixels) - atlasRegion.getRegionHeight() / 4);
         }
     }
 
