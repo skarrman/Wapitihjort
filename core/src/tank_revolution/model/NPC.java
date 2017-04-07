@@ -5,8 +5,11 @@ package tank_revolution.model;
  */
 public class NPC extends Character{
 
-    NPC(String name) {
+    private int difficulty;
+
+    NPC(String name, int difficulty) {
         super(name, true);
+        this.difficulty = difficulty;
     }
 
     public void play(){
