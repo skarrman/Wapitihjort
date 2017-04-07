@@ -15,7 +15,7 @@ import java.util.Stack;
 /**
  * Created by antonhagermalm on 2017-03-30.
  */
-public class GameSession implements Observable, ContactObserver {
+public class GameSession implements ContactObserver {
 
     //All these values are in meter and affects all tanks
     private final float mapWidth = 50f;
@@ -215,27 +215,5 @@ public class GameSession implements Observable, ContactObserver {
         projectileImpacted();
         endTurn();
         //TODO end turn should not be here for when we have multiple projectiles.
-    }
-
-
-    //Observer handling
-
-    List<Observer> observers = new ArrayList<Observer>();
-
-    @Override
-    public void addObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
-    }
-
-    @Override
-    public void notifyObservers(Vector2 position, int value) {
-        for(Observer o : observers){
-            o.actOnChange(position, value);
-        }
     }
 }

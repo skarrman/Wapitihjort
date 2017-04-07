@@ -25,7 +25,7 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
  * GameView is the class that present the game to the user.
  * Its responsibility is to render the graphics of the game.
  */
-public class GameView implements Observer {
+public class GameView {
 
     /** Tells if the debug renderer should do its' work
      * True = debug: ON
@@ -97,7 +97,7 @@ public class GameView implements Observer {
 
     /** A representation of the animation of an explosion */
     Animation<TextureRegion> explosionAnimation;
-    
+
     /**
      * Button allowing the user to move the tank to the right
      */
@@ -236,10 +236,6 @@ public class GameView implements Observer {
         batch.setProjectionMatrix(camera.combined);
         debugMatrix = batch.getProjectionMatrix().cpy().scale(metersToPixels, metersToPixels, 0);
         debugRenderer.render(session.getEnvironment().getWorld(), debugMatrix);
-    }
-
-    @Override
-    public void actOnChange(Vector2 position, int value) {
     }
 
     private void placeButtons() {
