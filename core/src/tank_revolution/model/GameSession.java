@@ -90,8 +90,8 @@ public class GameSession implements ContactObserver, NextMoveObserver {
 
     public void shoot(float deltaX, float deltaY) {
         if (isActive || getCurrentCharacter().isNPC()) {
-            flyingProjectile = characterList.get(characterTurn).getTank().shoot();
-            environment.addProjectile(flyingProjectile, deltaX, deltaY, characterList.get(characterTurn).getTank());
+            flyingProjectile = getCurrentTank().shoot();
+            environment.addProjectile(flyingProjectile, deltaX, deltaY, getCurrentTank());
             isActive = false;
         }
     }
@@ -106,6 +106,7 @@ public class GameSession implements ContactObserver, NextMoveObserver {
 
     public void doNextMove(){
         setNextCharacter();
+        getCurrentCharacter().setNewTurn();
         flyingProjectile = null;
         if(getCurrentCharacter().isNPC()){
             shoot(-470, 500);
@@ -170,9 +171,9 @@ public class GameSession implements ContactObserver, NextMoveObserver {
     }
 
     public void update() {
-        if (projectileHasHit)
+        if (projectileHasHit) {
             destroyProjectile();
-
+        }
         environment.update();
     }
 

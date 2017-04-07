@@ -9,7 +9,7 @@ public class Player extends Character{
         super(name, false);
     }
 
-    public void play(){
-        //Wait for shoot.
+    public void setNewTurn(){
+//TODO logic for what happens when player has new turn.
     }
 }

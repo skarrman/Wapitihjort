@@ -48,17 +48,14 @@ public abstract class Character {
     }
 
     /**
-     * when a turn is ended, this method will be called for the character which turn who's turn it is.
-     */
-    public abstract void play();
-
-    /**
      * returns whether or not the current character is a npc or not
      * @return
      */
     public boolean isNPC(){
         return isNPC;
     }
+
+    public abstract void setNewTurn();
 
 
 }

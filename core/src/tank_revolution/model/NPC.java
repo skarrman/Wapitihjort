@@ -12,9 +12,18 @@ public class NPC extends Character{
         this.difficulty = difficulty;
     }
 
-    public void play(){
-        //Count the perfect shoot. manipulate random.
-        //Do shoot.
+    public float getDeltaX(){
+        //TODO make this calculation. (Based on enemies)
+        return -500;
+    }
+
+    public float getDeltaY(){
+        return 500;
+        //TODO make this calculation. (Based on enemies)
+    }
+
+    public void setNewTurn(){
+//TODO logic for what happens when the player has new turn.
     }
 
 }
