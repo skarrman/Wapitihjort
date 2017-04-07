@@ -48,6 +48,7 @@ public class GameSession implements Observable, ContactObserver, NextMoveObserve
         this.characterList = characterList;
         environment = new Environment(mapWidth);
         environment.addContactObserver(this);
+        environment.addNextMoveObserver(this);
         explosions = new ArrayList<Explosion>();
         gameSessionSetup();
     }
@@ -86,7 +87,7 @@ public class GameSession implements Observable, ContactObserver, NextMoveObserve
     }
 
     public void shoot(float deltaX, float deltaY) {
-        if (isActive) {
+        if (isActive || getCurrentCharacter().isNPC()) {
             flyingProjectile = characterList.get(characterTurn).getTank().shoot();
             environment.addProjectile(flyingProjectile, deltaX, deltaY, characterList.get(characterTurn).getTank());
             isActive = false;
@@ -103,8 +104,11 @@ public class GameSession implements Observable, ContactObserver, NextMoveObserve
 
     public void doNextMove(){
         setNextCharacter();
+        flyingProjectile = null;
         if(getCurrentCharacter().isNPC()){
-
+            shoot(-470, 500);
+        }else{
+            setIsActive();
         }
     }
 
@@ -173,7 +177,6 @@ public class GameSession implements Observable, ContactObserver, NextMoveObserve
     private void destroyProjectile() {
         if (!environment.isLocked()) {
             environment.destroyProjectile(flyingProjectile);
-            flyingProjectile = null;
             projectileHasHit = false;
         }
     }
@@ -191,7 +194,7 @@ public class GameSession implements Observable, ContactObserver, NextMoveObserve
     }
 
     public void setIsActive(){
-        if(!characterList.get(characterTurn).isNPC()){
+        if(!getCurrentCharacter().isNPC()){
             isActive = true;
         }else{
             isActive = false;
