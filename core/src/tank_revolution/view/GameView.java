@@ -97,21 +97,10 @@ public class GameView implements Observer {
 
     /** A representation of the animation of an explosion */
     Animation<TextureRegion> explosionAnimation;
-
-    /** Tells if there is an explosion i animating */
-    private boolean isAnimatingExplosion = false;
-
-    /** The position of the current explosion */
-    private Vector2 explosionPosition;
-
-    /** The blast radius of the current explosion */
-    private int blastRadius;
-
-    /** Tells how far the animation has come */
-    private float animationTime;
-
-    /** Button allowing the user to move the tank to the right */
-
+    
+    /**
+     * Button allowing the user to move the tank to the right
+     */
     private MoveButton rightButton;
 
     /**
@@ -251,10 +240,6 @@ public class GameView implements Observer {
 
     @Override
     public void actOnChange(Vector2 position, int value) {
-        isAnimatingExplosion = true;
-        animationTime = 0;
-        explosionPosition = position;
-        blastRadius = value;
     }
 
     private void placeButtons() {
@@ -283,13 +268,6 @@ public class GameView implements Observer {
             batch.draw(atlasRegion, (pos.x * metersToPixels) - atlasRegion.getRegionWidth() / 2,
                     (pos.y * metersToPixels) - atlasRegion.getRegionHeight() / 4);
         }
-    }
-
-    private void animateExplosion() {
-        TextureRegion animationFrame = new TextureRegion(explosionAnimation.getKeyFrame(animationTime, false));
-        float x = (explosionPosition.x * metersToPixels) - (animationFrame.getRegionWidth() / 2);
-        float y = (explosionPosition.y * metersToPixels) - (animationFrame.getRegionHeight() / 2);
-        batch.draw(animationFrame, x, y);
     }
 
     /**
