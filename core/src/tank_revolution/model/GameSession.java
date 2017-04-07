@@ -5,6 +5,7 @@ import tank_revolution.Utils.Observable;
 import tank_revolution.Utils.Observer;
 import tank_revolution.framework.ContactObserver;
 import tank_revolution.framework.Environment;
+import tank_revolution.framework.NextMoveObserver;
 import tank_revolution.model.ShootablePackage.ProjectileFactory;
 import tank_revolution.model.ShootablePackage.Shootable;
 
@@ -15,7 +16,7 @@ import java.util.Stack;
 /**
  * Created by antonhagermalm on 2017-03-30.
  */
-public class GameSession implements Observable, ContactObserver {
+public class GameSession implements Observable, ContactObserver, NextMoveObserver {
 
     //All these values are in meter and affects all tanks
     private final float mapWidth = 50f;
@@ -92,6 +93,21 @@ public class GameSession implements Observable, ContactObserver {
         }
     }
 
+    public Character getCurrentCharacter(){
+        return characterList.get(characterTurn);
+    }
+
+    public Tank getCurrentTank(){
+        return getCurrentCharacter().getTank();
+    }
+
+    public void doNextMove(){
+        setNextCharacter();
+        if(getCurrentCharacter().isNPC()){
+
+        }
+    }
+
     /**
      * If the tank can move, gives the it a linear velocity depending on which way we want to move it.
      * <p>Returns a boolean to make it easier to test</p>
@@ -118,14 +134,13 @@ public class GameSession implements Observable, ContactObserver {
         return true;
     }
 
-    private void endTurn() {
+    private void setNextCharacter() {
         if (characterTurn == characterList.size()-1){
             characterTurn = 0;
         }
         else{
             characterTurn = characterTurn + 1;
         }
-        setIsActive();
     }
 
     public int getCharacterTurn() {
@@ -213,7 +228,6 @@ public class GameSession implements Observable, ContactObserver {
                 flyingProjectile.getBlastRadius()));
         //TODO find the blastradius from somewhere else.
         projectileImpacted();
-        endTurn();
         //TODO end turn should not be here for when we have multiple projectiles.
     }
 
