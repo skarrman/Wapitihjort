@@ -1,8 +1,6 @@
 package tank_revolution.model;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
 import tank_revolution.Utils.Observable;
 import tank_revolution.Utils.Observer;
 import tank_revolution.framework.ContactObserver;

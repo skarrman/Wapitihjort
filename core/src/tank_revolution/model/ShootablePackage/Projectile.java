@@ -4,8 +4,6 @@ package tank_revolution.model.ShootablePackage;
  * Created by antonhagermalm on 2017-03-30.
  */
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
 
 /**
  * A projectile shot by the tank and will damage the ground and other tanks
