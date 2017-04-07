@@ -5,6 +5,7 @@ import tank_revolution.Utils.Observable;
 import tank_revolution.Utils.Observer;
 import tank_revolution.framework.ContactObserver;
 import tank_revolution.framework.Environment;
+import tank_revolution.framework.NextMoveObserver;
 import tank_revolution.model.ShootablePackage.ProjectileFactory;
 import tank_revolution.model.ShootablePackage.Shootable;
 
@@ -15,7 +16,7 @@ import java.util.Stack;
 /**
  * Created by antonhagermalm on 2017-03-30.
  */
-public class GameSession implements ContactObserver {
+public class GameSession implements ContactObserver, NextMoveObserver {
 
     //All these values are in meter and affects all tanks
     private final float mapWidth = 50f;
@@ -47,6 +48,7 @@ public class GameSession implements ContactObserver {
         this.characterList = characterList;
         environment = new Environment(mapWidth);
         environment.addContactObserver(this);
+        environment.addNextMoveObserver(this);
         explosions = new ArrayList<Explosion>();
         gameSessionSetup();
     }
@@ -85,10 +87,28 @@ public class GameSession implements ContactObserver {
     }
 
     public void shoot(float deltaX, float deltaY) {
-        if (isActive) {
+        if (isActive || getCurrentCharacter().isNPC()) {
             flyingProjectile = characterList.get(characterTurn).getTank().shoot();
             environment.addProjectile(flyingProjectile, deltaX, deltaY, characterList.get(characterTurn).getTank());
             isActive = false;
+        }
+    }
+
+    public Character getCurrentCharacter(){
+        return characterList.get(characterTurn);
+    }
+
+    public Tank getCurrentTank(){
+        return getCurrentCharacter().getTank();
+    }
+
+    public void doNextMove(){
+        setNextCharacter();
+        flyingProjectile = null;
+        if(getCurrentCharacter().isNPC()){
+            shoot(-470, 500);
+        }else{
+            setIsActive();
         }
     }
 
@@ -118,14 +138,13 @@ public class GameSession implements ContactObserver {
         return true;
     }
 
-    private void endTurn() {
+    private void setNextCharacter() {
         if (characterTurn == characterList.size()-1){
             characterTurn = 0;
         }
         else{
             characterTurn = characterTurn + 1;
         }
-        setIsActive();
     }
 
     public int getCharacterTurn() {
@@ -158,7 +177,6 @@ public class GameSession implements ContactObserver {
     private void destroyProjectile() {
         if (!environment.isLocked()) {
             environment.destroyProjectile(flyingProjectile);
-            flyingProjectile = null;
             projectileHasHit = false;
         }
     }
@@ -176,7 +194,7 @@ public class GameSession implements ContactObserver {
     }
 
     public void setIsActive(){
-        if(!characterList.get(characterTurn).isNPC()){
+        if(!getCurrentCharacter().isNPC()){
             isActive = true;
         }else{
             isActive = false;
@@ -213,7 +231,6 @@ public class GameSession implements ContactObserver {
                 flyingProjectile.getBlastRadius()));
         //TODO find the blastradius from somewhere else.
         projectileImpacted();
-        endTurn();
         //TODO end turn should not be here for when we have multiple projectiles.
     }
 }

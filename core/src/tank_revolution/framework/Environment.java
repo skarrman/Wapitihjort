@@ -28,6 +28,7 @@ public class Environment {
     private Body rightSide;
 
     private List<ContactObserver> contactObservers = new ArrayList<ContactObserver>();
+    private List<NextMoveObserver> nextMoveObservers = new ArrayList<NextMoveObserver>();
 
 
     public Environment(float mapWidth){
@@ -160,6 +161,9 @@ public class Environment {
     public void destroyProjectile(Shootable projectile){
         world.destroyBody(projectiles.get(projectile));
         projectiles.remove(projectile);
+        if(projectiles.isEmpty()){
+            notifyNextMoveObservers();
+        }
     }
 
     public float distanceTo(Tank tank, Shootable projectile){
@@ -182,6 +186,16 @@ public class Environment {
 
     public float getProjectileY(Shootable projectile){
         return projectiles.get(projectile).getPosition().y;
+    }
+
+    public void addNextMoveObserver(NextMoveObserver observer){
+        nextMoveObservers.add(observer);
+    }
+
+    private void notifyNextMoveObservers(){
+        for(int i = 0; i < nextMoveObservers.size(); i++) {
+            nextMoveObservers.get(i).doNextMove();
+        }
     }
 
     public void addContactObserver(ContactObserver observer){
@@ -217,7 +231,7 @@ public class Environment {
         });
     }
 
-    public void notifyContactObservers(float x, float y){
+    private void notifyContactObservers(float x, float y){
        for(int i = 0; i < contactObservers.size(); i++) {
            contactObservers.get(i).actOnContact(x, y);
        }
