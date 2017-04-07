@@ -160,7 +160,7 @@ public class GameView {
                 if (!explosionAnimations.get(i).isAnimationFinished())
                     explosionAnimations.get(i).draw(batch);
                 else
-                    explosionAnimations.remove(i);
+                    explosionAnimations.remove(i).dispose();
             }
         }
 
@@ -219,25 +219,28 @@ public class GameView {
         debugMatrix = batch.getProjectionMatrix().cpy().scale(metersToPixels, metersToPixels, 0);
         debugRenderer.render(session.getEnvironment().getWorld(), debugMatrix);
     }
-
+    
     public void placeButtons(MoveButton leftButton, MoveButton rightButton){
         stage.addActor(leftButton);
         stage.addActor(rightButton);
         stage.draw();
     }
 
+    /** Sets the camera */
     private void setCamera() {
         batch.setProjectionMatrix(camera.combined);
         debugMatrix = batch.getProjectionMatrix().cpy().scale(metersToPixels, metersToPixels, 0);
         camera.position.set(new Vector3(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0));
     }
 
+    /** Draws the projectile */
     private void drawProjectile() {
         Vector2 projectilePos = new Vector2(session.getProjectileX(), session.getProjectileY());
         projectile.setPosition(projectilePos.x * metersToPixels - projectile.getWidth() / 2, projectilePos.y * metersToPixels - projectile.getHeight() / 2);
         projectile.draw(batch);
     }
 
+    /** Draws the tank*/
     private void drawTanks() {
         TextureAtlas.AtlasRegion atlasRegion;
         for (int i = 0; i < characterList.size(); i++) {

@@ -2,6 +2,7 @@ package tank_revolution.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
+import sun.java2d.pipe.AAShapePipe;
 import tank_revolution.model.Explosion;
 
 /**
@@ -14,11 +15,11 @@ public class ExplosionAnimation{
     private float time;
     private int blastRadius;
     private float metersToPixels;
-
+    TextureAtlas textureAtlas;
     Animation<TextureRegion> animation;
 
     ExplosionAnimation(Explosion explosion, float metersToPixels){
-        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("Explosion.txt"));
+        textureAtlas = new TextureAtlas(Gdx.files.internal("Explosion.txt"));
         animation = new Animation<TextureRegion>(1 / 20f, textureAtlas.getRegions());
         this.metersToPixels = metersToPixels;
         time = 0;
@@ -26,6 +27,7 @@ public class ExplosionAnimation{
         x = (explosion.x * metersToPixels) - (animationFrame.getRegionWidth() / 2);
         y = (explosion.y * metersToPixels) - (animationFrame.getRegionHeight() / 2);
         blastRadius = explosion.blastRadius;
+
     }
 
     /**
@@ -43,6 +45,10 @@ public class ExplosionAnimation{
         time += Gdx.graphics.getDeltaTime();
         TextureRegion animationFrame = new TextureRegion(animation.getKeyFrame(time, false));
         batch.draw(animationFrame, x, y);
+    }
+
+    void dispose() {
+        textureAtlas.dispose();
     }
 
 
