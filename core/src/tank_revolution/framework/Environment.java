@@ -201,12 +201,25 @@ public class Environment {
         return world.isLocked();
     }
 
+    /**
+     * Removes the body of the projectile fram the environment.
+     * @param projectile the projectile that will be destroyed.
+     */
     public void destroyProjectile(Shootable projectile){
         world.destroyBody(projectiles.get(projectile));
         projectiles.remove(projectile);
         if(projectiles.isEmpty()){
             notifyNextMoveObservers();
         }
+    }
+
+    /**
+     * Removes the body of the tank from the environment.
+     * @param tank the tank that will be destroyed.
+     */
+    public void destroyTank(Tank tank){
+        world.destroyBody(tanks.get(tank));
+        tanks.remove(tank);
     }
 
     public float distanceTo(Tank tank, Shootable projectile){
