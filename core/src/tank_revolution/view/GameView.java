@@ -11,8 +11,6 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
 import tank_revolution.Utils.Observer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import tank_revolution.controller.MoveButton;
 import tank_revolution.model.Character;
 import tank_revolution.model.GameSession;
@@ -26,6 +24,13 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
  * Its responsibility is to render the graphics of the game.
  */
 public class GameView implements Observer {
+
+    /** Tells if the debug renderer should do its' work
+     * True = debug: ON
+     * False = debug: OFF */
+    boolean deBugMode = false;
+
+    /** The graphical batch that draws on the screen */
     private Batch batch;
 
     /** List of the tank sprite sheets. */
@@ -64,15 +69,21 @@ public class GameView implements Observer {
     /** Value of where the user started to drag on the screen */
     private Vector3 getAimingArrowTop;
 
+    /** A representation of the animation of an explosion */
     Animation<TextureRegion> explosionAnimation;
 
+    /** Tells if there is an explosion i animating */
     private boolean isAnimatingExplosion = false;
 
+    /** The position of the current explosion */
     private Vector2 explosionPosition;
 
+    /** The blast radius of the current explosion */
     private int blastRadius;
 
+    /** Tells how far the animation has come */
     private float animationTime;
+
     /** Button allowing the user to move the tank to the right */
     private MoveButton rightButton;
 
@@ -102,9 +113,8 @@ public class GameView implements Observer {
         Gdx.input.setInputProcessor(stage);
         metersToPixels = Gdx.graphics.getWidth()/50f; //Calculates the ratio between the pixels of the display to meters in the world.
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        debugMatrix = new Matrix4(camera.combined);
-        debugRenderer = new Box2DDebugRenderer();
         shapeRenderer = new ShapeRenderer();
+        createDebugger();
         TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("Explosion.txt"));
         explosionAnimation = new Animation<TextureRegion>(1/20f, textureAtlas.getRegions());
     }
@@ -115,10 +125,20 @@ public class GameView implements Observer {
      */
     public void update(){
         camera.update();
+
         Gdx.gl.glClearColor(0.980392f, 0.980392f, 0.823529f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
         setCamera();
         placeButtons();
+        camera.position.set(new Vector3(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 0));
+
+        Gdx.gl.glClearColor(0.980392f, 0.980392f, 0.823529f, 1);
+        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+
+        leftButton.setBounds(metersToPixels, 0, 2*metersToPixels, Gdx.graphics.getHeight());
+        rightButton.setBounds(Gdx.graphics.getWidth()-(2*metersToPixels), 0, 2*metersToPixels, Gdx.graphics.getHeight());
+        stage.draw();
+
         if(arrowIsActive){
             drawVector();
         }
@@ -135,7 +155,11 @@ public class GameView implements Observer {
         }
         drawTanks();
         batch.end();
-        debugRenderer.render(session.getEnvironment().getWorld(), debugMatrix);
+
+
+        if(deBugMode){
+            drawDebugDetails();
+        }
     }
 
     /**
@@ -169,6 +193,20 @@ public class GameView implements Observer {
      */
     public void removeVector(){
         arrowIsActive = false;
+    }
+
+    private void createDebugger(){
+        if(deBugMode) {
+            debugMatrix = new Matrix4(camera.combined);
+            debugRenderer = new Box2DDebugRenderer();
+            shapeRenderer = new ShapeRenderer();
+        }
+    }
+
+    private void drawDebugDetails(){
+        batch.setProjectionMatrix(camera.combined);
+        debugMatrix = batch.getProjectionMatrix().cpy().scale(metersToPixels, metersToPixels, 0);
+        debugRenderer.render(session.getEnvironment().getWorld(), debugMatrix);
     }
 
     @Override
@@ -221,7 +259,9 @@ public class GameView implements Observer {
         for(TextureAtlas textureAtlas: textureAtlases){
             textureAtlas.dispose();
         }
-        debugRenderer.dispose();
+        if(deBugMode){
+            debugRenderer.dispose();
+        }
         batch.dispose();
     }
 
