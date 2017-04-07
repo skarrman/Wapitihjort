@@ -20,18 +20,38 @@ import tank_revolution.model.Tank;
  */
 public class Environment {
 
+    /** The map width of the playing field */
     private float mapWidth;
+
+    /** The world in which all objects will live. */
     private World world;
+
+    /** The tanks in the world and their body. */
     private Map<Tank, Body> tanks;
+
+    /** The Projectiles in the world and their Body. */
     private Map<Shootable, Body> projectiles;
+
+    /** The terrain of the world. */
     private Body terrain;
+
+    /** The left wall of the world. */
     private Body leftSide;
+
+    /** The right wall of the world*/
     private Body rightSide;
 
+    /** List of observers observing contacts in the environment.*/
     private List<ContactObserver> contactObservers = new ArrayList<ContactObserver>();
+
+    /** List of observers observing when a shoot is finished.*/
     private List<NextMoveObserver> nextMoveObservers = new ArrayList<NextMoveObserver>();
 
 
+    /**
+     * Creates a new Environment for Bodys to live in.
+     * @param mapWidth is the width of the gameboard.
+     */
     public Environment(float mapWidth){
         this.mapWidth = mapWidth;
         tanks = new HashMap<Tank, Body>();
@@ -40,6 +60,9 @@ public class Environment {
         createContactListener();
     }
 
+    /**
+     * Sets up the world with gravity and terrain with two sides.
+     */
     private void setupWorld(){
         //The gravity force is connected to the world.
         Vector2 g = new Vector2(0f, -10f);
@@ -49,11 +72,19 @@ public class Environment {
         setupSides();
     }
 
+    /**
+     * Sets up sides.
+     */
     private void setupSides(){
         leftSide = setupSide(-1f);
         rightSide = setupSide(mapWidth + 1);
     }
 
+    /**
+     *
+     * @param n the x coordinate of the side being created.
+     * @return a body of the side.
+     */
     private Body setupSide(float n){
         Body body;
         BodyDef bodyDef = new BodyDef();
@@ -72,6 +103,13 @@ public class Environment {
         return body;
     }
 
+    /**
+     *
+     * @param projectile the projectile from the model.
+     * @param deltaX the horizontal velocity
+     * @param deltaY the vertical velocity
+     * @param shooter the tank shooting the projectile.
+     */
     public void addProjectile(Shootable projectile, float deltaX, float deltaY, Tank shooter){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -99,6 +137,10 @@ public class Environment {
         projectiles.put(projectile, body);
     }
 
+    /**
+     *
+     * @param tank the tank object from the model being created.
+     */
     public void addTank(Tank tank) {
         Body body;
         BodyDef bodyDef = new BodyDef();
