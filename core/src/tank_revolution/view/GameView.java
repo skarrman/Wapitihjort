@@ -97,8 +97,6 @@ public class GameView {
 
     /** A representation of the animation of an explosion */
     Animation<TextureRegion> explosionAnimation;
-    
-    private Stage stage;
 
     private List<ExplosionAnimation> explosionAnimations;
 
@@ -116,8 +114,6 @@ public class GameView {
         textureAtlases.add(new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
         textureAtlases.add(new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
         projectile = new Sprite(new Texture(Gdx.files.internal("Projectile.png")));
-        stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
         metersToPixels = Gdx.graphics.getWidth() / 50f; //Calculates the ratio between the pixels of the display to meters in the world.
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         shapeRenderer = new ShapeRenderer();
@@ -220,7 +216,7 @@ public class GameView {
         debugRenderer.render(session.getEnvironment().getWorld(), debugMatrix);
     }
 
-    public void placeButtons(MoveButton leftButton, MoveButton rightButton){
+    public void placeButtons(MoveButton leftButton, MoveButton rightButton, Stage stage){
         stage.addActor(leftButton);
         stage.addActor(rightButton);
         stage.draw();

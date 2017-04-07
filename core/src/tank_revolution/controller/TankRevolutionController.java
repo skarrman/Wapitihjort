@@ -1,12 +1,8 @@
 package tank_revolution.controller;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import tank_revolution.model.TankRevolution;
 import tank_revolution.model.GameSession;
 import tank_revolution.view.GameView;
@@ -22,6 +18,7 @@ public class TankRevolutionController implements ApplicationListener, InputProce
     private GameSession currentGame;
     private MoveButton leftButton;
     private MoveButton rightButton;
+    private Stage stage;
     /**
      * x-coordinate of the users initial input.
      */
@@ -36,30 +33,31 @@ public class TankRevolutionController implements ApplicationListener, InputProce
         model = new TankRevolution();
         currentGame = model.newGame();
         view = new GameView(currentGame);
+        stage = new Stage();
         leftButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")));
         rightButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")));
         leftButton.setBounds(0, 0, Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight());
         rightButton.setBounds(Gdx.graphics.getWidth()-(Gdx.graphics.getWidth()/10), 0, Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight());
-        Gdx.input.setInputProcessor(this);
+        stage.addActor(leftButton);
+        stage.addActor(rightButton);
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(stage);
+        inputMultiplexer.addProcessor(this);
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     @Override
     public void render() {
         currentGame.update();
         view.update();
-        view.placeButtons(leftButton, rightButton);
+        view.placeButtons(leftButton, rightButton, stage);
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if(leftButton.isPressed()){
-            currentGame.moveTank(-1);
-        }else if(rightButton.isPressed()){
-            currentGame.moveTank(1);
-        }else {
             touchX = screenX;
             touchY = screenY;
-        }return true;
+            return true;
     }
 
     @Override
