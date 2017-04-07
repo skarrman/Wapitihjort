@@ -33,7 +33,9 @@ public class GameSession implements ContactObserver, NextMoveObserver {
     private boolean projectileHasHit = false;
 
     private boolean isActive;
-
+    /**
+     * The world in which all bodies and the libGDX framework are contained.
+     */
     private Environment environment;
 
     /**

@@ -4,6 +4,9 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.math.Vector2;
 import tank_revolution.model.TankRevolution;
 import tank_revolution.model.GameSession;
 import tank_revolution.view.GameView;
@@ -17,6 +20,8 @@ public class TankRevolutionController implements ApplicationListener, InputProce
     private TankRevolution model;
     private GameView view;
     private GameSession currentGame;
+    private MoveButton leftButton;
+    private MoveButton rightButton;
     /**
      * x-coordinate of the users initial input.
      */
@@ -31,6 +36,10 @@ public class TankRevolutionController implements ApplicationListener, InputProce
         model = new TankRevolution();
         currentGame = model.newGame();
         view = new GameView(currentGame);
+        leftButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")));
+        rightButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")));
+        leftButton.setBounds(0, 0, Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight());
+        rightButton.setBounds(Gdx.graphics.getWidth()-(Gdx.graphics.getWidth()/10), 0, Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight());
         Gdx.input.setInputProcessor(this);
     }
 
@@ -38,13 +47,19 @@ public class TankRevolutionController implements ApplicationListener, InputProce
     public void render() {
         currentGame.update();
         view.update();
+        view.placeButtons(leftButton, rightButton);
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        touchX = screenX;
-        touchY = screenY;
-        return true;
+        if(leftButton.isPressed()){
+            currentGame.moveTank(-1);
+        }else if(rightButton.isPressed()){
+            currentGame.moveTank(1);
+        }else {
+            touchX = screenX;
+            touchY = screenY;
+        }return true;
     }
 
     @Override
@@ -66,7 +81,8 @@ public class TankRevolutionController implements ApplicationListener, InputProce
                 return true;
             }
 
-        }return false;
+        }
+        return false;
     }
 
     @Override
@@ -87,7 +103,7 @@ public class TankRevolutionController implements ApplicationListener, InputProce
         view.dispose();
     }
 
-    private void newGame(){
+    private void newGame() {
         dispose();
         currentGame = model.newGame();
         view = new GameView(currentGame);
@@ -121,4 +137,6 @@ public class TankRevolutionController implements ApplicationListener, InputProce
     public boolean scrolled(int amount) {
         return false;
     }
+
+
 }

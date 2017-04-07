@@ -97,17 +97,7 @@ public class GameView {
 
     /** A representation of the animation of an explosion */
     Animation<TextureRegion> explosionAnimation;
-
-    /**
-     * Button allowing the user to move the tank to the right
-     */
-    private MoveButton rightButton;
-
-    /**
-     * Button allowing the user to move the tank to the left
-     */
-    private MoveButton leftButton;
-
+    
     private Stage stage;
 
     private List<ExplosionAnimation> explosionAnimations;
@@ -126,11 +116,7 @@ public class GameView {
         textureAtlases.add(new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
         textureAtlases.add(new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
         projectile = new Sprite(new Texture(Gdx.files.internal("Projectile.png")));
-        rightButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")));
-        leftButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")));
         stage = new Stage();
-        stage.addActor(leftButton);
-        stage.addActor(rightButton);
         Gdx.input.setInputProcessor(stage);
         metersToPixels = Gdx.graphics.getWidth() / 50f; //Calculates the ratio between the pixels of the display to meters in the world.
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -151,15 +137,11 @@ public class GameView {
         Gdx.gl.glClearColor(0.980392f, 0.980392f, 0.823529f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
         setCamera();
-        placeButtons();
         camera.position.set(new Vector3(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 0));
 
         Gdx.gl.glClearColor(0.980392f, 0.980392f, 0.823529f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 
-        leftButton.setBounds(metersToPixels, 0, 2*metersToPixels, Gdx.graphics.getHeight());
-        rightButton.setBounds(Gdx.graphics.getWidth()-(2*metersToPixels), 0, 2*metersToPixels, Gdx.graphics.getHeight());
-        stage.draw();
 
         if(arrowIsActive){
             drawVector();
@@ -238,9 +220,9 @@ public class GameView {
         debugRenderer.render(session.getEnvironment().getWorld(), debugMatrix);
     }
 
-    private void placeButtons() {
-        leftButton.setBounds(metersToPixels, 0, 2 * metersToPixels, Gdx.graphics.getHeight());
-        rightButton.setBounds(Gdx.graphics.getWidth() - (2 * metersToPixels), 0, 2 * metersToPixels, Gdx.graphics.getHeight());
+    public void placeButtons(MoveButton leftButton, MoveButton rightButton){
+        stage.addActor(leftButton);
+        stage.addActor(rightButton);
         stage.draw();
     }
 
