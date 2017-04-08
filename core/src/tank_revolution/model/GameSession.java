@@ -3,6 +3,7 @@ package tank_revolution.model;
 import com.badlogic.gdx.math.Vector2;
 import tank_revolution.Utils.Observable;
 import tank_revolution.Utils.Observer;
+import tank_revolution.Utils.TankObserver;
 import tank_revolution.framework.ContactObserver;
 import tank_revolution.framework.Environment;
 import tank_revolution.framework.NextMoveObserver;
@@ -16,7 +17,7 @@ import java.util.Stack;
 /**
  * Created by antonhagermalm on 2017-03-30.
  */
-public class GameSession implements ContactObserver, NextMoveObserver {
+public class GameSession implements ContactObserver, NextMoveObserver, TankObserver {
 
     /** The width of the map in meters */
     private final float mapWidth = 50f;
@@ -201,6 +202,7 @@ public class GameSession implements ContactObserver, NextMoveObserver {
             destroyProjectile();
         }
         environment.update();
+
     }
 
     /**
@@ -287,5 +289,13 @@ public class GameSession implements ContactObserver, NextMoveObserver {
         projectileImpacted(x, y);
         setNextCharacter();
         //TODO end turn should not be here for when we have multiple projectiles.
+    }
+
+    @Override
+    public void actOnDeath(Tank tank) {
+        explosions.add(new Explosion(environment.getTankX(tank), environment.getTankY(tank), 10));
+
+        //TODO look in the character list for the character with this tank and remove it. Make sure to have defencive copying from model
+        //TODO Wall will add a method in environment where we can send i a tank or a projectile and the body will be destroyed
     }
 }
