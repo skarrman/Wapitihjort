@@ -17,7 +17,7 @@ import java.util.Stack;
 /**
  * Created by antonhagermalm on 2017-03-30.
  */
-public class GameSession implements ContactObserver, NextMoveObserver, TankObserver {
+public class GameSession implements ContactObserver, NextMoveObserver, TankObserver{
 
     /** The width of the map in meters */
     private final float mapWidth = 50f;
@@ -68,13 +68,13 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
         for (int i = 0; i < characterList.size(); i++) {
 
             if (i == 0) {
-                Tank tank = new Tank( 5f, 7f);
+                Tank tank = new Tank( 5f, 7f, this);
                 characterList.get(0).setTank(tank);
                 environment.addTank(tank);
             }
 
             else if (i == 1) {
-                Tank tank = new Tank( mapWidth - 5f, 7f);
+                Tank tank = new Tank( mapWidth - 5f, 7f, this);
                 characterList.get(1).setTank(tank);
                 environment.addTank(tank);
             }
@@ -269,8 +269,8 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
         //TODO find the blastradius from somewhere else.
         explosions.add(new Explosion(x, y, flyingProjectile.getBlastRadius()));
 
-        for(Character character : characterList){
-            Tank tank = character.getTank();
+        for(int i = 0; i < characterList.size(); i++){
+            Tank tank = characterList.get(i).getTank();
             float distance = environment.distanceTo(tank, flyingProjectile);
             if(distance < flyingProjectile.getBlastRadius()){
                 tank.reduceHealth(calculateDamage(flyingProjectile.getDamage(), distance, flyingProjectile.getBlastRadius()));
@@ -291,11 +291,19 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
         //TODO end turn should not be here for when we have multiple projectiles.
     }
 
-    @Override
     public void actOnDeath(Tank tank) {
+        //TODO if bodies doesnt disappear, it's because this if statment is only ran once, to fix this put it in update
+        //TODO maybe make a list of bodies to be removed and in update remove them and make the removeMethod in environment generic
+        if(!environment.isLocked()){
+            environment.destroyTank(tank);
+        }
+        for(int i = 0; i < characterList.size(); i++){
+            if (characterList.get(i).getTank() == tank) {
+                characterList.remove(i);
+            }
+        }
         explosions.add(new Explosion(environment.getTankX(tank), environment.getTankY(tank), 10));
 
         //TODO look in the character list for the character with this tank and remove it. Make sure to have defencive copying from model
-        //TODO Wall will add a method in environment where we can send i a tank or a projectile and the body will be destroyed
     }
 }

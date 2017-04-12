@@ -1,5 +1,6 @@
 package tank_revolution.model;
 
+import tank_revolution.Utils.TankObserver;
 import tank_revolution.model.ShootablePackage.ProjectileFactory;
 import tank_revolution.model.ShootablePackage.Shootable;
 import tank_revolution.model.ShootablePackage.SmallMissile;
@@ -17,6 +18,7 @@ public class Tank {
     private final float width = 3f;
     private final float height = 2f;
     private boolean alive = true;
+    private TankObserver observer;
 
     //Gives the tank a mass of 600kg
     private final float density = 100;
@@ -25,16 +27,17 @@ public class Tank {
     private int currentProjectile;
 
 
-    public Tank(float startX, float startY, int health, int fuel) {
+    public Tank(float startX, float startY, int health, int fuel, TankObserver observer) {
         this.startX = startX;
         this.startY = startY;
         currentProjectile = 0;
         this.health = health;
         this.fuel = fuel;
+        this.observer = observer;
     }
 
-    public Tank(float startX, float startY){
-        this(startX, startY, 100, 100);
+    public Tank(float startX, float startY, TankObserver observer){
+        this(startX, startY, 100, 100, observer);
     }
 
     public Shootable shoot() {
@@ -52,8 +55,12 @@ public class Tank {
     public void reduceHealth(int damage) {
         health = health - damage;
         if (health < 0){
-            alive = false;
+            kill();
         }
+    }
+
+    private void kill(){
+        observer.actOnDeath(this);
     }
 
     public float getHealth() {
