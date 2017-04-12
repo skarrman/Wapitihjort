@@ -65,13 +65,6 @@ public abstract class Character {
 
     public abstract void setNewTurn();
 
-    static public Character copy(Character characterToCopy){
-        if (characterToCopy.isNPC()){
-            return new Player(characterToCopy);
-        }
-        else {
-            return new NPC(characterToCopy);
-        }
-    }
+    //protected abstract Character getDefenciveCopiedClone();
 
 }

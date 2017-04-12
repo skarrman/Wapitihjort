@@ -12,8 +12,9 @@ public class NPC extends Character{
         this.difficulty = difficulty;
     }
 
-    NPC(Character player){
-        super(player);
+    NPC(NPC npc){
+        super(npc);
+        this.difficulty = npc.difficulty;
     }
 
     public float getDeltaX(){

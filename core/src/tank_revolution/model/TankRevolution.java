@@ -33,19 +33,21 @@ public class TankRevolution {
 
     public List<Character> setupQuick() {
         List<Character> characters = new ArrayList<Character>();
-        characters.add(new Player("Player1"));
-        characters.add(new NPC("Player2", 2));
+        characters.add(CharacterFactory.newPlayer("Player1"));
+        characters.add(CharacterFactory.newNPC("Player2", 2));
         return characters;
     }
 
-    
-
-    public GameSession newGame() {
+    private List<Character> defenciveCopiedCharacterList(){
         List<Character> safeCharacters = new ArrayList<Character>();
         for (Character character : characterList){
-            safeCharacters.add(Character.copy(character));
+            safeCharacters.add(CharacterFactory.defenciveCopyCharacter(character));
         }
-        return new GameSession(safeCharacters);
+        return safeCharacters;
+    }
+
+    public GameSession newGame() {
+        return new GameSession(defenciveCopiedCharacterList());
     }
 
     public List<Character> getCharacterList() {

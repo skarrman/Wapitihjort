@@ -9,7 +9,7 @@ public class Player extends Character{
         super(name, false);
     }
 
-    Player(Character player){
+    Player(Player player){
         super(player);
     }
 
