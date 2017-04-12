@@ -41,7 +41,11 @@ public class TankRevolution {
     
 
     public GameSession newGame() {
-        return new GameSession(characterList);
+        List<Character> safeCharacters = new ArrayList<Character>();
+        for (Character character : characterList){
+            safeCharacters.add(Character.copy(character));
+        }
+        return new GameSession(safeCharacters);
     }
 
     public List<Character> getCharacterList() {

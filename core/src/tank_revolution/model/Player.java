@@ -9,6 +9,10 @@ public class Player extends Character{
         super(name, false);
     }
 
+    Player(Character player){
+        super(player);
+    }
+
     public void setNewTurn(){
 //TODO logic for what happens when player has new turn.
     }

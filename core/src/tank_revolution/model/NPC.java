@@ -12,6 +12,10 @@ public class NPC extends Character{
         this.difficulty = difficulty;
     }
 
+    NPC(Character player){
+        super(player);
+    }
+
     public float getDeltaX(){
         //TODO make this calculation. (Based on enemies)
         return -500;

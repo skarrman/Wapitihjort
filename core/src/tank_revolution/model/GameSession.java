@@ -292,8 +292,10 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
     }
 
     public void actOnDeath(Tank tank) {
-        //TODO if bodies doesnt disappear, it's because this if statment is only ran once, to fix this put it in update
-        //TODO maybe make a list of bodies to be removed and in update remove them and make the removeMethod in environment generic
+        /* if bodies doesnt disappear, it's because this if statment is only ran once, to fix this put it in update
+        maybe make a list of bodies to be removed and in update remove them and make the removeMethod in environment
+        generic */
+
         if(!environment.isLocked()){
             environment.destroyTank(tank);
         }

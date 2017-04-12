@@ -24,6 +24,15 @@ public abstract class Character {
     }
 
     /**
+     * used to copy a character, used in the defencing copying
+     * @param character the character to copy
+     */
+    Character(Character character){
+        this.name = character.getName();
+        this.isNPC = character.isNPC();
+    }
+
+    /**
      * Sets the tank
      * @param tank
      */
@@ -48,8 +57,7 @@ public abstract class Character {
     }
 
     /**
-     * returns whether or not the current character is a npc or not
-     * @return
+     * @return whether or not the current character is a npc or not
      */
     public boolean isNPC(){
         return isNPC;
@@ -57,5 +65,13 @@ public abstract class Character {
 
     public abstract void setNewTurn();
 
+    static public Character copy(Character characterToCopy){
+        if (characterToCopy.isNPC()){
+            return new Player(characterToCopy);
+        }
+        else {
+            return new NPC(characterToCopy);
+        }
+    }
 
 }
