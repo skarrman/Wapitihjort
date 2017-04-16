@@ -1,0 +1,96 @@
+CurrentPlayerArrow.png
+size: 256, 256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arrow1
+  rotate: false
+  xy: 0, 0
+  size: 30, 100
+  orig: 30, 100
+  offset: 0, 0
+  index: -1
+Arrow2
+  rotate: false
+  xy: 30, 0
+  size: 30, 100
+  orig: 30, 100
+  offset: 0, 0
+  index: -1
+Arrow3
+  rotate: false
+  xy: 60, 0
+  size: 30, 100
+  orig: 30, 100
+  offset: 0, 0
+  index: -1
+Arrow4
+  rotate: false
+  xy: 90, 0
+  size: 30, 100
+  orig: 30, 100
+  offset: 0, 0
+  index: -1
+Arrow5
+  rotate: false
+  xy: 120, 0
+  size: 30, 100
+  orig: 30, 100
+  offset: 0, 0
+  index: -1
+Arrow6
+  rotate: false
+  xy: 150, 0
+  size: 30, 100
+  orig: 30, 100
+  offset: 0, 0
+  index: -1
+Arrow7
+  rotate: false
+  xy: 180, 0
+  size: 30, 100
+  orig: 30, 100
+  offset: 0, 0
+  index: -1
+Arrow8
+  rotate: false
+  xy: 210, 0
+  size: 30, 100
+  orig: 30, 100
+  offset: 0, 0
+  index: -1
+Arrow9
+  rotate: false
+  xy: 0, 100
+  size: 30, 100
+  orig: 30, 100
+  offset: 0, 0
+  index: -1
+Arrow10
+  rotate: false
+  xy: 30, 100
+  size: 30, 100
+  orig: 30, 100
+  offset: 0, 0
+  index: -1
+Arrow11
+  rotate: false
+  xy: 60, 100
+  size: 30, 100
+  orig: 30, 100
+  offset: 0, 0
+  index: -1
+Arrow12
+  rotate: false
+  xy: 90, 100
+  size: 30, 100
+  orig: 30, 100
+  offset: 0, 0
+  index: -1
+Arrow13
+  rotate: false
+  xy: 120, 100
+  size: 30, 100
+  orig: 30, 100
+  offset: 0, 0
+  index: -1
