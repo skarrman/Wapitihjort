@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Created by simonkarrman on 2017-04-17.
  * Representing the animation of a vertical arrow bouncing.
  * The main purpose of this arrow is to indicate to the player whose turn it is.
  */

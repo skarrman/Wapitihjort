@@ -6,7 +6,6 @@ import sun.java2d.pipe.AAShapePipe;
 import tank_revolution.model.Explosion;
 
 /**
- * Created by antonhagermalm on 2017-04-06.
  * <p>The animation of a explosion</p>
  */
 public class ExplosionAnimation{
