@@ -9,18 +9,35 @@ import tank_revolution.model.Explosion;
  * <p>The animation of a explosion</p>
  */
 public class ExplosionAnimation{
-    private float x;
-    private float y;
-    private float time;
-    private int blastRadius;
-    private float metersToPixels;
-    TextureAtlas textureAtlas;
-    Animation<TextureRegion> animation;
 
+    /** The explosion's x-coordinate. */
+    private float x;
+
+    /** The explosion's x-coordinate. */
+    private float y;
+
+    /** Keeps track of the time so that the animation is correct */
+    private float time;
+
+    /** The value of the width of the explosion's blast radius */
+    private int blastRadius;
+
+    /** The texture atlas of all the textures that represents the explosions that is animated. */
+    private  TextureAtlas textureAtlas;
+
+    /** The object that handel the animation */
+    private Animation<TextureRegion> animation;
+
+    /**
+     * The constructor of this class that is creating all the object that is needed
+     * to animate the explosion.
+     *
+     * @param explosion The explosion that will be animated.
+     * @param metersToPixels The ratio between meters in the world to pixels on the screen.
+     */
     ExplosionAnimation(Explosion explosion, float metersToPixels){
         textureAtlas = new TextureAtlas(Gdx.files.internal("Explosion.txt"));
         animation = new Animation<TextureRegion>(1 / 20f, textureAtlas.getRegions());
-        this.metersToPixels = metersToPixels;
         time = 0;
         TextureRegion animationFrame = new TextureRegion(animation.getKeyFrame(time, false));
         x = (explosion.x * metersToPixels) - (animationFrame.getRegionWidth() / 2);
@@ -46,11 +63,11 @@ public class ExplosionAnimation{
         batch.draw(animationFrame, x, y);
     }
 
+    /**
+     * Disposes all the disposes.
+     */
     void dispose() {
         textureAtlas.dispose();
     }
-
-
-
 
 }
