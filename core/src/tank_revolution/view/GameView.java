@@ -30,7 +30,7 @@ public class GameView {
     /** Tells if the debug renderer should do its' work
      * True = debug: ON
      * False = debug: OFF */
-    boolean deBugMode = false;
+    boolean deBugMode = true;
 
     /** The graphical batch that draws on the screen */
     private Batch batch;
@@ -96,9 +96,11 @@ public class GameView {
     private Vector3 getAimingArrowTop;
 
     /** A representation of the animation of an explosion */
-    Animation<TextureRegion> explosionAnimation;
+    private Animation<TextureRegion> explosionAnimation;
 
     private List<ExplosionAnimation> explosionAnimations;
+
+    private  TurnIndicatorAnimation turnIndicatorAnimation;
 
 
     /**
@@ -121,6 +123,7 @@ public class GameView {
         TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("Explosion.txt"));
         explosionAnimation = new Animation<TextureRegion>(1 / 20f, textureAtlas.getRegions());
         explosionAnimations = new ArrayList<ExplosionAnimation>();
+        turnIndicatorAnimation = new TurnIndicatorAnimation(metersToPixels);
     }
 
     /**
@@ -134,10 +137,6 @@ public class GameView {
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
         setCamera();
         camera.position.set(new Vector3(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 0));
-
-        Gdx.gl.glClearColor(0.980392f, 0.980392f, 0.823529f, 1);
-        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
-
 
         if(arrowIsActive){
             drawVector();
@@ -159,6 +158,8 @@ public class GameView {
                     explosionAnimations.remove(i).dispose();
             }
         }
+        Vector2 pos = new Vector2(session.getCurrentCharacter().getTank().getStartX(), session.getCurrentCharacter().getTank().getStartY());
+        turnIndicatorAnimation.draw(batch, pos);
 
         drawTanks();
         batch.end();
@@ -257,6 +258,7 @@ public class GameView {
         if(deBugMode){
             debugRenderer.dispose();
         }
+        turnIndicatorAnimation.dispose();
         batch.dispose();
     }
 
