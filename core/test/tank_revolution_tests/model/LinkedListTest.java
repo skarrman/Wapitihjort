@@ -26,7 +26,7 @@ public class LinkedListTest {
     }
 
     public void remove() {
-        for (int i = iterations; i > iterations; i--) {
+        for (int i = 0; i < iterations; i++) {
             list.remove(0);
         }
     }

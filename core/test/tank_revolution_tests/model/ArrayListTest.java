@@ -23,8 +23,8 @@ public class ArrayListTest {
     }
 
     public void remove() {
-        for (int i = iterations; i > iterations; i--) {
-            list.remove(i);
+        for (int i = 0; i < iterations; i++) {
+            list.remove(0);
         }
     }
 
