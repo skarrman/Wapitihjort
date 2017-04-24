@@ -63,6 +63,10 @@ public class AssetsManager {
         return textureAtlases.get(textureName);
     }
 
+    public Sprite getProjectileSprite(){
+        return projectile;
+    }
+
     private AssetsManager() {
         //textureAtlases = new HashMap<TextureAtlasAssets, TextureAtlas>();
         textureAtlases = new HashMap<String, TextureAtlas>();
