@@ -239,9 +239,21 @@ public class GameView {
 
     /** Draws the tank*/
     private void drawTanks() {
+        characterList = session.getCharacterList();
         for(Character c : characterList){
             GraphicalTank graphicalTank = characterTankHashMap.get(c);
             graphicalTank.draw(batch);
+        }
+        checkCharacterList();
+    }
+
+    private void checkCharacterList(){
+        if(characterTankHashMap.size() > characterList.size()){
+            HashMap<Character, GraphicalTank> tempMap = new HashMap<Character, GraphicalTank>();
+            for(Character c : characterList){
+                tempMap.put(c, characterTankHashMap.get(c));
+            }
+            characterTankHashMap = tempMap;
         }
     }
 
