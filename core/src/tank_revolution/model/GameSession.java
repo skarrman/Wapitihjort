@@ -151,12 +151,7 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
      * ends the turn of the current playing character and gives the turn too the next player
      */
     private void setNextCharacter() {
-        if (characterTurn == characterList.size()-1){
-            characterTurn = 0;
-        }
-        else{
-            characterTurn = characterTurn + 1;
-        }
+        characterTurn = (characterTurn+1)%characterList.size();
     }
 
     /**
@@ -297,6 +292,7 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
         for(int i = 0; i < characterList.size(); i++){
             if (characterList.get(i).getTank() == tank) {
                 characterList.remove(i);
+                setNextCharacter();
             }
         }
         explosions.add(new Explosion(environment.getTankX(tank), environment.getTankY(tank), 10));
