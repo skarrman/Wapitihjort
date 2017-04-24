@@ -47,6 +47,8 @@ public class Environment {
     /** List of observers observing when a shoot is finished.*/
     private List<NextMoveObserver> nextMoveObservers = new ArrayList<NextMoveObserver>();
 
+    /** List of bodies pending to be destroyed */
+    private List<Body> removeStack;
 
     /**
      * Creates a new Environment for Bodys to live in.
@@ -56,6 +58,7 @@ public class Environment {
         this.mapWidth = mapWidth;
         tanks = new HashMap<Tank, Body>();
         projectiles = new HashMap<Shootable, Body>();
+        removeStack = new ArrayList<Body>();
         setupWorld();
         createContactListener();
     }
@@ -194,7 +197,15 @@ public class Environment {
     }
 
     public void update(){
+        stackUpdate();
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
+    }
+
+    public void stackUpdate(){
+        if(!world.isLocked() && !removeStack.isEmpty()){
+            world.destroyBody(removeStack.get(removeStack.size()-1));
+            removeStack.remove(removeStack.size()-1);
+        }
     }
 
     public boolean isLocked(){
@@ -206,7 +217,7 @@ public class Environment {
      * @param projectile the projectile that will be destroyed.
      */
     public void destroyProjectile(Shootable projectile){
-        world.destroyBody(projectiles.get(projectile));
+        removeStack.add(projectiles.get(projectile));
         projectiles.remove(projectile);
         if(projectiles.isEmpty()){
             notifyNextMoveObservers();
@@ -218,7 +229,7 @@ public class Environment {
      * @param tank the tank that will be destroyed.
      */
     public void destroyTank(Tank tank){
-        world.destroyBody(tanks.get(tank));
+        removeStack.add(tanks.get(tank));
         tanks.remove(tank);
     }
 

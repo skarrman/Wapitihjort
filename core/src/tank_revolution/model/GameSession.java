@@ -296,15 +296,13 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
         maybe make a list of bodies to be removed and in update remove them and make the removeMethod in environment
         generic */
 
-        if(!environment.isLocked()){
-            environment.destroyTank(tank);
-        }
         for(int i = 0; i < characterList.size(); i++){
             if (characterList.get(i).getTank() == tank) {
                 characterList.remove(i);
             }
         }
         explosions.add(new Explosion(environment.getTankX(tank), environment.getTankY(tank), 10));
+        environment.destroyTank(tank);
 
         //TODO look in the character list for the character with this tank and remove it. Make sure to have defencive copying from model
     }
