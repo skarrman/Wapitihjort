@@ -9,14 +9,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
-import tank_revolution.Utils.Observer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import tank_revolution.controller.MoveButton;
 import tank_revolution.model.Character;
-import tank_revolution.model.Explosion;
 import tank_revolution.model.GameSession;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
@@ -35,10 +34,6 @@ public class GameView {
     /** The graphical batch that draws on the screen */
     private Batch batch;
 
-    /**
-     * List of the tank sprite sheets.
-     */
-    private List<TextureAtlas> textureAtlases;
 
     /**
      * An instance of the current game
@@ -102,6 +97,8 @@ public class GameView {
 
     private  TurnIndicatorAnimation turnIndicatorAnimation;
 
+    private HashMap<Character, GraphicalTank> characterTankHashMap;
+
 
     /**
      * The standard constructor that initialize everything to make the graphics work.
@@ -109,19 +106,15 @@ public class GameView {
      * @param session The current game session.
      */
     public GameView(GameSession session) {
+        metersToPixels = Gdx.graphics.getWidth() / 50f; //Calculates the ratio between the pixels of the display to meters in the world.
         this.session = session;
         batch = new SpriteBatch();
         characterList = session.getCharacterList();
-        textureAtlases = new ArrayList<TextureAtlas>();
-        textureAtlases.add(new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
-        textureAtlases.add(new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
+        setUpTankHashMap();
         projectile = new Sprite(new Texture(Gdx.files.internal("Projectile.png")));
-        metersToPixels = Gdx.graphics.getWidth() / 50f; //Calculates the ratio between the pixels of the display to meters in the world.
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         shapeRenderer = new ShapeRenderer();
         createDebugger();
-        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("Explosion.txt"));
-        explosionAnimation = new Animation<TextureRegion>(1 / 20f, textureAtlas.getRegions());
         explosionAnimations = new ArrayList<ExplosionAnimation>();
         turnIndicatorAnimation = new TurnIndicatorAnimation(metersToPixels);
     }
@@ -236,15 +229,19 @@ public class GameView {
         projectile.setPosition(projectilePos.x * metersToPixels - projectile.getWidth() / 2, projectilePos.y * metersToPixels - projectile.getHeight() / 2);
         projectile.draw(batch);
     }
+    private void setUpTankHashMap(){
+        characterTankHashMap = new HashMap<Character, GraphicalTank>();
+        for(Character c : characterList){
+            GraphicalTank graphicalTank = new GraphicalTank(session.getEnvironment().getTank(c.getTank()), c.getName(), c.getTank().getAngle(), metersToPixels);
+            characterTankHashMap.put(c, graphicalTank);
+        }
+    }
 
     /** Draws the tank*/
     private void drawTanks() {
-        TextureAtlas.AtlasRegion atlasRegion;
-        for (int i = 0; i < characterList.size(); i++) {
-            atlasRegion = textureAtlases.get(i).getRegions().first();
-            Vector2 pos = session.getEnvironment().getTank(characterList.get(i).getTank()).getPosition();
-            batch.draw(atlasRegion, (pos.x * metersToPixels) - atlasRegion.getRegionWidth() / 2,
-                    (pos.y * metersToPixels) - atlasRegion.getRegionHeight() / 4);
+        for(Character c : characterList){
+            GraphicalTank graphicalTank = characterTankHashMap.get(c);
+            graphicalTank.draw(batch);
         }
     }
 
@@ -252,9 +249,9 @@ public class GameView {
      * This disposes the graphical items.
      */
     public void dispose() {
-        for (TextureAtlas textureAtlas : textureAtlases) {
-            textureAtlas.dispose();
-        }
+        //for (TextureAtlas textureAtlas : textureAtlases) {
+            //textureAtlas.dispose();
+       // }
         if(deBugMode){
             debugRenderer.dispose();
         }
