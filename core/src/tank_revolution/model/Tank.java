@@ -17,6 +17,8 @@ public class Tank {
     private float fuel;
     private final float width = 3f;
     private final float height = 2f;
+    private float deltaX;
+    private float deltaY;
     private boolean alive = true;
     private TankObserver observer;
 
@@ -40,7 +42,9 @@ public class Tank {
         this(startX, startY, 100, 100, observer);
     }
 
-    public Shootable shoot() {
+    public Shootable shoot(float deltaX, float deltaY) {
+        this.deltaX = deltaX;
+        this.deltaY = deltaY;
         return ProjectileFactory.shootSmallMissile();
     }
 
@@ -99,6 +103,14 @@ public class Tank {
 
     public float getStartY() {
         return startY;
+    }
+
+    public float getDeltaX(){
+        return deltaX;
+    }
+
+    public float getDeltaY(){
+        return deltaY;
     }
 
     public boolean hasFuel() {

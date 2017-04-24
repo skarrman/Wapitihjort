@@ -109,11 +109,9 @@ public class Environment {
     /**
      *
      * @param projectile the projectile from the model.
-     * @param deltaX the horizontal velocity
-     * @param deltaY the vertical velocity
      * @param shooter the tank shooting the projectile.
      */
-    public void addProjectile(Shootable projectile, float deltaX, float deltaY, Tank shooter){
+    public void addProjectile(Shootable projectile, Tank shooter){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
 
@@ -134,7 +132,7 @@ public class Environment {
         shape.dispose();
 
         //Translation will be needed, this vector will suck
-        Vector2 force = new Vector2(deltaX*50, deltaY*50);
+        Vector2 force = new Vector2(shooter.getDeltaX()*50, shooter.getDeltaY()*50);
         body.applyForceToCenter(force,true);
 
         projectiles.put(projectile, body);
@@ -163,7 +161,7 @@ public class Environment {
     }
 
     //TODO create different terrains.
-    public void setTerrain(float y){
+    private void setTerrain(float y){
         Body terrain;
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;

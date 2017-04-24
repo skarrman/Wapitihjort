@@ -96,8 +96,8 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
 
     public void shoot(float deltaX, float deltaY) {
         if (isActive || getCurrentCharacter().isNPC()) {
-            flyingProjectile = getCurrentTank().shoot();
-            environment.addProjectile(flyingProjectile, deltaX, deltaY, getCurrentTank());
+            flyingProjectile = getCurrentTank().shoot(deltaX, deltaY);
+            environment.addProjectile(flyingProjectile, getCurrentTank());
             isActive = false;
         }
     }
@@ -287,8 +287,6 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
     public void actOnContact(float x, float y){
         
         projectileImpacted(x, y);
-        setNextCharacter();
-        //TODO end turn should not be here for when we have multiple projectiles.
     }
 
     public void actOnDeath(Tank tank) {
