@@ -19,7 +19,7 @@ public class MoveButton extends ImageButton {
         super(new TextureRegionDrawable(new TextureRegion(image)));
         this.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
-                
+
             }
         });
 

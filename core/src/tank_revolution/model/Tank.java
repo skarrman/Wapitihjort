@@ -19,6 +19,7 @@ public class Tank {
     private final float height = 2f;
     private float deltaX;
     private float deltaY;
+    private Integer angle = 0;
     private boolean alive = true;
     private TankObserver observer;
 
@@ -45,6 +46,7 @@ public class Tank {
     public Shootable shoot(float deltaX, float deltaY) {
         this.deltaX = deltaX;
         this.deltaY = deltaY;
+        angle = (int)Math.toDegrees(Math.tan(deltaY/deltaX));
         return ProjectileFactory.shootSmallMissile();
     }
 
@@ -111,6 +113,10 @@ public class Tank {
 
     public float getDeltaY(){
         return deltaY;
+    }
+
+    public Integer getAngle(){
+        return angle;
     }
 
     public boolean hasFuel() {
