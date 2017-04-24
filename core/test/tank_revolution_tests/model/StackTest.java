@@ -11,19 +11,21 @@ import java.util.Stack;
  */
 public class StackTest {
     List<Explosion> list;
-    StackTest(){
+    int iterations;
+    StackTest(int iterations){
         list = new Stack<Explosion>();
+        this.iterations = iterations;
     }
 
     public void add (){
-        for(int i = 0; i < 1000; i ++){
+        for(int i = 0; i < iterations; i ++){
             list.add(new Explosion(10,10,10));
         }
     }
 
-    public void remove (){
-        for(int i = 0; i < 1000; i ++){
-            list.remove(0);
+    public void remove() {
+        for (int i = iterations; i > iterations; i--) {
+            list.remove(i);
         }
     }
 

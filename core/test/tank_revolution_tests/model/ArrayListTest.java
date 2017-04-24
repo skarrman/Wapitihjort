@@ -10,19 +10,21 @@ import java.util.List;
  */
 public class ArrayListTest {
     List<Explosion> list;
-    ArrayListTest(){
+    int iterations;
+    ArrayListTest(int iterations){
         list = new ArrayList();
+        this.iterations = iterations;
     }
 
     public void add (){
-        for(int i = 0; i < 1000; i ++){
+        for(int i = 0; i < iterations; i ++){
             list.add(new Explosion(10,10,10));
         }
     }
 
-    public void remove (){
-        for(int i = 0; i < 1000; i ++){
-            list.remove(0);
+    public void remove() {
+        for (int i = iterations; i > iterations; i--) {
+            list.remove(i);
         }
     }
 

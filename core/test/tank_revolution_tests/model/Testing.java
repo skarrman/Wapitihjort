@@ -12,31 +12,40 @@ import static org.junit.Assert.*;
 
 public class Testing {
 
+    int iterations = 10;
+    int times = 1000000;
+
     @Test public void ArrayListTesting() {
-        ArrayListTest arrayListTest = new ArrayListTest();
+        ArrayListTest arrayListTest = new ArrayListTest(iterations);
         long time = System.nanoTime();
-        arrayListTest.add();
-        arrayListTest.remove();
+        for(int i = 0; i < times; i ++) {
+            arrayListTest.add();
+            arrayListTest.remove();
+        }
         long timeDif = System.nanoTime() - time;
 
         System.out.println("ArrayList = " + timeDif);
     }
 
     @Test public void LinkedListTesting() {
-        LinkedListTest linkedListTest = new LinkedListTest();
+        LinkedListTest linkedListTest = new LinkedListTest(iterations);
         long time = System.nanoTime();
-        linkedListTest.add();
-        linkedListTest.remove();
+        for(int i = 0; i < times; i ++) {
+            linkedListTest.add();
+            linkedListTest.remove();
+        }
         long timeDif = System.nanoTime() - time;
 
         System.out.println("LinkedList = " + timeDif);
     }
 
     @Test public void StackTesting() {
-        StackTest StackTest = new StackTest();
+        StackTest StackTest = new StackTest(iterations);
         long time = System.nanoTime();
-        StackTest.add();
-        StackTest.remove();
+        for(int i = 0; i < times; i ++) {
+            StackTest.add();
+            StackTest.remove();
+        }
         long timeDif = System.nanoTime() - time;
 
         System.out.println("Stack = " + timeDif);
