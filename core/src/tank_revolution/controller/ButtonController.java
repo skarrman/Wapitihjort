@@ -64,7 +64,13 @@ public class ButtonController implements ButtonObserver {
 
     @Override
     public void actOnPress(InputEvent e) {
-        currentGame.moveTank(1);
+        if(e.getTarget().equals(leftButton)){
+            currentGame.moveTank(-1);
+        }else if(e.getTarget().equals(rightButton)){
+            currentGame.moveTank(1);
+        }else{
+            System.out.println(e.getTarget().toString());
+        }
     }
 }
 
