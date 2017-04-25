@@ -232,7 +232,7 @@ public class GameView {
     private void setUpTankHashMap(){
         characterTankHashMap = new HashMap<Character, GraphicalTank>();
         for(Character c : characterList){
-            GraphicalTank graphicalTank = new GraphicalTank(session.getEnvironment().getTank(c.getTank()), c.getName(), c.getTank().getAngle(), metersToPixels);
+            GraphicalTank graphicalTank = new GraphicalTank(session.getEnvironment().getTank(c.getTank()), c.getId(), c.getTank().getAngle(), metersToPixels);
             characterTankHashMap.put(c, graphicalTank);
         }
     }

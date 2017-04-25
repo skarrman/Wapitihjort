@@ -1,14 +1,16 @@
 package tank_revolution.model;
 
+import tank_revolution.Utils.Id;
+
 /**
  * Created by antonhagermalm on 2017-04-13.
  */
 public class CharacterFactory {
-    public static Player newPlayer(String name){
-        return new Player(name);
+    public static Player newPlayer(Id id){
+        return new Player(id);
     }
-    public static NPC newNPC(String name, int difficulty){
-        return new NPC(name, difficulty);
+    public static NPC newNPC(Id id, int difficulty){
+        return new NPC(id, difficulty);
     }
 
     public static Character defenciveCopyCharacter(Character characterToCopy){

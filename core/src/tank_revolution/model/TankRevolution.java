@@ -1,5 +1,7 @@
 package tank_revolution.model;
 
+import tank_revolution.Utils.Id;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +35,8 @@ public class TankRevolution {
 
     public List<Character> setupQuick() {
         List<Character> characters = new ArrayList<Character>();
-        characters.add(CharacterFactory.newPlayer("Player1"));
-        characters.add(CharacterFactory.newNPC("Player2", 2));
+        characters.add(CharacterFactory.newPlayer(Id.PLAYER1_TANK));
+        characters.add(CharacterFactory.newNPC(Id.PLAYER2_TANK, 2));
         return characters;
     }
 

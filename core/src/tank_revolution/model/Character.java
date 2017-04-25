@@ -1,6 +1,8 @@
 package tank_revolution.model;
 
 
+import tank_revolution.Utils.Id;
+
 /**
  * Created by antonhagermalm on 2017-03-30.
  * <p>A character is a holder of a tank. </p>
@@ -10,16 +12,16 @@ package tank_revolution.model;
 
 public abstract class Character {
     private Tank tank;
-    private final String name;
+    private final Id id;
     private final boolean isNPC;
 
     /**
      * Standard constructor for characters
-     * @param name The name of the character
+     * @param id The name of the character
      * @param isNPC If the character is a npc or a player
      */
-    Character(String name, boolean isNPC){
-        this.name = name;
+    Character(Id id, boolean isNPC){
+        this.id = id;
         this.isNPC = isNPC;
     }
 
@@ -28,7 +30,7 @@ public abstract class Character {
      * @param character the character to copy
      */
     Character(Character character){
-        this.name = character.getName();
+        this.id = character.getId();
         this.isNPC = character.isNPC();
     }
 
@@ -52,8 +54,8 @@ public abstract class Character {
      * gets the name
      * @return
      */
-    public String getName() {
-        return name;
+    public Id getId() {
+        return id;
     }
 
     /**

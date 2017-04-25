@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import tank_revolution.Utils.Id;
 
 /**
  * Created by simonkarrman on 2017-04-24.
@@ -12,14 +13,14 @@ import com.badlogic.gdx.physics.box2d.Body;
 public class GraphicalTank {
 
     private Body tankBody;
-    private String name;
+    private Id id;
     private Integer angle;
     private float metersToPixels;
     private TextureAtlas textureAtlas;
 
-    protected GraphicalTank(Body body, String name, Integer angle, float metersToPixels){
+    protected GraphicalTank(Body body, Id id, Integer angle, float metersToPixels){
         this.tankBody = body;
-        this.name = name;
+        this.id = id;
         this.angle = angle;
         this.metersToPixels = metersToPixels;
         setUp();

@@ -1,5 +1,7 @@
 package tank_revolution.model;
 
+import tank_revolution.Utils.Id;
+
 /**
  * {@inheritDoc}
  */
@@ -7,8 +9,8 @@ public class NPC extends Character{
 
     private int difficulty;
 
-    NPC(String name, int difficulty) {
-        super(name, true);
+    NPC(Id id, int difficulty) {
+        super(id, true);
         this.difficulty = difficulty;
     }
 
