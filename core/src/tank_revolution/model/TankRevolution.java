@@ -35,8 +35,8 @@ public class TankRevolution {
 
     public List<Character> setupQuick() {
         List<Character> characters = new ArrayList<Character>();
-        characters.add(CharacterFactory.newPlayer(Id.PLAYER1_TANK));
-        characters.add(CharacterFactory.newNPC(Id.PLAYER2_TANK, 2));
+        characters.add(CharacterFactory.newPlayer(Id.PLAYER1));
+        characters.add(CharacterFactory.newNPC(Id.PLAYER1, 2));
         return characters;
     }
 

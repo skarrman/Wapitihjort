@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.utils.Array;
+import tank_revolution.Utils.AssetsManager;
 import tank_revolution.Utils.Id;
 
 /**
@@ -17,21 +19,24 @@ public class GraphicalTank {
     private Integer angle;
     private float metersToPixels;
     private TextureAtlas textureAtlas;
+    private AssetsManager assetsManager;
 
     protected GraphicalTank(Body body, Id id, Integer angle, float metersToPixels){
         this.tankBody = body;
         this.id = id;
         this.angle = angle;
         this.metersToPixels = metersToPixels;
+        assetsManager = AssetsManager.getInstance();
         setUp();
     }
 
     private void setUp(){
-        textureAtlas = new TextureAtlas(Gdx.files.internal("GreenTank.txt"));
+        textureAtlas = assetsManager.getTextureAtlas(id);
     }
 
     public void draw(Batch batch){
-        TextureAtlas.AtlasRegion atlasRegion = textureAtlas.getRegions().first();
+        Array<TextureAtlas.AtlasRegion> atlasRegions = textureAtlas.getRegions();
+        TextureAtlas.AtlasRegion atlasRegion = atlasRegions.get(angle/atlasRegions.size);
         Vector2 pos = tankBody.getPosition();
         batch.draw(atlasRegion, (pos.x * metersToPixels) - atlasRegion.getRegionWidth() / 2,
                 (pos.y * metersToPixels) - atlasRegion.getRegionHeight() / 4);
