@@ -3,6 +3,8 @@ package tank_revolution.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 import sun.java2d.pipe.AAShapePipe;
+import tank_revolution.Utils.AssetsManager;
+import tank_revolution.Utils.Id;
 import tank_revolution.model.Explosion;
 
 /**
@@ -36,7 +38,7 @@ public class ExplosionAnimation{
      * @param metersToPixels The ratio between meters in the world to pixels on the screen.
      */
     ExplosionAnimation(Explosion explosion, float metersToPixels){
-        textureAtlas = new TextureAtlas(Gdx.files.internal("Explosion.txt"));
+        textureAtlas = AssetsManager.getInstance().getTextureAtlas(Id.EXPLOSION);
         animation = new Animation<TextureRegion>(1 / 20f, textureAtlas.getRegions());
         time = 0;
         TextureRegion animationFrame = new TextureRegion(animation.getKeyFrame(time, false));

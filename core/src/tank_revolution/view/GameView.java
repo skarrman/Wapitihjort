@@ -135,6 +135,9 @@ public class GameView {
             drawVector();
         }
         batch.begin();
+
+        drawTanks();
+
         if (session.isProjectileFlying()) {
             drawProjectile();
         }
@@ -148,13 +151,12 @@ public class GameView {
                 if (!explosionAnimations.get(i).isAnimationFinished())
                     explosionAnimations.get(i).draw(batch);
                 else
-                    explosionAnimations.remove(i).dispose();
+                    explosionAnimations.remove(i);
             }
         }
         Vector2 pos = new Vector2(session.getCurrentCharacter().getTank().getStartX(), session.getCurrentCharacter().getTank().getStartY());
         turnIndicatorAnimation.draw(batch, pos);
 
-        drawTanks();
         batch.end();
 
 
@@ -261,9 +263,6 @@ public class GameView {
      * This disposes the graphical items.
      */
     public void dispose() {
-        //for (TextureAtlas textureAtlas : textureAtlases) {
-            //textureAtlas.dispose();
-       // }
         if(deBugMode){
             debugRenderer.dispose();
         }

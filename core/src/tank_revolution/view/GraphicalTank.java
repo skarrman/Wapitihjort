@@ -36,6 +36,6 @@ public class GraphicalTank {
         TextureAtlas.AtlasRegion atlasRegion = atlasRegions.first();
         Vector2 pos = tankBody.getPosition();
         batch.draw(atlasRegion, (pos.x * metersToPixels) - atlasRegion.getRegionWidth() / 2,
-                (pos.y * metersToPixels) - atlasRegion.getRegionHeight() / 4);
+                                (pos.y * metersToPixels) - atlasRegion.getRegionHeight() / 4);
     }
 }
