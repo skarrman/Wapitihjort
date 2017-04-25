@@ -81,7 +81,9 @@ public class Tank {
         fuel = n;
     }
 
-    public void drive(int direction) { }
+    public void drive(int direction) {
+
+    }
 
     public float getWidth() {
         return width;

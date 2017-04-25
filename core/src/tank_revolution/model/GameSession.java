@@ -127,17 +127,15 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
      *
      * @param direction -1 if left button is pressed, 1 if right button is pressed.
      */
-    public boolean moveTank(int direction) {
+    public void moveTank(int direction) {
+        System.out.print(direction);
         Tank tank = characterList.get(characterTurn).getTank();
         if (tank.hasFuel()) {
             tank.setFuel(tank.getFuel() - 1);
             if (tankCanMove()) {
-                tank.drive(direction);
-                return true;
+                environment.getTank(tank).setLinearVelocity(direction,0);
             }
-
         }
-        return false;
     }
 
     /**
