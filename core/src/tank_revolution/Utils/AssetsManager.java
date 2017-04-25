@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +19,7 @@ public class AssetsManager {
     /**
      * A Map with all textureAtlases and with a String for key
      */
-    private Map<String, TextureAtlas> textureAtlases;
+    private Map<Id, TextureAtlas> textureAtlases;
     /**
      * the sprite for the standard projectile
      */
@@ -51,15 +53,20 @@ public class AssetsManager {
             load4PlayerAssets();
         }
 
-        loadExplosionTextureAtlas();
-        loadProjectileSprite();
+        try {
+            loadExplosionTextureAtlas();
+            loadProjectileSprite();
+        }
+        catch (FileNotFoundException e){
+            System.out.println("The explosion texture or the projectile texture was not found");
+        }
     }
 
     /**
      * @param textureName the name of the textureAtlas
      * @return the textureAtlas
      */
-    public TextureAtlas getTextureAtlas(String textureName){
+    public TextureAtlas getTextureAtlas(Id textureName){
         return textureAtlases.get(textureName);
     }
 
@@ -69,49 +76,64 @@ public class AssetsManager {
 
     private AssetsManager() {
         //textureAtlases = new HashMap<TextureAtlasAssets, TextureAtlas>();
-        textureAtlases = new HashMap<String, TextureAtlas>();
+        textureAtlases = new HashMap<Id, TextureAtlas>();
     }
 
     /**
      * The following methods is used for calling the right loadingMethods
      */
     private void load2PlayerAssets(){
-        loadPlayer1TankTextureAtlas();
-        loadPlayer2TankTextureAtlas();
+        try {
+            loadPlayer1TankTextureAtlas();
+            loadPlayer2TankTextureAtlas();
+        }
+        catch (FileNotFoundException e){
+            System.out.println("Player 1 or player 2 texture was not found");
+        }
     }
-    private void load3PlayerAssets(){
+    private void load3PlayerAssets() {
         load2PlayerAssets();
-        loadPlayer3TankTextureAtlas();
+        try {
+            loadPlayer3TankTextureAtlas();
+        }
+        catch (FileNotFoundException e){
+            System.out.println("Player 3 texture was not found");
+        }
     }
     private void load4PlayerAssets(){
         load3PlayerAssets();
-        loadPlayer4TankTextureAtlas();
+        try{
+            loadPlayer4TankTextureAtlas();
+        }
+        catch (FileNotFoundException e){
+            System.out.println("Player 4 texture was not found");
+        }
     }
 
     /**
      * The following methods loads the assets from the android assets folder and puts into the map or the Sprite variable
      */
-    private void loadExplosionTextureAtlas(){
+    private void loadExplosionTextureAtlas() throws FileNotFoundException{
         //textureAtlases.put(TextureAtlasAssets.EXPLOSION, new TextureAtlas(Gdx.files.internal("Explosion.txt")));
-        textureAtlases.put("explosion", new TextureAtlas(Gdx.files.internal("Explosion.txt")));
+        textureAtlases.put(Id.EXPLOSION, new TextureAtlas(Gdx.files.internal("Explosion.txt")));
     }
 
-    private void loadPlayer1TankTextureAtlas(){
+    private void loadPlayer1TankTextureAtlas() throws FileNotFoundException{
         //textureAtlases.put(TextureAtlasAssets.PLAYER1_TANK, new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
-        textureAtlases.put("player1", new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
+        textureAtlases.put(Id.PLAYER1, new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
     }
 
-    private void loadPlayer2TankTextureAtlas(){
+    private void loadPlayer2TankTextureAtlas() throws FileNotFoundException{
         //textureAtlases.put(TextureAtlasAssets.PLAYER2_TANK, new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
-        textureAtlases.put("player2", new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
+        textureAtlases.put(Id.PLAYER2, new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
     }
 
-    private void loadPlayer3TankTextureAtlas(){
-
+    private void loadPlayer3TankTextureAtlas() throws FileNotFoundException{
+        textureAtlases.put(Id.PLAYER3, new TextureAtlas(Gdx.files.internal("PLACEHOLDER")));
     }
 
-    private void loadPlayer4TankTextureAtlas(){
-
+    private void loadPlayer4TankTextureAtlas() throws FileNotFoundException{
+        textureAtlases.put(Id.PLAYER4, new TextureAtlas(Gdx.files.internal("PLACEHOLDER")));
     }
 
     private void loadProjectileSprite(){
