@@ -133,7 +133,7 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
         if (tank.hasFuel()) {
             tank.setFuel(tank.getFuel() - 1);
             if (tankCanMove()) {
-                environment.getTank(tank).setLinearVelocity(direction,0);
+                environment.getTank(tank).setLinearVelocity(direction*50,0);
             }
         }
     }

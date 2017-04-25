@@ -2,6 +2,7 @@ package tank_revolution.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import tank_revolution.Utils.ButtonObserver;
@@ -23,10 +24,11 @@ public class ButtonController implements ButtonObserver {
         this.view = view;
         this.currentGame = currentGame;
         stage = new Stage();
-        leftButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")));
-        rightButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")));
+        leftButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")),this);
+        rightButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")), this);
         leftButton.setBounds(0, 0, Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight());
-        rightButton.setBounds(Gdx.graphics.getWidth()-(Gdx.graphics.getWidth()/10), 0, Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight());
+        rightButton.setBounds(Gdx.graphics.getWidth()-(Gdx.graphics.getWidth()/10), 0,
+                Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight());
         stage.addActor(leftButton);
         stage.addActor(rightButton);
     }
@@ -62,11 +64,7 @@ public class ButtonController implements ButtonObserver {
 
     @Override
     public void actOnPress(InputEvent e) {
-        if(e.getRelatedActor().equals(leftButton)){
-            currentGame.moveTank(-1);
-        }else if(e.getRelatedActor().equals(rightButton)){
-            currentGame.moveTank(1);
-        }
+        currentGame.moveTank(1);
     }
 }
 

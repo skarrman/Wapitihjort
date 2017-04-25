@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import tank_revolution.Utils.ButtonObserver;
-import tank_revolution.model.GameSession;
 
 
 /**
@@ -15,9 +14,8 @@ import tank_revolution.model.GameSession;
  */
 public class MoveButton extends ImageButton {
 
-    private ButtonObserver observer;
 
-    public MoveButton(Texture image) {
+    public MoveButton(Texture image, final ButtonObserver observer) {
         super(new TextureRegionDrawable(new TextureRegion(image)));
         this.addListener(new InputListener() {
             @Override

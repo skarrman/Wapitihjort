@@ -1,5 +1,6 @@
 package tank_revolution.Utils;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import tank_revolution.controller.MoveButton;
 
