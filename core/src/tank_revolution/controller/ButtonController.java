@@ -2,7 +2,6 @@ package tank_revolution.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import tank_revolution.Utils.ButtonObserver;
@@ -41,27 +40,6 @@ public class ButtonController implements ButtonObserver {
         return stage;
     }
 
-
-    public void rightMoveButtonListener(){
-        currentGame.moveTank(1);
-    }
-
-    public void leftMoveButtonListener(){
-         currentGame.moveTank(-1);
-    }
-
-    public void leftChangeWeaponButtonListener(){
-
-    }
-
-    public void rightChangeWeaponButtonListener(){
-
-    }
-
-    public void openMenuButtonListener(){
-
-    }
-
     @Override
     public void actOnPress(InputEvent e) {
         if(e.getTarget().equals(leftButton)){
@@ -71,6 +49,11 @@ public class ButtonController implements ButtonObserver {
         }else{
             System.out.println(e.getTarget().toString());
         }
+    }
+
+    @Override
+    public void actOnRelease(){
+        currentGame.stopTank();
     }
 }
 

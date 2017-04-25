@@ -138,6 +138,11 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
         }
     }
 
+    public void stopTank(){
+        Tank tank = characterList.get(characterTurn).getTank();
+        environment.getTank(tank).setLinearVelocity(0,0);
+    }
+
     /**
      * @return true if the terrain allows the tank to move
      */

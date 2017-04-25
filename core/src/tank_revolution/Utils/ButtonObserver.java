@@ -9,4 +9,5 @@ import tank_revolution.controller.MoveButton;
  */
 public interface ButtonObserver {
     void actOnPress(InputEvent e);
+    void actOnRelease();
 }
