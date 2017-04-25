@@ -27,16 +27,13 @@ public class GraphicalTank {
         this.angle = angle;
         this.metersToPixels = metersToPixels;
         assetsManager = AssetsManager.getInstance();
-        setUp();
-    }
-
-    private void setUp(){
         textureAtlas = assetsManager.getTextureAtlas(id);
     }
 
+
     public void draw(Batch batch){
         Array<TextureAtlas.AtlasRegion> atlasRegions = textureAtlas.getRegions();
-        TextureAtlas.AtlasRegion atlasRegion = atlasRegions.get(angle/atlasRegions.size);
+        TextureAtlas.AtlasRegion atlasRegion = atlasRegions.first();
         Vector2 pos = tankBody.getPosition();
         batch.draw(atlasRegion, (pos.x * metersToPixels) - atlasRegion.getRegionWidth() / 2,
                 (pos.y * metersToPixels) - atlasRegion.getRegionHeight() / 4);

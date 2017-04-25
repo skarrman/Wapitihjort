@@ -1,5 +1,6 @@
 package tank_revolution.model;
 
+import tank_revolution.Utils.AssetsManager;
 import tank_revolution.Utils.Id;
 
 import java.util.ArrayList;
@@ -36,7 +37,8 @@ public class TankRevolution {
     public List<Character> setupQuick() {
         List<Character> characters = new ArrayList<Character>();
         characters.add(CharacterFactory.newPlayer(Id.PLAYER1));
-        characters.add(CharacterFactory.newNPC(Id.PLAYER1, 2));
+        characters.add(CharacterFactory.newNPC(Id.PLAYER2, 2));
+        AssetsManager.getInstance().loadStartingAssets(2);
         return characters;
     }
 
