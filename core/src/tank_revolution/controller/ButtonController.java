@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import tank_revolution.Utils.ButtonObserver;
+import tank_revolution.framework.Environment;
 import tank_revolution.model.GameSession;
 import tank_revolution.view.GameView;
 
@@ -15,13 +16,15 @@ import tank_revolution.view.GameView;
 public class ButtonController implements ButtonObserver {
     private GameView view;
     private GameSession currentGame;
+    private Environment environment;
     private Stage stage;
     private MoveButton rightButton;
     private MoveButton leftButton;
 
-    public ButtonController(GameView view, GameSession currentGame){
+    public ButtonController(GameView view, GameSession currentGame, Environment environment){
         this.view = view;
         this.currentGame = currentGame;
+        this.environment = environment;
         stage = new Stage();
         leftButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")),this);
         rightButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")), this);
@@ -43,8 +46,10 @@ public class ButtonController implements ButtonObserver {
     @Override
     public void actOnPress(InputEvent e) {
         if(e.getTarget().equals(leftButton)){
+            environment.moveTank(-1);
             currentGame.moveTank(-1);
         }else if(e.getTarget().equals(rightButton)){
+            environment.moveTank(1);
             currentGame.moveTank(1);
         }else{
             System.out.println(e.getTarget().toString());
@@ -53,7 +58,7 @@ public class ButtonController implements ButtonObserver {
 
     @Override
     public void actOnRelease(){
-        currentGame.stopTank();
+        environment.stopTank();
     }
 }
 
