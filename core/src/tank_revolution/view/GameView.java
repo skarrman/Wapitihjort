@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import tank_revolution.controller.MoveButton;
+import tank_revolution.framework.Environment;
 import tank_revolution.model.Character;
 import tank_revolution.model.GameSession;
 
@@ -39,6 +40,11 @@ public class GameView {
      * An instance of the current game
      */
     private GameSession session;
+
+    /**
+     * The environment
+     */
+    private Environment environment;
 
     /**
      * List of the characters in the current game
@@ -105,7 +111,8 @@ public class GameView {
      *
      * @param session The current game session.
      */
-    public GameView(GameSession session) {
+    public GameView(GameSession session, Environment environment) {
+        this.environment = environment;
         metersToPixels = Gdx.graphics.getWidth() / 50f; //Calculates the ratio between the pixels of the display to meters in the world.
         this.session = session;
         batch = new SpriteBatch();

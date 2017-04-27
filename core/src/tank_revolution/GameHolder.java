@@ -1,7 +1,11 @@
-package tank_revolution.controller;
+package tank_revolution;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
+import tank_revolution.Utils.Constants;
+import tank_revolution.controller.AimController;
+import tank_revolution.controller.ButtonController;
+import tank_revolution.framework.Environment;
 import tank_revolution.model.GameSession;
 import tank_revolution.model.TankRevolution;
 import tank_revolution.view.GameView;
@@ -15,7 +19,9 @@ public class GameHolder implements ApplicationListener {
     private TankRevolution model;
     private GameView view;
     private GameSession currentGame;
+    private Environment environment;
     private ButtonController buttonController;
+    private AimController aimController;
 
     /**
      * Called when the {@link Application} is first created.
@@ -24,8 +30,10 @@ public class GameHolder implements ApplicationListener {
     public void create() {
             model = new TankRevolution();
             currentGame = model.newGame();
-            view = new GameView(currentGame);
-            buttonController = new ButtonController(view, currentGame);
+            environment = new Environment(Constants.getMapWidth(), currentGame);
+            view = new GameView(currentGame, environment);
+            aimController = new AimController(view, currentGame, environment);
+            buttonController = new ButtonController(view, currentGame, environment);
     }
 
     /**

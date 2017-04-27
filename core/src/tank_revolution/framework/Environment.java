@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.sun.javafx.geom.Edge;
 import tank_revolution.model.Explosion;
+import tank_revolution.model.GameSession;
 import tank_revolution.model.ShootablePackage.Projectile;
 import tank_revolution.model.ShootablePackage.ProjectileFactory;
 import tank_revolution.model.ShootablePackage.Shootable;
@@ -35,6 +36,8 @@ public class Environment {
     /** The terrain of the world. */
     private Body terrain;
 
+    private GameSession gameSession;
+
     /** The left wall of the world. */
     private Body leftSide;
 
@@ -54,8 +57,9 @@ public class Environment {
      * Creates a new Environment for Bodys to live in.
      * @param mapWidth is the width of the gameboard.
      */
-    public Environment(float mapWidth){
+    public Environment(float mapWidth, GameSession gameSession){
         this.mapWidth = mapWidth;
+        this.gameSession = gameSession;
         tanks = new HashMap<Tank, Body>();
         projectiles = new HashMap<Shootable, Body>();
         removeStack = new ArrayList<Body>();
