@@ -6,12 +6,14 @@ import tank_revolution.model.GameSession;
 import tank_revolution.view.GameView;
 
 /**
- * Created by JakobErlandsson on 2017-04-27.
+ * Controller class responsible for handling input from when the user drags it's finger across the screen
+ * to aim their shot.
  */
 public class AimController implements InputProcessor {
-
+    // x and y-coordinates for the initial press.
     private float touchX;
     private float touchY;
+
     private GameView gameView;
     private GameSession currentGame;
     private Environment environment;

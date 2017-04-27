@@ -11,7 +11,7 @@ import tank_revolution.view.GameView;
 
 
 /**
- * Created by JakobErlandsson on 2017-04-24.
+ * Controller class responsible for handling input from buttons around the UI
  */
 public class ButtonController implements ButtonObserver {
     private GameView view;
@@ -35,6 +35,9 @@ public class ButtonController implements ButtonObserver {
         stage.addActor(rightButton);
     }
 
+    /**
+     * Tells the view to draw the buttons in a specified place.
+     */
     public void placeButtons(){
         view.placeButtons(leftButton, rightButton, stage);
     }

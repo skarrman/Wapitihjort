@@ -8,7 +8,7 @@ import tank_revolution.model.GameSession;
 import tank_revolution.view.GameView;
 
 /**
- * Created by JakobErlandsson on 2017-04-27.
+ * Main controller class, creates the different controllers and assigns their purpose.
  */
 public class MainController {
 
@@ -23,7 +23,7 @@ public class MainController {
         this.environment = environment;
         this.gameView = gameView;
         buttonController =  new ButtonController(gameView, currentGame, environment);
-        aimController =  new AimController(gameView, currentGame);
+        aimController =  new AimController(gameView, currentGame, environment);
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(buttonController.getStage());
         inputMultiplexer.addProcessor(aimController);

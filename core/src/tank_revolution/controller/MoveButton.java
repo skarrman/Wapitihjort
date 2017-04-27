@@ -10,7 +10,7 @@ import tank_revolution.Utils.ButtonObserver;
 
 
 /**
- * Created by JakobErlandsson on 2017-04-05.
+ * A UI button with listeners and observers.
  */
 public class MoveButton extends ImageButton {
 
