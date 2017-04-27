@@ -7,12 +7,15 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import tank_revolution.Utils.Constants;
 import tank_revolution.controller.MoveButton;
 import tank_revolution.framework.Environment;
 import tank_revolution.model.Character;
+import tank_revolution.model.Explosion;
 import tank_revolution.model.GameSession;
 
 import java.util.ArrayList;
@@ -113,7 +116,7 @@ public class GameView {
      */
     public GameView(GameSession session, Environment environment) {
         this.environment = environment;
-        metersToPixels = Gdx.graphics.getWidth() / 50f; //Calculates the ratio between the pixels of the display to meters in the world.
+        metersToPixels = Gdx.graphics.getWidth() / Constants.getMapWidth();
         this.session = session;
         batch = new SpriteBatch();
         characterList = session.getCharacterList();
@@ -148,9 +151,11 @@ public class GameView {
         if (session.isProjectileFlying()) {
             drawProjectile();
         }
-        if (session.getExplosions().size() > 0) {
-            for (int i = 0; i < session.getExplosions().size(); i++) {
-                explosionAnimations.add(new ExplosionAnimation(session.getExplosions().remove(0), metersToPixels));
+        List<Explosion> explosions = environment.getExplosions();
+        if (explosions.size() > 0) {
+            for(Explosion e : explosions) {
+                explosionAnimations.add(new ExplosionAnimation(e, metersToPixels));
+                explosions.remove(e);
             }
         }
         if (explosionAnimations.size() > 0) {
@@ -161,8 +166,8 @@ public class GameView {
                     explosionAnimations.remove(i);
             }
         }
-        Vector2 pos = new Vector2(session.getCurrentCharacter().getTank().getStartX(), session.getCurrentCharacter().getTank().getStartY());
-        turnIndicatorAnimation.draw(batch, pos);
+        Body currentPlayer = environment.getTank(session.getCurrentTank());
+        turnIndicatorAnimation.draw(batch, currentPlayer.getPosition());
 
         batch.end();
 
@@ -241,7 +246,7 @@ public class GameView {
     private void setUpTankHashMap(){
         characterTankHashMap = new HashMap<Character, GraphicalTank>();
         for(Character c : characterList){
-            GraphicalTank graphicalTank = new GraphicalTank(session.getEnvironment().getTank(c.getTank()), c.getId(), c.getTank().getAngle(), metersToPixels);
+            GraphicalTank graphicalTank = new GraphicalTank(environment.getTank(c.getTank()), c.getId(), c.getTank().getAngle(), metersToPixels);
             characterTankHashMap.put(c, graphicalTank);
         }
     }
