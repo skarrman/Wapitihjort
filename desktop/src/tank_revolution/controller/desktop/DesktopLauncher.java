@@ -2,6 +2,8 @@ package tank_revolution.controller.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import tank_revolution.controller.GameHolder;
+import tank_revolution.controller.NyTest;
 import tank_revolution.controller.TankRevolutionController;
 
 public class DesktopLauncher {
@@ -9,6 +11,6 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 960;
 		config.height = 540;
-		new LwjglApplication(new TankRevolutionController(), config);
+		new LwjglApplication(new GameHolder(), config);
 	}
 }
