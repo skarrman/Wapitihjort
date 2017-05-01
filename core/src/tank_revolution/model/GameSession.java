@@ -1,26 +1,17 @@
 package tank_revolution.model;
 
-import com.badlogic.gdx.math.Vector2;
-import tank_revolution.Utils.Observable;
-import tank_revolution.Utils.Observer;
 import tank_revolution.Utils.TankObserver;
-import tank_revolution.framework.ContactObserver;
-import tank_revolution.framework.Environment;
-import tank_revolution.framework.NextMoveObserver;
-import tank_revolution.model.ShootablePackage.ProjectileFactory;
 import tank_revolution.model.ShootablePackage.Shootable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import tank_revolution.Utils.Constants;
 
 /**
  * Created by antonhagermalm on 2017-03-30.
  */
-public class GameSession implements ContactObserver, NextMoveObserver, TankObserver{
-
-    /** The width of the map in meters */
-    private final float mapWidth = 50f;
+public class GameSession implements TankObserver{
 
     /** list of the playing character */
     private List<Character> characterList;
@@ -68,7 +59,7 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
             }
 
             else if (i == 1) {
-                Tank tank = new Tank( mapWidth - 5f, 7f, this);
+                Tank tank = new Tank( Constants.getMapWidth() - 5f, 7f, this);
                 characterList.get(1).setTank(tank);
                 environment.addTank(tank);
             }
@@ -212,13 +203,6 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
      */
     public float getMapWidth() {
         return mapWidth;
-    }
-
-    /**
-     * @return the environment
-     */
-    public Environment getEnvironment(){
-        return environment;
     }
 
     /**
