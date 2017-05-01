@@ -144,7 +144,7 @@ public class Environment {
         Body body;
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(tank.getStartX(), tank.getStartY());
+        bodyDef.position.set(tank.getPositionX(), tank.getPositionY());
 
         body = world.createBody(bodyDef);
         PolygonShape shape = new PolygonShape();
@@ -216,7 +216,7 @@ public class Environment {
         removeStack.add(projectiles.get(projectile));
         projectiles.remove(projectile);
         if(projectiles.isEmpty()){
-            notifyNextMoveObservers();
+            gameSession.doNextMove();
         }
     }
 

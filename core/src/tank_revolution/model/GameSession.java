@@ -51,9 +51,6 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
 
     public GameSession(List<Character> characterList) {
         this.characterList = characterList;
-        environment = new Environment(mapWidth);
-        environment.addContactObserver(this);
-        environment.addNextMoveObserver(this);
         explosions = new ArrayList<Explosion>();
         gameSessionSetup();
     }
@@ -266,7 +263,7 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
 
         for(int i = 0; i < characterList.size(); i++){
             Tank tank = characterList.get(i).getTank();
-            float distance = environment.distanceTo(tank, flyingProjectile);
+            float distance = environment.distanceTo(tan k, flyingProjectile);
             if(distance < flyingProjectile.getBlastRadius()){
                 tank.reduceHealth(calculateDamage(flyingProjectile.getDamage(), distance, flyingProjectile.getBlastRadius()));
             }
