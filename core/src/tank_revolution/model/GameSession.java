@@ -40,9 +40,6 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
     /** true if the current character is a player, false if npc */
     private boolean isActive;
     /**
-     * The world in which all bodies and the libGDX framework are contained.
-     */
-    private Environment environment;
 
     /**
      * Creates a new gameSession from a list of characters and gives the characters tanks and addes the tanks to the world.
@@ -283,7 +280,6 @@ public class GameSession implements ContactObserver, NextMoveObserver, TankObser
      * @param y the y-coordinate of the collision
      */
     public void actOnContact(float x, float y){
-        
         projectileImpacted(x, y);
     }
 

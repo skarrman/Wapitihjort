@@ -21,6 +21,8 @@ import tank_revolution.model.Tank;
  */
 public class Environment {
 
+    private GameSession gameSession;
+
     /** The map width of the playing field */
     private float mapWidth;
 
@@ -36,19 +38,11 @@ public class Environment {
     /** The terrain of the world. */
     private Body terrain;
 
-    private GameSession gameSession;
-
     /** The left wall of the world. */
     private Body leftSide;
 
     /** The right wall of the world*/
     private Body rightSide;
-
-    /** List of observers observing contacts in the environment.*/
-    private List<ContactObserver> contactObservers = new ArrayList<ContactObserver>();
-
-    /** List of observers observing when a shoot is finished.*/
-    private List<NextMoveObserver> nextMoveObservers = new ArrayList<NextMoveObserver>();
 
     /** List of bodies pending to be destroyed */
     private List<Body> removeStack;
@@ -190,7 +184,7 @@ public class Environment {
         return world;
     }
 
-    public Body getTank(Tank tank){
+    public Body getTankBody(Tank tank){
         return tanks.get(tank);
     }
 
@@ -257,29 +251,15 @@ public class Environment {
         return projectiles.get(projectile).getPosition().y;
     }
 
-    public void addNextMoveObserver(NextMoveObserver observer){
-        nextMoveObservers.add(observer);
-    }
-
-    private void notifyNextMoveObservers(){
-        for(int i = 0; i < nextMoveObservers.size(); i++) {
-            nextMoveObservers.get(i).doNextMove();
-        }
-    }
-
-    public void addContactObserver(ContactObserver observer){
-        contactObservers.add(observer);
-    }
-
     private void createContactListener() {
         world.setContactListener(new ContactListener() {
             @Override
             public void beginContact(Contact contact) {
                 if (projectiles.containsValue(contact.getFixtureA().getBody())){
-                    notifyContactObservers(contact.getFixtureA().getBody().getPosition().x,
+                    gameSession.actOnContact(contact.getFixtureA().getBody().getPosition().x,
                             contact.getFixtureA().getBody().getPosition().y);
                 }else if(projectiles.containsValue(contact.getFixtureB().getBody())){
-                    notifyContactObservers(contact.getFixtureB().getBody().getPosition().x,
+                    gameSession.actOnContact(contact.getFixtureB().getBody().getPosition().x,
                             contact.getFixtureB().getBody().getPosition().y);
                 }
             }
@@ -298,12 +278,6 @@ public class Environment {
 
             }
         });
-    }
-
-    private void notifyContactObservers(float x, float y){
-       for(int i = 0; i < contactObservers.size(); i++) {
-           contactObservers.get(i).actOnContact(x, y);
-       }
     }
 
 }

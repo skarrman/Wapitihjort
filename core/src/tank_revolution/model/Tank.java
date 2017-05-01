@@ -11,8 +11,8 @@ import java.awt.*;
  */
 public class Tank {
 
-    private float startX;
-    private float startY;
+    private float positionX;
+    private float positionY;
     private int health;
     private float fuel;
     private final float width = 3f;
@@ -30,9 +30,9 @@ public class Tank {
     private int currentProjectile;
 
 
-    public Tank(float startX, float startY, int health, int fuel, TankObserver observer) {
-        this.startX = startX;
-        this.startY = startY;
+    public Tank(float positionX, float positionY, int health, int fuel, TankObserver observer) {
+        this.positionX = positionX;
+        this.positionY = positionY;
         currentProjectile = 0;
         this.health = health;
         this.fuel = fuel;
@@ -101,12 +101,20 @@ public class Tank {
         return alive;
     }
 
-    public float getStartX() {
-        return startX;
+    public void setPositionX(float positionX) {
+        this.positionX = positionX;
     }
 
-    public float getStartY() {
-        return startY;
+    public void setPositionY(float positionY) {
+        this.positionY = positionY;
+    }
+
+    public float getPositionX() {
+        return positionX;
+    }
+
+    public float getPositionY() {
+        return positionY;
     }
 
     public float getDeltaX(){
