@@ -1,5 +1,6 @@
 package tank_revolution.model;
 
+import tank_revolution.Exception.CantShootException;
 import tank_revolution.Utils.TankObserver;
 import tank_revolution.model.ShootablePackage.Shootable;
 
@@ -78,12 +79,13 @@ public class GameSession implements TankObserver{
         }
     }
 
-    public Shootable shoot(float deltaX, float deltaY) {
-        if (isActive || getCurrentCharacter().isNPC()) {
-            flyingProjectile = getCurrentTank().shoot(deltaX, deltaY);
-            isActive = false;
-            return flyingProjectile;
+    public Shootable shoot(float deltaX, float deltaY) throws CantShootException{
+        if (!isActive || !getCurrentCharacter().isNPC()) {
+            throw new CantShootException();
         }
+        flyingProjectile = getCurrentTank().shoot(deltaX, deltaY);
+        isActive = false;
+        return flyingProjectile;
     }
 
     public Character getCurrentCharacter(){

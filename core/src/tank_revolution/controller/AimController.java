@@ -1,6 +1,7 @@
 package tank_revolution.controller;
 
 import com.badlogic.gdx.InputProcessor;
+import tank_revolution.Exception.CantShootException;
 import tank_revolution.framework.Environment;
 import tank_revolution.model.GameSession;
 import tank_revolution.view.GameView;
@@ -37,7 +38,12 @@ public class AimController implements InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         if (Math.sqrt((screenX - touchX) * (screenX - touchX) + (screenY - touchY) * (screenY - touchY)) > 6) {
             gameView.removeVector();
-            environment.shoot(currentGame.shoot(touchX - screenX, screenY - touchY), currentGame.getCurrentTank());
+            try {
+                environment.shoot(currentGame.shoot(touchX - screenX, screenY - touchY), currentGame.getCurrentTank());
+            }
+            catch(CantShootException e){
+
+            }
             return true;
         }return false;
     }
