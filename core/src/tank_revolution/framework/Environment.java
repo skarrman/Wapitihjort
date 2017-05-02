@@ -8,6 +8,7 @@ import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import tank_revolution.model.Explosion;
 import tank_revolution.model.GameSession;
 import tank_revolution.model.ShootablePackage.Shootable;
 import tank_revolution.model.Tank;
@@ -43,6 +44,9 @@ public class Environment {
     /** List of bodies pending to be destroyed */
     private List<Body> removeStack;
 
+    /** List of current explosions */
+    private List<Explosion> explosions;
+
     /**
      * Creates a new Environment for Bodys to live in.
      * @param mapWidth is the width of the gameboard.
@@ -55,6 +59,7 @@ public class Environment {
         removeStack = new ArrayList<Body>();
         setupWorld();
         createContactListener();
+        this.explosions = new ArrayList<Explosion>();
     }
 
     /**
@@ -182,6 +187,10 @@ public class Environment {
 
     public Body getTankBody(Tank tank){
         return tanks.get(tank);
+    }
+
+    public List<Explosion> getExplosions() {
+        return explosions;
     }
 
     public void dispose() {

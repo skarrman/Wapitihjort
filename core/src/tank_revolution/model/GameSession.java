@@ -19,9 +19,6 @@ public class GameSession implements TankObserver{
     /** The projectile, will hold the projectile in air */
     private List<Shootable> flyingProjectiles;
 
-    /** List of current explosions */
-    private List<Explosion> explosions;
-
     /** The index of the current playing character */
     private int characterTurn = 0;
 
@@ -42,7 +39,6 @@ public class GameSession implements TankObserver{
 
     public GameSession(List<Character> characterList) {
         this.characterList = characterList;
-        explosions = new ArrayList<Explosion>();
         gameSessionSetup();
     }
 
@@ -175,11 +171,8 @@ public class GameSession implements TankObserver{
     /**
      * safely removes a projectile
      */
-    private void destroyProjectile() {
-        if (!environment.isLocked()) {
-            environment.destroyProjectile(flyingProjectile);
-            projectileHasHit = false;
-        }
+    private void destroyProjectile(Shootable shootable) {
+        flyingProjectiles.remove(shootable);
     }
 
     /**
@@ -191,13 +184,6 @@ public class GameSession implements TankObserver{
         }else{
             isActive = false;
         }
-    }
-
-    /**
-     * @return the list of explosions
-     */
-    public List<Explosion> getExplosions() {
-        return explosions;
     }
 
     /**
