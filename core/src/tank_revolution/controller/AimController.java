@@ -14,6 +14,7 @@ public class AimController implements InputProcessor {
     // x and y-coordinates for the initial press.
     private float touchX;
     private float touchY;
+    private boolean touchAllowed;
 
     private GameView gameView;
     private GameSession currentGame;
@@ -31,26 +32,24 @@ public class AimController implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         touchX = screenX;
         touchY = screenY;
+        touchAllowed = currentGame.isInputAllowed();
         return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        if(touchAllowed){
         if (Math.sqrt((screenX - touchX) * (screenX - touchX) + (screenY - touchY) * (screenY - touchY)) > 6) {
             gameView.removeVector();
-            try {
-                environment.shoot(currentGame.shoot(touchX - screenX, screenY - touchY), currentGame.getCurrentTank());
-            }
-            catch(CantShootException e){
-
-            }
+            environment.shoot(currentGame.shoot(touchX - screenX, screenY - touchY), currentGame.getCurrentTank());
             return true;
+        }
         }return false;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        if (!currentGame.isProjectileFlying()) {
+        if (touchAllowed) {
             if (Math.sqrt((screenX - touchX) * (screenX - touchX) + (screenY - touchY) * (screenY - touchY)) > 6) {
                 gameView.createArrow(touchX, touchY, screenX, screenY);
                 return true;

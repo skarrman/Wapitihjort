@@ -79,10 +79,11 @@ public class GameSession implements TankObserver{
         }
     }
 
-    public Shootable shoot(float deltaX, float deltaY) throws CantShootException{
-        if (!isActive || !getCurrentCharacter().isNPC()) {
-            throw new CantShootException();
-        }
+    public boolean isInputAllowed(){
+        return (isActive || getCurrentCharacter().isNPC());
+    }
+
+    public Shootable shoot(float deltaX, float deltaY){
         flyingProjectile = getCurrentTank().shoot(deltaX, deltaY);
         isActive = false;
         return flyingProjectile;
