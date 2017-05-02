@@ -99,11 +99,11 @@ public class GameSession implements TankObserver{
         setNextCharacter();
         getCurrentCharacter().setNewTurn();
         flyingProjectile = null;
-        if(getCurrentCharacter().isNPC()){
+        /*if(getCurrentCharacter().isNPC()){
             shoot(-470, 500);
         }else{
             setIsActive();
-        }
+        }*/
     }
 
     /**
@@ -196,13 +196,6 @@ public class GameSession implements TankObserver{
             environment.destroyProjectile(flyingProjectile);
             projectileHasHit = false;
         }
-    }
-
-    /**
-     * @return the mapWidth
-     */
-    public float getMapWidth() {
-        return mapWidth;
     }
 
     /**
