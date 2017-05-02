@@ -17,6 +17,7 @@ import tank_revolution.framework.Environment;
 import tank_revolution.model.Character;
 import tank_revolution.model.Explosion;
 import tank_revolution.model.GameSession;
+import tank_revolution.model.ShootablePackage.Shootable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -149,7 +150,7 @@ public class GameView {
         drawTanks();
 
         if (session.isProjectileFlying()) {
-            drawProjectile();
+            drawProjectiles();
         }
         List<Explosion> explosions = environment.getExplosions();
         if (explosions.size() > 0) {
@@ -166,7 +167,7 @@ public class GameView {
                     explosionAnimations.remove(i);
             }
         }
-        Body currentPlayer = environment.getTank(session.getCurrentTank());
+        Body currentPlayer = environment.getTankBody(session.getCurrentTank());
         turnIndicatorAnimation.draw(batch, currentPlayer.getPosition());
 
         batch.end();
@@ -238,15 +239,17 @@ public class GameView {
     }
 
     /** Draws the projectile */
-    private void drawProjectile() {
-        Vector2 projectilePos = new Vector2(session.getProjectileX(), session.getProjectileY());
-        projectile.setPosition(projectilePos.x * metersToPixels - projectile.getWidth() / 2, projectilePos.y * metersToPixels - projectile.getHeight() / 2);
-        projectile.draw(batch);
+    private void drawProjectiles() {
+        for(Shootable s: session.getFlyingProjectiles()) {
+            Vector2 projectilePos = new Vector2(environment.getProjectileX(s), environment.getProjectileY(s));
+            projectile.setPosition(projectilePos.x * metersToPixels - projectile.getWidth() / 2, projectilePos.y * metersToPixels - projectile.getHeight() / 2);
+            projectile.draw(batch);
+        }
     }
     private void setUpTankHashMap(){
         characterTankHashMap = new HashMap<Character, GraphicalTank>();
         for(Character c : characterList){
-            GraphicalTank graphicalTank = new GraphicalTank(environment.getTank(c.getTank()), c.getId(), c.getTank().getAngle(), metersToPixels);
+            GraphicalTank graphicalTank = new GraphicalTank(environment.getTankBody(c.getTank()), c.getId(), c.getTank().getAngle(), metersToPixels);
             characterTankHashMap.put(c, graphicalTank);
         }
     }
