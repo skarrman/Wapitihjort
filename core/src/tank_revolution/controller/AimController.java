@@ -37,8 +37,7 @@ public class AimController implements InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         if (Math.sqrt((screenX - touchX) * (screenX - touchX) + (screenY - touchY) * (screenY - touchY)) > 6) {
             gameView.removeVector();
-            currentGame.shoot(touchX - screenX, screenY - touchY);
-            environment.shoot();
+            environment.shoot(currentGame.shoot(touchX - screenX, screenY - touchY), currentGame.getCurrentTank());
             return true;
         }return false;
     }

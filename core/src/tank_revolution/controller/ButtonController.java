@@ -57,6 +57,7 @@ public class ButtonController implements ButtonObserver {
                 System.out.println(e.getTarget().toString());
             }
         }
+        currentGame.reduceFuel();
     }
 
     @Override

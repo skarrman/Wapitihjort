@@ -79,10 +79,11 @@ public class GameSession implements TankObserver{
         }
     }
 
-    public void shoot(float deltaX, float deltaY) {
+    public Shootable shoot(float deltaX, float deltaY) {
         if (isActive || getCurrentCharacter().isNPC()) {
             flyingProjectile = getCurrentTank().shoot(deltaX, deltaY);
             isActive = false;
+            return flyingProjectile;
         }
     }
 
@@ -124,6 +125,11 @@ public class GameSession implements TankObserver{
                 //environment.getTank(tank).setLinearVelocity(direction*50,0);
             }
         }
+    }
+
+    public void reduceFuel(){
+        Tank tank = characterList.get(characterTurn).getTank();
+        tank.setFuel(tank.getFuel()-1);
     }
 
     /**
