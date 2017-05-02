@@ -17,7 +17,7 @@ public class GameSession implements TankObserver{
     private List<Character> characterList;
 
     /** The projectile, will hold the projectile in air */
-    private Shootable flyingProjectile;
+    private List<Shootable> flyingProjectiles;
 
     /** List of current explosions */
     private List<Explosion> explosions;
@@ -83,10 +83,10 @@ public class GameSession implements TankObserver{
         return (isActive || getCurrentCharacter().isNPC());
     }
 
-    public Shootable shoot(float deltaX, float deltaY){
-        flyingProjectile = getCurrentTank().shoot(deltaX, deltaY);
+    public List<Shootable> shoot(float deltaX, float deltaY){
+        flyingProjectiles.add(getCurrentTank().shoot(deltaX, deltaY));
         isActive = false;
-        return flyingProjectile;
+        return flyingProjectiles;
     }
 
     public Character getCurrentCharacter(){
@@ -97,14 +97,13 @@ public class GameSession implements TankObserver{
         return getCurrentCharacter().getTank();
     }
 
-    public Shootable getFlyingProjectile(){
-        return flyingProjectile;
+    public List<Shootable> getFlyingProjectiles(){
+        return flyingProjectiles;
     }
 
     public void doNextMove(){
         setNextCharacter();
         getCurrentCharacter().setNewTurn();
-        flyingProjectile = null;
         /*if(getCurrentCharacter().isNPC()){
             shoot(-470, 500);
         }else{
@@ -163,7 +162,7 @@ public class GameSession implements TankObserver{
      * @return true if the projectile is currently in the air
      */
     public boolean isProjectileFlying() {
-        return flyingProjectile != null;
+        return flyingProjectiles.size() > 0;
     }
 
     /**
@@ -171,17 +170,6 @@ public class GameSession implements TankObserver{
      */
     public List<Character> getCharacterList() {
         return characterList;
-    }
-
-    /**
-     * updating the model and tells the environment to update
-     */
-    public void update() {
-        if (projectileHasHit) {
-            destroyProjectile();
-        }
-        environment.update();
-
     }
 
     /**
