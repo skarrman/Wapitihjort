@@ -235,6 +235,14 @@ public class Environment {
         return (float) Math.sqrt((deltaX*deltaX)+(deltaY*deltaY));
     }
 
+    public void moveTank(int direction){
+        getTankBody(gameSession.getCurrentTank()).setLinearVelocity(direction*50,0);
+    }
+
+    public void stopTank(){
+        getTankBody(gameSession.getCurrentTank()).setLinearVelocity(0,0);
+    }
+
     public float getTankX(Tank tank){
         return tanks.get(tank).getPosition().x;
     }

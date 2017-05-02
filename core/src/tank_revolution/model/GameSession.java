@@ -240,7 +240,7 @@ public class GameSession implements TankObserver{
 
         for(int i = 0; i < characterList.size(); i++){
             Tank tank = characterList.get(i).getTank();
-            float distance = environment.distanceTo(tan k, flyingProjectile);
+            float distance = environment.distanceTo(tank, flyingProjectile);
             if(distance < flyingProjectile.getBlastRadius()){
                 tank.reduceHealth(calculateDamage(flyingProjectile.getDamage(), distance, flyingProjectile.getBlastRadius()));
             }
