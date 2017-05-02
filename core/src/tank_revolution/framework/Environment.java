@@ -8,6 +8,9 @@ import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import tank_revolution.Utils.Constants;
+import tank_revolution.Utils.Id;
+import tank_revolution.model.Character;
 import tank_revolution.model.Explosion;
 import tank_revolution.model.GameSession;
 import tank_revolution.model.ShootablePackage.Shootable;
@@ -60,6 +63,7 @@ public class Environment {
         setupWorld();
         createContactListener();
         this.explosions = new ArrayList<Explosion>();
+        InitializeTank();
     }
 
     /**
@@ -141,12 +145,15 @@ public class Environment {
      *
      * @param tank the tank object from the model being created.
      */
-    public void addTank(Tank tank) {
+    public void addTank(Tank tank, Id id) {
         Body body;
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(tank.getPositionX(), tank.getPositionY());
-
+        if(id == Id.PLAYER1){
+            bodyDef.position.set(5f, 7f);
+        }else if(id == Id.PLAYER2){
+            bodyDef.position.set(Constants.getMapWidth()-5f,7f);
+        }
         body = world.createBody(bodyDef);
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(tank.getWidth() / 2, tank.getHeight() / 2);
@@ -175,6 +182,12 @@ public class Environment {
         terrain = world.createBody(bodyDef);
         terrain.createFixture(fixtureDef3);
         ground.dispose();
+    }
+
+    private void InitializeTank(){
+        for(Character c: gameSession.getCharacterList()){
+            addTank(c.getTank(),c.getId());
+        }
     }
 
     public float getMapWidth(){

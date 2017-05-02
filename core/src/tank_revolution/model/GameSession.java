@@ -40,38 +40,17 @@ public class GameSession implements TankObserver{
     public GameSession(List<Character> characterList) {
         this.characterList = characterList;
         gameSessionSetup();
+        initializeTanks();
     }
 
     private void gameSessionSetup() {
-
         setIsActive();
+    }
 
-        for (int i = 0; i < characterList.size(); i++) {
-
-            if (i == 0) {
-                Tank tank = new Tank( 5f, 7f, this);
-                characterList.get(0).setTank(tank);
-                environment.addTank(tank);
-            }
-
-            else if (i == 1) {
-                Tank tank = new Tank( Constants.getMapWidth() - 5f, 7f, this);
-                characterList.get(1).setTank(tank);
-                environment.addTank(tank);
-            }
-
-            /*else if (i == 2) {
-                if (characterList.size() == 3) {
-                    bodyDef.position.set(mapWidth/2f, 5f);
-                }
-                else {
-
-                }
-            }
-            else if (i == 4)
-                    bodyDef.position.set(mapWidth/2f, 5f);
-               */
-
+    private void initializeTanks(){
+        for(Character c: characterList){
+            Tank tank = new Tank(this);
+            c.setTank(c.getTank());
         }
     }
 

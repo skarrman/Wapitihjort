@@ -11,8 +11,6 @@ import java.awt.*;
  */
 public class Tank {
 
-    private float positionX;
-    private float positionY;
     private int health;
     private float fuel;
     private final float width = 3f;
@@ -30,17 +28,15 @@ public class Tank {
     private int currentProjectile;
 
 
-    public Tank(float positionX, float positionY, int health, int fuel, TankObserver observer) {
-        this.positionX = positionX;
-        this.positionY = positionY;
+    public Tank(int health, int fuel, TankObserver observer) {
         currentProjectile = 0;
         this.health = health;
         this.fuel = fuel;
         this.observer = observer;
     }
 
-    public Tank(float startX, float startY, TankObserver observer){
-        this(startX, startY, 100, 100, observer);
+    public Tank(TankObserver observer){
+        this(100, 100, observer);
     }
 
     public Shootable shoot(float deltaX, float deltaY) {
@@ -81,9 +77,7 @@ public class Tank {
         fuel = n;
     }
 
-    public void drive(int direction) {
-
-    }
+    public void drive(int direction) {  }
 
     public float getWidth() {
         return width;
@@ -99,22 +93,6 @@ public class Tank {
 
     public boolean isAlive() {
         return alive;
-    }
-
-    public void setPositionX(float positionX) {
-        this.positionX = positionX;
-    }
-
-    public void setPositionY(float positionY) {
-        this.positionY = positionY;
-    }
-
-    public float getPositionX() {
-        return positionX;
-    }
-
-    public float getPositionY() {
-        return positionY;
     }
 
     public float getDeltaX(){
