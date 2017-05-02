@@ -118,14 +118,9 @@ public class GameSession implements TankObserver{
         if (tank.hasFuel()) {
             tank.setFuel(tank.getFuel() - 1);
             if (tankCanMove()) {
-                environment.getTank(tank).setLinearVelocity(direction*50,0);
+                //environment.getTank(tank).setLinearVelocity(direction*50,0);
             }
         }
-    }
-
-    public void stopTank(){
-        Tank tank = characterList.get(characterTurn).getTank();
-        environment.getTank(tank).setLinearVelocity(0,0);
     }
 
     /**
