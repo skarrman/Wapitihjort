@@ -135,6 +135,7 @@ public class GameView {
      * It draws out all the graphical representation of the objects in the world.
      */
     public void update() {
+        environment.update();
         camera.update();
 
         Gdx.gl.glClearColor(0.980392f, 0.980392f, 0.823529f, 1);
