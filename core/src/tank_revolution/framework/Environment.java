@@ -226,6 +226,20 @@ public class Environment {
         return world.isLocked();
     }
 
+
+    private void projectileHit(Shootable projectile){
+        for(Tank t: tanks.keySet()){
+            gameSession.damage(projectile, t, distanceTo(t,projectile));
+            if(!t.isAlive()){
+                explosions.add(new Explosion(tanks.get(t).getPosition().x, tanks.get(t).getPosition().y, 10));
+                destroyTank(t);
+            }
+        }
+        explosions.add(new Explosion(projectiles.get(projectile).getPosition().x, projectiles.get(projectile).getPosition().y,
+                projectile.getBlastRadius()));
+        destroyProjectile(projectile);
+        //TODO check if any tank died and act on it
+    }
     /**
      * Removes the body of the projectile fram the environment.
      * @param projectile the projectile that will be destroyed.
@@ -233,6 +247,7 @@ public class Environment {
     public void destroyProjectile(Shootable projectile){
         removeStack.add(projectiles.get(projectile));
         projectiles.remove(projectile);
+        gameSession.destroyProjectile(projectile);
         if(projectiles.isEmpty()){
             gameSession.doNextMove();
         }
@@ -245,6 +260,7 @@ public class Environment {
     public void destroyTank(Tank tank){
         removeStack.add(tanks.get(tank));
         tanks.remove(tank);
+        gameSession.destroyTank(tank);
     }
 
     public float distanceTo(Tank tank, Shootable projectile){
@@ -261,8 +277,10 @@ public class Environment {
         getTankBody(gameSession.getCurrentTank()).setLinearVelocity(0,0);
     }
 
-    public void shoot(Shootable projectile, Tank shooter){
-        addProjectile(projectile, shooter);
+    public void shoot(List<Shootable> projectiles, Tank shooter){
+        for(Shootable s: projectiles){
+            addProjectile(s, shooter);
+        }
     }
 
     public float getTankX(Tank tank){
@@ -286,11 +304,18 @@ public class Environment {
             @Override
             public void beginContact(Contact contact) {
                 if (projectiles.containsValue(contact.getFixtureA().getBody())){
-                    gameSession.actOnContact(contact.getFixtureA().getBody().getPosition().x,
-                            contact.getFixtureA().getBody().getPosition().y);
+                    for(Shootable s: projectiles.keySet()){
+                        if(projectiles.get(s).equals(contact.getFixtureA().getBody())){
+                            projectileHit(s);
+                        }
+                    }
                 }else if(projectiles.containsValue(contact.getFixtureB().getBody())){
-                    gameSession.actOnContact(contact.getFixtureB().getBody().getPosition().x,
-                            contact.getFixtureB().getBody().getPosition().y);
+                    for(Shootable s: projectiles.keySet()){
+                        if(projectiles.get(s).equals(contact.getFixtureB().getBody())){
+                            projectileHit(s);
+                        }
+                    }
+
                 }
             }
             @Override

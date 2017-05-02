@@ -11,7 +11,7 @@ import tank_revolution.Utils.Constants;
 /**
  * Created by antonhagermalm on 2017-03-30.
  */
-public class GameSession implements TankObserver{
+public class GameSession{
 
     /** list of the playing character */
     private List<Character> characterList;
@@ -41,6 +41,7 @@ public class GameSession implements TankObserver{
         this.characterList = characterList;
         gameSessionSetup();
         initializeTanks();
+        flyingProjectiles = new ArrayList<Shootable>();
     }
 
     private void gameSessionSetup() {
@@ -49,8 +50,8 @@ public class GameSession implements TankObserver{
 
     private void initializeTanks(){
         for(Character c: characterList){
-            Tank tank = new Tank(this);
-            c.setTank(c.getTank());
+            Tank tank = new Tank();
+            c.setTank(tank);
         }
     }
 
@@ -150,9 +151,10 @@ public class GameSession implements TankObserver{
     /**
      * safely removes a projectile
      */
-    private void destroyProjectile(Shootable shootable) {
+    public void destroyProjectile(Shootable shootable) {
         flyingProjectiles.remove(shootable);
     }
+
 
     /**
      * sets that the current character is a player
@@ -176,12 +178,13 @@ public class GameSession implements TankObserver{
         return (int) ((blastRadius - distance) / blastRadius * damage);
     }
 
-    /**
-     * called when a projectile hits something
-     * @param x the x-coordinate of the impact
-     * @param y the y-coordinate of the impact
-     */
-    private void projectileImpacted(float x, float y){
+    public void damage(Shootable projectile, Tank tank, float distance){
+        tank.reduceHealth(calculateDamage(projectile.getDamage(), distance, projectile.getBlastRadius()));
+    }
+
+
+
+    /*private void projectileImpacted(float x, float y){
         projectileHasHit = true;
 
         //TODO find the blastradius from somewhere else.
@@ -195,18 +198,8 @@ public class GameSession implements TankObserver{
             }
             System.out.println(tank.getHealth());
         }
-    }
-
-    /**
-     * this method is called when a object collides with another
-     * @param x the x-coordinate of the collision
-     * @param y the y-coordinate of the collision
-     */
-    public void actOnContact(float x, float y){
-        projectileImpacted(x, y);
-    }
-
-    public void actOnDeath(Tank tank) {
+    }*/
+    public void destroyTank(Tank tank) {
         /* if bodies doesnt disappear, it's because this if statment is only ran once, to fix this put it in update
         maybe make a list of bodies to be removed and in update remove them and make the removeMethod in environment
         generic */
@@ -217,9 +210,6 @@ public class GameSession implements TankObserver{
                 setNextCharacter();
             }
         }
-        explosions.add(new Explosion(environment.getTankX(tank), environment.getTankY(tank), 10));
-        environment.destroyTank(tank);
-
         //TODO look in the character list for the character with this tank and remove it. Make sure to have defencive copying from model
     }
 }

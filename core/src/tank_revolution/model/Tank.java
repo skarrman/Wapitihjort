@@ -19,7 +19,6 @@ public class Tank {
     private float deltaY;
     private Integer angle = 0;
     private boolean alive = true;
-    private TankObserver observer;
 
     //Gives the tank a mass of 600kg
     private final float density = 100;
@@ -28,15 +27,14 @@ public class Tank {
     private int currentProjectile;
 
 
-    public Tank(int health, int fuel, TankObserver observer) {
+    public Tank(int health, int fuel) {
         currentProjectile = 0;
         this.health = health;
         this.fuel = fuel;
-        this.observer = observer;
     }
 
-    public Tank(TankObserver observer){
-        this(100, 100, observer);
+    public Tank(){
+        this(100, 100);
     }
 
     public Shootable shoot(float deltaX, float deltaY) {
@@ -56,14 +54,10 @@ public class Tank {
 
     public void reduceHealth(int damage) {
         health = health - damage;
-        if (health < 0){
-            kill();
-        }
+        alive = health <= 0;
     }
 
-    private void kill(){
-        observer.actOnDeath(this);
-    }
+
 
     public float getHealth() {
         return health;
