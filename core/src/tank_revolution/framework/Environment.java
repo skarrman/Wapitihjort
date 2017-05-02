@@ -243,8 +243,8 @@ public class Environment {
         getTankBody(gameSession.getCurrentTank()).setLinearVelocity(0,0);
     }
 
-    public void shoot(float deltaX, float deltaY){
-
+    public void shoot(){
+        addProjectile(gameSession.getFlyingProjectile(), gameSession.getCurrentTank());
     }
 
     public float getTankX(Tank tank){

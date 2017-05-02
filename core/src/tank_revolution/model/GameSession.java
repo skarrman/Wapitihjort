@@ -82,7 +82,6 @@ public class GameSession implements TankObserver{
     public void shoot(float deltaX, float deltaY) {
         if (isActive || getCurrentCharacter().isNPC()) {
             flyingProjectile = getCurrentTank().shoot(deltaX, deltaY);
-            environment.addProjectile(flyingProjectile, getCurrentTank());
             isActive = false;
         }
     }
@@ -93,6 +92,10 @@ public class GameSession implements TankObserver{
 
     public Tank getCurrentTank(){
         return getCurrentCharacter().getTank();
+    }
+
+    public Shootable getFlyingProjectile(){
+        return flyingProjectile;
     }
 
     public void doNextMove(){
