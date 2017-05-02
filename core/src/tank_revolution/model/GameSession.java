@@ -127,7 +127,11 @@ public class GameSession implements TankObserver{
      * @return true if the terrain allows the tank to move
      */
     public boolean tankCanMove() {
-        return true;
+        Tank tank = characterList.get(characterTurn).getTank();
+        if(tank.hasFuel()){
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -149,20 +153,6 @@ public class GameSession implements TankObserver{
      */
     public boolean isProjectileFlying() {
         return flyingProjectile != null;
-    }
-
-    /**
-     * @return the x-coordinate of the projectile
-     */
-    public float getProjectileX() {
-        return environment.getProjectileX(flyingProjectile);
-    }
-
-    /**
-     * @return the y-coordinate of the projectile
-     */
-    public float getProjectileY() {
-        return environment.getProjectileY(flyingProjectile);
     }
 
     /**
