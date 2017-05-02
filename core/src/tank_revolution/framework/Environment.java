@@ -8,11 +8,7 @@ import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.sun.javafx.geom.Edge;
-import tank_revolution.model.Explosion;
 import tank_revolution.model.GameSession;
-import tank_revolution.model.ShootablePackage.Projectile;
-import tank_revolution.model.ShootablePackage.ProjectileFactory;
 import tank_revolution.model.ShootablePackage.Shootable;
 import tank_revolution.model.Tank;
 
