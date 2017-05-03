@@ -86,7 +86,7 @@ public class Tank {
     }
 
     public boolean isAlive() {
-        return alive;
+        return health >= 0;
     }
 
     public float getDeltaX(){

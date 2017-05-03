@@ -157,8 +157,8 @@ public class GameView {
         if (explosions.size() > 0) {
             for(Explosion e : explosions) {
                 explosionAnimations.add(new ExplosionAnimation(e, metersToPixels));
-                explosions.remove(e);
             }
+            explosions.clear();
         }
         if (explosionAnimations.size() > 0) {
             for (int i = 0; i < explosionAnimations.size(); i++) {
