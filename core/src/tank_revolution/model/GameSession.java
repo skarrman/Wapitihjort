@@ -175,7 +175,11 @@ public class GameSession{
      * @return the damage inflicted to the tank
      */
     private int calculateDamage(int damage, float distance, float blastRadius){
-        return (int) ((blastRadius - distance) / blastRadius * damage);
+        float d = blastRadius -  distance;
+        if(d < 0){
+            d = 0;
+        }
+        return (int) (d / blastRadius * damage);
     }
 
     public void damage(Shootable projectile, Tank tank, float distance){

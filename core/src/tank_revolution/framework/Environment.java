@@ -226,16 +226,22 @@ public class Environment {
 
 
     private void projectileHit(Shootable projectile){
+        List<Tank> deadTanks = new ArrayList<Tank>();
         for(Tank t: tanks.keySet()){
             gameSession.damage(projectile, t, distanceTo(t,projectile));
             if(!t.isAlive()){
-                explosions.add(new Explosion(tanks.get(t).getPosition().x, tanks.get(t).getPosition().y, 10));
-                destroyTank(t);
+                deadTanks.add(t);
             }
+            System.out.println(t.getHealth());
         }
         explosions.add(new Explosion(projectiles.get(projectile).getPosition().x, projectiles.get(projectile).getPosition().y,
                 projectile.getBlastRadius()));
         destroyProjectile(projectile);
+
+        for(Tank t : deadTanks){
+            explosions.add(new Explosion(tanks.get(t).getPosition().x, tanks.get(t).getPosition().y, 10));
+            destroyTank(t);
+        }
         //TODO check if any tank died and act on it
     }
     /**
@@ -262,8 +268,8 @@ public class Environment {
     }
 
     public float distanceTo(Tank tank, Shootable projectile){
-        float deltaX = getTankX(tank)-getProjectileX(projectile);
-        float deltaY = getTankY(tank)-getProjectileY(projectile);
+        float deltaX = Math.abs(getTankX(tank)-getProjectileX(projectile));
+        float deltaY = Math.abs(getTankY(tank)-getProjectileY(projectile));
         return (float) Math.sqrt((deltaX*deltaX)+(deltaY*deltaY));
     }
 
