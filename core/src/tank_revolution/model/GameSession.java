@@ -56,7 +56,7 @@ public class GameSession{
     }
 
     public boolean isInputAllowed(){
-        return (isActive || getCurrentCharacter().isNPC());
+        return (isActive || !getCurrentCharacter().isNPC());
     }
 
     public List<Shootable> shoot(float deltaX, float deltaY){
