@@ -13,6 +13,7 @@ import tank_revolution.model.Explosion;
 import tank_revolution.model.GameSession;
 import tank_revolution.model.ShootablePackage.Shootable;
 import tank_revolution.model.Tank;
+import tank_revolution.terrain.TerrainAdapter;
 
 /**
  * Created by jakobwall on 2017-04-06.
@@ -72,7 +73,8 @@ public class Environment {
         Vector2 g = new Vector2(0f, -10f);
         world = new World(g, true);
 
-        setTerrain(3f);
+        //setTerrain(3f);
+        TerrainAdapter terrainAdapter = new TerrainAdapter(world);
         setupSides();
     }
 
@@ -148,9 +150,9 @@ public class Environment {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         if(id == Id.PLAYER1){
-            bodyDef.position.set(5f, 7f);
+            bodyDef.position.set(5f, 20f);
         }else if(id == Id.PLAYER2){
-            bodyDef.position.set(Constants.getMapWidth()-5f,7f);
+            bodyDef.position.set(Constants.getMapWidth()-5f,20f);
         }
         body = world.createBody(bodyDef);
         PolygonShape shape = new PolygonShape();
