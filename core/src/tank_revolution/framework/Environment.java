@@ -1,6 +1,5 @@
 package tank_revolution.framework;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 import com.badlogic.gdx.Gdx;
@@ -13,7 +12,7 @@ import tank_revolution.model.Explosion;
 import tank_revolution.model.GameSession;
 import tank_revolution.model.ShootablePackage.Shootable;
 import tank_revolution.model.Tank;
-import tank_revolution.terrain.TerrainAdapter;
+import tank_revolution.framework.terrain.TerrainHandler;
 
 /**
  * Created by jakobwall on 2017-04-06.
@@ -74,7 +73,7 @@ public class Environment {
         world = new World(g, true);
 
         //setTerrain(3f);
-        TerrainAdapter terrainAdapter = new TerrainAdapter(world);
+        TerrainHandler terrainHandler = new TerrainHandler(world);
         setupSides();
     }
 

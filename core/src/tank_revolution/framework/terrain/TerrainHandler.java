@@ -1,14 +1,10 @@
-package tank_revolution.terrain;
+package tank_revolution.framework.terrain;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.quailshillstudio.polygonClippingUtils.GroundFixture;
+import com.quailshillstudio.polygonClippingUtils.PolygonBox2DShape;
 import com.quailshillstudio.polygonClippingUtils.UserData;
-import com.quailshillstudio.polygonClippingUtils.WorldCollisions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +12,13 @@ import java.util.List;
 /**
  * Created by antonhagermalm on 2017-05-03.
  */
-public class TerrainAdapter implements ITerrain{
+public class TerrainHandler implements ITerrainHandler {
 
     private boolean mustCreate;
     private List<GroundFixture> polyVerts;
     private World world;
 
-    public TerrainAdapter(World world){
+    public TerrainHandler(World world){
         polyVerts = new ArrayList();
         this.world = world;
         create();
@@ -38,13 +34,25 @@ public class TerrainAdapter implements ITerrain{
         createGround();
     }
 
+    /**
+     *
+     * @param rs dont really know what this stands for but it's the complete ground (i think)
+     */
     @Override
-    public World getWorld() {
-        return this.world;
+    public void switchGround(List<PolygonBox2DShape> rs) {
+        mustCreate = true;
+        List<float[]> verts = new ArrayList();
+
+        for (PolygonBox2DShape r : rs) {
+            verts.add(((PolygonBox2DShape) r).verticesToLoop());
+        }
+
+        GroundFixture grFix = new GroundFixture(verts);
+        this.polyVerts.add(grFix);
     }
 
     //TODO change this method name to something better
-    public void hasSomeThingBeenHit(){
+    public void update(){
         for(int i = 0; i < this.world.getBodyCount(); ++i) {
             Array<Body> bodies = new Array();
             this.world.getBodies(bodies);
