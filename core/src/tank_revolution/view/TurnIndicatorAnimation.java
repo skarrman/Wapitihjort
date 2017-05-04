@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 public class TurnIndicatorAnimation {
 
     /** The distance between the arrow and the thank vertically */
-    private int distanceToTank = 2;
+    private int distanceToTank = 10;
 
     /** Keeps track of the time so that the animation is correct */
     private float time = 0;
@@ -46,7 +46,7 @@ public class TurnIndicatorAnimation {
     public void draw(Batch batch, Vector2 pos) {
         time += Gdx.graphics.getDeltaTime();
         TextureRegion animationFrame = new TextureRegion(animation.getKeyFrame(time, true));
-        batch.draw(animationFrame, pos.x * metersToPixels - animationFrame.getRegionWidth()/2, (pos.y * metersToPixels) + distanceToTank - animationFrame.getRegionHeight()/2);
+        batch.draw(animationFrame, pos.x * metersToPixels - animationFrame.getRegionWidth()/2, (pos.y + distanceToTank * metersToPixels) - animationFrame.getRegionHeight()/2);
     }
 
     /**
