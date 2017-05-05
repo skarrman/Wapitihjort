@@ -2,6 +2,7 @@ package tank_revolution.framework.terrain;
 
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.quailshillstudio.polygonClippingUtils.CollisionGeometry;
 import com.quailshillstudio.polygonClippingUtils.GroundFixture;
 import com.quailshillstudio.polygonClippingUtils.PolygonBox2DShape;
 import com.quailshillstudio.polygonClippingUtils.UserData;
@@ -17,6 +18,8 @@ public class TerrainHandler implements ITerrainHandler {
     private boolean mustCreate;
     private List<GroundFixture> polyVerts;
     private World world;
+    public float circRadius = 4.0F;
+    public int segments;
 
     public TerrainHandler(World world){
         polyVerts = new ArrayList();
@@ -95,5 +98,34 @@ public class TerrainHandler implements ITerrainHandler {
 
         this.mustCreate = false;
         this.polyVerts.clear();
+    }
+
+    public void clippingGround(Body a, Body b, UserData dataA) {
+        List<PolygonBox2DShape> totalRS = new ArrayList();
+        float[] circVerts = CollisionGeometry.approxCircle(b.getPosition().x, b.getPosition().y, this.circRadius, this.segments);
+        ChainShape shape = new ChainShape();
+        shape.createLoop(circVerts);
+        PolygonBox2DShape circlePoly = new PolygonBox2DShape(shape);
+        Array<Fixture> fixtureList = a.getFixtureList();
+        int fixCount = fixtureList.size;
+
+        for(int i = 0; i < fixCount; ++i) {
+            PolygonBox2DShape polyClip = null;
+            if(((Fixture)fixtureList.get(i)).getShape() instanceof PolygonShape) {
+                polyClip = new PolygonBox2DShape((PolygonShape)((Fixture)fixtureList.get(i)).getShape());
+            } else if(((Fixture)fixtureList.get(i)).getShape() instanceof ChainShape) {
+                polyClip = new PolygonBox2DShape((ChainShape)((Fixture)fixtureList.get(i)).getShape());
+            }
+
+            List<PolygonBox2DShape> rs = polyClip.differenceCS(circlePoly);
+
+            for(int y = 0; y < rs.size(); ++y) {
+                ((PolygonBox2DShape)rs.get(y)).circleContact(b.getPosition(), this.circRadius);
+                totalRS.add(rs.get(y));
+            }
+        }
+
+        switchGround(totalRS);
+        ((UserData)a.getUserData()).mustDestroy = true;
     }
 }

@@ -16,8 +16,8 @@ import java.util.List;
 /**
  * Created by antonhagermalm on 2017-05-04.
  */
-public class EnvironmentCollisions implements ContactListener {
-    public float circRadius = 4.0F;
+public class EnvironmentCollisions {
+    /*public float circRadius = 4.0F;
     public int segments;
     //private PolygonClipping game;
     private boolean clipped;
@@ -104,7 +104,7 @@ public class EnvironmentCollisions implements ContactListener {
      * @param b the projectile
      * @param dataA the UserData of a
      */
-    private void clippingGround(Body a, Body b, UserData dataA) {
+    /*private void clippingGround(Body a, Body b, UserData dataA) {
         List<PolygonBox2DShape> totalRS = new ArrayList();
         float[] circVerts = CollisionGeometry.approxCircle(b.getPosition().x, b.getPosition().y, this.circRadius, this.segments);
         ChainShape shape = new ChainShape();
@@ -131,6 +131,6 @@ public class EnvironmentCollisions implements ContactListener {
 
         this.terrainHandler.switchGround(totalRS);
         ((UserData)a.getUserData()).mustDestroy = true;
-    }
+    }*/
 }
 
