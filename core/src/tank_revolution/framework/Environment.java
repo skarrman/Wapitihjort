@@ -363,12 +363,12 @@ public class Environment {
 
             @Override
             public void postSolve(Contact contact, ContactImpulse impulse) {
-                System.out.println(((UserData) (contact.getFixtureA().getBody().getUserData())).getType());
-                System.out.println(((UserData) (contact.getFixtureB().getBody().getUserData())).getType());
-                if(((UserData)(contact.getFixtureA().getBody().getUserData())).getType() == UserData.BOMB && ((UserData)(contact.getFixtureB().getBody().getUserData())).getType() == UserData.BOMB) {
-                    System.out.println("PostSolve");
-                    Body a = contact.getFixtureA().getBody();
-                    Body b = contact.getFixtureB().getBody();
+                Body a = contact.getFixtureA().getBody();
+                Body b = contact.getFixtureB().getBody();
+                if((((UserData)(contact.getFixtureA().getBody().getUserData())).getType() == UserData.GROUND &&
+                        ((UserData)(contact.getFixtureB().getBody().getUserData())).getType() == UserData.BOMB)||
+                        ((UserData)(contact.getFixtureA().getBody().getUserData())).getType() == UserData.BOMB &&
+                                ((UserData)(contact.getFixtureB().getBody().getUserData())).getType() == UserData.GROUND) {
                     Shootable projectile;
                     UserData dataA = (UserData) a.getUserData();
                     UserData dataB = (UserData) b.getUserData();
@@ -389,6 +389,7 @@ public class Environment {
                         }
 
                     }
+                    System.out.println("PostSolve");
 
                     //add userData to projectile
                     if (dataA instanceof UserData && dataA.getType() == UserData.GROUND && dataB instanceof UserData && dataB.getType() == UserData.BOMB) {

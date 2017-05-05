@@ -19,7 +19,7 @@ public class TerrainHandler implements ITerrainHandler {
     private List<GroundFixture> polyVerts;
     private World world;
     public float circRadius = 4.0F;
-    public int segments;
+    public int segments = 12;
 
     public TerrainHandler(World world){
         polyVerts = new ArrayList();
