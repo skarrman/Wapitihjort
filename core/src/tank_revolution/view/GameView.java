@@ -29,7 +29,7 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
  * GameView is the class that present the game to the user.
  * Its responsibility is to render the graphics of the game.
  */
-public class GameView {
+public class GameView implements Viewable {
 
     /** Tells if the debug renderer should do its' work
      * True = debug: ON

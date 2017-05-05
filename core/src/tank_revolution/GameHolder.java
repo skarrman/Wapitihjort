@@ -4,10 +4,13 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import tank_revolution.Utils.Constants;
 import tank_revolution.controller.MainController;
+import tank_revolution.controller.MenuController;
 import tank_revolution.framework.Environment;
 import tank_revolution.model.GameSession;
 import tank_revolution.model.TankRevolution;
 import tank_revolution.view.GameView;
+import tank_revolution.view.StartMenuView;
+import tank_revolution.view.Viewable;
 
 /**
  * Main controller class for both game sessions and menu screens, updates view, model
@@ -15,18 +18,33 @@ import tank_revolution.view.GameView;
  */
 
 public class GameHolder implements ApplicationListener {
-    private GameView view;
+    private Viewable view;
     private GameSession currentGame;
     private Environment environment;
+    private MainController mainController;
     /**
      * Called when the {@link Application} is first created.
      */
     @Override
     public void create() {
-            currentGame = new TankRevolution().newGame();
-            environment = new Environment(Constants.getMapWidth(), currentGame);
-            view = new GameView(currentGame, environment);
-            new MainController(currentGame, environment, view);
+        view = new StartMenuView();
+        mainController = new MainController();
+        mainController.setMenuMode(this);
+    }
+
+    /**
+     * Called when the {@link Application} should render itself.
+     */
+    @Override
+    public void render() {
+            view.update();
+    }
+
+    public void setGameMode(){
+        currentGame = new TankRevolution().newGame();
+        environment = new Environment(Constants.getMapWidth(), currentGame);
+        view = new GameView(currentGame, environment);
+        mainController.setGameMode(currentGame, environment,view);
     }
 
     /**
@@ -39,14 +57,6 @@ public class GameHolder implements ApplicationListener {
     @Override
     public void resize(int width, int height) {
 
-    }
-
-    /**
-     * Called when the {@link Application} should render itself.
-     */
-    @Override
-    public void render() {
-            view.update();
     }
 
     /**

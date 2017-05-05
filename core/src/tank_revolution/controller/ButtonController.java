@@ -8,20 +8,21 @@ import tank_revolution.Utils.ButtonObserver;
 import tank_revolution.framework.Environment;
 import tank_revolution.model.GameSession;
 import tank_revolution.view.GameView;
+import tank_revolution.view.Viewable;
 
 
 /**
  * Controller class responsible for handling input from buttons around the UI
  */
 public class ButtonController implements ButtonObserver {
-    private GameView view;
+    private Viewable view;
     private GameSession currentGame;
     private Environment environment;
     private Stage stage;
     private MoveButton rightButton;
     private MoveButton leftButton;
 
-    public ButtonController(GameView view, GameSession currentGame, Environment environment){
+    public ButtonController(Viewable view, GameSession currentGame, Environment environment){
         this.view = view;
         this.currentGame = currentGame;
         this.environment = environment;
@@ -39,7 +40,7 @@ public class ButtonController implements ButtonObserver {
      * Tells the view to draw the buttons in a specified place.
      */
     public void placeButtons(){
-        view.placeButtons(leftButton, rightButton, stage);
+       // view.placeButtons(leftButton, rightButton, stage);
     }
 
     public Stage getStage(){
