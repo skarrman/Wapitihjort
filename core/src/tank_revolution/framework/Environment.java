@@ -12,6 +12,7 @@ import tank_revolution.framework.terrain.ITerrainHandler;
 import tank_revolution.model.Character;
 import tank_revolution.model.Explosion;
 import tank_revolution.model.GameSession;
+import tank_revolution.model.ShootablePackage.Projectile;
 import tank_revolution.model.ShootablePackage.Shootable;
 import tank_revolution.model.Tank;
 import tank_revolution.framework.terrain.TerrainHandler;
@@ -157,6 +158,7 @@ public class Environment {
         //Translation will be needed, this vector will suck
         Vector2 force = new Vector2(shooter.getDeltaX() * 50, shooter.getDeltaY() * 50);
         body.applyForceToCenter(force, true);
+        body.setUserData(new UserData(1));
 
         projectiles.put(projectile, body);
     }
@@ -174,6 +176,7 @@ public class Environment {
             bodyDef.position.set(Constants.getMapWidth() - 5f, 20f);
         }
         body = world.createBody(bodyDef);
+        body.setUserData(new UserData(2));
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(tank.getWidth() / 2, tank.getHeight() / 2);
         FixtureDef fixtureDef = new FixtureDef();
@@ -360,33 +363,42 @@ public class Environment {
 
             @Override
             public void postSolve(Contact contact, ContactImpulse impulse) {
-                Body a = contact.getFixtureA().getBody();
-                Body b = contact.getFixtureB().getBody();
+                System.out.println(((UserData) (contact.getFixtureA().getBody().getUserData())).getType());
+                System.out.println(((UserData) (contact.getFixtureB().getBody().getUserData())).getType());
+                if(((UserData)(contact.getFixtureA().getBody().getUserData())).getType() == UserData.BOMB && ((UserData)(contact.getFixtureB().getBody().getUserData())).getType() == UserData.BOMB) {
+                    System.out.println("PostSolve");
+                    Body a = contact.getFixtureA().getBody();
+                    Body b = contact.getFixtureB().getBody();
+                    Shootable projectile;
+                    UserData dataA = (UserData) a.getUserData();
+                    UserData dataB = (UserData) b.getUserData();
 
-                if (projectiles.containsValue(a)) {
-                    for (Shootable s : projectiles.keySet()) {
-                        if (projectiles.get(s).equals(a)) {
-                            projectileHit(s);
+                    if (projectiles.containsValue(a)) {
+                        for (Shootable s : projectiles.keySet()) {
+                            if (projectiles.get(s).equals(a)) {
+                                projectile = s;
+                                //projectileHit(s);
+                            }
                         }
-                    }
-                } else if (projectiles.containsValue(b)) {
-                    for (Shootable s : projectiles.keySet()) {
-                        if (projectiles.get(s).equals(b)) {
-                            projectileHit(s);
+                    } else if (projectiles.containsValue(b)) {
+                        for (Shootable s : projectiles.keySet()) {
+                            if (projectiles.get(s).equals(b)) {
+                                projectile = s;
+                                //projectileHit(s);
+                            }
                         }
+
                     }
 
-                }
+                    //add userData to projectile
+                    if (dataA instanceof UserData && dataA.getType() == UserData.GROUND && dataB instanceof UserData && dataB.getType() == UserData.BOMB) {
+                        terrainHandler.clippingGround(a, b, dataA);
 
-                //add userData to projectile
-                UserData dataA = (UserData) a.getUserData();
-                UserData dataB = (UserData) b.getUserData();
-                if (dataA instanceof UserData && dataA.getType() == 0 && dataB instanceof UserData && dataB.getType() == 1) {
-                    terrainHandler.clippingGround(a, b, dataA);
-                } else if (dataB instanceof UserData && dataB.getType() == 0 && dataA instanceof UserData && dataA.getType() == 1) {
-                    terrainHandler.clippingGround(b, a, dataB);
+                    } else if (dataB instanceof UserData && dataB.getType() == UserData.GROUND && dataA instanceof UserData && dataA.getType() == UserData.BOMB) {
+                        terrainHandler.clippingGround(b, a, dataB);
+                    }
                 }
-
+    //projectileHit(projectile);
 
                 //clipped = false;
             }
