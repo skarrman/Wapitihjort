@@ -17,14 +17,12 @@ public class AimController implements InputProcessor {
     private boolean touchAllowed;
 
     private GameView gameView;
-    private GameSession currentGame;
     private Environment environment;
 
     public AimController(GameView gameView, GameSession currentGame, Environment environment) {
         touchX = 0;
         touchY = 0;
         this.gameView = gameView;
-        this.currentGame = currentGame;
         this.environment = environment;
     }
 
@@ -32,7 +30,7 @@ public class AimController implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         touchX = screenX;
         touchY = screenY;
-        touchAllowed = currentGame.isInputAllowed();
+        touchAllowed = environment.isInputAllowed();
         return true;
     }
 
@@ -41,7 +39,7 @@ public class AimController implements InputProcessor {
         if(touchAllowed){
         if (Math.sqrt((screenX - touchX) * (screenX - touchX) + (screenY - touchY) * (screenY - touchY)) > 6) {
             gameView.removeVector();
-            environment.shoot(currentGame.shoot(touchX - screenX, screenY - touchY), currentGame.getCurrentTank());
+            environment.shoot(screenX, screenY, touchX, touchY);
             return true;
         }
         }return false;

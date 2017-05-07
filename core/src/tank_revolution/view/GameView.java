@@ -39,12 +39,6 @@ public class GameView implements Viewable {
     /** The graphical batch that draws on the screen */
     private Batch batch;
 
-
-    /**
-     * An instance of the current game
-     */
-    private GameSession session;
-
     /**
      * The environment
      */
@@ -118,7 +112,6 @@ public class GameView implements Viewable {
     public GameView(GameSession session, Environment environment) {
         this.environment = environment;
         metersToPixels = Gdx.graphics.getWidth() / Constants.getMapWidth();
-        this.session = session;
         batch = new SpriteBatch();
         characterList = session.getCharacterList();
         setUpTankHashMap();
@@ -150,7 +143,7 @@ public class GameView implements Viewable {
 
         drawTanks();
 
-        if (session.isProjectileFlying()) {
+        if (environment.isProjectileFlying()) {
             drawProjectiles();
         }
         List<Explosion> explosions = environment.getExplosions();
@@ -168,7 +161,7 @@ public class GameView implements Viewable {
                     explosionAnimations.remove(i);
             }
         }
-        Body currentPlayer = environment.getTankBody(session.getCurrentTank());
+        Body currentPlayer = environment.getTankBody(environment.getCurrentTank());
         turnIndicatorAnimation.draw(batch, currentPlayer.getPosition());
 
         batch.end();
@@ -241,7 +234,7 @@ public class GameView implements Viewable {
 
     /** Draws the projectile */
     private void drawProjectiles() {
-        for(Shootable s: session.getFlyingProjectiles()) {
+        for(Shootable s: environment.getFlyingProjectiles()) {
             Vector2 projectilePos = new Vector2(environment.getProjectileX(s), environment.getProjectileY(s));
             projectile.setPosition(projectilePos.x * metersToPixels - projectile.getWidth() / 2, projectilePos.y * metersToPixels - projectile.getHeight() / 2);
             projectile.draw(batch);
@@ -257,7 +250,7 @@ public class GameView implements Viewable {
 
     /** Draws the tank*/
     private void drawTanks() {
-        characterList = session.getCharacterList();
+        characterList = environment.getCharacterList();
         for(Character c : characterList){
             GraphicalTank graphicalTank = characterTankHashMap.get(c);
             graphicalTank.draw(batch);

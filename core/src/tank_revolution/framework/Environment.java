@@ -309,7 +309,9 @@ public class Environment {
         getTankBody(gameSession.getCurrentTank()).setLinearVelocity(0, 0);
     }
 
-    public void shoot(List<Shootable> projectiles, Tank shooter) {
+    public void shoot(int screenX, int screenY, float touchX, float touchY) {
+        Tank shooter = gameSession.getCurrentTank();
+        List<Shootable> projectiles = gameSession.shoot(touchX - screenX, screenY - touchY);
         for (Shootable s : projectiles) {
             addProjectile(s, shooter);
         }
@@ -329,6 +331,26 @@ public class Environment {
 
     public float getProjectileY(Shootable projectile) {
         return projectiles.get(projectile).getPosition().y;
+    }
+
+    public List<Character> getCharacterList(){
+        return gameSession.getCharacterList();
+    }
+
+    public List<Shootable> getFlyingProjectiles(){
+        return gameSession.getFlyingProjectiles();
+    }
+
+    public boolean isProjectileFlying(){
+        return gameSession.isProjectileFlying();
+    }
+
+    public Tank getCurrentTank(){
+        return gameSession.getCurrentTank();
+    }
+
+    public boolean isInputAllowed(){
+        return gameSession.isInputAllowed();
     }
 
     private void createContactListener() {
