@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import org.lwjgl.Sys;
 import tank_revolution.Utils.Constants;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
@@ -16,29 +15,56 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
  */
 public class StartMenuView implements Viewable {
     Batch batch;
-    Sprite newGameSprite;
+    Sprite quickStartSprite;
+    Sprite worldSprite;
+    Sprite customStartSprite;
+    Sprite highScoreSprite;
+
 
 
     public StartMenuView(){
         batch = new SpriteBatch();
-        newGameSprite = new Sprite(new Texture(Gdx.files.internal("NewGameButtonIcon.png")));
-        float scale = Constants.getNewGameButtonDimention()/newGameSprite.getWidth();
-        System.out.println("Scale: "+scale);
 
-        if(scale < 1)
-            scale = -scale;
+        quickStartSprite = new Sprite(new Texture(Gdx.files.internal("NewGameButtonIcon.png")));
+        worldSprite = new Sprite(new Texture(Gdx.files.internal("Disabled.png")));
+        customStartSprite = new Sprite(new Texture(Gdx.files.internal("Disabled.png")));
+        highScoreSprite = new Sprite(new Texture(Gdx.files.internal("Disabled.png")));
 
-        newGameSprite.setSize(Constants.getNewGameButtonDimention(), Constants.getNewGameButtonDimention());
-        Vector2 pos = Constants.getNewGameButtonPosition();
-        newGameSprite.setPosition(pos.x, pos.y);
+        setSpriteSizes();
+        setSpritePositions();
     }
     @Override
     public void update() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
         batch.begin();
-        newGameSprite.draw(batch);
+        quickStartSprite.draw(batch);
+        worldSprite.draw(batch);
+        customStartSprite.draw(batch);
+        highScoreSprite.draw(batch);
         batch.end();
+    }
+
+    private void setSpriteSizes(){
+        float sideLength = Constants.getStartMenuButtonDimension();
+        quickStartSprite.setSize(sideLength, sideLength);
+        worldSprite.setSize(sideLength, sideLength);
+        customStartSprite.setSize(sideLength, sideLength);
+        highScoreSprite.setSize(sideLength, sideLength);
+    }
+
+    private void setSpritePositions(){
+        Vector2 quickStartPos = Constants.getQuickStartButtonPosition();
+        quickStartSprite.setPosition(quickStartPos.x, quickStartPos.y);
+
+        Vector2 worldPos = Constants.getWorldButtonPosition();
+        worldSprite.setPosition(worldPos.x, worldPos.y);
+
+        Vector2 customStartPos = Constants.getCustomStartButtonPosition();
+        customStartSprite.setPosition(customStartPos.x, customStartPos.y);
+
+        Vector2 highScorePos = Constants.getHighScoreButtonPosition();
+        highScoreSprite.setPosition(highScorePos.x, highScorePos.y);
     }
 
 }

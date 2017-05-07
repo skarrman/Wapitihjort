@@ -11,26 +11,84 @@ import tank_revolution.Utils.Constants;
  * Created by simonkarrman on 2017-05-04.
  */
 public class MenuController {
-    Button newGameButton;
+    Button quickStartButton;
+    Button worldButton;
+    Button customStartButton;
+    Button highScoreButton;
     Stage stage;
 
     public MenuController(final GameHolder gameHolder) {
-        newGameButton = new Button();
+        quickStartButton = new Button();
+        worldButton = new Button();
+        customStartButton = new Button();
+        highScoreButton = new Button();
+
         stage = new Stage();
-        Vector2 pos = Constants.getNewGameButtonPosition();
-        newGameButton.setBounds(pos.x, pos.y, Constants.getNewGameButtonDimention(), Constants.getNewGameButtonDimention());
-        newGameButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                //super.touchDown(event, x, y, pointer, button);
-                gameHolder.setGameMode();
-                return true;
-            }
-        });
-        stage.addActor(newGameButton);
+
+        setUpButtonBounds();
+        setUpButtonListener(gameHolder);
+        addButtonsToStage();
     }
 
     public Stage getStage() {
         return stage;
+    }
+
+    private void setUpButtonBounds(){
+        float sideLength = Constants.getStartMenuButtonDimension();
+
+        Vector2 quickStartPos = Constants.getQuickStartButtonPosition();
+        quickStartButton.setBounds(quickStartPos.x, quickStartPos.y, sideLength, sideLength);
+
+        Vector2 worldPos = Constants.getWorldButtonPosition();
+        worldButton.setBounds(worldPos.x, worldPos.y, sideLength, sideLength);
+
+        Vector2 customStartPos = Constants.getCustomStartButtonPosition();
+        customStartButton.setBounds(customStartPos.x, customStartPos.y, sideLength, sideLength);
+
+        Vector2 highScorePos = Constants.getHighScoreButtonPosition();
+        highScoreButton.setBounds(highScorePos.x, highScorePos.y, sideLength, sideLength);
+    }
+
+    private void setUpButtonListener(final GameHolder gameHolder){
+        quickStartButton.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                gameHolder.setGameMode();
+                return true;
+            }
+        });
+
+        worldButton.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("World Button pressed");
+                return true;
+            }
+        });
+
+        customStartButton.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("Custom Start Button pressed");
+                return true;
+            }
+        });
+
+
+        highScoreButton.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("High Score Button pressed");
+                return true;
+            }
+        });
+    }
+
+    private void addButtonsToStage(){
+        stage.addActor(quickStartButton);
+        stage.addActor(worldButton);
+        stage.addActor(customStartButton);
+        stage.addActor(highScoreButton);
     }
 }
