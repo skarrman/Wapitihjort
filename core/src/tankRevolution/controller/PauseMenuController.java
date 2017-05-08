@@ -75,7 +75,7 @@ public class PauseMenuController {
         toMenuButton.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("To menu Button pressed");
+                gameHolder.setStartMenuMode();
                 return true;
             }
         });
