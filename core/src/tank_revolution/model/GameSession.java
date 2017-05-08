@@ -87,6 +87,10 @@ public class GameSession{
         }*/
     }
 
+    public boolean NPCWillShoot(){
+        return (getCurrentCharacter() instanceof NPC && flyingProjectiles.size() == 0);
+    }
+
     /**
      * If the tank can move, gives the it a linear velocity depending on which way we want to move it.
      * <p>Returns a boolean to make it easier to test</p>

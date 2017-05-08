@@ -236,6 +236,9 @@ public class Environment {
         stackUpdate();
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
         terrainHandler.update();
+        if(NPCWillShoot()){
+            //TODO logic for calculating the shoot.
+        }
     }
 
     public void stackUpdate() {
@@ -315,6 +318,10 @@ public class Environment {
         for (Shootable s : projectiles) {
             addProjectile(s, shooter);
         }
+    }
+
+    private boolean NPCWillShoot(){
+        return gameSession.NPCWillShoot();
     }
 
     public float getTankX(Tank tank) {
