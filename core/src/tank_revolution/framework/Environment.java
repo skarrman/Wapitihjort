@@ -236,7 +236,7 @@ public class Environment {
         stackUpdate();
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
         terrainHandler.update();
-        if(NPCWillShoot()){
+        if (NPCWillShoot()) {
             //TODO logic for calculating the shoot.
         }
     }
@@ -320,7 +320,7 @@ public class Environment {
         }
     }
 
-    private boolean NPCWillShoot(){
+    private boolean NPCWillShoot() {
         return gameSession.NPCWillShoot();
     }
 
@@ -340,23 +340,23 @@ public class Environment {
         return projectiles.get(projectile).getPosition().y;
     }
 
-    public List<Character> getCharacterList(){
+    public List<Character> getCharacterList() {
         return gameSession.getCharacterList();
     }
 
-    public List<Shootable> getFlyingProjectiles(){
+    public List<Shootable> getFlyingProjectiles() {
         return gameSession.getFlyingProjectiles();
     }
 
-    public boolean isProjectileFlying(){
+    public boolean isProjectileFlying() {
         return gameSession.isProjectileFlying();
     }
 
-    public Tank getCurrentTank(){
+    public Tank getCurrentTank() {
         return gameSession.getCurrentTank();
     }
 
-    public boolean isInputAllowed(){
+    public boolean isInputAllowed() {
         return gameSession.isInputAllowed();
     }
 
@@ -364,20 +364,7 @@ public class Environment {
         world.setContactListener(new ContactListener() {
             @Override
             public void beginContact(Contact contact) {
-                /*if (projectiles.containsValue(contact.getFixtureA().getBody())){
-                    for(Shootable s: projectiles.keySet()){
-                        if(projectiles.get(s).equals(contact.getFixtureA().getBody())){
-                            //projectileHit(s);
-                        }
-                    }
-                }else if(projectiles.containsValue(contact.getFixtureB().getBody())){
-                    for(Shootable s: projectiles.keySet()){
-                        if(projectiles.get(s).equals(contact.getFixtureB().getBody())){
-                            //projectileHit(s);
-                        }
-                    }
 
-                }*/
             }
 
             @Override
@@ -394,25 +381,21 @@ public class Environment {
             public void postSolve(Contact contact, ContactImpulse impulse) {
                 Body a = contact.getFixtureA().getBody();
                 Body b = contact.getFixtureB().getBody();
-                if ((((UserData) (contact.getFixtureA().getBody().getUserData())).getType() == UserData.GROUND &&
-                        ((UserData) (contact.getFixtureB().getBody().getUserData())).getType() == UserData.BOMB) ||
-                        ((UserData) (contact.getFixtureA().getBody().getUserData())).getType() == UserData.BOMB &&
-                                ((UserData) (contact.getFixtureB().getBody().getUserData())).getType() == UserData.GROUND) {
-                    UserData dataA = (UserData) a.getUserData();
-                    UserData dataB = (UserData) b.getUserData();
 
+                UserData dataA = (UserData) a.getUserData();
+                UserData dataB = (UserData) b.getUserData();
 
-                    if (dataA.getType() == UserData.BOMB && dataB.getType() == UserData.GROUND) {
-                        terrainHandler.clippingGround(b, a, 10);
-                        projectileHit(getProjectile(a));
-                        System.out.println("data1");
-                    } else if (dataB.getType() == UserData.BOMB && dataA.getType() == UserData.GROUND) {
-                        terrainHandler.clippingGround(a, b, 10);
-                        projectileHit(getProjectile(b));
-                        System.out.println("data2");
-                    }
-
+                if (dataA.getType() == UserData.BOMB && (dataB.getType() == UserData.GROUND || dataB.getType() == UserData.BALL)) {
+                    Shootable projectile = getProjectile(a);
+                    terrainHandler.clippingGround(b, a, projectile.getBlastRadius());
+                    projectileHit(projectile);
+                } else if (dataB.getType() == UserData.BOMB && (dataA.getType() == UserData.GROUND || dataA.getType() == UserData.BALL)) {
+                    Shootable projectile = getProjectile(b);
+                    terrainHandler.clippingGround(a, b, projectile.getBlastRadius());
+                    projectileHit(projectile);
                 }
+
+
             }
         });
     }

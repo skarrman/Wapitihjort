@@ -30,7 +30,7 @@ public class TerrainHandler implements ITerrainHandler {
 
     public void create() {
         List<float[]> verts = new ArrayList();
-        float[] points = new float[]{-5f, -5f, 55f, -5f, 55f, 3f, -5f, 3f};
+        float[] points = new float[]{0, 0, 50f, 0, 50f, 3f, 0, 3f};
         verts.add(points);
         GroundFixture grFix = new GroundFixture(verts);
         this.polyVerts.add(grFix);
@@ -60,9 +60,9 @@ public class TerrainHandler implements ITerrainHandler {
         for(int i = 0; i < this.world.getBodyCount(); ++i) {
             Array<Body> bodies = new Array();
             this.world.getBodies(bodies);
-            UserData data = (UserData)((Body)bodies.get(i)).getUserData();
+            UserData data = (UserData)(bodies.get(i)).getUserData();
             if(data != null && data.getType() == 0 && (data.mustDestroy || this.mustCreate) && !data.destroyed) {
-                this.world.destroyBody((Body)bodies.get(i));
+                this.world.destroyBody(bodies.get(i));
                 bodies.removeIndex(i);
             }
         }
@@ -82,10 +82,10 @@ public class TerrainHandler implements ITerrainHandler {
             nground.setUserData(usrData);
             List<Fixture> fixtures = new ArrayList();
 
-            for(int y = 0; y < ((GroundFixture)this.polyVerts.get(i)).getVerts().size(); ++y) {
-                if(((float[])((GroundFixture)this.polyVerts.get(i)).getVerts().get(y)).length >= 6) {
+            for(int y = 0; y < this.polyVerts.get(i).getVerts().size(); ++y) {
+                if(((this.polyVerts.get(i)).getVerts().get(y)).length >= 6) {
                     ChainShape shape = new ChainShape();
-                    shape.createLoop((float[])((GroundFixture)this.polyVerts.get(i)).getVerts().get(y));
+                    shape.createLoop(this.polyVerts.get(i).getVerts().get(y));
                     FixtureDef fixtureDef = new FixtureDef();
                     fixtureDef.shape = shape;
                     fixtureDef.density = 1.0F;
@@ -94,7 +94,7 @@ public class TerrainHandler implements ITerrainHandler {
                 }
             }
 
-            ((GroundFixture)this.polyVerts.get(i)).setFixtures(fixtures);
+            this.polyVerts.get(i).setFixtures(fixtures);
         }
 
         this.mustCreate = false;
@@ -103,35 +103,35 @@ public class TerrainHandler implements ITerrainHandler {
 
     /**
      * This method basicly does the clipping of polygons. After the algorithm is done, the switchGround is called.
-     * @param a The ground
-     * @param b The projectile
+     * @param clipped The polygon that will be clipped
+     * @param clipper The polygon that will clip
      */
-    public void clippingGround(Body a, Body b, int blastRadius) {
+    public void clippingGround(Body clipped, Body clipper, int blastRadius) {
         List<PolygonBox2DShape> totalRS = new ArrayList();
-        float[] circVerts = CollisionGeometry.approxCircle(b.getPosition().x, b.getPosition().y, this.circRadius, this.segments);
+        float[] circVerts = CollisionGeometry.approxCircle(clipper.getPosition().x, clipper.getPosition().y, blastRadius, this.segments);
         ChainShape shape = new ChainShape();
         shape.createLoop(circVerts);
         PolygonBox2DShape circlePoly = new PolygonBox2DShape(shape);
-        Array<Fixture> fixtureList = a.getFixtureList();
+        Array<Fixture> fixtureList = clipped.getFixtureList();
         int fixCount = fixtureList.size;
 
         for(int i = 0; i < fixCount; ++i) {
             PolygonBox2DShape polyClip = null;
-            if(((Fixture)fixtureList.get(i)).getShape() instanceof PolygonShape) {
-                polyClip = new PolygonBox2DShape((PolygonShape)((Fixture)fixtureList.get(i)).getShape());
-            } else if(((Fixture)fixtureList.get(i)).getShape() instanceof ChainShape) {
-                polyClip = new PolygonBox2DShape((ChainShape)((Fixture)fixtureList.get(i)).getShape());
+            if(fixtureList.get(i).getShape() instanceof PolygonShape) {
+                polyClip = new PolygonBox2DShape(fixtureList.get(i).getShape());
+            } else if(fixtureList.get(i).getShape() instanceof ChainShape) {
+                polyClip = new PolygonBox2DShape(fixtureList.get(i).getShape());
             }
 
             List<PolygonBox2DShape> rs = polyClip.differenceCS(circlePoly);
 
             for(int y = 0; y < rs.size(); ++y) {
-                ((PolygonBox2DShape)rs.get(y)).circleContact(b.getPosition(), this.circRadius);
+                ((PolygonBox2DShape)rs.get(y)).circleContact(clipper.getPosition(), this.circRadius);
                 totalRS.add(rs.get(y));
             }
         }
 
         switchGround(totalRS);
-        ((UserData)a.getUserData()).mustDestroy = true;
+        ((UserData)clipped.getUserData()).mustDestroy = true;
     }
 }
