@@ -13,6 +13,13 @@ Constants {
     public static float getMapWidth() {
         return mapWidth;
     }
+    public static float pixelsPerMeters(){
+        return Gdx.graphics.getWidth() / mapWidth;
+    }
+
+    public static float metersPerPixel(){
+        return mapWidth / Gdx.graphics.getWidth();
+    }
 
     public static float getStartMenuButtonDimension(){
         return Gdx.graphics.getWidth()/5f;
