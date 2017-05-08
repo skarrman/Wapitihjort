@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.sun.org.apache.bcel.internal.classfile.ConstantString;
+import tankRevolution.GameHolder;
 import tankRevolution.utils.Constants;
 import tankRevolution.framework.Environment;
 import tankRevolution.model.TankRevolution;
@@ -18,6 +19,7 @@ public class ButtonController {
     private Viewable view;
     private TankRevolution currentGame;
     private Environment environment;
+    private GameHolder gameHolder;
     private Stage stage;
     private Button rightMoveButton;
     private Button leftMoveButton;
@@ -25,7 +27,8 @@ public class ButtonController {
     private boolean isPressed;
     private int direction;
 
-    public ButtonController(Viewable view, TankRevolution currentGame, Environment environment){
+    public ButtonController(Viewable view, TankRevolution currentGame, Environment environment, GameHolder gameHolder){
+        this.gameHolder = gameHolder;
         this.view = view;
         this.currentGame = currentGame;
         this.environment = environment;
@@ -92,7 +95,7 @@ public class ButtonController {
         pauseMenuButton.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.print("Settings button pressed");
+                gameHolder.setPauseMenuMode();
                 return true;
             }
         });

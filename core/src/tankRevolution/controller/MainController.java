@@ -20,8 +20,8 @@ public class MainController {
        inputMultiplexer = new InputMultiplexer();
     }
 
-    public void setGameMode(TankRevolution currentGame, Environment environment, Viewable gameView){
-        buttonController = new ButtonController(gameView, currentGame, environment);
+    public void setGameMode(TankRevolution currentGame, Environment environment, Viewable gameView, GameHolder gameHolder){
+        buttonController = new ButtonController(gameView, currentGame, environment, gameHolder);
         inputMultiplexer.clear();
         inputMultiplexer.addProcessor(buttonController.getStage());
         inputMultiplexer.addProcessor(new AimController((GameView) gameView, currentGame, environment));

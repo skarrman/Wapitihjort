@@ -52,7 +52,7 @@ public class GameHolder implements ApplicationListener {
             environment = new Environment(currentGame);
         }
         view = new GameView(currentGame, environment);
-        mainController.setGameMode(currentGame, environment,view);
+        mainController.setGameMode(currentGame, environment,view, this);
     }
 
     public void setPauseMenuMode(){
