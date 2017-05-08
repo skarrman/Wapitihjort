@@ -19,7 +19,8 @@ public class TerrainHandler implements ITerrainHandler {
     private List<GroundFixture> polyVerts;
     private World world;
     public float circRadius = 4.0F;
-    public int segments = 12;
+    //This is sets the roundness of the explosion radius
+    public int segments = 32;
 
     public TerrainHandler(World world){
         polyVerts = new ArrayList();
@@ -100,7 +101,12 @@ public class TerrainHandler implements ITerrainHandler {
         this.polyVerts.clear();
     }
 
-    public void clippingGround(Body a, Body b, UserData dataA) {
+    /**
+     * This method basicly does the clipping of polygons. After the algorithm is done, the switchGround is called.
+     * @param a The ground
+     * @param b The projectile
+     */
+    public void clippingGround(Body a, Body b, int blastRadius) {
         List<PolygonBox2DShape> totalRS = new ArrayList();
         float[] circVerts = CollisionGeometry.approxCircle(b.getPosition().x, b.getPosition().y, this.circRadius, this.segments);
         ChainShape shape = new ChainShape();

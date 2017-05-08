@@ -97,7 +97,7 @@ public class Environment {
         world = new World(g, true);
         terrainHandler = new TerrainHandler(world);
         //setTerrain(3f);
-        TerrainHandler terrainHandler = new TerrainHandler(world);
+        //TerrainHandler terrainHandler = new TerrainHandler(world);
         setupSides();
     }
 
@@ -394,44 +394,36 @@ public class Environment {
             public void postSolve(Contact contact, ContactImpulse impulse) {
                 Body a = contact.getFixtureA().getBody();
                 Body b = contact.getFixtureB().getBody();
-                if((((UserData)(contact.getFixtureA().getBody().getUserData())).getType() == UserData.GROUND &&
-                        ((UserData)(contact.getFixtureB().getBody().getUserData())).getType() == UserData.BOMB)||
-                        ((UserData)(contact.getFixtureA().getBody().getUserData())).getType() == UserData.BOMB &&
-                                ((UserData)(contact.getFixtureB().getBody().getUserData())).getType() == UserData.GROUND) {
-                    Shootable projectile;
+                if ((((UserData) (contact.getFixtureA().getBody().getUserData())).getType() == UserData.GROUND &&
+                        ((UserData) (contact.getFixtureB().getBody().getUserData())).getType() == UserData.BOMB) ||
+                        ((UserData) (contact.getFixtureA().getBody().getUserData())).getType() == UserData.BOMB &&
+                                ((UserData) (contact.getFixtureB().getBody().getUserData())).getType() == UserData.GROUND) {
                     UserData dataA = (UserData) a.getUserData();
                     UserData dataB = (UserData) b.getUserData();
 
-                    if (projectiles.containsValue(a)) {
-                        for (Shootable s : projectiles.keySet()) {
-                            if (projectiles.get(s).equals(a)) {
-                                projectile = s;
-                                //projectileHit(s);
-                            }
-                        }
-                    } else if (projectiles.containsValue(b)) {
-                        for (Shootable s : projectiles.keySet()) {
-                            if (projectiles.get(s).equals(b)) {
-                                projectile = s;
-                                //projectileHit(s);
-                            }
-                        }
 
+                    if (dataA.getType() == UserData.BOMB && dataB.getType() == UserData.GROUND) {
+                        terrainHandler.clippingGround(b, a, 10);
+                        projectileHit(getProjectile(a));
+                        System.out.println("data1");
+                    } else if (dataB.getType() == UserData.BOMB && dataA.getType() == UserData.GROUND) {
+                        terrainHandler.clippingGround(a, b, 10);
+                        projectileHit(getProjectile(b));
+                        System.out.println("data2");
                     }
-                    System.out.println("PostSolve");
 
-                    //add userData to projectile
-                    if (dataA instanceof UserData && dataA.getType() == UserData.GROUND && dataB instanceof UserData && dataB.getType() == UserData.BOMB) {
-                        terrainHandler.clippingGround(a, b, dataA);
-
-                    } else if (dataB instanceof UserData && dataB.getType() == UserData.GROUND && dataA instanceof UserData && dataA.getType() == UserData.BOMB) {
-                        terrainHandler.clippingGround(b, a, dataB);
-                    }
                 }
-    //projectileHit(projectile);
-
-                //clipped = false;
             }
         });
+    }
+
+    private Shootable getProjectile(Body body) {
+        for (Shootable s : projectiles.keySet()) {
+            if (projectiles.get(s).equals(body)) {
+                return s;
+            }
+        }
+        System.out.println("getProjectile nulls");
+        return null;
     }
 }
