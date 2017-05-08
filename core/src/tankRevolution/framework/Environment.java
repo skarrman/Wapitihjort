@@ -1,14 +1,12 @@
 package tankRevolution.framework;
 
-import java.awt.geom.Point2D;
 import java.util.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.quailshillstudio.polygonClippingUtils.UserData;
-import tankRevolution.utils.Constants;
-import tankRevolution.utils.Id;
+import tankRevolution.utils.*;
 import tankRevolution.framework.terrain.ITerrainHandler;
 import tankRevolution.model.TankRevolution;
 import tankRevolution.model.Character;
@@ -18,6 +16,7 @@ import tankRevolution.model.TankRevolution;
 import tankRevolution.model.shootablePackage.Shootable;
 import tankRevolution.model.Tank;
 import tankRevolution.framework.terrain.TerrainHandler;
+import tankRevolution.utils.Vector;
 
 import javax.swing.text.Position;
 
@@ -319,15 +318,15 @@ public class Environment {
     public void NPCDoShoot(){
         List<Tank> tanksToNPC = new ArrayList<Tank>();
         tanksToNPC.addAll(tanks.keySet());
-        List<Point2D.Float> positionsToNPC = new ArrayList<Point2D.Float>();
+        List<Point> positionsToNPC = new ArrayList<Point>();
         for (Tank t: tanksToNPC){
             float positionX = getTankX(t);
             float positionY = getTankY(t);
-            positionsToNPC.add(new Point2D.Float(positionX, positionY));
+            positionsToNPC.add(new Point(positionX, positionY));
         }
         NPC NPC = (NPC) tankRevolution.getCurrentCharacter();
-        Vector<Float> vector = NPC.getShootVector(tanksToNPC, positionsToNPC);
-        shoot(vector.get(1), vector.get(2));
+        Vector vector = NPC.getShootVector(tanksToNPC, positionsToNPC);
+        shoot(vector.getDeltaX(), vector.getDeltaY());
     }
 
     private boolean NPCWillShoot() {
