@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import tank_revolution.Utils.ButtonObserver;
+import tank_revolution.Utils.Constants;
 import tank_revolution.framework.Environment;
 import tank_revolution.model.GameSession;
 import tank_revolution.view.GameView;
@@ -19,19 +20,20 @@ public class ButtonController implements ButtonObserver {
     private GameSession currentGame;
     private Environment environment;
     private Stage stage;
-    private MoveButton rightButton;
-    private MoveButton leftButton;
+    private UIButton rightButton;
+    private UIButton leftButton;
 
     public ButtonController(Viewable view, GameSession currentGame, Environment environment){
         this.view = view;
         this.currentGame = currentGame;
         this.environment = environment;
         stage = new Stage();
-        leftButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")),this);
-        rightButton = new MoveButton(new Texture(Gdx.files.internal("Projectile.png")), this);
-        leftButton.setBounds(0, 0, Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight());
-        rightButton.setBounds(Gdx.graphics.getWidth()-(Gdx.graphics.getWidth()/10), 0,
-                Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight());
+        leftButton = new UIButton(this);
+        rightButton = new UIButton(this);
+        leftButton.setBounds(Constants.getLeftMoveButtonPosition().x, Constants.getLeftMoveButtonPosition().y,
+                Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
+        rightButton.setBounds(Constants.getRightMoveButtonPosition().x, Constants.getRightMoveButtonPosition().y,
+                Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
         stage.addActor(leftButton);
         stage.addActor(rightButton);
     }

@@ -10,9 +10,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import tank_revolution.Utils.Constants;
-import tank_revolution.controller.MoveButton;
 import tank_revolution.framework.Environment;
 import tank_revolution.model.Character;
 import tank_revolution.model.Explosion;
@@ -58,6 +56,10 @@ public class GameView implements Viewable {
      * The graphical representation of the flying projectile
      */
     private Sprite projectile;
+
+    private Sprite leftMoveButton;
+
+    private Sprite rightMoveButton;
 
     /**
      * An orthogonal camera
@@ -116,6 +118,8 @@ public class GameView implements Viewable {
         characterList = session.getCharacterList();
         setUpTankHashMap();
         projectile = new Sprite(new Texture(Gdx.files.internal("Projectile.png")));
+        leftMoveButton = new Sprite(new Texture(Gdx.files.internal("LeftMoveButton.png")));
+        rightMoveButton = new Sprite(new Texture(Gdx.files.internal("RightMoveButton.png")));
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         shapeRenderer = new ShapeRenderer();
         createDebugger();
@@ -142,6 +146,7 @@ public class GameView implements Viewable {
         batch.begin();
 
         drawTanks();
+        drawButtons();
 
         if (environment.isProjectileFlying()) {
             drawProjectiles();
@@ -219,10 +224,13 @@ public class GameView implements Viewable {
         debugRenderer.render(environment.getWorld(), debugMatrix);
     }
 
-    public void placeButtons(MoveButton leftButton, MoveButton rightButton, Stage stage){
-        stage.addActor(leftButton);
-        stage.addActor(rightButton);
-        stage.draw();
+    public void drawButtons(){
+        leftMoveButton.setBounds(Constants.getLeftMoveButtonPosition().x, Constants.getLeftMoveButtonPosition().y,
+                Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
+        leftMoveButton.draw(batch);
+        rightMoveButton.setBounds(Constants.getRightMoveButtonPosition().x, Constants.getRightMoveButtonPosition().y,
+                Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
+        rightMoveButton.draw(batch);
     }
 
     /** Sets the camera */
