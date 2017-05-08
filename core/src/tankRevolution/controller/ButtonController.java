@@ -4,7 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.sun.org.apache.bcel.internal.classfile.ConstantString;
 import tankRevolution.GameHolder;
 import tankRevolution.utils.Constants;
 import tankRevolution.framework.Environment;

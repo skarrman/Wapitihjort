@@ -12,13 +12,11 @@ import tankRevolution.model.TankRevolution;
 import tankRevolution.model.Character;
 import tankRevolution.model.NPC;
 import tankRevolution.model.Explosion;
-import tankRevolution.model.TankRevolution;
 import tankRevolution.model.shootablePackage.Shootable;
 import tankRevolution.model.Tank;
 import tankRevolution.framework.terrain.TerrainHandler;
 import tankRevolution.utils.Vector;
 
-import javax.swing.text.Position;
 
 /**
  * Created by jakobwall on 2017-04-06.
