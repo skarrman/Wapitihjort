@@ -12,12 +12,12 @@ import tankRevolution.utils.Constants;
  * Created by simonkarrman on 2017-05-08.
  */
 public class PauseMenuController {
-    Button resumeButton;
-    Button restartButton;
-    Button toMenuButton;
-    Button settingsButton;
+    private Button resumeButton;
+    private Button restartButton;
+    private Button toMenuButton;
+    private Button settingsButton;
 
-    Stage stage;
+    private Stage stage;
 
     public PauseMenuController(GameHolder gameHolder){
         resumeButton = new Button();

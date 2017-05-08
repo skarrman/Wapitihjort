@@ -25,9 +25,13 @@ public class MainController {
         inputMultiplexer.addProcessor(new AimController((GameView) gameView, currentGame, environment));
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
-    public void setMenuMode(GameHolder gameHolder){
+    public void setStartMenuMode(GameHolder gameHolder){
         inputMultiplexer.clear();
         inputMultiplexer.addProcessor(new StartMenuController(gameHolder).getStage());
         Gdx.input.setInputProcessor(inputMultiplexer);
+    }
+
+    public void setPauseMenuMode(GameHolder gameHolder){
+        Gdx.input.setInputProcessor(new PauseMenuController(gameHolder).getStage());
     }
 }

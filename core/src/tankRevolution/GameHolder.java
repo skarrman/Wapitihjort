@@ -9,6 +9,7 @@ import tankRevolution.framework.Environment;
 import tankRevolution.model.TankRevolution;
 import tankRevolution.model.Options;
 import tankRevolution.view.GameView;
+import tankRevolution.view.PauseMenuView;
 import tankRevolution.view.StartMenuView;
 import tankRevolution.view.Viewable;
 
@@ -28,9 +29,8 @@ public class GameHolder implements ApplicationListener {
     @Override
     public void create() {
         AssetsManager.getInstance().loadStartingAssets(2);
-        view = new StartMenuView();
         mainController = new MainController();
-        mainController.setMenuMode(this);
+        setStartMenuMode();
     }
 
     /**
@@ -41,11 +41,22 @@ public class GameHolder implements ApplicationListener {
             view.update();
     }
 
+    public void setStartMenuMode(){
+        view = new StartMenuView();
+        mainController.setStartMenuMode(this);
+    }
     public void setGameMode(){
-        currentGame = new Options().newGame();
-        environment = new Environment(Constants.getMapWidth(), currentGame);
+        if(currentGame == null || environment == null) {
+            currentGame = new Options().newGame();
+            environment = new Environment(Constants.getMapWidth(), currentGame);
+        }
         view = new GameView(currentGame, environment);
         mainController.setGameMode(currentGame, environment,view);
+    }
+
+    public void setPauseMenuMode(){
+        mainController.setPauseMenuMode(this);
+        view = new PauseMenuView();
     }
 
     /**

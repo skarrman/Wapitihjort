@@ -17,12 +17,12 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
  * Created by simonkarrman on 2017-05-04.
  */
 public class StartMenuView implements Viewable {
-    Batch batch;
-    Sprite quickStartSprite;
-    Sprite worldSprite;
-    Sprite customStartSprite;
-    Sprite highScoreSprite;
-    Sprite settingsSprite;
+    private Batch batch;
+    private Sprite quickStartSprite;
+    private Sprite worldSprite;
+    private Sprite customStartSprite;
+    private Sprite highScoreSprite;
+    private Sprite settingsSprite;
 
 
 

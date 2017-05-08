@@ -8,16 +8,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import tankRevolution.utils.Constants;
 
+import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
+
 /**
  * Created by simonkarrman on 2017-05-08.
  */
 public class PauseMenuView implements Viewable {
-    Batch batch;
+    private Batch batch;
 
-    Sprite resumeSprite;
-    Sprite restartSprite;
-    Sprite toMenuSprite;
-    Sprite settingsSprite;
+    private Sprite resumeSprite;
+    private Sprite restartSprite;
+    private Sprite toMenuSprite;
+    private Sprite settingsSprite;
 
     public PauseMenuView(){
         batch = new SpriteBatch();
@@ -32,7 +34,14 @@ public class PauseMenuView implements Viewable {
     }
     @Override
     public void update() {
-
+        Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
+        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+        batch.begin();
+        resumeSprite.draw(batch);
+        restartSprite.draw(batch);
+        toMenuSprite.draw(batch);
+        settingsSprite.draw(batch);
+        batch.end();
     }
 
     private void setUpSpriteSize(){
@@ -56,5 +65,8 @@ public class PauseMenuView implements Viewable {
 
         Vector2 toMenuPos = Constants.getToMenuPosition();
         toMenuSprite.setPosition(toMenuPos.x, toMenuPos.y);
+
+        Vector2 settingsPos = Constants.getSettingsButtonPosition();
+        settingsSprite.setPosition(settingsPos.x, settingsPos.y);
     }
 }

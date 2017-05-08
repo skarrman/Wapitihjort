@@ -11,11 +11,11 @@ import tankRevolution.utils.Constants;
  * Created by simonkarrman on 2017-05-04.
  */
 public class StartMenuController {
-    Button quickStartButton;
-    Button worldButton;
-    Button customStartButton;
-    Button highScoreButton;
-    Button settingsButton;
+    private Button quickStartButton;
+    private Button worldButton;
+    private Button customStartButton;
+    private Button highScoreButton;
+    private Button settingsButton;
     Stage stage;
 
     public StartMenuController(final GameHolder gameHolder) {
