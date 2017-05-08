@@ -24,11 +24,6 @@ public class Environment {
     private TankRevolution tankRevolution;
 
     /**
-     * The map width of the playing field
-     */
-    private float mapWidth;
-
-    /**
      * The world in which all objects will live.
      */
     private World world;
@@ -76,7 +71,6 @@ public class Environment {
      * @param mapWidth is the width of the gameboard.
      */
     public Environment(float mapWidth, TankRevolution tankRevolution) {
-        this.mapWidth = mapWidth;
         this.tankRevolution = tankRevolution;
         tanks = new HashMap<Tank, Body>();
         projectiles = new HashMap<Shootable, Body>();
@@ -105,7 +99,7 @@ public class Environment {
      */
     private void setupSides() {
         leftSide = setupSide(-1f);
-        rightSide = setupSide(mapWidth + 1);
+        rightSide = setupSide(Constants.getMapWidth() + 1);
     }
 
     /**
@@ -121,7 +115,7 @@ public class Environment {
         bodyDef.position.set(0, 0);
 
         EdgeShape wall = new EdgeShape();
-        wall.set(n, 0, n, mapWidth * 2);
+        wall.set(n, 0, n, Constants.getMapWidth() * 2);
         fixtureDef3.shape = wall;
 
         body = world.createBody(bodyDef);
@@ -197,7 +191,7 @@ public class Environment {
         FixtureDef fixtureDef3 = new FixtureDef();
 
         EdgeShape ground = new EdgeShape();
-        ground.set(-2, y, mapWidth + 2, y);
+        ground.set(-2, y, Constants.getMapWidth() + 2, y);
         fixtureDef3.shape = ground;
 
         terrain = world.createBody(bodyDef);
@@ -209,10 +203,6 @@ public class Environment {
         for (Character c : tankRevolution.getCharacterList()) {
             addTank(c.getTank(), c.getId());
         }
-    }
-
-    public float getMapWidth() {
-        return mapWidth;
     }
 
     public World getWorld() {
