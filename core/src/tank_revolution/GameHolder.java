@@ -5,7 +5,6 @@ import com.badlogic.gdx.ApplicationListener;
 import tank_revolution.Utils.AssetsManager;
 import tank_revolution.Utils.Constants;
 import tank_revolution.controller.MainController;
-import tank_revolution.controller.MenuController;
 import tank_revolution.framework.Environment;
 import tank_revolution.model.GameSession;
 import tank_revolution.model.TankRevolution;

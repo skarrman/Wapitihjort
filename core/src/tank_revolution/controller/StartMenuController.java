@@ -10,7 +10,7 @@ import tank_revolution.Utils.Constants;
 /**
  * Created by simonkarrman on 2017-05-04.
  */
-public class MenuController {
+public class StartMenuController {
     Button quickStartButton;
     Button worldButton;
     Button customStartButton;
@@ -18,7 +18,7 @@ public class MenuController {
     Button settingsButton;
     Stage stage;
 
-    public MenuController(final GameHolder gameHolder) {
+    public StartMenuController(final GameHolder gameHolder) {
         quickStartButton = new Button();
         worldButton = new Button();
         customStartButton = new Button();

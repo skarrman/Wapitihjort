@@ -63,6 +63,30 @@ Constants {
                 (Gdx.graphics.getHeight() - getMoveButtonHeight())/2);
     }
 
+    public static float getPauseMenuButtonWidth(){
+        return Gdx.graphics.getWidth()*0.8f;
+    }
+
+    public static float getPauseMenuButtonHeight(){
+        return Gdx.graphics.getHeight()/7;
+    }
+
+    private static float getPauseMenuXValue(){
+        return (Gdx.graphics.getWidth() / 2) - (getPauseMenuButtonWidth() / 2);
+    }
+
+    public static Vector2 getResumeButtonPosition(){
+        return new Vector2(getPauseMenuXValue(), 5 * getPauseMenuButtonHeight());
+    }
+
+    public static Vector2 getRestartButtonPosition(){
+        return new Vector2(getPauseMenuXValue(), 3 * getPauseMenuButtonHeight());
+    }
+
+    public static Vector2 getToMenuPosition(){
+        return new Vector2(getPauseMenuXValue(),  getPauseMenuButtonHeight());
+    }
+
 
 
 
