@@ -42,8 +42,10 @@ public class ButtonController {
     }
 
     public void update(){
-        if(isPressed){
+        if(isPressed && currentGame.tankCanMove()){
             environment.moveTank(direction);
+            currentGame.reduceFuel();
+            System.out.println(currentGame.getCurrentTank().getFuel());
         }else{
             environment.stopTank();
         }

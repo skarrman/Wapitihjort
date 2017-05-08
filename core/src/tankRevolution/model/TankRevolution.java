@@ -107,7 +107,7 @@ public class TankRevolution {
 
     public void reduceFuel(){
         Tank tank = characterList.get(characterTurn).getTank();
-        tank.setFuel(tank.getFuel()-1);
+        tank.setFuel(tank.getFuel()-(float)0.5);
     }
 
     /**
