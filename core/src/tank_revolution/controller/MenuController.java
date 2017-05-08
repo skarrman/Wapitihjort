@@ -15,6 +15,7 @@ public class MenuController {
     Button worldButton;
     Button customStartButton;
     Button highScoreButton;
+    Button settingsButton;
     Stage stage;
 
     public MenuController(final GameHolder gameHolder) {
@@ -22,6 +23,7 @@ public class MenuController {
         worldButton = new Button();
         customStartButton = new Button();
         highScoreButton = new Button();
+        settingsButton = new Button();
 
         stage = new Stage();
 
@@ -48,6 +50,10 @@ public class MenuController {
 
         Vector2 highScorePos = Constants.getHighScoreButtonPosition();
         highScoreButton.setBounds(highScorePos.x, highScorePos.y, sideLength, sideLength);
+
+        Vector2 settingsPos = Constants.getSettingsButtonPosition();
+        float settingsLength = Constants.getSettingsButtonDimension();
+        settingsButton.setBounds(settingsPos.x, settingsPos.y, settingsLength, settingsLength);
     }
 
     private void setUpButtonListener(final GameHolder gameHolder){
@@ -83,6 +89,14 @@ public class MenuController {
                 return true;
             }
         });
+
+        settingsButton.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("Settings Button pressed");
+                return true;
+            }
+        });
     }
 
     private void addButtonsToStage(){
@@ -90,5 +104,6 @@ public class MenuController {
         stage.addActor(worldButton);
         stage.addActor(customStartButton);
         stage.addActor(highScoreButton);
+        stage.addActor(settingsButton);
     }
 }

@@ -6,7 +6,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import tank_revolution.Utils.AssetsManager;
 import tank_revolution.Utils.Constants;
+
+import java.util.ArrayList;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
@@ -19,16 +22,19 @@ public class StartMenuView implements Viewable {
     Sprite worldSprite;
     Sprite customStartSprite;
     Sprite highScoreSprite;
+    Sprite settingsSprite;
 
 
 
     public StartMenuView(){
         batch = new SpriteBatch();
 
-        quickStartSprite = new Sprite(new Texture(Gdx.files.internal("NewGameButtonIcon.png")));
-        worldSprite = new Sprite(new Texture(Gdx.files.internal("Disabled.png")));
-        customStartSprite = new Sprite(new Texture(Gdx.files.internal("Disabled.png")));
-        highScoreSprite = new Sprite(new Texture(Gdx.files.internal("Disabled.png")));
+        ArrayList<Texture> textures = AssetsManager.getInstance().getStartMenuTextures();
+        quickStartSprite = new Sprite(textures.get(0));
+        worldSprite = new Sprite((textures.get(1)));
+        customStartSprite = new Sprite(textures.get(2));
+        highScoreSprite = new Sprite(textures.get(3));
+        settingsSprite = new Sprite(textures.get(4));
 
         setSpriteSizes();
         setSpritePositions();
@@ -42,6 +48,7 @@ public class StartMenuView implements Viewable {
         worldSprite.draw(batch);
         customStartSprite.draw(batch);
         highScoreSprite.draw(batch);
+        settingsSprite.draw(batch);
         batch.end();
     }
 
@@ -51,6 +58,9 @@ public class StartMenuView implements Viewable {
         worldSprite.setSize(sideLength, sideLength);
         customStartSprite.setSize(sideLength, sideLength);
         highScoreSprite.setSize(sideLength, sideLength);
+
+        float settingsLength = Constants.getSettingsButtonDimension();
+        settingsSprite.setSize(settingsLength, settingsLength);
     }
 
     private void setSpritePositions(){
@@ -65,6 +75,9 @@ public class StartMenuView implements Viewable {
 
         Vector2 highScorePos = Constants.getHighScoreButtonPosition();
         highScoreSprite.setPosition(highScorePos.x, highScorePos.y);
+
+        Vector2 settingsPos = Constants.getSettingsButtonPosition();
+        settingsSprite.setPosition(settingsPos.x, settingsPos.y);
     }
 
 }

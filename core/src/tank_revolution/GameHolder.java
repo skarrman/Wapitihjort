@@ -2,6 +2,7 @@ package tank_revolution;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
+import tank_revolution.Utils.AssetsManager;
 import tank_revolution.Utils.Constants;
 import tank_revolution.controller.MainController;
 import tank_revolution.controller.MenuController;
@@ -27,6 +28,7 @@ public class GameHolder implements ApplicationListener {
      */
     @Override
     public void create() {
+        AssetsManager.getInstance().loadStartingAssets(2);
         view = new StartMenuView();
         mainController = new MainController();
         mainController.setMenuMode(this);

@@ -40,6 +40,14 @@ Constants {
         return new Vector2(3*Gdx.graphics.getWidth()/5f, y);
     }
 
+    public static float getSettingsButtonDimension(){
+        return Gdx.graphics.getWidth()/10;
+    }
+
+    public static Vector2 getSettingsButtonPosition(){
+        return new Vector2(Gdx.graphics.getWidth()-getSettingsButtonDimension(), Gdx.graphics.getHeight()-getSettingsButtonDimension());
+    }
+
 
 
 

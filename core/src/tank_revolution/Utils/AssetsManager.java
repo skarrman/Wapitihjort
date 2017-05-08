@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +25,8 @@ public class AssetsManager {
      * the sprite for the standard projectile
      */
     private Sprite projectile;
+
+    private ArrayList<Texture> startMenuTextures;
 
     /**
      * our instance
@@ -56,6 +59,7 @@ public class AssetsManager {
         try {
             loadExplosionTextureAtlas();
             loadProjectileSprite();
+            loadStartMenuTextures();
         }
         catch (FileNotFoundException e){
             System.out.println("The explosion texture or the projectile texture was not found");
@@ -72,6 +76,10 @@ public class AssetsManager {
 
     public Sprite getProjectileSprite(){
         return projectile;
+    }
+
+    public ArrayList<Texture> getStartMenuTextures(){
+        return startMenuTextures;
     }
 
     private AssetsManager() {
@@ -140,6 +148,14 @@ public class AssetsManager {
         projectile = new Sprite(new Texture(Gdx.files.internal("Projectile.png")));
     }
 
+    private void loadStartMenuTextures() throws FileNotFoundException{
+        startMenuTextures = new ArrayList<Texture>();
+        startMenuTextures.add(new Texture(Gdx.files.internal("NewGameButtonIcon.png")));
+        startMenuTextures.add(new Texture(Gdx.files.internal("Disabled.png")));
+        startMenuTextures.add(new Texture(Gdx.files.internal("Disabled.png")));
+        startMenuTextures.add(new Texture(Gdx.files.internal("Disabled.png")));
+        startMenuTextures.add(new Texture(Gdx.files.internal("Kugghjul.png")));
+    }
 
     /*enum TextureAtlasAssets{
         EXPLOSION,
