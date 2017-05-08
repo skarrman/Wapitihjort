@@ -1,8 +1,8 @@
 package tank_revolution_tests.Utils;
 
 import org.junit.Test;
-import tank_revolution.Utils.AssetsManager;
-import tank_revolution.Utils.Id;
+import tankRevolution.utils.AssetsManager;
+import tankRevolution.utils.Id;
 
 /**
  * Created by antonhagermalm on 2017-04-25.

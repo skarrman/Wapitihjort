@@ -1,9 +1,7 @@
 package tank_revolution_tests.model;
 
-import tank_revolution.model.Explosion;
+import tankRevolution.model.Explosion;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
