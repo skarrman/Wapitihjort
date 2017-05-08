@@ -9,8 +9,8 @@ public class CharacterFactory {
     public static Player newPlayer(Id id){
         return new Player(id);
     }
-    public static NPC newNPC(Id id, int difficulty){
-        return new NPC(id, difficulty);
+    public static NPC newNPC(Id id){
+        return new NPC(id);
     }
 
     public static Character defenciveCopyCharacter(Character characterToCopy){

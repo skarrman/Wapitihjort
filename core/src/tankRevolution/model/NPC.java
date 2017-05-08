@@ -13,9 +13,8 @@ public class NPC extends Character{
 
     private int difficulty;
 
-    NPC(Id id, int difficulty) {
-        super(id, true);
-        this.difficulty = difficulty;
+    NPC(Id id) {
+        super(id, true);;
     }
 
     NPC(NPC npc){
