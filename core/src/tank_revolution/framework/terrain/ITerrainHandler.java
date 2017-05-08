@@ -14,6 +14,6 @@ public interface ITerrainHandler {
     void create();
     void switchGround(List<PolygonBox2DShape> polygonBox2DShapes);
     void update();
-    void clippingGround(Body a, Body b, int blastRadius);
+    void clippingGround(Body clipper, int blastRadius);
 
 }

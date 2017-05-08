@@ -377,6 +377,8 @@ public class Environment {
 
             }
 
+
+//Uncomment terrainHandler.clippingGround(b, a, projectile.getBlastRadius()); when blastRadius is a smaller number
             @Override
             public void postSolve(Contact contact, ContactImpulse impulse) {
                 Body a = contact.getFixtureA().getBody();
@@ -385,13 +387,16 @@ public class Environment {
                 UserData dataA = (UserData) a.getUserData();
                 UserData dataB = (UserData) b.getUserData();
 
+//NOTE: BALL = a object that cant clip or be clipped
                 if (dataA.getType() == UserData.BOMB && (dataB.getType() == UserData.GROUND || dataB.getType() == UserData.BALL)) {
                     Shootable projectile = getProjectile(a);
-                    terrainHandler.clippingGround(b, a, projectile.getBlastRadius());
+                    //terrainHandler.clippingGround(a, projectile.getBlastRadius());
+                    terrainHandler.clippingGround(a, 3);
                     projectileHit(projectile);
                 } else if (dataB.getType() == UserData.BOMB && (dataA.getType() == UserData.GROUND || dataA.getType() == UserData.BALL)) {
                     Shootable projectile = getProjectile(b);
-                    terrainHandler.clippingGround(a, b, projectile.getBlastRadius());
+                    //terrainHandler.clippingGround(b, projectile.getBlastRadius());
+                    terrainHandler.clippingGround(b, 3);
                     projectileHit(projectile);
                 }
 

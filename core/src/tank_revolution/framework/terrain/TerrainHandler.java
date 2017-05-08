@@ -18,9 +18,10 @@ public class TerrainHandler implements ITerrainHandler {
     private boolean mustCreate;
     private List<GroundFixture> polyVerts;
     private World world;
-    public float circRadius = 4.0F;
+    private float circRadius = 4.0F;
     //This is sets the roundness of the explosion radius
-    public int segments = 32;
+    private int segments = 32;
+    private Body terrain;
 
     public TerrainHandler(World world){
         polyVerts = new ArrayList();
@@ -78,6 +79,7 @@ public class TerrainHandler implements ITerrainHandler {
 
         for(int i = 0; i < this.polyVerts.size(); ++i) {
             Body nground = world.createBody(groundDef);
+            this.terrain = nground;
             UserData usrData = new UserData(0);
             nground.setUserData(usrData);
             List<Fixture> fixtures = new ArrayList();
@@ -103,16 +105,16 @@ public class TerrainHandler implements ITerrainHandler {
 
     /**
      * This method basicly does the clipping of polygons. After the algorithm is done, the switchGround is called.
-     * @param clipped The polygon that will be clipped
-     * @param clipper The polygon that will clip
+     * circVerts is a vertices of a circle polygon, segments is the number of edges in the circle
+     * @param clipper The polygon that will clip the ground
      */
-    public void clippingGround(Body clipped, Body clipper, int blastRadius) {
+    public void clippingGround(Body clipper, int blastRadius) {
         List<PolygonBox2DShape> totalRS = new ArrayList();
         float[] circVerts = CollisionGeometry.approxCircle(clipper.getPosition().x, clipper.getPosition().y, blastRadius, this.segments);
         ChainShape shape = new ChainShape();
         shape.createLoop(circVerts);
         PolygonBox2DShape circlePoly = new PolygonBox2DShape(shape);
-        Array<Fixture> fixtureList = clipped.getFixtureList();
+        Array<Fixture> fixtureList = terrain.getFixtureList();
         int fixCount = fixtureList.size;
 
         for(int i = 0; i < fixCount; ++i) {
@@ -126,12 +128,13 @@ public class TerrainHandler implements ITerrainHandler {
             List<PolygonBox2DShape> rs = polyClip.differenceCS(circlePoly);
 
             for(int y = 0; y < rs.size(); ++y) {
-                ((PolygonBox2DShape)rs.get(y)).circleContact(clipper.getPosition(), this.circRadius);
+                rs.get(y).circleContact(clipper.getPosition(), this.circRadius);
                 totalRS.add(rs.get(y));
             }
         }
 
         switchGround(totalRS);
-        ((UserData)clipped.getUserData()).mustDestroy = true;
+        ((UserData)terrain.getUserData()).mustDestroy = true;
+        this.terrain = null;
     }
 }
