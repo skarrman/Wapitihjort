@@ -326,7 +326,7 @@ public class Environment {
             positionsToNPC.add(new Point2D.Float(positionX, positionY));
         }
         Character NPC = (NPC) tankRevolution.getCurrentCharacter();
-        Vector<Float> vector = NPC.getShootVector();
+        Vector<Float> vector = NPC.getShootVector(tanksToNPC, positionsToNPC);
     }
 
     private boolean NPCWillShoot() {

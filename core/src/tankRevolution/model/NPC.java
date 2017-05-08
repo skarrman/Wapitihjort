@@ -2,6 +2,10 @@ package tankRevolution.model;
 
 import tankRevolution.utils.Id;
 
+import java.awt.geom.Point2D;
+import java.util.List;
+import java.util.Vector;
+
 /**
  * {@inheritDoc}
  */
@@ -19,14 +23,11 @@ public class NPC extends Character{
         this.difficulty = npc.difficulty;
     }
 
-    public float getDeltaX(){
-        //TODO make this calculation. (Based on enemies)
-        return -500;
-    }
-
-    public float getDeltaY(){
-        return 500;
-        //TODO make this calculation. (Based on enemies)
+    public Vector<Float> getShootVector(List<Tank> tanks, List<Point2D.Float> positions){
+        Vector<Float> vector = new Vector<Float>();
+        vector.set(1, 100f);
+        vector.set(2, 300f);
+        return vector;
     }
 
     public void setNewTurn(){
