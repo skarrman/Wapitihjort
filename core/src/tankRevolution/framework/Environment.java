@@ -1,5 +1,6 @@
 package tankRevolution.framework;
 
+import java.awt.geom.Point2D;
 import java.util.*;
 
 import com.badlogic.gdx.Gdx;
@@ -9,12 +10,16 @@ import com.quailshillstudio.polygonClippingUtils.UserData;
 import tankRevolution.utils.Constants;
 import tankRevolution.utils.Id;
 import tankRevolution.framework.terrain.ITerrainHandler;
+import tankRevolution.model.TankRevolution;
 import tankRevolution.model.Character;
+import tankRevolution.model.NPC;
 import tankRevolution.model.Explosion;
 import tankRevolution.model.TankRevolution;
 import tankRevolution.model.shootablePackage.Shootable;
 import tankRevolution.model.Tank;
 import tankRevolution.framework.terrain.TerrainHandler;
+
+import javax.swing.text.Position;
 
 /**
  * Created by jakobwall on 2017-04-06.
@@ -312,7 +317,16 @@ public class Environment {
     }
 
     public void NPCDoShoot(){
-        
+        List<Tank> tanksToNPC = new ArrayList<Tank>();
+        tanksToNPC.addAll(tanks.keySet());
+        List<Point2D.Float> positionsToNPC = new ArrayList<Point2D.Float>();
+        for (Tank t: tanksToNPC){
+            float positionX = getTankX(t);
+            float positionY = getTankY(t);
+            positionsToNPC.add(new Point2D.Float(positionX, positionY));
+        }
+        Character NPC = (NPC) tankRevolution.getCurrentCharacter();
+        Vector<Float> vector = NPC.getShootVector();
     }
 
     private boolean NPCWillShoot() {
