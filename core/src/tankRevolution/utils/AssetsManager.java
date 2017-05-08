@@ -27,6 +27,10 @@ public class AssetsManager {
 
     private ArrayList<Texture> startMenuTextures;
 
+    private ArrayList<Texture> pauseMenuTextures;
+
+    private Texture settingsTexture;
+
     /**
      * our instance
      */
@@ -59,6 +63,7 @@ public class AssetsManager {
             loadExplosionTextureAtlas();
             loadProjectileSprite();
             loadStartMenuTextures();
+            loadPauseMenuTextures();
         }
         catch (FileNotFoundException e){
             System.out.println("The explosion texture or the projectile texture was not found");
@@ -79,6 +84,10 @@ public class AssetsManager {
 
     public ArrayList<Texture> getStartMenuTextures(){
         return startMenuTextures;
+    }
+
+    public ArrayList<Texture> getPauseMenuTextures(){
+        return pauseMenuTextures;
     }
 
     private AssetsManager() {
@@ -147,13 +156,28 @@ public class AssetsManager {
         projectile = new Sprite(new Texture(Gdx.files.internal("Projectile.png")));
     }
 
+    private Texture getSettingsTexture(){
+        if(settingsTexture == null){
+            settingsTexture = new Texture(Gdx.files.internal("Kugghjul.png"));
+        }
+        return settingsTexture;
+    }
+
     private void loadStartMenuTextures() throws FileNotFoundException{
         startMenuTextures = new ArrayList<Texture>();
         startMenuTextures.add(new Texture(Gdx.files.internal("NewGameButtonIcon.png")));
         startMenuTextures.add(new Texture(Gdx.files.internal("Disabled.png")));
         startMenuTextures.add(new Texture(Gdx.files.internal("Disabled.png")));
         startMenuTextures.add(new Texture(Gdx.files.internal("Disabled.png")));
-        startMenuTextures.add(new Texture(Gdx.files.internal("Kugghjul.png")));
+        startMenuTextures.add(getSettingsTexture());
+    }
+
+    private void loadPauseMenuTextures() throws FileNotFoundException{
+        pauseMenuTextures = new ArrayList<Texture>();
+        pauseMenuTextures.add(new Texture(Gdx.files.internal("ResumeButton.png")));
+        pauseMenuTextures.add(new Texture(Gdx.files.internal("RestartButton.png")));
+        pauseMenuTextures.add(new Texture(Gdx.files.internal("MainMenuButton.png")));
+        pauseMenuTextures.add(getSettingsTexture());
     }
 
     /*enum TextureAtlasAssets{

@@ -6,7 +6,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
+
+import java.util.ArrayList;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
@@ -24,10 +27,11 @@ public class PauseMenuView implements Viewable {
     public PauseMenuView(){
         batch = new SpriteBatch();
 
-        resumeSprite = new Sprite(new Texture(Gdx.files.internal("ResumeButton.png")));
-        restartSprite = new Sprite(new Texture(Gdx.files.internal("RestartButton.png")));
-        toMenuSprite = new Sprite(new Texture(Gdx.files.internal("MainMenuButton.png")));
-        settingsSprite = new Sprite(new Texture(Gdx.files.internal("Kugghjul.png")));
+        ArrayList<Texture> textures = AssetsManager.getInstance().getPauseMenuTextures();
+        resumeSprite = new Sprite(textures.get(0));
+        restartSprite = new Sprite(textures.get(1));
+        toMenuSprite = new Sprite(textures.get(2));
+        settingsSprite = new Sprite(textures.get(3));
 
         setUpSpriteSize();
         setUpSpritePosition();

@@ -70,7 +70,7 @@ Constants {
     }
 
     public static float getPauseMenuButtonWidth(){
-        return Gdx.graphics.getWidth()*0.8f;
+        return Gdx.graphics.getWidth()*0.7f;
     }
 
     public static float getPauseMenuButtonHeight(){
