@@ -90,7 +90,6 @@ public class Environment {
         world = new World(g, true);
         terrainHandler = new TerrainHandler(world);
         //setTerrain(3f);
-        //TerrainHandler terrainHandler = new TerrainHandler(world);
         setupSides();
     }
 
@@ -98,8 +97,8 @@ public class Environment {
      * Sets up sides.
      */
     private void setupSides() {
-        leftSide = setupSide(-1f);
-        rightSide = setupSide(Constants.getMapWidth() + 1);
+        leftSide = setupSide(0);
+        rightSide = setupSide(Constants.getMapWidth() + 0);
     }
 
     /**
@@ -120,6 +119,7 @@ public class Environment {
 
         body = world.createBody(bodyDef);
         body.createFixture(fixtureDef3);
+        body.setUserData(new UserData(UserData.BALL));
         wall.dispose();
         return body;
     }
@@ -242,7 +242,7 @@ public class Environment {
     }
 
 
-    public void projectileHit(Shootable projectile) {
+    void projectileHit(Shootable projectile) {
         List<Tank> deadTanks = new ArrayList<Tank>();
         for (Tank t : tanks.keySet()) {
             tankRevolution.damage(projectile, t, distanceTo(t, projectile));
@@ -259,7 +259,6 @@ public class Environment {
             explosions.add(new Explosion(tanks.get(t).getPosition().x, tanks.get(t).getPosition().y, 10));
             destroyTank(t);
         }
-        //TODO check if any tank died and act on it
     }
 
     /**
@@ -371,7 +370,7 @@ public class Environment {
         world.setContactListener(new EnvironmentCollisions(this, terrainHandler));
     }
 
-    public Shootable getProjectile(Body body) {
+    Shootable getProjectile(Body body) {
         for (Shootable s : projectiles.keySet()) {
             if (projectiles.get(s).equals(body)) {
                 return s;
