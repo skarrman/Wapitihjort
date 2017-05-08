@@ -224,7 +224,7 @@ public class Environment {
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
         terrainHandler.update();
         if (NPCWillShoot()) {
-            //TODO logic for calculating the shoot.
+            NPCDoShoot();
         }
     }
 
@@ -300,11 +300,19 @@ public class Environment {
     }
 
     public void shoot(int screenX, int screenY, float touchX, float touchY) {
+        shoot(touchX - screenX,screenY - touchY);
+    }
+
+    public void shoot(float deltaX, float deltaY){
         Tank shooter = tankRevolution.getCurrentTank();
-        List<Shootable> projectiles = tankRevolution.shoot(touchX - screenX, screenY - touchY);
+        List<Shootable> projectiles = tankRevolution.shoot(deltaX, deltaY);
         for (Shootable s : projectiles) {
             addProjectile(s, shooter);
         }
+    }
+
+    public void NPCDoShoot(){
+        
     }
 
     private boolean NPCWillShoot() {
