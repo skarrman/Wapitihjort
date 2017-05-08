@@ -242,7 +242,7 @@ public class Environment {
     }
 
 
-    private void projectileHit(Shootable projectile) {
+    public void projectileHit(Shootable projectile) {
         List<Tank> deadTanks = new ArrayList<Tank>();
         for (Tank t : tanks.keySet()) {
             tankRevolution.damage(projectile, t, distanceTo(t, projectile));
@@ -368,55 +368,10 @@ public class Environment {
     }
 
     private void createContactListener() {
-        world.setContactListener(new ContactListener() {
-            @Override
-            public void beginContact(Contact contact) {
-
-            }
-
-            @Override
-            public void endContact(Contact contact) {
-
-            }
-
-            @Override
-            public void preSolve(Contact contact, Manifold oldManifold) {
-
-            }
-
-
-//Uncomment terrainHandler.explode(b, a, projectile.getBlastRadius()); when blastRadius is a smaller number
-            @Override
-            public void postSolve(Contact contact, ContactImpulse impulse) {
-                Body a = contact.getFixtureA().getBody();
-                Body b = contact.getFixtureB().getBody();
-
-                UserData dataA = (UserData) a.getUserData();
-                UserData dataB = (UserData) b.getUserData();
-
-//NOTE: BALL = a object that cant clip or be clipped
-                if (dataA.getType() == UserData.BOMB && (dataB.getType() == UserData.GROUND || dataB.getType() == UserData.BALL)) {
-                    Shootable projectile = getProjectile(a);
-                    if(projectile != null) {
-                        //terrainHandler.explode(a, projectile.getBlastRadius());
-                        terrainHandler.explode(a, 3);
-                        projectileHit(projectile);
-                    }
-                } else if (dataB.getType() == UserData.BOMB && (dataA.getType() == UserData.GROUND || dataA.getType() == UserData.BALL)) {
-                    Shootable projectile = getProjectile(b);
-                    if(projectile != null) {
-                        //terrainHandler.explode(b, projectile.getBlastRadius());
-                        terrainHandler.explode(b, 3);
-                        projectileHit(projectile);
-                    }
-                }
-
-
-            }
-        });
+        world.setContactListener(new EnvironmentCollisions(this, terrainHandler));
     }
 
-    private Shootable getProjectile(Body body) {
+    public Shootable getProjectile(Body body) {
         for (Shootable s : projectiles.keySet()) {
             if (projectiles.get(s).equals(body)) {
                 return s;

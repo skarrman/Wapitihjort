@@ -2,17 +2,21 @@ package tankRevolution.framework;
 
 import com.badlogic.gdx.physics.box2d.*;
 import com.quailshillstudio.polygonClippingUtils.UserData;
+import tankRevolution.framework.terrain.ITerrainHandler;
+import tankRevolution.framework.terrain.TerrainHandler;
 import tankRevolution.model.shootablePackage.Shootable;
 
 /**
  * Created by antonhagermalm on 2017-05-04.
  */
-public class EnvironmentCollisions{ /*implements ContactListener{
+public class EnvironmentCollisions implements ContactListener {
 
-    Environment environment;
+    private Environment environment;
+    private ITerrainHandler terrainHandler;
 
-    EnvironmentCollisions(Environment environment){
+    EnvironmentCollisions(Environment environment, ITerrainHandler terrainHandler) {
         this.environment = environment;
+        this.terrainHandler = terrainHandler;
     }
 
     /**
@@ -20,7 +24,7 @@ public class EnvironmentCollisions{ /*implements ContactListener{
      *
      * @param contact
      */
-  /*  @Override
+    @Override
     public void beginContact(Contact contact) {
 
     }
@@ -30,7 +34,7 @@ public class EnvironmentCollisions{ /*implements ContactListener{
      *
      * @param contact
      */
-   /* @Override
+    @Override
     public void endContact(Contact contact) {
 
     }
@@ -50,28 +54,20 @@ public class EnvironmentCollisions{ /*implements ContactListener{
 
 //NOTE: BALL = a object that cant clip or be clipped
         if (dataA.getType() == UserData.BOMB && (dataB.getType() == UserData.GROUND || dataB.getType() == UserData.BALL)) {
-            Shootable projectile = getProjectile(a);
-            //terrainHandler.explode(a, projectile.getBlastRadius());
-            environment.terrainHandler.explode(a, 3);
-            projectileHit(projectile);
+            explode(a);
         } else if (dataB.getType() == UserData.BOMB && (dataA.getType() == UserData.GROUND || dataA.getType() == UserData.BALL)) {
-            Shootable projectile = getProjectile(b);
-            //terrainHandler.explode(b, projectile.getBlastRadius());
-            terrainHandler.clippingGround(b, 3);
-            projectileHit(projectile);
+            explode(b);
         }
-
 
     }
 
-    private Shootable getProjectile(Body body) {
-        for (Shootable s : projectiles.keySet()) {
-            if (projectiles.get(s).equals(body)) {
-                return s;
-            }
+    private void explode(Body body){
+        Shootable projectile = environment.getProjectile(body);
+        if(projectile != null) {
+            //terrainHandler.explode(b, projectile.getBlastRadius());
+            terrainHandler.explode(body, 3);
+            environment.projectileHit(projectile);
         }
-        System.out.println("getProjectile nulls");
-        return null;
-    }*/
+    }
 }
 
