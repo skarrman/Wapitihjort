@@ -39,6 +39,7 @@ public class GameHolder implements ApplicationListener {
     @Override
     public void render() {
             view.update();
+            mainController.update();
     }
 
     public void setStartMenuMode(){

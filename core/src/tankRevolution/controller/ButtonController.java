@@ -1,8 +1,10 @@
 package tankRevolution.controller;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import tankRevolution.utils.ButtonObserver;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.sun.org.apache.bcel.internal.classfile.ConstantString;
 import tankRevolution.utils.Constants;
 import tankRevolution.framework.Environment;
 import tankRevolution.model.TankRevolution;
@@ -12,57 +14,94 @@ import tankRevolution.view.Viewable;
 /**
  * Controller class responsible for handling input from buttons around the UI
  */
-public class ButtonController implements ButtonObserver {
+public class ButtonController {
     private Viewable view;
     private TankRevolution currentGame;
     private Environment environment;
     private Stage stage;
-    private UIButton rightButton;
-    private UIButton leftButton;
+    private Button rightMoveButton;
+    private Button leftMoveButton;
+    private Button pauseMenuButton;
+    private boolean isPressed;
+    private int direction;
 
     public ButtonController(Viewable view, TankRevolution currentGame, Environment environment){
         this.view = view;
         this.currentGame = currentGame;
         this.environment = environment;
+        isPressed = false;
         stage = new Stage();
-        leftButton = new UIButton(this);
-        rightButton = new UIButton(this);
-        leftButton.setBounds(Constants.getLeftMoveButtonPosition().x, Constants.getLeftMoveButtonPosition().y,
-                Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
-        rightButton.setBounds(Constants.getRightMoveButtonPosition().x, Constants.getRightMoveButtonPosition().y,
-                Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
-        stage.addActor(leftButton);
-        stage.addActor(rightButton);
+        leftMoveButton = new Button();
+        rightMoveButton = new Button();
+        pauseMenuButton = new Button();
+        setUpButtonBounds();
+        setUpButtonListeners();
+        addButtonsToStage();
     }
 
-    /**
-     * Tells the view to draw the buttons in a specified place.
-     */
-    public void placeButtons(){
-       // view.placeButtons(leftButton, rightButton, stage);
+    public void update(){
+        if(isPressed){
+            environment.moveTank(direction);
+        }else{
+            environment.stopTank();
+        }
+
     }
 
     public Stage getStage(){
         return stage;
     }
 
-    @Override
-    public void actOnPress(InputEvent e) {
-        if(currentGame.tankCanMove()) {
-            if (e.getTarget().equals(leftButton)) {
-                environment.moveTank(-1);
-            } else if (e.getTarget().equals(rightButton)) {
-                environment.moveTank(1);
-            } else {
-                System.out.println(e.getTarget().toString());
-            }
-        }
-        currentGame.reduceFuel();
+
+    private void setUpButtonBounds(){
+        leftMoveButton.setBounds(Constants.getLeftMoveButtonPosition().x, Constants.getLeftMoveButtonPosition().y,
+                Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
+        rightMoveButton.setBounds(Constants.getRightMoveButtonPosition().x, Constants.getRightMoveButtonPosition().y,
+                Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
+        pauseMenuButton.setBounds(Constants.getSettingsButtonPosition().x, Constants.getSettingsButtonPosition().y,
+                Constants.getSettingsButtonDimension(), Constants.getSettingsButtonDimension());
     }
 
-    @Override
-    public void actOnRelease(){
-        environment.stopTank();
+    private void setUpButtonListeners(){
+        leftMoveButton.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                isPressed = true;
+                direction = -1;
+                return true;
+            }
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button){
+                isPressed = false;
+                direction = 0;
+            }
+        });
+        rightMoveButton.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                isPressed = true;
+                direction = 1;
+                return true;
+            }
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button){
+                isPressed = false;
+                direction = 0;
+            }
+        });
+        pauseMenuButton.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.print("Settings button pressed");
+                return true;
+            }
+        });
+    }
+
+    private void addButtonsToStage(){
+        stage.addActor(leftMoveButton);
+        stage.addActor(rightMoveButton);
+        stage.addActor(pauseMenuButton);
     }
 }
 

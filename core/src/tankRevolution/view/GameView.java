@@ -61,6 +61,8 @@ public class GameView implements Viewable {
 
     private Sprite rightMoveButton;
 
+    private Sprite pauseMenuButton;
+
     /**
      * An orthogonal camera
      */
@@ -120,6 +122,7 @@ public class GameView implements Viewable {
         projectile = new Sprite(new Texture(Gdx.files.internal("Projectile.png")));
         leftMoveButton = new Sprite(new Texture(Gdx.files.internal("LeftMoveButton.png")));
         rightMoveButton = new Sprite(new Texture(Gdx.files.internal("RightMoveButton.png")));
+        pauseMenuButton = new Sprite(new Texture(Gdx.files.internal("Kugghjul.png")));
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         shapeRenderer = new ShapeRenderer();
         createDebugger();
@@ -231,6 +234,9 @@ public class GameView implements Viewable {
         rightMoveButton.setBounds(Constants.getRightMoveButtonPosition().x, Constants.getRightMoveButtonPosition().y,
                 Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
         rightMoveButton.draw(batch);
+        pauseMenuButton.setBounds(Constants.getSettingsButtonPosition().x, Constants.getSettingsButtonPosition().y,
+                Constants.getSettingsButtonDimension(), Constants.getSettingsButtonDimension());
+        pauseMenuButton.draw(batch);
     }
 
     /** Sets the camera */

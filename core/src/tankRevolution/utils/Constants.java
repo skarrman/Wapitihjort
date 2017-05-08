@@ -28,7 +28,7 @@ Constants {
         return Gdx.graphics.getWidth()/10;
     }
     public static float getMoveButtonHeight(){
-        return getMoveButtonWidth()*6;
+        return Gdx.graphics.getHeight()-getSettingsButtonDimension();
     }
 
     public static Vector2 getQuickStartButtonPosition(){
@@ -62,12 +62,11 @@ Constants {
     }
 
     public static Vector2 getLeftMoveButtonPosition(){
-        return new Vector2(0, Gdx.graphics.getHeight() - getMoveButtonHeight() + (Gdx.graphics.getHeight() - getMoveButtonHeight())/2);
+        return new Vector2(0, 0);
     }
 
     public static Vector2 getRightMoveButtonPosition(){
-        return new Vector2(Gdx.graphics.getWidth() - getMoveButtonWidth(), Gdx.graphics.getHeight() - getMoveButtonHeight() +
-                (Gdx.graphics.getHeight() - getMoveButtonHeight())/2);
+        return new Vector2(Gdx.graphics.getWidth() - getMoveButtonWidth(), 0);
     }
 
     public static float getPauseMenuButtonWidth(){

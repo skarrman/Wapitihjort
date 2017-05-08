@@ -14,14 +14,16 @@ import tankRevolution.view.Viewable;
 public class MainController {
 
     InputMultiplexer inputMultiplexer;
+    ButtonController buttonController;
 
     public MainController() {
        inputMultiplexer = new InputMultiplexer();
     }
 
     public void setGameMode(TankRevolution currentGame, Environment environment, Viewable gameView){
+        buttonController = new ButtonController(gameView, currentGame, environment);
         inputMultiplexer.clear();
-        inputMultiplexer.addProcessor(new ButtonController(gameView, currentGame, environment).getStage());
+        inputMultiplexer.addProcessor(buttonController.getStage());
         inputMultiplexer.addProcessor(new AimController((GameView) gameView, currentGame, environment));
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
@@ -31,7 +33,13 @@ public class MainController {
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
-    public void setPauseMenuMode(GameHolder gameHolder){
+    public void setPauseMenuMode(GameHolder gameHolder) {
         Gdx.input.setInputProcessor(new PauseMenuController(gameHolder).getStage());
+    }
+    
+    public void update(){
+        if(buttonController != null) {
+            buttonController.update();
+        }
     }
 }

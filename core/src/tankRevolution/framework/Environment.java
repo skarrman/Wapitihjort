@@ -297,11 +297,11 @@ public class Environment {
     }
 
     public void moveTank(int direction) {
-        getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(direction * 50, 0);
+        getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(direction * 10, 0);
     }
 
     public void stopTank() {
-        getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(0, 0);
+        getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(0, -10);
     }
 
     public void shoot(int screenX, int screenY, float touchX, float touchY) {
