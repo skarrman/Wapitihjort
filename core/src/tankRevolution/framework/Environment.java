@@ -67,10 +67,8 @@ public class Environment {
 
     /**
      * Creates a new Environment for Bodys to live in.
-     *
-     * @param mapWidth is the width of the gameboard.
      */
-    public Environment(float mapWidth, TankRevolution tankRevolution) {
+    public Environment( TankRevolution tankRevolution) {
         this.tankRevolution = tankRevolution;
         tanks = new HashMap<Tank, Body>();
         projectiles = new HashMap<Shootable, Body>();
