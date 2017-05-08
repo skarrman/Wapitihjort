@@ -90,7 +90,7 @@ public class Environment {
      */
     private void setupWorld() {
         //The gravity force is connected to the world.
-        Vector2 g = new Vector2(0f, -10f);
+        Vector2 g = new Vector2(0f, Constants.getGravity());
         world = new World(g, true);
         terrainHandler = new TerrainHandler(world);
         //setTerrain(3f);

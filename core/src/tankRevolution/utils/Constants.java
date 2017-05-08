@@ -8,9 +8,13 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Constants {
     private static final float mapWidth = 50f;
+    private static final float gravity = 10f;
 
     public static float getMapWidth() {
         return mapWidth;
+    }
+    public static float getGravity(){
+        return gravity;
     }
     public static float pixelsPerMeters(){
         return Gdx.graphics.getWidth() / mapWidth;
