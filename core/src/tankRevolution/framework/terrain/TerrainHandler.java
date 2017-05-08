@@ -17,10 +17,11 @@ public class TerrainHandler implements ITerrainHandler {
 
     private boolean mustCreate;
     private List<GroundFixture> polyVerts;
+
     private World world;
-    private float circRadius = 4.0F;
-    //This is sets the roundness of the explosion radius
+    /** The number of edges in the approximated circle of the explosions */
     private int segments = 32;
+    /** The body of the entire terrain */
     private Body terrain;
 
     public TerrainHandler(World world){
@@ -29,6 +30,10 @@ public class TerrainHandler implements ITerrainHandler {
         create();
     }
 
+
+    /**
+     * creates the initial body
+     */
     public void create() {
         List<float[]> verts = new ArrayList();
         float[] points = new float[]{0, 0, 50f, 0, 50f, 3f, 0, 3f};
@@ -43,20 +48,21 @@ public class TerrainHandler implements ITerrainHandler {
      *
      * @param rs dont really know what this stands for but it's the complete ground (i think)
      */
-    @Override
     public void switchGround(List<PolygonBox2DShape> rs) {
         mustCreate = true;
         List<float[]> verts = new ArrayList();
 
         for (PolygonBox2DShape r : rs) {
-            verts.add(((PolygonBox2DShape) r).verticesToLoop());
+            verts.add(r.verticesToLoop());
         }
 
         GroundFixture grFix = new GroundFixture(verts);
         this.polyVerts.add(grFix);
     }
 
-    //TODO change this method name to something better
+    /**
+     * needs to be called in each frame update, checks if any bodies needs to be removed or the terrain needs to be rebuilt
+     */
     public void update(){
         for(int i = 0; i < this.world.getBodyCount(); ++i) {
             Array<Body> bodies = new Array();
@@ -72,22 +78,25 @@ public class TerrainHandler implements ITerrainHandler {
         }
     }
 
+    /**
+     * creates the ground by adding several fixtures to the body
+     */
     protected void createGround() {
         BodyDef groundDef = new BodyDef();
         groundDef.type = BodyDef.BodyType.StaticBody;
         groundDef.position.set(0.0F, 0.0F);
 
-        for(int i = 0; i < this.polyVerts.size(); ++i) {
+        for (GroundFixture polyVert : this.polyVerts) {
             Body nground = world.createBody(groundDef);
             this.terrain = nground;
             UserData usrData = new UserData(0);
             nground.setUserData(usrData);
             List<Fixture> fixtures = new ArrayList();
 
-            for(int y = 0; y < this.polyVerts.get(i).getVerts().size(); ++y) {
-                if(((this.polyVerts.get(i)).getVerts().get(y)).length >= 6) {
+            for (int y = 0; y < polyVert.getVerts().size(); ++y) {
+                if (polyVert.getVerts().get(y).length >= 6) {
                     ChainShape shape = new ChainShape();
-                    shape.createLoop(this.polyVerts.get(i).getVerts().get(y));
+                    shape.createLoop(polyVert.getVerts().get(y));
                     FixtureDef fixtureDef = new FixtureDef();
                     fixtureDef.shape = shape;
                     fixtureDef.density = 1.0F;
@@ -96,7 +105,7 @@ public class TerrainHandler implements ITerrainHandler {
                 }
             }
 
-            this.polyVerts.get(i).setFixtures(fixtures);
+            polyVert.setFixtures(fixtures);
         }
 
         this.mustCreate = false;
@@ -106,11 +115,11 @@ public class TerrainHandler implements ITerrainHandler {
     /**
      * This method basicly does the clipping of polygons. After the algorithm is done, the switchGround is called.
      * circVerts is a vertices of a circle polygon, segments is the number of edges in the circle
-     * @param clipper The polygon that will clip the ground
+     * @param projectileBody The polygon that will clip the ground
      */
-    public void clippingGround(Body clipper, int blastRadius) {
+    public void explode(Body projectileBody, int blastRadius) {
         List<PolygonBox2DShape> totalRS = new ArrayList();
-        float[] circVerts = CollisionGeometry.approxCircle(clipper.getPosition().x, clipper.getPosition().y, blastRadius, this.segments);
+        float[] circVerts = CollisionGeometry.approxCircle(projectileBody.getPosition().x, projectileBody.getPosition().y, blastRadius, this.segments);
         ChainShape shape = new ChainShape();
         shape.createLoop(circVerts);
         PolygonBox2DShape circlePoly = new PolygonBox2DShape(shape);
@@ -128,7 +137,7 @@ public class TerrainHandler implements ITerrainHandler {
             List<PolygonBox2DShape> rs = polyClip.differenceCS(circlePoly);
 
             for(int y = 0; y < rs.size(); ++y) {
-                rs.get(y).circleContact(clipper.getPosition(), this.circRadius);
+                rs.get(y).circleContact(projectileBody.getPosition(), blastRadius);
                 totalRS.add(rs.get(y));
             }
         }

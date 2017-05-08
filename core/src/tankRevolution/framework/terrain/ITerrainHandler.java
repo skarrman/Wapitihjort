@@ -10,8 +10,8 @@ import java.util.List;
  */
 public interface ITerrainHandler {
     void create();
-    void switchGround(List<PolygonBox2DShape> polygonBox2DShapes);
+    //void switchGround(List<PolygonBox2DShape> polygonBox2DShapes);
     void update();
-    void clippingGround(Body clipper, int blastRadius);
+    void explode(Body projectileBody, int blastRadius);
 
 }
