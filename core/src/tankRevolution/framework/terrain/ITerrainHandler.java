@@ -9,9 +9,6 @@ import java.util.List;
  * Created by antonhagermalm on 2017-05-04.
  */
 public interface ITerrainHandler {
-    void create();
-    //void switchGround(List<PolygonBox2DShape> polygonBox2DShapes);
     void update();
     void explode(Body projectileBody, int blastRadius);
-
 }

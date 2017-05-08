@@ -34,7 +34,7 @@ public class TerrainHandler implements ITerrainHandler {
     /**
      * creates the initial body
      */
-    public void create() {
+    private void create() {
         List<float[]> verts = new ArrayList();
         float[] points = new float[]{0, 0, 50f, 0, 50f, 3f, 0, 3f};
         verts.add(points);
@@ -48,7 +48,7 @@ public class TerrainHandler implements ITerrainHandler {
      *
      * @param rs dont really know what this stands for but it's the complete ground (i think)
      */
-    public void switchGround(List<PolygonBox2DShape> rs) {
+    private void switchGround(List<PolygonBox2DShape> rs) {
         mustCreate = true;
         List<float[]> verts = new ArrayList();
 
