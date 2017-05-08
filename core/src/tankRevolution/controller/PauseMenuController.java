@@ -59,8 +59,7 @@ public class PauseMenuController {
         resumeButton.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Resume Button pressed");
-                //gameHolder.setGameMode();
+                gameHolder.setGameMode(false);
                 return true;
             }
         });
@@ -68,7 +67,7 @@ public class PauseMenuController {
         restartButton.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Restart Button pressed");
+                gameHolder.setGameMode(true);
                 return true;
             }
         });

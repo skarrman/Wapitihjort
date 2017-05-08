@@ -46,8 +46,8 @@ public class GameHolder implements ApplicationListener {
         view = new StartMenuView();
         mainController.setStartMenuMode(this);
     }
-    public void setGameMode(){
-        if(currentGame == null || environment == null) {
+    public void setGameMode(boolean newGame){
+        if(newGame){
             currentGame = new Options().newGame();
             environment = new Environment(currentGame);
         }

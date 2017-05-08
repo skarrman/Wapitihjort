@@ -60,7 +60,7 @@ public class StartMenuController {
         quickStartButton.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                gameHolder.setGameMode();
+                gameHolder.setGameMode(true);
                 return true;
             }
         });
@@ -93,6 +93,7 @@ public class StartMenuController {
         settingsButton.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                gameHolder.setPauseMenuMode();
                 System.out.println("Settings Button pressed");
                 return true;
             }

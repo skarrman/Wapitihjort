@@ -24,9 +24,9 @@ public class PauseMenuView implements Viewable {
     public PauseMenuView(){
         batch = new SpriteBatch();
 
-        resumeSprite = new Sprite(new Texture(Gdx.files.internal("PauseMenuDefaultButton.png")));
-        restartSprite = new Sprite(new Texture(Gdx.files.internal("PauseMenuDefaultButton.png")));
-        toMenuSprite = new Sprite(new Texture(Gdx.files.internal("PauseMenuDefaultButton.png")));
+        resumeSprite = new Sprite(new Texture(Gdx.files.internal("ResumeButton.png")));
+        restartSprite = new Sprite(new Texture(Gdx.files.internal("RestartButton.png")));
+        toMenuSprite = new Sprite(new Texture(Gdx.files.internal("MainMenuButton.png")));
         settingsSprite = new Sprite(new Texture(Gdx.files.internal("Kugghjul.png")));
 
         setUpSpriteSize();
