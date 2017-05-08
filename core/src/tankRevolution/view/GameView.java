@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
+import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
 import tankRevolution.framework.Environment;
 import tankRevolution.model.Character;
@@ -57,11 +58,13 @@ public class GameView implements Viewable {
      */
     private Sprite projectile;
 
-    private Sprite leftMoveButton;
+    private ArrayList<Texture> textures;
 
-    private Sprite rightMoveButton;
+    private Sprite leftMoveButtonSprite;
 
-    private Sprite pauseMenuButton;
+    private Sprite rightMoveButtonSprite;
+
+    private Sprite pauseMenuButtonSprite;
 
     /**
      * An orthogonal camera
@@ -119,10 +122,11 @@ public class GameView implements Viewable {
         batch = new SpriteBatch();
         characterList = session.getCharacterList();
         setUpTankHashMap();
-        projectile = new Sprite(new Texture(Gdx.files.internal("Projectile.png")));
-        leftMoveButton = new Sprite(new Texture(Gdx.files.internal("LeftMoveButton.png")));
-        rightMoveButton = new Sprite(new Texture(Gdx.files.internal("RightMoveButton.png")));
-        pauseMenuButton = new Sprite(new Texture(Gdx.files.internal("Kugghjul.png")));
+        projectile = new Sprite(AssetsManager.getInstance().getProjectileSprite());
+        ArrayList<Texture> textures = AssetsManager.getInstance().getUITextures();
+        leftMoveButtonSprite = new Sprite(textures.get(0));
+        rightMoveButtonSprite = new Sprite(textures.get(1));
+        pauseMenuButtonSprite = new Sprite(textures.get(2));
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         shapeRenderer = new ShapeRenderer();
         createDebugger();
@@ -227,16 +231,16 @@ public class GameView implements Viewable {
         debugRenderer.render(environment.getWorld(), debugMatrix);
     }
 
-    public void drawButtons(){
-        leftMoveButton.setBounds(Constants.getLeftMoveButtonPosition().x, Constants.getLeftMoveButtonPosition().y,
+    private void drawButtons(){
+        leftMoveButtonSprite.setBounds(Constants.getLeftMoveButtonPosition().x, Constants.getLeftMoveButtonPosition().y,
                 Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
-        leftMoveButton.draw(batch);
-        rightMoveButton.setBounds(Constants.getRightMoveButtonPosition().x, Constants.getRightMoveButtonPosition().y,
+        leftMoveButtonSprite.draw(batch);
+        rightMoveButtonSprite.setBounds(Constants.getRightMoveButtonPosition().x, Constants.getRightMoveButtonPosition().y,
                 Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
-        rightMoveButton.draw(batch);
-        pauseMenuButton.setBounds(Constants.getSettingsButtonPosition().x, Constants.getSettingsButtonPosition().y,
+        rightMoveButtonSprite.draw(batch);
+        pauseMenuButtonSprite.setBounds(Constants.getSettingsButtonPosition().x, Constants.getSettingsButtonPosition().y,
                 Constants.getSettingsButtonDimension(), Constants.getSettingsButtonDimension());
-        pauseMenuButton.draw(batch);
+        pauseMenuButtonSprite.draw(batch);
     }
 
     /** Sets the camera */

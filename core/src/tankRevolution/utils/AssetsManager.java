@@ -31,6 +31,8 @@ public class AssetsManager {
 
     private Texture settingsTexture;
 
+    private ArrayList<Texture> UITextures;
+
     /**
      * our instance
      */
@@ -64,6 +66,7 @@ public class AssetsManager {
             loadProjectileSprite();
             loadStartMenuTextures();
             loadPauseMenuTextures();
+            loadUIButtonTextures();
         }
         catch (FileNotFoundException e){
             System.out.println("The explosion texture or the projectile texture was not found");
@@ -86,8 +89,11 @@ public class AssetsManager {
         return startMenuTextures;
     }
 
-    public ArrayList<Texture> getPauseMenuTextures(){
+    public ArrayList<Texture> getPauseMenuTextures() {
         return pauseMenuTextures;
+    }
+    public ArrayList<Texture> getUITextures() {
+        return UITextures;
     }
 
     private AssetsManager() {
@@ -178,6 +184,13 @@ public class AssetsManager {
         pauseMenuTextures.add(new Texture(Gdx.files.internal("RestartButton.png")));
         pauseMenuTextures.add(new Texture(Gdx.files.internal("MainMenuButton.png")));
         pauseMenuTextures.add(getSettingsTexture());
+    }
+
+    private void loadUIButtonTextures() throws FileNotFoundException{
+        UITextures = new ArrayList<Texture>();
+        UITextures.add(new Texture(Gdx.files.internal("LeftMoveButton.png")));
+        UITextures.add(new Texture(Gdx.files.internal("RightMoveButton.png")));
+        UITextures.add(new Texture(Gdx.files.internal("PauseMenuButton.png")));
     }
 
     /*enum TextureAtlasAssets{

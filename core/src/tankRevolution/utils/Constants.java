@@ -6,8 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Created by antonhagermalm on 2017-04-27.
  */
-public class
-Constants {
+public class Constants {
     private static final float mapWidth = 50f;
 
     public static float getMapWidth() {
