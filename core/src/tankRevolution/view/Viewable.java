@@ -5,4 +5,5 @@ package tankRevolution.view;
  */
 public interface Viewable {
     void update();
+    void dispose();
 }

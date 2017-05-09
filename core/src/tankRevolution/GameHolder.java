@@ -93,6 +93,6 @@ public class GameHolder implements ApplicationListener {
      */
     @Override
     public void dispose() {
-
+        view.dispose();
     }
 }

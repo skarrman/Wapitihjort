@@ -80,4 +80,9 @@ public class StartMenuView implements Viewable {
         settingsSprite.setPosition(settingsPos.x, settingsPos.y);
     }
 
+    @Override
+    public void dispose() {
+        batch.dispose();
+    }
+
 }

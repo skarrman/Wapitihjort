@@ -7,8 +7,11 @@ import com.badlogic.gdx.math.Vector2;
  * Created by antonhagermalm on 2017-04-27.
  */
 public class Constants {
+
     private static final float mapWidth = 50f;
+
     private static final float gravity = -10f;
+
     /** The number of edges in the approximated circle of the explosions */
     private static final int explosionSegments = 32;
 
@@ -21,14 +24,24 @@ public class Constants {
     public static float getGravity(){
         return gravity;
     }
-    public static float pixelsPerMeters(){
+
+    /**
+     * @return Number of pixels in one meter in the game.
+     */
+    public static float pixelsPerMeter(){
         return Gdx.graphics.getWidth() / mapWidth;
     }
 
+    /**
+     * @return Number of in-game meters that one pixel represents.
+     */
     public static float metersPerPixel(){
         System.out.println(mapWidth / Gdx.graphics.getWidth());
         return mapWidth / Gdx.graphics.getWidth();
     }
+
+    //Below are constants for the size and position of buttons both in-game and in menus
+
 
     public static float getStartMenuButtonDimension(){
         return Gdx.graphics.getWidth()/5f;

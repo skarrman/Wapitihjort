@@ -11,14 +11,12 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.StringBuilder;
 import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
 import tankRevolution.framework.Environment;
 import tankRevolution.model.Character;
 import tankRevolution.model.Explosion;
-import tankRevolution.model.TankRevolution;
 import tankRevolution.model.shootablePackage.Shootable;
 
 import java.util.ArrayList;
@@ -49,11 +47,6 @@ public class GameView implements Viewable {
      * The environment
      */
     private Environment environment;
-
-    /**
-     * A constant that convert meters to pixels
-     */
-    private final float metersToPixels;
 
     /**
      * Graphical representation of the UI buttons
@@ -122,7 +115,6 @@ public class GameView implements Viewable {
      */
     public GameView(Environment environment) {
         this.environment = environment;
-        metersToPixels = Gdx.graphics.getWidth() / Constants.getMapWidth();
         batch = new SpriteBatch();
         setUpTankHashMap();
         ArrayList<Texture> textures = AssetsManager.getInstance().getUITextures();
@@ -133,7 +125,7 @@ public class GameView implements Viewable {
         shapeRenderer = new ShapeRenderer();
         createDebugger();
         explosionAnimations = new ArrayList<ExplosionAnimation>();
-        turnIndicatorAnimation = new TurnIndicatorAnimation(metersToPixels);
+        turnIndicatorAnimation = new TurnIndicatorAnimation(Constants.pixelsPerMeter());
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Georgia.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = Gdx.graphics.getWidth()/64;
@@ -141,6 +133,8 @@ public class GameView implements Viewable {
         generator.dispose();
         label = new GlyphLayout();
         font.setColor(0, 0, 0, 1);
+        turnIndicatorAnimation = new TurnIndicatorAnimation(Constants.pixelsPerMeter());
+        setFont();
     }
 
     /**
@@ -167,7 +161,7 @@ public class GameView implements Viewable {
         List<Explosion> explosions = environment.getExplosions();
         if (explosions.size() > 0) {
             for (Explosion e : explosions) {
-                explosionAnimations.add(new ExplosionAnimation(e, metersToPixels));
+                explosionAnimations.add(new ExplosionAnimation(e, Constants.pixelsPerMeter()));
             }
             explosions.clear();
         }
@@ -234,7 +228,7 @@ public class GameView implements Viewable {
 
     private void drawDebugDetails() {
         batch.setProjectionMatrix(camera.combined);
-        debugMatrix = batch.getProjectionMatrix().cpy().scale(metersToPixels, metersToPixels, 0);
+        debugMatrix = batch.getProjectionMatrix().cpy().scale(Constants.pixelsPerMeter(), Constants.pixelsPerMeter(), 0);
         debugRenderer.render(environment.getWorld(), debugMatrix);
     }
 
@@ -260,14 +254,22 @@ public class GameView implements Viewable {
      */
     private void setCamera() {
         batch.setProjectionMatrix(camera.combined);
-        debugMatrix = batch.getProjectionMatrix().cpy().scale(metersToPixels, metersToPixels, 0);
+        debugMatrix = batch.getProjectionMatrix().cpy().scale(Constants.pixelsPerMeter(), Constants.pixelsPerMeter(), 0);
         camera.position.set(new Vector3(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0));
+    }
+
+    private void setFont(){
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Georgia.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 30;
+        font = generator.generateFont(parameter); // font size 12 pixels
+        generator.dispose();
     }
 
     private void setUpProjectileHashMap() {
         projectileHashMap = new HashMap<Shootable, GraphicalProjectile>();
         for (Shootable s : environment.getFlyingProjectiles()) {
-            GraphicalProjectile graphicalProjectile = new GraphicalProjectile(environment.getProjectileBody(s), metersToPixels);
+            GraphicalProjectile graphicalProjectile = new GraphicalProjectile(environment.getProjectileBody(s), Constants.pixelsPerMeter());
             projectileHashMap.put(s, graphicalProjectile);
         }
     }
@@ -288,7 +290,7 @@ public class GameView implements Viewable {
         characterTankHashMap = new HashMap<Character, GraphicalTank>();
         for (Character c : environment.getCharacterList()) {
             GraphicalTank graphicalTank = new GraphicalTank(environment.getTankBody(c.getTank()), c.getId(),
-                    c.getTank().getAngle(), metersToPixels);
+                    c.getTank().getAngle(), Constants.pixelsPerMeter());
             characterTankHashMap.put(c, graphicalTank);
         }
     }

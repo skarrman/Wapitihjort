@@ -73,4 +73,9 @@ public class PauseMenuView implements Viewable {
         Vector2 settingsPos = Constants.getSettingsButtonPosition();
         settingsSprite.setPosition(settingsPos.x, settingsPos.y);
     }
+
+    @Override
+    public void dispose() {
+        batch.dispose();
+    }
 }
