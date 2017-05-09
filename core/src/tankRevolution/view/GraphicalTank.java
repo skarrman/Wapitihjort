@@ -34,13 +34,14 @@ public class GraphicalTank {
     public void draw(Batch batch){
         Sprite sprite = sprites.get(0);
         Vector2 pos = tankBody.getPosition();
-        sprite.setPosition((pixelsPerMeter * pos.x) - sprite.getWidth()/2, (pixelsPerMeter * pos.y) - sprite.getHeight()/2);
+        sprite.setPosition((pixelsPerMeter * pos.x) - sprite.getWidth()/2, (pixelsPerMeter * pos.y) - sprite.getHeight()/4);
+        sprite.setRotation((float)Math.toDegrees(tankBody.getAngle()));
         sprite.draw(batch);
     }
 
     private void setSpriteDimensions(float width, float height){
         for(Sprite s : sprites){
-            s.setSize(width * pixelsPerMeter, height * pixelsPerMeter);
+            s.setSize(2 * width * pixelsPerMeter, 2 * height * pixelsPerMeter);
         }
     }
 }

@@ -19,7 +19,7 @@ public class LabelDrawer {
     private GlyphLayout label;
 
     public LabelDrawer(){
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Georgia.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Noteworthy-Light.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = Gdx.graphics.getWidth()/64;
         font = generator.generateFont(parameter);
