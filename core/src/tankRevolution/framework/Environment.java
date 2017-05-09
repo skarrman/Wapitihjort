@@ -395,7 +395,6 @@ public class Environment {
                 return s;
             }
         }
-        System.out.println("getProjectile nulls");
         return null;
     }
 

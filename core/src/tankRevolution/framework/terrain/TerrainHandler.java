@@ -150,6 +150,7 @@ public class TerrainHandler implements ITerrainHandler {
     public void explode(Body projectileBody, int blastRadius) {
         List<PolygonBox2DShape> totalRS = new ArrayList();
         //Approximates the vertices of a circle
+        System.out.println(Constants.getExplosionSegments());
         float[] circVerts = CollisionGeometry.approxCircle(projectileBody.getPosition().x, projectileBody.getPosition().y, blastRadius, Constants.getExplosionSegments());
         //Creates a shape from the vertices
         ChainShape shape = new ChainShape();
