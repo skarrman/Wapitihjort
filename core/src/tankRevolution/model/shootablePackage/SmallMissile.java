@@ -10,7 +10,7 @@ package tankRevolution.model.shootablePackage;
 public class SmallMissile extends Projectile {
 
     protected SmallMissile() {
-        super(100, 10);
+        super(100, 3);
     }
 
 }

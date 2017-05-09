@@ -65,7 +65,7 @@ public class EnvironmentCollisions implements ContactListener {
         Shootable projectile = environment.getProjectile(body);
         if(projectile != null) {
             //terrainHandler.explode(b, projectile.getBlastRadius());
-            terrainHandler.explode(body, 3);
+            terrainHandler.explode(body, projectile.getBlastRadius());
             environment.projectileHit(projectile);
         }
     }

@@ -28,13 +28,13 @@ public class ExplosionAnimation{
      * to animate the explosion.
      *
      * @param explosion The explosion that will be animated.
-     * @param metersToPixels The ratio between meters in the world to pixels on the screen.
+     * @param pixelsPerMeter The ratio between meters in the world to pixels on the screen.
      */
-    ExplosionAnimation(Explosion explosion, float metersToPixels){
+    ExplosionAnimation(Explosion explosion, float pixelsPerMeter){
         sprites = AssetsManager.getInstance().getSpriteArray(Id.EXPLOSION);
+        setDimension(explosion.blastRadius, explosion.x, explosion.y, pixelsPerMeter);
         animation = new Animation<Sprite>(1 / 20f, sprites);
         time = 0;
-        setDimension(explosion.blastRadius, explosion.x, explosion.y, metersToPixels);
     }
 
     /**
@@ -56,7 +56,7 @@ public class ExplosionAnimation{
 
     private void setDimension(int blastRadius, float x, float y, float pixelsPerMeter){
         for(Sprite s : sprites){
-            s.setSize(blastRadius * pixelsPerMeter, blastRadius * pixelsPerMeter);
+            s.setSize(2 * blastRadius * pixelsPerMeter, 2 * blastRadius * pixelsPerMeter);
             s.setPosition((x * pixelsPerMeter) - s.getWidth()/2, (y * pixelsPerMeter) - s.getHeight()/2);
         }
     }
