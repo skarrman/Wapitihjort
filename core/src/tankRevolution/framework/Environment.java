@@ -323,7 +323,7 @@ public class Environment {
      * @return true if there is nothing stopping the tank from moving.
      */
     public boolean tankCanMove(){
-        return tankRevolution.tankCanMove();
+        return tankRevolution.tankCanMove() && !tankRevolution.isProjectileFlying();
     }
 
     /**
