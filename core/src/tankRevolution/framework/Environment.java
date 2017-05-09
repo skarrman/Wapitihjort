@@ -203,6 +203,10 @@ public class Environment {
         return tanks.get(tank);
     }
 
+    public Body getProjectileBody(Shootable s){
+        return projectiles.get(s);
+    }
+
     public List<Explosion> getExplosions() {
         return explosions;
     }
@@ -370,6 +374,16 @@ public class Environment {
         return tanks.get(tank).getPosition().y;
     }
 
+    public Shootable getProjectile(Body body) {
+        for (Shootable s : projectiles.keySet()) {
+            if (projectiles.get(s).equals(body)) {
+                return s;
+            }
+        }
+        System.out.println("getProjectile nulls");
+        return null;
+    }
+
     public float getProjectileX(Shootable projectile) {
         return projectiles.get(projectile).getPosition().x;
     }
@@ -402,13 +416,5 @@ public class Environment {
         world.setContactListener(new EnvironmentCollisions(this, terrainHandler));
     }
 
-    Shootable getProjectile(Body body) {
-        for (Shootable s : projectiles.keySet()) {
-            if (projectiles.get(s).equals(body)) {
-                return s;
-            }
-        }
-        System.out.println("getProjectile nulls");
-        return null;
-    }
+
 }

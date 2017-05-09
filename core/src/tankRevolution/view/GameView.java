@@ -32,12 +32,16 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
  */
 public class GameView implements Viewable {
 
-    /** Tells if the debug renderer should do its' work
+    /**
+     * Tells if the debug renderer should do its' work
      * True = debug: ON
-     * False = debug: OFF */
-    boolean deBugMode = true;
+     * False = debug: OFF
+     */
+    private boolean deBugMode = true;
 
-    /** The graphical batch that draws on the screen */
+    /**
+     * The graphical batch that draws on the screen
+     */
     private Batch batch;
 
     /**
@@ -46,19 +50,9 @@ public class GameView implements Viewable {
     private Environment environment;
 
     /**
-     * List of the characters in the current game
-     */
-    private List<Character> characterList;
-
-    /**
      * A constant that convert meters to pixels
      */
-    final float metersToPixels;
-
-    /**
-     * The graphical representation of the flying projectile
-     */
-    private Sprite projectile;
+    private final float metersToPixels;
 
     /**
      * Graphical representation of the UI buttons
@@ -102,14 +96,18 @@ public class GameView implements Viewable {
      */
     private Vector3 getAimingArrowTop;
 
-    /** A representation of the animation of an explosion */
+    /**
+     * A representation of the animation of an explosion
+     */
     private Animation<TextureRegion> explosionAnimation;
 
     private List<ExplosionAnimation> explosionAnimations;
 
-    private  TurnIndicatorAnimation turnIndicatorAnimation;
+    private TurnIndicatorAnimation turnIndicatorAnimation;
 
     private HashMap<Character, GraphicalTank> characterTankHashMap;
+
+    private HashMap<Shootable, GraphicalProjectile> projectileHashMap;
 
     private BitmapFont font;
 
@@ -122,10 +120,8 @@ public class GameView implements Viewable {
     public GameView(Environment environment) {
         this.environment = environment;
         metersToPixels = Gdx.graphics.getWidth() / Constants.getMapWidth();
-        characterList = environment.getCharacterList();
         batch = new SpriteBatch();
         setUpTankHashMap();
-        projectile = new Sprite(AssetsManager.getInstance().getProjectileSprite());
         ArrayList<Texture> textures = AssetsManager.getInstance().getUITextures();
         leftMoveButtonSprite = new Sprite(textures.get(0));
         rightMoveButtonSprite = new Sprite(textures.get(1));
@@ -146,13 +142,9 @@ public class GameView implements Viewable {
     public void update() {
         environment.update();
         camera.update();
-
-        Gdx.gl.glClearColor(0.980392f, 0.980392f, 0.823529f, 1);
-        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+        setBackground();
         setCamera();
-        camera.position.set(new Vector3(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 0));
-        batch.setProjectionMatrix(camera.combined);
-        if(arrowIsActive){
+        if (arrowIsActive) {
             drawVector();
         }
         batch.begin();
@@ -161,11 +153,12 @@ public class GameView implements Viewable {
         drawButtons();
 
         if (environment.isProjectileFlying()) {
+            setUpProjectileHashMap();
             drawProjectiles();
         }
         List<Explosion> explosions = environment.getExplosions();
         if (explosions.size() > 0) {
-            for(Explosion e : explosions) {
+            for (Explosion e : explosions) {
                 explosionAnimations.add(new ExplosionAnimation(e, metersToPixels));
             }
             explosions.clear();
@@ -185,8 +178,7 @@ public class GameView implements Viewable {
 
         batch.end();
 
-
-        if(deBugMode){
+        if (deBugMode) {
             drawDebugDetails();
         }
     }
@@ -224,21 +216,21 @@ public class GameView implements Viewable {
         arrowIsActive = false;
     }
 
-    private void createDebugger(){
-        if(deBugMode) {
+    private void createDebugger() {
+        if (deBugMode) {
             debugMatrix = new Matrix4(camera.combined);
             debugRenderer = new Box2DDebugRenderer();
             shapeRenderer = new ShapeRenderer();
         }
     }
 
-    private void drawDebugDetails(){
+    private void drawDebugDetails() {
         batch.setProjectionMatrix(camera.combined);
         debugMatrix = batch.getProjectionMatrix().cpy().scale(metersToPixels, metersToPixels, 0);
         debugRenderer.render(environment.getWorld(), debugMatrix);
     }
 
-    private void drawButtons(){
+    private void drawButtons() {
         leftMoveButtonSprite.setBounds(Constants.getLeftMoveButtonPosition().x, Constants.getLeftMoveButtonPosition().y,
                 Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
         leftMoveButtonSprite.draw(batch);
@@ -250,48 +242,67 @@ public class GameView implements Viewable {
         pauseMenuButtonSprite.draw(batch);
     }
 
-    /** Sets the camera */
+    private void setBackground() {
+        Gdx.gl.glClearColor(0.980392f, 0.980392f, 0.823529f, 1);
+        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+    }
+
+    /**
+     * Sets the camera
+     */
     private void setCamera() {
         batch.setProjectionMatrix(camera.combined);
         debugMatrix = batch.getProjectionMatrix().cpy().scale(metersToPixels, metersToPixels, 0);
         camera.position.set(new Vector3(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0));
     }
 
-    /** Draws the projectile */
-    private void drawProjectiles() {
-        for(Shootable s: environment.getFlyingProjectiles()) {
-            Vector2 projectilePos = new Vector2(environment.getProjectileX(s), environment.getProjectileY(s));
-            projectile.setPosition(projectilePos.x * metersToPixels - projectile.getWidth() / 2,
-                    projectilePos.y * metersToPixels - projectile.getHeight() / 2);
-            projectile.draw(batch);
+    private void setUpProjectileHashMap() {
+        projectileHashMap = new HashMap<Shootable, GraphicalProjectile>();
+        for (Shootable s : environment.getFlyingProjectiles()) {
+            GraphicalProjectile graphicalProjectile = new GraphicalProjectile(environment.getProjectileBody(s), metersToPixels);
+            projectileHashMap.put(s, graphicalProjectile);
         }
     }
-    private void setUpTankHashMap(){
+
+    /**
+     * Draws the projectile
+     */
+    private void drawProjectiles() {
+        for (Shootable s : environment.getFlyingProjectiles()) {
+            GraphicalProjectile graphicalProjectile = projectileHashMap.get(s);
+                graphicalProjectile.draw(batch);
+        }
+        checkShootableList();
+
+    }
+
+    private void setUpTankHashMap() {
         characterTankHashMap = new HashMap<Character, GraphicalTank>();
-        for(Character c : characterList){
+        for (Character c : environment.getCharacterList()) {
             GraphicalTank graphicalTank = new GraphicalTank(environment.getTankBody(c.getTank()), c.getId(),
                     c.getTank().getAngle(), metersToPixels);
             characterTankHashMap.put(c, graphicalTank);
         }
     }
 
-    /** Draws the tank*/
+    /**
+     * Draws the tank
+     */
     private void drawTanks() {
-        characterList = environment.getCharacterList();
-        for(Character c : characterList){
+        for (Character c : environment.getCharacterList()) {
             GraphicalTank graphicalTank = characterTankHashMap.get(c);
             graphicalTank.draw(batch);
         }
         checkCharacterList();
     }
 
-    private void drawLabels(Batch batch){
-        float rowHeight = Gdx.graphics.getHeight()/8;
-        float rowWidth = Gdx.graphics.getWidth()/5;
-        for(Character c : characterList){
+    private void drawLabels(Batch batch) {
+        float rowHeight = Gdx.graphics.getHeight() / 8;
+        float rowWidth = Gdx.graphics.getWidth() / 5;
+        for (Character c : environment.getCharacterList()) {
             StringBuilder str = new StringBuilder();
             Vector2 pos;
-            switch(c.getId()){
+            switch (c.getId()) {
                 case PLAYER1:
                     str.append("Player 1: ");
                     pos = new Vector2(rowWidth, 7 * rowHeight);
@@ -310,22 +321,32 @@ public class GameView implements Viewable {
                     break;
                 default:
                     str.append("Error ");
-                    pos = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+                    pos = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
                     break;
             }
-            font.setColor(0,0,0,1);
+            font.setColor(0, 0, 0, 1);
             font.draw(batch, str.append(c.getTank().getHealth()), pos.x, pos.y);
 
         }
     }
 
-    private void checkCharacterList(){
-        if(characterTankHashMap.size() > characterList.size()){
+    private void checkCharacterList() {
+        if (characterTankHashMap.size() > environment.getCharacterList().size()) {
             HashMap<Character, GraphicalTank> tempMap = new HashMap<Character, GraphicalTank>();
-            for(Character c : characterList){
+            for (Character c : environment.getCharacterList()) {
                 tempMap.put(c, characterTankHashMap.get(c));
             }
             characterTankHashMap = tempMap;
+        }
+    }
+
+    private void checkShootableList() {
+        if (projectileHashMap.size() > environment.getFlyingProjectiles().size()) {
+            HashMap<Shootable, GraphicalProjectile> tempMap = new HashMap<Shootable, GraphicalProjectile>();
+            for (Shootable s : environment.getFlyingProjectiles()) {
+                tempMap.put(s, projectileHashMap.get(s));
+            }
+            projectileHashMap = tempMap;
         }
     }
 
@@ -333,7 +354,7 @@ public class GameView implements Viewable {
      * This disposes the graphical items.
      */
     public void dispose() {
-        if(deBugMode){
+        if (deBugMode) {
             debugRenderer.dispose();
         }
         turnIndicatorAnimation.dispose();
