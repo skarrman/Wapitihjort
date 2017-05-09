@@ -50,8 +50,11 @@ public class NPC extends Character{
     }
 
     private Vector calculateVector(Point own, Point opponent){
+        Random rand = new Random();
+        float deltaX = opponent.getX() - own.getX();
+        float deltaY = rand.nextInt(20) + 10;
 
-        return new Vector(-20, 10);
+        return new Vector(deltaX/(deltaY/10), deltaY);
     }
 
     public void setNewTurn(){
