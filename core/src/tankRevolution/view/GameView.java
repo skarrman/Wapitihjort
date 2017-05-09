@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.StringBuilder;
 import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
 import tankRevolution.framework.Environment;
@@ -108,6 +110,8 @@ public class GameView implements Viewable {
 
     private HashMap<Character, GraphicalTank> characterTankHashMap;
 
+    private BitmapFont font;
+
 
     /**
      * The standard constructor that initialize everything to make the graphics work.
@@ -130,6 +134,8 @@ public class GameView implements Viewable {
         createDebugger();
         explosionAnimations = new ArrayList<ExplosionAnimation>();
         turnIndicatorAnimation = new TurnIndicatorAnimation(metersToPixels);
+        font = new BitmapFont();
+        font.getData().scale(2);
     }
 
     /**
@@ -144,7 +150,7 @@ public class GameView implements Viewable {
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
         setCamera();
         camera.position.set(new Vector3(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 0));
-
+        batch.setProjectionMatrix(camera.combined);
         if(arrowIsActive){
             drawVector();
         }
@@ -173,6 +179,8 @@ public class GameView implements Viewable {
         }
         Body currentPlayer = environment.getTankBody(environment.getCurrentTank());
         turnIndicatorAnimation.draw(batch, currentPlayer.getPosition());
+
+        drawLabels(batch);
 
         batch.end();
 
@@ -272,6 +280,40 @@ public class GameView implements Viewable {
             graphicalTank.draw(batch);
         }
         checkCharacterList();
+    }
+
+    private void drawLabels(Batch batch){
+        float rowHeight = Gdx.graphics.getHeight()/8;
+        float rowWidth = Gdx.graphics.getWidth()/5;
+        for(Character c : characterList){
+            StringBuilder str = new StringBuilder();
+            Vector2 pos;
+            switch(c.getId()){
+                case PLAYER1:
+                    str.append("Player 1: ");
+                    pos = new Vector2(rowWidth, 7 * rowHeight);
+                    break;
+                case PLAYER2:
+                    str.append("Player 2: ");
+                    pos = new Vector2(3 * rowWidth, 7 * rowHeight);
+                    break;
+                case PLAYER3:
+                    str.append("Player 3: ");
+                    pos = new Vector2(rowWidth, 6 * rowHeight);
+                    break;
+                case PLAYER4:
+                    str.append("Player 4: ");
+                    pos = new Vector2(3 * rowWidth, 6 * rowHeight);
+                    break;
+                default:
+                    str.append("Error ");
+                    pos = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+                    break;
+            }
+            font.setColor(0,0,0,1);
+            font.draw(batch, str.append(c.getTank().getHealth()), pos.x, pos.y);
+
+        }
     }
 
     private void checkCharacterList(){
