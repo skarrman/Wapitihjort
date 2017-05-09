@@ -18,7 +18,7 @@ public class AimController implements InputProcessor {
     private GameView gameView;
     private Environment environment;
 
-    public AimController(GameView gameView, TankRevolution currentGame, Environment environment) {
+    public AimController(GameView gameView, Environment environment) {
         touchX = 0;
         touchY = 0;
         this.gameView = gameView;

@@ -7,16 +7,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import tankRevolution.GameHolder;
 import tankRevolution.utils.Constants;
 import tankRevolution.framework.Environment;
-import tankRevolution.model.TankRevolution;
-import tankRevolution.view.Viewable;
 
 
 /**
  * Controller class responsible for handling input from buttons around the UI
  */
 public class ButtonController {
-    private Viewable view;
-    private TankRevolution currentGame;
     private Environment environment;
     private GameHolder gameHolder;
     private Stage stage;
@@ -26,10 +22,8 @@ public class ButtonController {
     private boolean isPressed;
     private int direction;
 
-    public ButtonController(Viewable view, TankRevolution currentGame, Environment environment, GameHolder gameHolder){
+    public ButtonController(Environment environment, GameHolder gameHolder){
         this.gameHolder = gameHolder;
-        this.view = view;
-        this.currentGame = currentGame;
         this.environment = environment;
         isPressed = false;
         stage = new Stage();
@@ -42,10 +36,9 @@ public class ButtonController {
     }
 
     public void update(){
-        if(isPressed && currentGame.tankCanMove()){
+        if(isPressed && environment.tankCanMove()){
             environment.moveTank(direction);
-            currentGame.reduceFuel();
-            System.out.println(currentGame.getCurrentTank().getFuel());
+            System.out.println(environment.getCurrentTank().getFuel());
         }else{
             environment.stopTank();
         }

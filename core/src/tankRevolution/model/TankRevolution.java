@@ -88,23 +88,6 @@ public class TankRevolution {
         return (getCurrentCharacter() instanceof NPC && flyingProjectiles.size() == 0);
     }
 
-    /**
-     * If the tank can move, gives the it a linear velocity depending on which way we want to move it.
-     * <p>Returns a boolean to make it easier to test</p>
-     *
-     * @param direction -1 if left button is pressed, 1 if right button is pressed.
-     */
-    public void moveTank(int direction) {
-        System.out.print(direction);
-        Tank tank = characterList.get(characterTurn).getTank();
-        if (tank.hasFuel()) {
-            tank.setFuel(tank.getFuel() - 1);
-            if (tankCanMove()) {
-                //environment.getTank(tank).setLinearVelocity(direction*50,0);
-            }
-        }
-    }
-
     public void reduceFuel(){
         Tank tank = characterList.get(characterTurn).getTank();
         tank.setFuel(tank.getFuel()-(float)0.5);

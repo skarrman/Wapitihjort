@@ -20,11 +20,11 @@ public class MainController {
        inputMultiplexer = new InputMultiplexer();
     }
 
-    public void setGameMode(TankRevolution currentGame, Environment environment, Viewable gameView, GameHolder gameHolder){
-        buttonController = new ButtonController(gameView, currentGame, environment, gameHolder);
+    public void setGameMode(Environment environment, Viewable gameView, GameHolder gameHolder){
+        buttonController = new ButtonController(environment, gameHolder);
         inputMultiplexer.clear();
         inputMultiplexer.addProcessor(buttonController.getStage());
-        inputMultiplexer.addProcessor(new AimController((GameView) gameView, currentGame, environment));
+        inputMultiplexer.addProcessor(new AimController((GameView) gameView, environment));
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
     public void setStartMenuMode(GameHolder gameHolder){
