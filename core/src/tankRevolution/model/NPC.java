@@ -50,7 +50,8 @@ public class NPC extends Character{
     }
 
     private Vector calculateVector(Point own, Point opponent){
-        return new Vector(-100, 100);
+
+        return new Vector(-20, 10);
     }
 
     public void setNewTurn(){
