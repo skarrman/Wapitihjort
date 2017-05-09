@@ -132,7 +132,7 @@ public class Environment {
      * @param projectile the projectile from the model.
      * @param shooter    the tank shooting the projectile.
      */
-    public void addProjectile(Shootable projectile, Tank shooter) {
+    public void addProjectile(Shootable projectile, Tank shooter, float deltaX, float deltaY) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
 
@@ -153,7 +153,7 @@ public class Environment {
         shape.dispose();
 
         //Translation will be needed, this vector will suck
-        Vector2 force = new Vector2(shooter.getDeltaX() * 50, shooter.getDeltaY() * 50);
+        Vector2 force = new Vector2(deltaX * 50, deltaY * 50);
         body.applyForceToCenter(force, true);
         body.setUserData(new UserData(1));
 
@@ -352,7 +352,7 @@ public class Environment {
         Tank shooter = tankRevolution.getCurrentTank();
         List<Shootable> projectiles = tankRevolution.shoot(deltaX, deltaY);
         for (Shootable s : projectiles) {
-            addProjectile(s, shooter);
+            addProjectile(s, shooter, deltaX, deltaY);
         }
     }
 
