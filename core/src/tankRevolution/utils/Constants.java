@@ -21,6 +21,7 @@ public class Constants {
     }
 
     public static float metersPerPixel(){
+        System.out.println(mapWidth / Gdx.graphics.getWidth());
         return mapWidth / Gdx.graphics.getWidth();
     }
 

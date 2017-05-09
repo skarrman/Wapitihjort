@@ -139,7 +139,7 @@ public class Environment {
 
         //Translation will be needed, this vector will suck
         Vector2 force = new Vector2(deltaX, deltaY);
-        body.applyLinearImpulse(force, body.getPosition(), true);
+        body.setLinearVelocity(force/*, body.getPosition(), true*/);
         body.setUserData(new UserData(1));
 
         projectiles.put(projectile, body);
@@ -329,7 +329,7 @@ public class Environment {
      * @param touchY  y-coordinate of the user's initial touch.
      */
     public void shoot(int screenX, int screenY, float touchX, float touchY) {
-        shoot(touchX - screenX,screenY - touchY);
+        shoot(Constants.metersPerPixel() * (touchX - screenX),Constants.metersPerPixel() * (screenY - touchY));
     }
 
     /**
@@ -341,7 +341,7 @@ public class Environment {
         Tank shooter = tankRevolution.getCurrentTank();
         List<Shootable> projectiles = tankRevolution.shoot(deltaX, deltaY);
         for (Shootable s : projectiles) {
-            addProjectile(s, shooter, deltaX, deltaY);
+            addProjectile(s, shooter,  deltaX, deltaY);
         }
     }
 
@@ -359,7 +359,7 @@ public class Environment {
         }
         NPC NPC = (NPC) tankRevolution.getCurrentCharacter();
         Vector vector = NPC.getShootVector(tanksToNPC, positionsToNPC);
-        shoot(vector.getDeltaX()*Constants.pixelsPerMeters(), vector.getDeltaY()*Constants.pixelsPerMeters());
+        shoot(vector.getDeltaX(), vector.getDeltaY());
     }
 
     private boolean NPCWillShoot() {
