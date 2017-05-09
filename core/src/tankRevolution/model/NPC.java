@@ -53,7 +53,17 @@ public class NPC extends Character{
     private Vector calculateVector(Point own, Point opponent){
         Random rand = new Random();
         float deltaX = opponent.getX() - own.getX();
-        float deltaY =  rand.nextInt(10) + 10;
+        float deltaY =  opponent.getY() - own.getY();
+
+        float minYVelocity = 0;
+        if(deltaY > 0){
+            minYVelocity = Constants.getGravity() * (float) (Math.sqrt(deltaY *2 /Constants.getGravity()));
+        }
+        float extraForceY = rand.nextInt(30) + 10;
+        float timeToStop = (minYVelocity + extraForceY)/Constants.getGravity();
+        float timeToHit = ()
+
+
 
         return new Vector(deltaX/(deltaY/5), deltaY);
     }
