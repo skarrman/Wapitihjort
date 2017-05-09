@@ -23,10 +23,10 @@ public class TurnIndicatorAnimation {
     private float metersToPixels;
 
     /** The texture atlas of the arrow */
-    TextureAtlas textureAtlas;
+    private TextureAtlas textureAtlas;
 
     /** The object that handel the animation */
-    Animation<TextureRegion> animation;
+    private Animation<TextureRegion> animation;
 
     /**
      * The only constructor of the class that creates all the objects that is needed.
