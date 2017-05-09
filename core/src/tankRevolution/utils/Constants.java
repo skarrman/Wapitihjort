@@ -9,7 +9,12 @@ import com.badlogic.gdx.math.Vector2;
 public class Constants {
     private static final float mapWidth = 50f;
     private static final float gravity = -10f;
+    /** The number of edges in the approximated circle of the explosions */
+    private static final int explosionSegments = 32;
 
+    public static int getExplosionSegments() {
+        return explosionSegments;
+    }
     public static float getMapWidth() {
         return mapWidth;
     }
