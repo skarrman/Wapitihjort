@@ -3,6 +3,7 @@ package tankRevolution.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
@@ -131,8 +132,11 @@ public class GameView implements Viewable {
         createDebugger();
         explosionAnimations = new ArrayList<ExplosionAnimation>();
         turnIndicatorAnimation = new TurnIndicatorAnimation(metersToPixels);
-        font = new BitmapFont();
-        font.getData().scale(2);
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Georgia.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 30;
+        font = generator.generateFont(parameter); // font size 12 pixels
+        generator.dispose();
     }
 
     /**
@@ -296,28 +300,28 @@ public class GameView implements Viewable {
         checkCharacterList();
     }
 
-    private void drawLabels(Batch batch) {
-        float rowHeight = Gdx.graphics.getHeight() / 8;
-        float rowWidth = Gdx.graphics.getWidth() / 5;
-        for (Character c : environment.getCharacterList()) {
+    private void drawLabels(Batch batch){
+        float rowHeight = Gdx.graphics.getHeight()/16;
+        float rowWidth = Gdx.graphics.getWidth()/5;
+        for(Character c : environment.getCharacterList()){
             StringBuilder str = new StringBuilder();
             Vector2 pos;
             switch (c.getId()) {
                 case PLAYER1:
                     str.append("Player 1: ");
-                    pos = new Vector2(rowWidth, 7 * rowHeight);
+                    pos = new Vector2(rowWidth, 15 * rowHeight);
                     break;
                 case PLAYER2:
                     str.append("Player 2: ");
-                    pos = new Vector2(3 * rowWidth, 7 * rowHeight);
+                    pos = new Vector2(3 * rowWidth, 15 * rowHeight);
                     break;
                 case PLAYER3:
                     str.append("Player 3: ");
-                    pos = new Vector2(rowWidth, 6 * rowHeight);
+                    pos = new Vector2(rowWidth, 12 * rowHeight);
                     break;
                 case PLAYER4:
                     str.append("Player 4: ");
-                    pos = new Vector2(3 * rowWidth, 6 * rowHeight);
+                    pos = new Vector2(3 * rowWidth, 12 * rowHeight);
                     break;
                 default:
                     str.append("Error ");
