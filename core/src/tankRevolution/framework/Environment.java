@@ -370,7 +370,7 @@ public class Environment {
         }
         NPC NPC = (NPC) tankRevolution.getCurrentCharacter();
         Vector vector = NPC.getShootVector(tanksToNPC, positionsToNPC);
-        shoot(vector.getDeltaX(), vector.getDeltaY());
+        shoot(vector.getDeltaX()*Constants.pixelsPerMeters(), vector.getDeltaY()*Constants.pixelsPerMeters());
     }
 
     private boolean NPCWillShoot() {
