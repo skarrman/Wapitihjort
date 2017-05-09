@@ -86,8 +86,8 @@ public class Environment {
      * Sets up sides.
      */
     private void setupSides() {
-        leftSide = setupSide(0);
-        rightSide = setupSide(Constants.getMapWidth() + 0);
+        Body leftSide = setupSide(0);
+        Body rightSide = setupSide(Constants.getMapWidth() + 0);
     }
 
     /**
