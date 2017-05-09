@@ -112,6 +112,8 @@ public class GameView implements Viewable {
 
     private BitmapFont font;
 
+    private GlyphLayout label;
+
 
     /**
      * The standard constructor that initialize everything to make the graphics work.
@@ -134,9 +136,11 @@ public class GameView implements Viewable {
         turnIndicatorAnimation = new TurnIndicatorAnimation(metersToPixels);
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Georgia.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 30;
-        font = generator.generateFont(parameter); // font size 12 pixels
+        parameter.size = Gdx.graphics.getWidth()/64;
+        font = generator.generateFont(parameter);
         generator.dispose();
+        label = new GlyphLayout();
+        font.setColor(0, 0, 0, 1);
     }
 
     /**
@@ -302,34 +306,37 @@ public class GameView implements Viewable {
 
     private void drawLabels(Batch batch){
         float rowHeight = Gdx.graphics.getHeight()/16;
-        float rowWidth = Gdx.graphics.getWidth()/5;
+        float rowWidth = Gdx.graphics.getWidth()/8;
         for(Character c : environment.getCharacterList()){
             StringBuilder str = new StringBuilder();
             Vector2 pos;
             switch (c.getId()) {
                 case PLAYER1:
-                    str.append("Player 1: ");
-                    pos = new Vector2(rowWidth, 15 * rowHeight);
+                    str.append("Player 1:\n");
+                    pos = new Vector2(2 * rowWidth, 15 * rowHeight);
                     break;
                 case PLAYER2:
-                    str.append("Player 2: ");
-                    pos = new Vector2(3 * rowWidth, 15 * rowHeight);
+                    str.append("Player 2:\n");
+                    pos = new Vector2(6 * rowWidth, 15 * rowHeight);
                     break;
                 case PLAYER3:
-                    str.append("Player 3: ");
-                    pos = new Vector2(rowWidth, 12 * rowHeight);
+                    str.append("Player 3:\n");
+                    pos = new Vector2(2 * rowWidth, 12 * rowHeight);
                     break;
                 case PLAYER4:
-                    str.append("Player 4: ");
-                    pos = new Vector2(3 * rowWidth, 12 * rowHeight);
+                    str.append("Player 4:\n");
+                    pos = new Vector2(6 * rowWidth, 12 * rowHeight);
                     break;
                 default:
                     str.append("Error ");
                     pos = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
                     break;
             }
-            font.setColor(0, 0, 0, 1);
-            font.draw(batch, str.append(c.getTank().getHealth()), pos.x, pos.y);
+            str.append("Health :").append((int)c.getTank().getHealth()).append("\n").append("Fuel: ").append((int)c.getTank().getFuel());
+            label.setText(font, str);
+            float width = label.width;
+
+            font.draw(batch, str, pos.x - width/2, pos.y);
 
         }
     }
