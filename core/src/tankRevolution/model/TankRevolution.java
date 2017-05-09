@@ -99,7 +99,7 @@ public class TankRevolution {
      */
     public boolean tankCanMove() {
         Tank tank = characterList.get(characterTurn).getTank();
-        return tank.hasFuel();
+        return tank.hasFuel() && isProjectileFlying();
     }
 
     /**

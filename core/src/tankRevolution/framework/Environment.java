@@ -43,22 +43,7 @@ public class Environment {
      * The Projectiles in the world and their Body.
      */
     private Map<Shootable, Body> projectiles;
-
-    /**
-     * The terrain of the world.
-     */
-    private Body terrain;
-
-    /**
-     * The left wall of the world.
-     */
-    private Body leftSide;
-
-    /**
-     * The right wall of the world
-     */
-    private Body rightSide;
-
+    
     /**
      * List of bodies pending to be destroyed
      */
@@ -323,7 +308,7 @@ public class Environment {
      * @return true if there is nothing stopping the tank from moving.
      */
     public boolean tankCanMove(){
-        return tankRevolution.tankCanMove() && !tankRevolution.isProjectileFlying();
+        return tankRevolution.tankCanMove();
     }
 
     /**
