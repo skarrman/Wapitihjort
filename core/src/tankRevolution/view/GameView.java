@@ -103,11 +103,7 @@ public class GameView implements Viewable {
 
     private HashMap<Shootable, GraphicalProjectile> projectileHashMap;
 
-    private BitmapFont font;
-
-    private GlyphLayout label;
-
-
+    private LabelDrawer labelDrawer;
     /**
      * The standard constructor that initialize everything to make the graphics work.
      *
@@ -126,15 +122,8 @@ public class GameView implements Viewable {
         createDebugger();
         explosionAnimations = new ArrayList<ExplosionAnimation>();
         turnIndicatorAnimation = new TurnIndicatorAnimation(Constants.pixelsPerMeter());
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Georgia.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = Gdx.graphics.getWidth()/64;
-        font = generator.generateFont(parameter);
-        generator.dispose();
-        label = new GlyphLayout();
-        font.setColor(0, 0, 0, 1);
         turnIndicatorAnimation = new TurnIndicatorAnimation(Constants.pixelsPerMeter());
-        setFont();
+        labelDrawer = new LabelDrawer();
     }
 
     /**
@@ -176,7 +165,7 @@ public class GameView implements Viewable {
         Body currentPlayer = environment.getTankBody(environment.getCurrentTank());
         turnIndicatorAnimation.draw(batch, currentPlayer.getPosition());
 
-        drawLabels(batch);
+        labelDrawer.draw(environment.getCharacterList(), batch);
 
         batch.end();
 
@@ -258,13 +247,6 @@ public class GameView implements Viewable {
         camera.position.set(new Vector3(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0));
     }
 
-    private void setFont(){
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Georgia.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 30;
-        font = generator.generateFont(parameter); // font size 12 pixels
-        generator.dispose();
-    }
 
     private void setUpProjectileHashMap() {
         projectileHashMap = new HashMap<Shootable, GraphicalProjectile>();
@@ -304,43 +286,6 @@ public class GameView implements Viewable {
             graphicalTank.draw(batch);
         }
         checkCharacterList();
-    }
-
-    private void drawLabels(Batch batch){
-        float rowHeight = Gdx.graphics.getHeight()/16;
-        float rowWidth = Gdx.graphics.getWidth()/8;
-        for(Character c : environment.getCharacterList()){
-            StringBuilder str = new StringBuilder();
-            Vector2 pos;
-            switch (c.getId()) {
-                case PLAYER1:
-                    str.append("Player 1:\n");
-                    pos = new Vector2(2 * rowWidth, 15 * rowHeight);
-                    break;
-                case PLAYER2:
-                    str.append("Player 2:\n");
-                    pos = new Vector2(6 * rowWidth, 15 * rowHeight);
-                    break;
-                case PLAYER3:
-                    str.append("Player 3:\n");
-                    pos = new Vector2(2 * rowWidth, 12 * rowHeight);
-                    break;
-                case PLAYER4:
-                    str.append("Player 4:\n");
-                    pos = new Vector2(6 * rowWidth, 12 * rowHeight);
-                    break;
-                default:
-                    str.append("Error ");
-                    pos = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-                    break;
-            }
-            str.append("Health :").append((int)c.getTank().getHealth()).append("\n").append("Fuel: ").append((int)c.getTank().getFuel());
-            label.setText(font, str);
-            float width = label.width;
-
-            font.draw(batch, str, pos.x - width/2, pos.y);
-
-        }
     }
 
     private void checkCharacterList() {
