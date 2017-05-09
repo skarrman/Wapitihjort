@@ -113,7 +113,7 @@ public class GameView implements Viewable {
         this.environment = environment;
         batch = new SpriteBatch();
         setUpTankHashMap();
-        ArrayList<Texture> textures = AssetsManager.getInstance().getUITextures();
+        List<Texture> textures = AssetsManager.getInstance().getUITextures();
         leftMoveButtonSprite = new Sprite(textures.get(0));
         rightMoveButtonSprite = new Sprite(textures.get(1));
         pauseMenuButtonSprite = new Sprite(textures.get(2));
@@ -272,7 +272,7 @@ public class GameView implements Viewable {
         characterTankHashMap = new HashMap<Character, GraphicalTank>();
         for (Character c : environment.getCharacterList()) {
             GraphicalTank graphicalTank = new GraphicalTank(environment.getTankBody(c.getTank()), c.getId(),
-                    c.getTank().getAngle(), Constants.pixelsPerMeter());
+                    c.getTank().getAngle(),Constants.pixelsPerMeter(), c.getTank().getWidth(), c.getTank().getHeight());
             characterTankHashMap.put(c, graphicalTank);
         }
     }

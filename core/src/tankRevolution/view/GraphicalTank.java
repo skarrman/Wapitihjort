@@ -1,12 +1,14 @@
 package tankRevolution.view;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 import tankRevolution.utils.AssetsManager;
+import tankRevolution.utils.Constants;
 import tankRevolution.utils.Id;
+
 
 /**
  * Created by simonkarrman on 2017-04-24.
@@ -16,25 +18,29 @@ public class GraphicalTank {
     private Body tankBody;
     private Id id;
     private Integer angle;
-    private float metersToPixels;
-    private TextureAtlas textureAtlas;
-    private AssetsManager assetsManager;
+    private float pixelsPerMeter;
+    private Array<Sprite> sprites;
 
-    protected GraphicalTank(Body body, Id id, Integer angle, float metersToPixels){
+    protected GraphicalTank(Body body, Id id, Integer angle, float pixelsPerMeter, float width, float height){
         this.tankBody = body;
         this.id = id;
         this.angle = angle;
-        this.metersToPixels = metersToPixels;
-        assetsManager = AssetsManager.getInstance();
-        textureAtlas = assetsManager.getTextureAtlas(id);
+        this.pixelsPerMeter = pixelsPerMeter;
+        sprites = AssetsManager.getInstance().getSpriteArray(id);
+        setSpriteDimensions(width, height);
     }
 
 
     public void draw(Batch batch){
-        Array<TextureAtlas.AtlasRegion> atlasRegions = textureAtlas.getRegions();
-        TextureAtlas.AtlasRegion atlasRegion = atlasRegions.first();
+        Sprite sprite = sprites.get(0);
         Vector2 pos = tankBody.getPosition();
-        batch.draw(atlasRegion, (pos.x * metersToPixels) - atlasRegion.getRegionWidth() / 2,
-                                (pos.y * metersToPixels) - atlasRegion.getRegionHeight() / 4);
+        sprite.setPosition((pixelsPerMeter * pos.x) - sprite.getWidth()/2, (pixelsPerMeter * pos.y) - sprite.getHeight()/2);
+        sprite.draw(batch);
+    }
+
+    private void setSpriteDimensions(float width, float height){
+        for(Sprite s : sprites){
+            s.setSize(width * pixelsPerMeter, height * pixelsPerMeter);
+        }
     }
 }

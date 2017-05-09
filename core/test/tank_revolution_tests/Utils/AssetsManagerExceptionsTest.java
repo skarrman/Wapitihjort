@@ -14,6 +14,6 @@ public class AssetsManagerExceptionsTest {
     }
 
     @Test public void loadPlayerTexture(){
-        AssetsManager.getInstance().getTextureAtlas(Id.PLAYER2);
+        AssetsManager.getInstance().getSpriteArray(Id.PLAYER2);
     }
 }

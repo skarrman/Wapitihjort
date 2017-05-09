@@ -2,32 +2,26 @@ package tankRevolution.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.utils.Array;
 import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Id;
 import tankRevolution.model.Explosion;
+
+import java.util.List;
 
 /**
  * <p>The animation of a explosion</p>
  */
 public class ExplosionAnimation{
 
-    /** The explosion's x-coordinate. */
-    private float x;
-
-    /** The explosion's x-coordinate. */
-    private float y;
-
     /** Keeps track of the time so that the animation is correct */
     private float time;
 
-    /** The value of the width of the explosion's blast radius */
-    private int blastRadius;
-
     /** The texture atlas of all the textures that represents the explosions that is animated. */
-    private  TextureAtlas textureAtlas;
+    private Array<Sprite> sprites;
 
     /** The object that handel the animation */
-    private Animation<TextureRegion> animation;
+    private Animation<Sprite> animation;
 
     /**
      * The constructor of this class that is creating all the object that is needed
@@ -37,14 +31,10 @@ public class ExplosionAnimation{
      * @param metersToPixels The ratio between meters in the world to pixels on the screen.
      */
     ExplosionAnimation(Explosion explosion, float metersToPixels){
-        textureAtlas = AssetsManager.getInstance().getTextureAtlas(Id.EXPLOSION);
-        animation = new Animation<TextureRegion>(1 / 20f, textureAtlas.getRegions());
+        sprites = AssetsManager.getInstance().getSpriteArray(Id.EXPLOSION);
+        animation = new Animation<Sprite>(1 / 20f, sprites);
         time = 0;
-        TextureRegion animationFrame = new TextureRegion(animation.getKeyFrame(time, false));
-        x = (explosion.x * metersToPixels) - (animationFrame.getRegionWidth() / 2);
-        y = (explosion.y * metersToPixels) - (animationFrame.getRegionHeight() / 2);
-        blastRadius = explosion.blastRadius;
-
+        setDimension(explosion.blastRadius, explosion.x, explosion.y, metersToPixels);
     }
 
     /**
@@ -60,15 +50,22 @@ public class ExplosionAnimation{
      */
     void draw(Batch batch){
         time += Gdx.graphics.getDeltaTime();
-        TextureRegion animationFrame = new TextureRegion(animation.getKeyFrame(time, false));
-        batch.draw(animationFrame, x, y);
+        Sprite sprite = animation.getKeyFrame(time, false);
+        sprite.draw(batch);
+    }
+
+    private void setDimension(int blastRadius, float x, float y, float pixelsPerMeter){
+        for(Sprite s : sprites){
+            s.setSize(blastRadius * pixelsPerMeter, blastRadius * pixelsPerMeter);
+            s.setPosition((x * pixelsPerMeter) - s.getWidth()/2, (y * pixelsPerMeter) - s.getHeight()/2);
+        }
     }
 
     /**
      * Disposes all the disposes.
      */
     void dispose() {
-        textureAtlas.dispose();
+        //textureAtlas.dispose();
     }
 
 }

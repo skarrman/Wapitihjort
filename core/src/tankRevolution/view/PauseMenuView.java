@@ -10,6 +10,7 @@ import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
@@ -27,7 +28,7 @@ public class PauseMenuView implements Viewable {
     public PauseMenuView(){
         batch = new SpriteBatch();
 
-        ArrayList<Texture> textures = AssetsManager.getInstance().getPauseMenuTextures();
+        List<Texture> textures = AssetsManager.getInstance().getPauseMenuTextures();
         resumeSprite = new Sprite(textures.get(0));
         restartSprite = new Sprite(textures.get(1));
         toMenuSprite = new Sprite(textures.get(2));

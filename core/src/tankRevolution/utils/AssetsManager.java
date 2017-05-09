@@ -4,10 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Array;
 
 import java.io.FileNotFoundException;
+import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,19 +22,19 @@ public class AssetsManager {
     /**
      * A Map with all textureAtlases and with a String for key
      */
-    private Map<Id, TextureAtlas> textureAtlases;
+    private Map<Id, Array<Sprite>> spriteArrays;
     /**
      * the sprite for the standard projectile
      */
     private Sprite projectile;
 
-    private ArrayList<Texture> startMenuTextures;
+    private List<Texture> startMenuTextures;
 
-    private ArrayList<Texture> pauseMenuTextures;
+    private List<Texture> pauseMenuTextures;
 
     private Texture settingsTexture;
 
-    private ArrayList<Texture> UITextures;
+    private List<Texture> UITextures;
 
     /**
      * our instance
@@ -77,28 +80,29 @@ public class AssetsManager {
      * @param textureName the name of the textureAtlas
      * @return the textureAtlas
      */
-    public TextureAtlas getTextureAtlas(Id textureName){
-        return textureAtlases.get(textureName);
+    public Array<Sprite> getSpriteArray(Id textureName){
+
+        return spriteArrays.get(textureName);
     }
 
     public Sprite getProjectileSprite(){
         return projectile;
     }
 
-    public ArrayList<Texture> getStartMenuTextures(){
+    public List<Texture> getStartMenuTextures(){
         return startMenuTextures;
     }
 
-    public ArrayList<Texture> getPauseMenuTextures() {
+    public List<Texture> getPauseMenuTextures() {
         return pauseMenuTextures;
     }
-    public ArrayList<Texture> getUITextures() {
+    public List<Texture> getUITextures() {
         return UITextures;
     }
 
     private AssetsManager() {
         //textureAtlases = new HashMap<TextureAtlasAssets, TextureAtlas>();
-        textureAtlases = new HashMap<Id, TextureAtlas>();
+        spriteArrays = new HashMap<Id, Array<Sprite>>();
     }
 
     /**
@@ -137,25 +141,40 @@ public class AssetsManager {
      */
     private void loadExplosionTextureAtlas() throws FileNotFoundException{
         //textureAtlases.put(TextureAtlasAssets.EXPLOSION, new TextureAtlas(Gdx.files.internal("Explosion.txt")));
-        textureAtlases.put(Id.EXPLOSION, new TextureAtlas(Gdx.files.internal("Explosion.txt")));
+        //textureAtlases.put(Id.EXPLOSION, new TextureAtlas(Gdx.files.internal("Explosion.txt")));
+        Array<Sprite> explosions = new Array<Sprite>();
+        for(int i = 1; i <= 3; i++){
+            explosions.add(new Sprite(new Texture(Gdx.files.internal("Explosion/Explosion"+i+".png"))));
+        }
+        spriteArrays.put(Id.EXPLOSION, explosions);
     }
 
     private void loadPlayer1TankTextureAtlas() throws FileNotFoundException{
         //textureAtlases.put(TextureAtlasAssets.PLAYER1_TANK, new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
-        textureAtlases.put(Id.PLAYER1, new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
+        //textureAtlases.put(Id.PLAYER1, new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
+        Array<Sprite> greenTank = new Array<Sprite>();
+        for(int i = 0; i <= 180; i+=10){
+            greenTank.add(new Sprite(new Texture(Gdx.files.internal("GreenTank/GreenTank"+i+".png"))));
+        }
+        spriteArrays.put(Id.PLAYER1, greenTank);
     }
 
     private void loadPlayer2TankTextureAtlas() throws FileNotFoundException{
         //textureAtlases.put(TextureAtlasAssets.PLAYER2_TANK, new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
-        textureAtlases.put(Id.PLAYER2, new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
+        //textureAtlases.put(Id.PLAYER2, new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
+        Array<Sprite> whiteTank = new Array<Sprite>();
+        for(int i = 0; i <= 180; i+=10){
+            whiteTank.add(new Sprite(new Texture(Gdx.files.internal("WhiteTank/WhiteTank"+i+".png"))));
+        }
+        spriteArrays.put(Id.PLAYER2, whiteTank);
     }
 
     private void loadPlayer3TankTextureAtlas() throws FileNotFoundException{
-        textureAtlases.put(Id.PLAYER3, new TextureAtlas(Gdx.files.internal("PLACEHOLDER")));
+       // textureAtlases.put(Id.PLAYER3, new TextureAtlas(Gdx.files.internal("PLACEHOLDER")));
     }
 
     private void loadPlayer4TankTextureAtlas() throws FileNotFoundException{
-        textureAtlases.put(Id.PLAYER4, new TextureAtlas(Gdx.files.internal("PLACEHOLDER")));
+        //textureAtlases.put(Id.PLAYER4, new TextureAtlas(Gdx.files.internal("PLACEHOLDER")));
     }
 
     private void loadProjectileSprite(){

@@ -10,6 +10,7 @@ import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
@@ -29,7 +30,7 @@ public class StartMenuView implements Viewable {
     public StartMenuView(){
         batch = new SpriteBatch();
 
-        ArrayList<Texture> textures = AssetsManager.getInstance().getStartMenuTextures();
+        List<Texture> textures = AssetsManager.getInstance().getStartMenuTextures();
         quickStartSprite = new Sprite(textures.get(0));
         worldSprite = new Sprite((textures.get(1)));
         customStartSprite = new Sprite(textures.get(2));
