@@ -35,6 +35,10 @@ public class ButtonController {
         addButtonsToStage();
     }
 
+    /**
+     * Keeps track of when buttons are being held down and when they're released.
+     * Called 60 times/second from GameHolder.
+     */
     public void update(){
         if(isPressed && environment.tankCanMove()){
             environment.moveTank(direction);

@@ -19,10 +19,14 @@ import tankRevolution.utils.Vector;
 
 
 /**
- * Created by jakobwall on 2017-04-06.
+ * Model class holding everything that has to do with the framework "LibGDX"
+ * Wrapper for the logical model and handles all input to it.
  */
 public class Environment {
 
+    /**
+     * The logical model free from the framework.
+     */
     private TankRevolution tankRevolution;
 
     /**
@@ -157,6 +161,7 @@ public class Environment {
     }
 
     /**
+     * Places the body of a tank at a specified location based on what player owns it.
      * @param tank the tank object from the model being created.
      */
     public void addTank(Tank tank, Id id) {
@@ -221,6 +226,9 @@ public class Environment {
         world.dispose();
     }
 
+    /**
+     * Moves the world forward one step and updates everything accordingly. called 60 times/second.
+     */
     public void update() {
         stackUpdate();
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
@@ -242,6 +250,10 @@ public class Environment {
     }
 
 
+    /**
+     * Damages the tanks hit and plays the explosion animation where the projectile hit.
+     * @param projectile the projectile that hit something.
+     */
     void projectileHit(Shootable projectile) {
         List<Tank> deadTanks = new ArrayList<Tank>();
         for (Tank t : tanks.keySet()) {
@@ -286,29 +298,56 @@ public class Environment {
         tankRevolution.destroyTank(tank);
     }
 
+    /**
+     *
+     * @param tank
+     * @param projectile
+     * @return  The distance between the tank and the projectile.
+     */
     public float distanceTo(Tank tank, Shootable projectile) {
         float deltaX = Math.abs(getTankX(tank) - getProjectileX(projectile));
         float deltaY = Math.abs(getTankY(tank) - getProjectileY(projectile));
         return (float) Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
     }
 
+    /**
+     * Moves tank based on input from user.
+     * @param direction recieves it from ButtonController, 1 if moving right, -1 if moving left
+     */
     public void moveTank(int direction) {
         getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(direction * 10, 0);
         tankRevolution.reduceFuel();
     }
 
+    /**
+     * @return true if there is nothing stopping the tank from moving.
+     */
     public boolean tankCanMove(){
         return tankRevolution.tankCanMove();
     }
 
+    /**
+     * Called when the move buttons are released.
+     */
     public void stopTank() {
         getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(0, -10);
     }
 
+    /**
+     * @param screenX x-coordinate of the point where the user released touch.
+     * @param screenY y-coordinate of the point where the user released touch.
+     * @param touchX  x-coordinate of the user's initial touch.
+     * @param touchY  y-coordinate of the user's initial touch.
+     */
     public void shoot(int screenX, int screenY, float touchX, float touchY) {
         shoot(touchX - screenX,screenY - touchY);
     }
 
+    /**
+     * Fires a projectile in a direction based on either the user's input or a calculation for the NPC.
+     * @param deltaX distance x-wise between user's initial input and where touch was let go.
+     * @param deltaY distance y-wise between user's initial input and where touch was let go.
+     */
     public void shoot(float deltaX, float deltaY){
         Tank shooter = tankRevolution.getCurrentTank();
         List<Shootable> projectiles = tankRevolution.shoot(deltaX, deltaY);
@@ -317,6 +356,9 @@ public class Environment {
         }
     }
 
+    /**
+     * Calculates the perfect shot and puts a random fault based on difficulty.
+     */
     public void NPCDoShoot(){
         List<Tank> tanksToNPC = new ArrayList<Tank>();
         tanksToNPC.addAll(tanks.keySet());

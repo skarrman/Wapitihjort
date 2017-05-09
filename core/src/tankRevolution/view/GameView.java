@@ -57,13 +57,11 @@ public class GameView implements Viewable {
      * The graphical representation of the flying projectile
      */
     private Sprite projectile;
-
-    private ArrayList<Texture> textures;
-
+    /**
+     * Graphical representation of the UI buttons
+     */
     private Sprite leftMoveButtonSprite;
-
     private Sprite rightMoveButtonSprite;
-
     private Sprite pauseMenuButtonSprite;
 
     /**

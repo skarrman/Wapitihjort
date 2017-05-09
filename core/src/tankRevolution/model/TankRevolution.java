@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by antonhagermalm on 2017-03-30.
+ * Logical model free from the framework "LibGDX"
  */
 public class TankRevolution {
 
@@ -75,6 +75,7 @@ public class TankRevolution {
     }
 
     public void doNextMove(){
+        getCurrentTank().setFuel(100);
         setNextCharacter();
         getCurrentCharacter().setNewTurn();
         /*if(getCurrentCharacter().isNPC()){

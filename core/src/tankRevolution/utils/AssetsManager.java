@@ -69,7 +69,7 @@ public class AssetsManager {
             loadUIButtonTextures();
         }
         catch (FileNotFoundException e){
-            System.out.println("The explosion texture or the projectile texture was not found");
+            System.out.println("One or more textures not found");
         }
     }
 
