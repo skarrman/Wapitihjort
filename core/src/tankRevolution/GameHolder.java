@@ -50,7 +50,7 @@ public class GameHolder implements ApplicationListener {
             currentGame = new Options().newGame();
             environment = new Environment(currentGame);
         }
-        view = new GameView(currentGame, environment);
+        view = new GameView(environment);
         mainController.setGameMode(environment,view, this);
     }
 
