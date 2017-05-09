@@ -4,19 +4,19 @@ package tankRevolution.utils;
  * Created by jakobwall on 2017-05-08.
  */
 public class Point {
-    private float X;
-    private float Y;
+    private float x;
+    private float y;
 
-    public Point(float X, float Y) {
-        this.X = X;
-        this.Y = Y;
+    public Point(float x, float y) {
+        this.x = x;
+        this.y = y;
     }
 
     public float getX() {
-        return X;
+        return x;
     }
 
     public float getY() {
-        return Y;
+        return y;
     }
 }

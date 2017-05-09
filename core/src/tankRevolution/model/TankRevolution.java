@@ -95,14 +95,11 @@ public class TankRevolution {
     }
 
     /**
-     * @return true if the terrain allows the tank to move
+     * @return true if nothing prevents the tank to move
      */
     public boolean tankCanMove() {
         Tank tank = characterList.get(characterTurn).getTank();
-        if(tank.hasFuel()){
-            return true;
-        }
-        return false;
+        return tank.hasFuel();
     }
 
     /**
