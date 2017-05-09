@@ -86,7 +86,8 @@ public class TankRevolution {
     }
 
     public boolean NPCWillShoot(){
-        return (getCurrentCharacter() instanceof NPC && flyingProjectiles.size() == 0);
+        return (getCurrentCharacter() instanceof NPC && flyingProjectiles.size() == 0
+        && characterList.size() > 1);
     }
 
     public void reduceFuel(){

@@ -153,8 +153,8 @@ public class Environment {
         shape.dispose();
 
         //Translation will be needed, this vector will suck
-        Vector2 force = new Vector2(deltaX * 50, deltaY * 50);
-        body.applyForceToCenter(force, true);
+        Vector2 force = new Vector2(deltaX, deltaY);
+        body.applyLinearImpulse(force, body.getPosition(), true);
         body.setUserData(new UserData(1));
 
         projectiles.put(projectile, body);
