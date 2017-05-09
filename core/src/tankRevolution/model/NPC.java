@@ -57,15 +57,18 @@ public class NPC extends Character{
 
         float minYVelocity = 0;
         if(deltaY > 0){
-            minYVelocity = Constants.getGravity() * (float) (Math.sqrt(deltaY *2 /Constants.getGravity()));
+            minYVelocity = Constants.getGravity() * (float) (Math.sqrt(Math.abs(deltaY *2 /Constants.getGravity())));
         }
         float extraForceY = rand.nextInt(30) + 10;
-        float timeToStop = (minYVelocity + extraForceY)/Constants.getGravity();
-        float timeToHit = ()
 
+        float VelocityY = minYVelocity + extraForceY;
 
+        float timeToStop = VelocityY/Constants.getGravity();
+        float heightWhenStop = own.getY() + (timeToStop * Constants.getGravity() /2);
+        float timeToHit = (float) Math.sqrt(((heightWhenStop - opponent.getY())*2)/Constants.getGravity());
+        float totalTime = timeToHit + timeToStop;
 
-        return new Vector(deltaX/(deltaY/5), deltaY);
+        return new Vector(deltaX/totalTime, VelocityY);
     }
 
     public void setNewTurn(){
