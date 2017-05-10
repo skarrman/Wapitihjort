@@ -1,6 +1,7 @@
 package tankRevolution.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -106,6 +107,10 @@ public class GameView implements Viewable {
     private LabelDrawer labelDrawer;
 
     private GameOverView gameOverView;
+
+    private Sound shotSound;
+
+    private Sound explostionSound;
     /**
      * The standard constructor that initialize everything to make the graphics work.
      *
@@ -127,6 +132,9 @@ public class GameView implements Viewable {
         turnIndicatorAnimation = new TurnIndicatorAnimation(Constants.pixelsPerMeter());
         labelDrawer = new LabelDrawer();
         gameOverView = new GameOverView();
+        shotSound = Gdx.audio.newSound(Gdx.files.internal("Sounds/Cannon-sound-effect.mp3"));
+        explostionSound = Gdx.audio.newSound(Gdx.files.internal("Sounds/Boom-sound.mp3"));
+        projectileHashMap = new HashMap<Shootable, GraphicalProjectile>();
     }
 
     /**
@@ -154,6 +162,7 @@ public class GameView implements Viewable {
         if (explosions.size() > 0) {
             for (Explosion e : explosions) {
                 explosionAnimations.add(new ExplosionAnimation(e, Constants.pixelsPerMeter()));
+                explostionSound.play();
             }
             explosions.clear();
         }
@@ -256,10 +265,12 @@ public class GameView implements Viewable {
 
 
     private void setUpProjectileHashMap() {
-        projectileHashMap = new HashMap<Shootable, GraphicalProjectile>();
         for (Shootable s : environment.getFlyingProjectiles()) {
-            GraphicalProjectile graphicalProjectile = new GraphicalProjectile(environment.getProjectileBody(s), Constants.pixelsPerMeter());
-            projectileHashMap.put(s, graphicalProjectile);
+            if (!projectileHashMap.containsKey(s)){
+                GraphicalProjectile graphicalProjectile = new GraphicalProjectile(environment.getProjectileBody(s), Constants.pixelsPerMeter());
+                projectileHashMap.put(s, graphicalProjectile);
+                shotSound.play();
+            }
         }
     }
 
