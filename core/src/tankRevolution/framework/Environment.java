@@ -256,7 +256,7 @@ public class Environment {
             if (!t.isAlive()) {
                 deadTanks.add(t);
             }
-            System.out.println(t.getHealth());
+            //System.out.println(t.getHealth());
         }
         explosions.add(new Explosion(projectiles.get(projectile).getPosition().x, projectiles.get(projectile).getPosition().y,
                 projectile.getBlastRadius()));

@@ -11,7 +11,7 @@ import java.util.List;
 public class TerrainGenerator {
 
 
-    static float[] getSinusArray(){
+    public static float[] getSinusArray(){
         List<Float> verticesList = new ArrayList<Float>();
 
         float amplitude = 10f;

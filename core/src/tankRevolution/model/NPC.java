@@ -65,7 +65,7 @@ public class NPC extends Character{
 
         float timeToStop = -(VelocityY/Constants.getGravity());
         float heightWhenStop = own.getY() + (timeToStop * Constants.getGravity() /2);
-        System.out.println((heightWhenStop - opponent.getY())*2/Constants.getGravity());
+        //System.out.println((heightWhenStop - opponent.getY())*2/Constants.getGravity());
         float timeToHit = (float) (Math.sqrt(Math.abs(((heightWhenStop - opponent.getY())*2)/Constants.getGravity())));
         float totalTime = timeToHit + timeToStop;
 

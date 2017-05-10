@@ -47,7 +47,7 @@ public class ButtonController {
         if(!environment.gameOver()) {
             if (isPressed && environment.tankCanMove()) {
                 environment.moveTank(direction);
-                System.out.println(environment.getCurrentTank().getFuel());
+                //System.out.println(environment.getCurrentTank().getFuel());
             } else {
                 environment.stopTank();
             }
