@@ -132,8 +132,8 @@ public class GameView implements Viewable {
         turnIndicatorAnimation = new TurnIndicatorAnimation(Constants.pixelsPerMeter());
         labelDrawer = new LabelDrawer();
         gameOverView = new GameOverView();
-        shotSound = Gdx.audio.newSound(Gdx.files.internal("Sounds/Cannon-sound-effect.mp3"));
-        explostionSound = Gdx.audio.newSound(Gdx.files.internal("Sounds/Boom-sound.mp3"));
+        shotSound = AssetsManager.getInstance().getSoundEffects().get(0);
+        explostionSound = AssetsManager.getInstance().getSoundEffects().get(1);
         projectileHashMap = new HashMap<Shootable, GraphicalProjectile>();
     }
 

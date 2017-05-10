@@ -1,9 +1,12 @@
 package tankRevolution.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Array;
 
 import java.io.FileNotFoundException;
@@ -35,6 +38,10 @@ public class AssetsManager {
     private Texture settingsTexture;
 
     private List<Texture> UITextures;
+
+    private List<Sound> soundEffects;
+
+    private List<BitmapFont> fonts;
 
     /**
      * our instance
@@ -70,6 +77,8 @@ public class AssetsManager {
             loadStartMenuTextures();
             loadPauseMenuTextures();
             loadUIButtonTextures();
+            loadSoundEffects();
+            loadFonts();
         }
         catch (FileNotFoundException e){
             System.out.println("One or more textures not found");
@@ -102,6 +111,14 @@ public class AssetsManager {
 
     private AssetsManager() {
         spriteArrays = new HashMap<Id, Array<Sprite>>();
+    }
+
+    public List<Sound> getSoundEffects(){
+        return soundEffects;
+    }
+
+    public List<BitmapFont> getFonts(){
+        return fonts;
     }
 
     /**
@@ -213,4 +230,23 @@ public class AssetsManager {
         UITextures.add(new Texture(Gdx.files.internal("PauseMenuButton.png")));
     }
 
+    private void loadSoundEffects() throws FileNotFoundException{
+        soundEffects = new ArrayList<Sound>();
+        soundEffects.add(Gdx.audio.newSound(Gdx.files.internal("Sounds/Cannon-sound-effect.mp3")));
+        soundEffects.add(Gdx.audio.newSound(Gdx.files.internal("Sounds/Boom-sound.mp3")));
+    }
+
+    private void loadFonts() throws FileNotFoundException{
+        fonts = new ArrayList<BitmapFont>();
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Noteworthy-Light.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = Gdx.graphics.getWidth()/64;
+        fonts.add(generator.generateFont(parameter));
+        generator.dispose();
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("Noteworthy-Bold.ttf"));
+        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = Gdx.graphics.getWidth()/16;
+        fonts.add(generator.generateFont(parameter));
+        generator.dispose();
+    }
 }

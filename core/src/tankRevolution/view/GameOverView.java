@@ -9,7 +9,10 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
+import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
+
+import java.util.List;
 
 /**
  * Created by simonkarrman on 2017-05-10.
@@ -24,16 +27,13 @@ public class GameOverView {
     private StringBuilder str;
 
     public GameOverView(){
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Noteworthy-Bold.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = Gdx.graphics.getWidth()/16;
-        font = generator.generateFont(parameter);
-        generator.dispose();
+        AssetsManager assetsManager = AssetsManager.getInstance();
+        font = assetsManager.getFonts().get(1);
         label = new GlyphLayout();
         font.setColor(0, 0, 0, 1);
         str = new StringBuilder();
         str.append("GAME OVER!");
-        toMenuSprite = new Sprite(new Texture(Gdx.files.internal("MainMenuButton.png")));
+        toMenuSprite = new Sprite(AssetsManager.getInstance().getPauseMenuTextures().get(2));
         float width = Constants.getPauseMenuButtonWidth();
         float height = Constants.getPauseMenuButtonHeight();
         Vector2 pos = Constants.getToMenuPosition();

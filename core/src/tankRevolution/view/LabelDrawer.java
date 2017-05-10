@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.StringBuilder;
 import tankRevolution.model.Character;
+import tankRevolution.utils.AssetsManager;
+
 import java.util.List;
 
 /**
@@ -19,11 +21,7 @@ public class LabelDrawer {
     private GlyphLayout label;
 
     public LabelDrawer(){
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Noteworthy-Light.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = Gdx.graphics.getWidth()/64;
-        font = generator.generateFont(parameter);
-        generator.dispose();
+        font = AssetsManager.getInstance().getFonts().get(0);
         label = new GlyphLayout();
         font.setColor(0, 0, 0, 1);
     }
