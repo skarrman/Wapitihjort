@@ -86,8 +86,8 @@ public class Environment {
      * Sets up sides.
      */
     private void setupSides() {
-        Body leftSide = setupSide(0);
-        Body rightSide = setupSide(Constants.getMapWidth() + 0);
+        setupSide(0);
+        setupSide(Constants.getMapWidth() + 0);
     }
 
     /**
@@ -308,8 +308,15 @@ public class Environment {
      * @param direction recieves it from ButtonController, 1 if moving right, -1 if moving left
      */
     public void moveTank(int direction) {
-        getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(direction * 10, 0);
-        tankRevolution.reduceFuel();
+        getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(direction * 25, Constants.getGravity());
+        //tankRevolution.reduceFuel();
+    }
+
+    /**
+     * Called when the move buttons are released.
+     */
+    public void stopTank() {
+        getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(0, Constants.getGravity());
     }
 
     /**
@@ -319,12 +326,6 @@ public class Environment {
         return tankRevolution.tankCanMove();
     }
 
-    /**
-     * Called when the move buttons are released.
-     */
-    public void stopTank() {
-        getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(0, -10);
-    }
 
     /**
      * @param screenX x-coordinate of the point where the user released touch.
