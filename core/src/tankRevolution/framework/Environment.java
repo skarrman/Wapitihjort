@@ -311,7 +311,7 @@ public class Environment {
      */
     public void moveTank(int direction) {
         getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(direction * 25, Constants.getGravity());
-        //tankRevolution.reduceFuel();
+        tankRevolution.reduceFuel();
     }
 
     /**

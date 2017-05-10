@@ -53,7 +53,7 @@ public class TankRevolution {
     }
 
     public boolean isInputAllowed(){
-        return (isActive || !getCurrentCharacter().isNPC());
+        return (isActive && !getCurrentCharacter().isNPC());
     }
 
     public List<Shootable> shoot(float deltaX, float deltaY){
@@ -78,11 +78,8 @@ public class TankRevolution {
         getCurrentTank().setFuel(100);
         setNextCharacter();
         getCurrentCharacter().setNewTurn();
-        /*if(getCurrentCharacter().isNPC()){
-            shoot(-470, 500);
-        }else{
-            setIsActive();
-        }*/
+        setIsActive();
+
     }
 
     public boolean NPCWillShoot(){
@@ -143,11 +140,7 @@ public class TankRevolution {
      * sets that the current character is a player
      */
     public void setIsActive(){
-        if(!getCurrentCharacter().isNPC()){
-            isActive = true;
-        }else{
-            isActive = false;
-        }
+        isActive = !getCurrentCharacter().isNPC();
     }
 
     /**
