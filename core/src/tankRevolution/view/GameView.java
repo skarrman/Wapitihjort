@@ -263,6 +263,11 @@ public class GameView implements Viewable {
         camera.position.set(new Vector3(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0));
     }
 
+    private void drawTerrain(){
+        List<List<Float>> vertices = environment.getVertices();
+
+    }
+
 
     private void setUpProjectileHashMap() {
         for (Shootable s : environment.getFlyingProjectiles()) {
