@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
 import com.badlogic.gdx.utils.StringBuilder;
+import org.lwjgl.Sys;
 import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
 import tankRevolution.framework.Environment;
@@ -270,6 +271,7 @@ public class GameView implements Viewable {
         List<float[]> vertices = environment.getVertices();
         for(float[] v : vertices){
             for(int i = 0; i < v.length; i++){
+                System.out.println("Vertex value: "+v[i]);
                 v[i] = v[i] * Constants.metersPerPixel();
             }
             shapeRenderer.begin(ShapeType.Line);
