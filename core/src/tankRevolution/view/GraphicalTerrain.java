@@ -15,12 +15,12 @@ import java.util.List;
  */
 public class GraphicalTerrain {
 
-    private ShapeRenderer shapeRenderer;
+    private static ShapeRenderer shapeRenderer;
 
     public GraphicalTerrain(){
     }
 
-    public void draw(float[] vertices){
+    public static void draw(float[] vertices){
         shapeRenderer.polygon(vertices);
     }
 

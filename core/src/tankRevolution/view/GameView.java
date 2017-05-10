@@ -37,7 +37,7 @@ public class GameView implements Viewable {
      * True = debug: ON
      * False = debug: OFF
      */
-    private boolean deBugMode = true;
+    private boolean deBugMode = false;
 
     /**
      * The graphical batch that draws on the screen
@@ -55,6 +55,7 @@ public class GameView implements Viewable {
     private Sprite leftMoveButtonSprite;
     private Sprite rightMoveButtonSprite;
     private Sprite pauseMenuButtonSprite;
+
 
     /**
      * An orthogonal camera
@@ -75,6 +76,7 @@ public class GameView implements Viewable {
      * A rendering tool that can draw polygon shapes
      */
     private ShapeRenderer shapeRenderer;
+
 
     /**
      * This tells if a user is aiming
@@ -118,6 +120,7 @@ public class GameView implements Viewable {
      */
     public GameView(Environment environment) {
         this.environment = environment;
+        shapeRenderer = new ShapeRenderer();
         batch = new SpriteBatch();
         setUpTankHashMap();
         List<Texture> textures = AssetsManager.getInstance().getUITextures();
@@ -125,7 +128,6 @@ public class GameView implements Viewable {
         rightMoveButtonSprite = new Sprite(textures.get(1));
         pauseMenuButtonSprite = new Sprite(textures.get(2));
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        shapeRenderer = new ShapeRenderer();
         createDebugger();
         explosionAnimations = new ArrayList<ExplosionAnimation>();
         turnIndicatorAnimation = new TurnIndicatorAnimation(Constants.pixelsPerMeter());
@@ -144,6 +146,7 @@ public class GameView implements Viewable {
     public void update() {
         environment.update();
         camera.update();
+        drawTerrain();
         setBackground();
         setCamera();
         if (arrowIsActive) {
@@ -264,8 +267,16 @@ public class GameView implements Viewable {
     }
 
     private void drawTerrain(){
-        List<List<Float>> vertices = environment.getVertices();
-
+        List<float[]> vertices = environment.getVertices();
+        for(float[] v : vertices){
+            for(int i = 0; i < v.length; i++){
+                v[i] = v[i] * Constants.metersPerPixel();
+            }
+            shapeRenderer.begin(ShapeType.Line);
+            shapeRenderer.setColor(1,1,0,1);
+            shapeRenderer.polygon(v, 0, v.length);
+            shapeRenderer.end();
+        }
     }
 
 
