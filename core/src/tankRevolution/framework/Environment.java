@@ -211,6 +211,10 @@ public class Environment {
         return explosions;
     }
 
+    public boolean gameOver(){
+        return tanks.size() < 2;
+    }
+
     public void dispose() {
         world.dispose();
     }

@@ -167,6 +167,10 @@ public class GameView implements Viewable {
 
         labelDrawer.draw(environment.getCharacterList(), batch);
 
+        if(environment.gameOver()){
+            System.out.println("Game Over");
+        }
+
         batch.end();
 
         if (deBugMode) {

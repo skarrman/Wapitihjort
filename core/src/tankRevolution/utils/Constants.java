@@ -21,7 +21,7 @@ public class Constants {
     public static float getGravity(){
         return gravity;
     }
-    public static float pixelsPerMeters(){
+    public static float pixelsPerMeter(){
         return Gdx.graphics.getWidth() / mapWidth;
     }
 
@@ -101,5 +101,5 @@ public class Constants {
     public static Vector2 getToMenuPosition(){
         return new Vector2(getPauseMenuXValue(),  getPauseMenuButtonHeight());
     }
-    
+
 }
