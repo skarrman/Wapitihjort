@@ -104,6 +104,8 @@ public class GameView implements Viewable {
     private HashMap<Shootable, GraphicalProjectile> projectileHashMap;
 
     private LabelDrawer labelDrawer;
+
+    private GameOverView gameOverView;
     /**
      * The standard constructor that initialize everything to make the graphics work.
      *
@@ -124,6 +126,7 @@ public class GameView implements Viewable {
         turnIndicatorAnimation = new TurnIndicatorAnimation(Constants.pixelsPerMeter());
         turnIndicatorAnimation = new TurnIndicatorAnimation(Constants.pixelsPerMeter());
         labelDrawer = new LabelDrawer();
+        gameOverView = new GameOverView();
     }
 
     /**
@@ -165,10 +168,10 @@ public class GameView implements Viewable {
         Body currentPlayer = environment.getTankBody(environment.getCurrentTank());
         turnIndicatorAnimation.draw(batch, currentPlayer.getPosition());
 
-        labelDrawer.draw(environment.getCharacterList(), batch);
-
         if(environment.gameOver()){
-            System.out.println("Game Over");
+            gameOverView.draw(batch);
+        }else {
+            labelDrawer.draw(environment.getCharacterList(), batch);
         }
 
         batch.end();
