@@ -56,6 +56,8 @@ public class Environment {
 
     private ITerrainHandler terrainHandler;
 
+    private boolean isTankFalling = true;
+
     /**
      * Creates a new Environment for Bodys to live in.
      */
@@ -323,7 +325,7 @@ public class Environment {
      * @return true if there is nothing stopping the tank from moving.
      */
     public boolean tankCanMove(){
-        return tankRevolution.tankCanMove();
+        return tankRevolution.tankCanMove() && !isTankFalling;
     }
 
 
@@ -377,6 +379,14 @@ public class Environment {
 
     public float getTankY(Tank tank) {
         return tanks.get(tank).getPosition().y;
+    }
+
+    public boolean getTankFalling(){
+        return isTankFalling;
+    }
+
+    public void setTankFalling(boolean b){
+        isTankFalling = b;
     }
 
     public Shootable getProjectile(Body body) {

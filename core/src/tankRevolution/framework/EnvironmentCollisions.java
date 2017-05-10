@@ -57,6 +57,8 @@ public class EnvironmentCollisions implements ContactListener {
             explode(a);
         } else if (dataB.getType() == UserData.BOMB && (dataA.getType() == UserData.GROUND || dataA.getType() == UserData.BALL)) {
             explode(b);
+        } else if ((dataA.getType() == UserData.BALL && dataB.getType() == UserData.GROUND) || (dataA.getType() == UserData.GROUND && dataB.getType() == UserData.BALL)){
+            environment.setTankFalling(false);
         }
 
     }
