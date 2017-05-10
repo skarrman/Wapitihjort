@@ -81,7 +81,6 @@ public class AssetsManager {
      * @return the textureAtlas
      */
     public Array<Sprite> getSpriteArray(Id textureName){
-
         return spriteArrays.get(textureName);
     }
 
@@ -96,12 +95,12 @@ public class AssetsManager {
     public List<Texture> getPauseMenuTextures() {
         return pauseMenuTextures;
     }
+
     public List<Texture> getUITextures() {
         return UITextures;
     }
 
     private AssetsManager() {
-        //textureAtlases = new HashMap<TextureAtlasAssets, TextureAtlas>();
         spriteArrays = new HashMap<Id, Array<Sprite>>();
     }
 
@@ -140,8 +139,6 @@ public class AssetsManager {
      * The following methods loads the assets from the android assets folder and puts into the map or the Sprite variable
      */
     private void loadExplosionTextureAtlas() throws FileNotFoundException{
-        //textureAtlases.put(TextureAtlasAssets.EXPLOSION, new TextureAtlas(Gdx.files.internal("Explosion.txt")));
-        //textureAtlases.put(Id.EXPLOSION, new TextureAtlas(Gdx.files.internal("Explosion.txt")));
         Array<Sprite> explosions = new Array<Sprite>();
         for(int i = 1; i <= 3; i++){
             explosions.add(new Sprite(new Texture(Gdx.files.internal("Explosion/Explosion"+i+".png"))));
@@ -150,8 +147,6 @@ public class AssetsManager {
     }
 
     private void loadPlayer1TankTextureAtlas() throws FileNotFoundException{
-        //textureAtlases.put(TextureAtlasAssets.PLAYER1_TANK, new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
-        //textureAtlases.put(Id.PLAYER1, new TextureAtlas(Gdx.files.internal("GreenTank.txt")));
         Array<Sprite> greenTank = new Array<Sprite>();
         for(int i = 0; i <= 180; i+=10){
             greenTank.add(new Sprite(new Texture(Gdx.files.internal("GreenTank/GreenTank"+i+".png"))));
@@ -160,8 +155,6 @@ public class AssetsManager {
     }
 
     private void loadPlayer2TankTextureAtlas() throws FileNotFoundException{
-        //textureAtlases.put(TextureAtlasAssets.PLAYER2_TANK, new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
-        //textureAtlases.put(Id.PLAYER2, new TextureAtlas(Gdx.files.internal("WhiteTank.txt")));
         Array<Sprite> whiteTank = new Array<Sprite>();
         for(int i = 0; i <= 180; i+=10){
             whiteTank.add(new Sprite(new Texture(Gdx.files.internal("WhiteTank/WhiteTank"+i+".png"))));
@@ -170,11 +163,19 @@ public class AssetsManager {
     }
 
     private void loadPlayer3TankTextureAtlas() throws FileNotFoundException{
-       // textureAtlases.put(Id.PLAYER3, new TextureAtlas(Gdx.files.internal("PLACEHOLDER")));
+        Array<Sprite> yellowTank = new Array<Sprite>();
+        for(int i = 0; i <= 180; i+=10){
+            yellowTank.add(new Sprite(new Texture(Gdx.files.internal("YellowTank/YellowTank"+i+".png"))));
+        }
+        spriteArrays.put(Id.PLAYER2, yellowTank);
     }
 
     private void loadPlayer4TankTextureAtlas() throws FileNotFoundException{
-        //textureAtlases.put(Id.PLAYER4, new TextureAtlas(Gdx.files.internal("PLACEHOLDER")));
+        Array<Sprite> blueTank = new Array<Sprite>();
+        for(int i = 0; i <= 180; i+=10){
+            blueTank.add(new Sprite(new Texture(Gdx.files.internal("BlueTank/BlueTank"+i+".png"))));
+        }
+        spriteArrays.put(Id.PLAYER2, blueTank);
     }
 
     private void loadProjectileSprite(){
@@ -212,12 +213,4 @@ public class AssetsManager {
         UITextures.add(new Texture(Gdx.files.internal("PauseMenuButton.png")));
     }
 
-    /*enum TextureAtlasAssets{
-        EXPLOSION,
-        PLAYER1_TANK,
-        PLAYER2_TANK,
-        PLAYER3_TANK,
-        PLAYER4_TANK,
-
-    }*/
 }
