@@ -369,7 +369,7 @@ public class Environment {
         shoot(vector.getDeltaX(), vector.getDeltaY());
     }
 
-    public List<List<Float>> getVertices(){
+    public List<float[]> getVertices(){
         return terrainHandler.getVertices();
     }
 

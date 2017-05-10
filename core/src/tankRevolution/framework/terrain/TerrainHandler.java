@@ -52,22 +52,20 @@ public class TerrainHandler implements ITerrainHandler {
      * may fucked this up, if there is any problems, it may be here
      * @return a list of lists with all the vertices to the shapes in the ground
      */
-    public List<List<Float>> getVertices() {
-        List<List<Float>> verticesListList = new ArrayList<List<Float>>();
+    public List<float[]> getVertices() {
+        List<float[]> verticesListArray = new ArrayList<float[]>();
         for (GroundFixture groundFixture : polyVerts) {
-            List<Float> verticesList = new ArrayList<Float>();
-            for (float[] verticesArray : groundFixture.getVerts()) {
-                for (Float vertex : verticesArray){
-                    verticesList.add(vertex);
-                }
-            }
-            verticesListList.add(verticesList);
+            //List<Float> verticesList = new ArrayList<Float>();
+            verticesListArray.addAll(groundFixture.getVerts());
         }
-        return verticesListList;
+        return verticesListArray;
     }
 
     private float[] generateTerrain() {
-        //return new float[]{0, 0, Constants.getMapWidth(), 0, Constants.getMapWidth(), 3f, 0, 3f};
+
+
+
+
         return new float[]{0, 0, Constants.getMapWidth(), 0, Constants.getMapWidth(), 3, 20, 8, 0, 3};
     }
 
