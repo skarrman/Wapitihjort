@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
  * Created by antonhagermalm on 2017-04-27.
  */
 public class Constants {
-    private static final float mapWidth = 50f;
+    private static final float mapWidth = 150f;
     private static final float gravity = -10f;
     /** The number of edges in the approximated circle of the explosions */
     private static final int explosionSegments = 32;
