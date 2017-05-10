@@ -369,6 +369,11 @@ public class Environment {
         shoot(vector.getDeltaX(), vector.getDeltaY());
     }
 
+    public List<List<Float>> getVertices(){
+        return terrainHandler.getVertices();
+    }
+
+
     private boolean NPCWillShoot() {
         return tankRevolution.NPCWillShoot();
     }

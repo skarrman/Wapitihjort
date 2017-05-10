@@ -11,4 +11,6 @@ import java.util.List;
 public interface ITerrainHandler {
     void update();
     void explode(Body projectileBody, int blastRadius);
+    List<List<Float>> getVertices();
+
 }
