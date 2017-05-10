@@ -52,8 +52,8 @@ public class NPC extends Character{
 
     private Vector calculateVector(Point own, Point opponent){
         Random rand = new Random();
-        float deltaX = own.getX() - opponent.getX();
-        float deltaY =  opponent.getY() - own.getY();
+        float deltaX = opponent.getX() - own.getX();
+        float deltaY =  opponent.getY() - own.getY() + 3;
 
         float minYVelocity = 0;
         if(deltaY > 0){
@@ -63,7 +63,7 @@ public class NPC extends Character{
 
         float VelocityY = minYVelocity + extraForceY;
 
-        float timeToStop = VelocityY/Constants.getGravity();
+        float timeToStop = -(VelocityY/Constants.getGravity());
         float heightWhenStop = own.getY() + (timeToStop * Constants.getGravity() /2);
         System.out.println((heightWhenStop - opponent.getY())*2/Constants.getGravity());
         float timeToHit = (float) (Math.sqrt(Math.abs(((heightWhenStop - opponent.getY())*2)/Constants.getGravity())));
