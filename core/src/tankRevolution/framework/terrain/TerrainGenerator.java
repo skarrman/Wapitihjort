@@ -11,15 +11,20 @@ import java.util.List;
 public class TerrainGenerator {
 
 
-    public float[] getSinusArray(){
+    static float[] getSinusArray(){
         List<Float> verticesList = new ArrayList<Float>();
 
-        float amplitude = 30f;
-        float period = 0.2f;
+        float amplitude = 10f;
+        float period = 1/4f;
 
-        for(float x = 0; x < Constants.getMapWidth(); x++){
+        verticesList.add(0f);
+        verticesList.add(0f);
+        verticesList.add(Constants.getMapWidth());
+        verticesList.add(0f);
+
+        for(float x = 150; x > -1; x--){
             verticesList.add(x);
-            verticesList.add((float)(amplitude * Math.sin(period * x)));
+            verticesList.add((float)(amplitude * Math.sin(period * x) + 10f));
         }
 
         float[] verticesArray = new float[verticesList.size()];

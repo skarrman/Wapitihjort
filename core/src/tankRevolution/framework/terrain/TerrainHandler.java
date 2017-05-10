@@ -40,7 +40,7 @@ public class TerrainHandler implements ITerrainHandler {
      */
     private void create() {
         List<float[]> verts = new ArrayList();
-        float[] points = generateTerrain();
+        float[] points = TerrainGenerator.getSinusArray();
         verts.add(points);
         GroundFixture grFix = new GroundFixture(verts);
         this.polyVerts.add(grFix);
@@ -59,14 +59,6 @@ public class TerrainHandler implements ITerrainHandler {
             verticesListArray.addAll(groundFixture.getVerts());
         }
         return verticesListArray;
-    }
-
-    private float[] generateTerrain() {
-
-
-
-
-        return new float[]{0, 0, Constants.getMapWidth(), 0, Constants.getMapWidth(), 3, 20, 8, 0, 3};
     }
 
     /**
@@ -148,7 +140,6 @@ public class TerrainHandler implements ITerrainHandler {
     public void explode(Body projectileBody, int blastRadius) {
         List<PolygonBox2DShape> totalRS = new ArrayList();
         //Approximates the vertices of a circle
-        System.out.println(Constants.getExplosionSegments());
         float[] circVerts = CollisionGeometry.approxCircle(projectileBody.getPosition().x, projectileBody.getPosition().y, blastRadius, Constants.getExplosionSegments());
         //Creates a shape from the vertices
         ChainShape shape = new ChainShape();
