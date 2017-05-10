@@ -115,7 +115,6 @@ public class ButtonController {
         stage.addActor(leftMoveButton);
         stage.addActor(rightMoveButton);
         stage.addActor(pauseMenuButton);
-        stage.addActor(toMenuButton);
     }
 
     private void setGameOverMode(){
@@ -126,6 +125,7 @@ public class ButtonController {
                 return true;
             }
         });
+        stage.addActor(toMenuButton);
         leftMoveButton.removeListener(leftMoveButton.getClickListener());
         rightMoveButton.removeListener(rightMoveButton.getClickListener());
         pauseMenuButton.removeListener(pauseMenuButton.getClickListener());
