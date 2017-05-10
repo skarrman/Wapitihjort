@@ -167,7 +167,7 @@ public class AssetsManager {
         for(int i = 0; i <= 180; i+=10){
             yellowTank.add(new Sprite(new Texture(Gdx.files.internal("YellowTank/YellowTank"+i+".png"))));
         }
-        spriteArrays.put(Id.PLAYER2, yellowTank);
+        spriteArrays.put(Id.PLAYER3, yellowTank);
     }
 
     private void loadPlayer4TankTextureAtlas() throws FileNotFoundException{
@@ -175,7 +175,7 @@ public class AssetsManager {
         for(int i = 0; i <= 180; i+=10){
             blueTank.add(new Sprite(new Texture(Gdx.files.internal("BlueTank/BlueTank"+i+".png"))));
         }
-        spriteArrays.put(Id.PLAYER2, blueTank);
+        spriteArrays.put(Id.PLAYER4, blueTank);
     }
 
     private void loadProjectileSprite(){
