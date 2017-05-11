@@ -12,10 +12,11 @@ import java.util.Random;
  */
 public class NPC extends Character{
 
-    private int difficulty;
+    private NPCDifficulty difficulty;
 
-    NPC(Id id) {
-        super(id, true);;
+    NPC(Id id, NPCDifficulty difficulty) {
+        super(id, true);
+        this.difficulty = difficulty;
     }
 
     NPC(NPC npc){
@@ -28,7 +29,7 @@ public class NPC extends Character{
         Point ownPoint = positions.get(ownTankPlace);
         int opponentPlace = getRandomPlace(ownTankPlace, tanks.size());
         Point opponentPoint = positions.get(opponentPlace);
-        Vector vector = calculateVector(ownPoint, opponentPoint);
+        Vector vector = calculateIdealVector(ownPoint, opponentPoint);
         return vector;
     }
 
@@ -50,22 +51,18 @@ public class NPC extends Character{
         return number;
     }
 
-    private Vector calculateVector(Point own, Point opponent){
+    private Vector calculateIdealVector(Point own, Point opponent){
         Random rand = new Random();
         float deltaX = opponent.getX() - own.getX();
         float deltaY =  opponent.getY() - (own.getY() + 3);
-
         float minYVelocity = 0;
         if(deltaY > 0){
             minYVelocity = Math.abs(Constants.getGravity() * (float) (Math.sqrt(Math.abs(deltaY *2 /Constants.getGravity()))));
         }
         float extraForceY = rand.nextInt(30) + 10;
-
         float VelocityY = minYVelocity + extraForceY;
-
         float timeInAir = (float)((VelocityY/-Constants.getGravity())+(Math.sqrt((VelocityY/Constants.getGravity())*(VelocityY/Constants.getGravity())
                 -(2*deltaY)/(-Constants.getGravity()))));
-
         return new Vector(deltaX/timeInAir, VelocityY);
     }
 
