@@ -154,7 +154,7 @@ public class GameView implements Viewable {
     public void update() {
         environment.update();
         camera.update();
-        drawTerrain();
+
         setCamera();
         if (arrowIsActive) {
             drawVector();
@@ -164,6 +164,7 @@ public class GameView implements Viewable {
         setBackground();
         drawTanks();
         drawButtons();
+        drawTerrain();
 
         if (environment.isProjectileFlying()) {
             setUpProjectileHashMap();
@@ -237,11 +238,9 @@ public class GameView implements Viewable {
     }
 
     private void createDebugger() {
-        if (deBugMode) {
-            debugMatrix = new Matrix4(camera.combined);
-            debugRenderer = new Box2DDebugRenderer();
-            shapeRenderer = new ShapeRenderer();
-        }
+        debugMatrix = new Matrix4(camera.combined);
+        debugRenderer = new Box2DDebugRenderer();
+        shapeRenderer = new ShapeRenderer();
     }
 
     private void drawDebugDetails() {
@@ -280,13 +279,14 @@ public class GameView implements Viewable {
     private void drawTerrain(){
         List<float[]> vertices = environment.getVertices();
         for(float[] v : vertices){
+            float[] v2 = new float[v.length];
             for(int i = 0; i < v.length; i++){
-                //System.out.println("Vertex value: "+v[i]);
-                v[i] = v[i] * Constants.pixelsPerMeter();
+                v2[i] = v[i];
             }
+            shapeRenderer.setProjectionMatrix(debugMatrix);
             shapeRenderer.begin(ShapeType.Line);
-            shapeRenderer.setColor(1,1,0,1);
-            shapeRenderer.polygon(v, 0, v.length);
+            shapeRenderer.setColor(Color.BLACK);
+            shapeRenderer.polygon(v);
             shapeRenderer.end();
         }
     }
