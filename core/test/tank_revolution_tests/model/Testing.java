@@ -2,6 +2,16 @@ package tank_revolution_tests.model;
 
 
 import org.junit.Test;
+import tankRevolution.model.Character;
+import tankRevolution.model.CharacterFactory;
+import tankRevolution.model.Tank;
+import tankRevolution.model.TankRevolution;
+import tankRevolution.model.shootablePackage.AmmunitionType;
+import tankRevolution.model.shootablePackage.ProjectileFactory;
+import tankRevolution.utils.Id;
+import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by antonhagermalm on 2017-03-30.
@@ -9,43 +19,16 @@ import org.junit.Test;
 
 public class Testing {
 
-    int iterations = 10;
-    int times = 1000000;
-
-    @Test public void ArrayListTesting() {
-        ArrayListTest arrayListTest = new ArrayListTest(iterations);
-        long time = System.nanoTime();
-        for(int i = 0; i < times; i ++) {
-            arrayListTest.add();
-            arrayListTest.remove();
-        }
-        long timeDif = System.nanoTime() - time;
-
-        System.out.println("ArrayList = " + timeDif);
+    @Test public void tankDamageTest(){
+        Character character = CharacterFactory.newPlayer(Id.PLAYER1);
+        Tank tank = new Tank();
+        character.setTank(tank);
+        List<Character> characters = new ArrayList<Character>();
+        characters.add(character);
+        TankRevolution tankRevolution = new TankRevolution(characters);
+        tankRevolution.damage(ProjectileFactory.create(AmmunitionType.MISSILE), tank, 2);
+        assertEquals(40, (int)tank.getHealth());
     }
 
-    @Test public void LinkedListTesting() {
-        LinkedListTest linkedListTest = new LinkedListTest(iterations);
-        long time = System.nanoTime();
-        for(int i = 0; i < times; i ++) {
-            linkedListTest.add();
-            linkedListTest.remove();
-        }
-        long timeDif = System.nanoTime() - time;
-
-        System.out.println("LinkedList = " + timeDif);
-    }
-
-    @Test public void StackTesting() {
-        StackTest StackTest = new StackTest(iterations);
-        long time = System.nanoTime();
-        for(int i = 0; i < times; i ++) {
-            StackTest.add();
-            StackTest.remove();
-        }
-        long timeDif = System.nanoTime() - time;
-
-        System.out.println("Stack = " + timeDif);
-    }
-
+    @Test public void 
 }
