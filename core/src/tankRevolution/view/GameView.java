@@ -116,6 +116,8 @@ public class GameView implements Viewable {
     private Sound explostionSound;
 
     private  WeaponSwitch weaponSwitch;
+
+    private Sprite background;
     /**
      * The standard constructor that initialize everything to make the graphics work.
      *
@@ -141,6 +143,8 @@ public class GameView implements Viewable {
         explostionSound = AssetsManager.getInstance().getSoundEffects().get(1);
         projectileHashMap = new HashMap<Shootable, GraphicalProjectile>();
         weaponSwitch = new WeaponSwitch();
+        background = new Sprite(new Texture(Gdx.files.internal("background.png")));
+        background.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     /**
@@ -151,13 +155,13 @@ public class GameView implements Viewable {
         environment.update();
         camera.update();
         drawTerrain();
-        setBackground();
         setCamera();
         if (arrowIsActive) {
             drawVector();
         }
         batch.begin();
 
+        setBackground();
         drawTanks();
         drawButtons();
 
@@ -259,8 +263,9 @@ public class GameView implements Viewable {
     }
 
     private void setBackground() {
-        Gdx.gl.glClearColor(0.980392f, 0.980392f, 0.823529f, 1);
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+        background.draw(batch);
     }
 
     /**
