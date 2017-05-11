@@ -157,11 +157,11 @@ public class ButtonController {
             }
         });
         stage.addActor(toMenuButton);
-        leftMoveButton.removeListener(leftMoveButton.getClickListener());
-        rightMoveButton.removeListener(rightMoveButton.getClickListener());
-        pauseMenuButton.removeListener(pauseMenuButton.getClickListener());
-        rightWeaponButton.removeListener(rightWeaponButton.getClickListener());
-        leftWeaponButton.removeListener(leftWeaponButton.getClickListener());
+        leftMoveButton.remove();
+        rightMoveButton.remove();
+        pauseMenuButton.remove();
+        leftWeaponButton.remove();
+        rightWeaponButton.remove();
     }
 }
 
