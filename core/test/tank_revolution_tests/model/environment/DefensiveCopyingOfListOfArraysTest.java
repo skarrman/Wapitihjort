@@ -4,6 +4,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.quailshillstudio.polygonClippingUtils.GroundFixture;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import tankRevolution.framework.terrain.*;
 
 import java.util.ArrayList;
@@ -29,7 +33,7 @@ public class DefensiveCopyingOfListOfArraysTest {
 
         List<float[]> newPolyVerts = terrainHandler.defenciveCopyVerticesList(oldPolyVerts);
 
-        System.out.print("OG is: ");
+        /*System.out.print("OG is: ");
         for(int i = 0; i < oldPolyVerts.size(); i++){
             for(int j = 0; j < oldPolyVerts.get(i).length; j++){
                 System.out.print(oldPolyVerts.get(i)[j] + " ");
@@ -40,6 +44,15 @@ public class DefensiveCopyingOfListOfArraysTest {
         for(int i = 0; i < newPolyVerts.size(); i++){
             for(int j = 0; j < newPolyVerts.get(i).length; j++){
                 System.out.print(newPolyVerts.get(i)[j] + " ");
+            }
+        }/*
+        /*for(int i = 0; i < newPolyVerts.size(); i++){
+         assertEquals(newPolyVerts.get(i), oldPolyVerts.get(i));
+        }*/
+
+        for(int i = 0; i < oldPolyVerts.size(); i++){
+            for(int j = 0; j < oldPolyVerts.get(i).length; j++){
+                assertTrue(newPolyVerts.get(i)[j] == oldPolyVerts.get(i)[j]);
             }
         }
     }
