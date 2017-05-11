@@ -158,7 +158,7 @@ public class Environment {
         if (id == Id.PLAYER1) {
             bodyDef.position.set(5f, 20f);
         } else if (id == Id.PLAYER2) {
-            bodyDef.position.set(Constants.getMapWidth() - 5f, 20f);
+            bodyDef.position.set(Constants.getMapWidth() - 5f, 40f);
         }
         body = world.createBody(bodyDef);
         body.setUserData(new UserData(2));

@@ -53,23 +53,20 @@ public class NPC extends Character{
     private Vector calculateVector(Point own, Point opponent){
         Random rand = new Random();
         float deltaX = opponent.getX() - own.getX();
-        float deltaY =  opponent.getY() - own.getY() + 3;
+        float deltaY =  opponent.getY() - (own.getY() + 3);
 
         float minYVelocity = 0;
         if(deltaY > 0){
-            minYVelocity = Constants.getGravity() * (float) (Math.sqrt(Math.abs(deltaY *2 /Constants.getGravity())));
+            minYVelocity = Math.abs(Constants.getGravity() * (float) (Math.sqrt(Math.abs(deltaY *2 /Constants.getGravity()))));
         }
         float extraForceY = rand.nextInt(30) + 10;
 
         float VelocityY = minYVelocity + extraForceY;
 
-        float timeToStop = -(VelocityY/Constants.getGravity());
-        float heightWhenStop = own.getY() + (timeToStop * Constants.getGravity() /2);
-        //System.out.println((heightWhenStop - opponent.getY())*2/Constants.getGravity());
-        float timeToHit = (float) (Math.sqrt(Math.abs(((heightWhenStop - opponent.getY())*2)/Constants.getGravity())));
-        float totalTime = timeToHit + timeToStop;
+        float timeInAir = (float)((VelocityY/-Constants.getGravity())+(Math.sqrt((VelocityY/Constants.getGravity())*(VelocityY/Constants.getGravity())
+                -(2*deltaY)/(-Constants.getGravity()))));
 
-        return new Vector(deltaX/totalTime, VelocityY);
+        return new Vector(deltaX/timeInAir, VelocityY);
     }
 
     public void setNewTurn(){

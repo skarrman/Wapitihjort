@@ -79,6 +79,17 @@ public class TerrainHandler implements ITerrainHandler {
         return verticesListArray;
     }
 
+<<<<<<< HEAD
+=======
+    private float[] generateTerrain() {
+
+
+
+
+        return new float[]{0, 0, Constants.getMapWidth(), 0, Constants.getMapWidth(), 30, 20, 30, 20, 5, 0, 5};
+    }
+
+>>>>>>> The perfect shot calculated with physics
     /**
      * @param rs is the entire ground in Polygons (only one if not the ground is split in two)
      */
