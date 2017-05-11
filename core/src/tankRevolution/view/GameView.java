@@ -38,7 +38,7 @@ public class GameView implements Viewable {
      * True = debug: ON
      * False = debug: OFF
      */
-    private boolean deBugMode = false;
+    private boolean deBugMode = true;
 
     /**
      * The graphical batch that draws on the screen
@@ -272,7 +272,7 @@ public class GameView implements Viewable {
         for(float[] v : vertices){
             for(int i = 0; i < v.length; i++){
                 //System.out.println("Vertex value: "+v[i]);
-                v[i] = v[i] * Constants.metersPerPixel();
+                //v[i] = v[i] * Constants.metersPerPixel();
             }
             shapeRenderer.begin(ShapeType.Line);
             shapeRenderer.setColor(1,1,0,1);

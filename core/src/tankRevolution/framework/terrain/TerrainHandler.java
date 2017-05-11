@@ -20,7 +20,7 @@ public class TerrainHandler implements ITerrainHandler {
 
     private boolean mustCreate;
     private List<GroundFixture> polyVerts;
-    private List<GroundFixture> oldPolyVerts;
+    List<float[]> verticesListArray;
 
     private World world;
     /**
@@ -31,6 +31,7 @@ public class TerrainHandler implements ITerrainHandler {
     public TerrainHandler(World world) {
         polyVerts = new ArrayList();
         this.world = world;
+        verticesListArray = new ArrayList<float[]>();
         create();
     }
 
@@ -43,6 +44,7 @@ public class TerrainHandler implements ITerrainHandler {
         List<float[]> verts = new ArrayList();
         float[] points = TerrainGenerator.getSinusArray();
         verts.add(points);
+        verticesListArray = defenciveCopyVerticesList(verts);
         GroundFixture grFix = new GroundFixture(verts);
         this.polyVerts.add(grFix);
         this.mustCreate = true;
@@ -51,20 +53,29 @@ public class TerrainHandler implements ITerrainHandler {
 
     /**
      * may fucked this up, if there is any problems, it may be here
+     *
      * @return a list of lists with all the vertices to the shapes in the ground
      */
     public List<float[]> getVertices() {
-        List<float[]> verticesListArray = new ArrayList<float[]>();
-        for (GroundFixture groundFixture : oldPolyVerts) {
-            //List<Float> verticesList = new ArrayList<Float>();
-            verticesListArray.addAll(groundFixture.getVerts());
-        }
-        for(int i = 0; i < verticesListArray.size(); i++){
-            for(int j = 0; j < verticesListArray.get(i).length; j++){
+        //DebugMessage
+        /*System.out.println(" ");
+        System.out.println(" ");
+        System.out.println("--------------------------------------------");
+        System.out.println(" ");
+        System.out.println(" ");
+
+        for (int i = 0; i < verticesListArray.size(); i++) {
+            System.out.println(" ");
+            System.out.println(" ");
+            System.out.println("- - - - - - - - - - - - - - - -");
+            System.out.println(" ");
+            System.out.println(" ");
+
+            for (int j = 0; j < verticesListArray.get(i).length; j++) {
                 System.out.println(verticesListArray.get(i)[j]);
             }
         }
-
+*/
         return verticesListArray;
     }
 
@@ -79,6 +90,7 @@ public class TerrainHandler implements ITerrainHandler {
             verts.add(r.verticesToLoop());
         }
 
+        verticesListArray = defenciveCopyVerticesList(verts);
 
         //makes a big GroundFixture from the vertices of the big terrainPolygon
         GroundFixture grFix = new GroundFixture(verts);
@@ -108,11 +120,13 @@ public class TerrainHandler implements ITerrainHandler {
      * creates the ground by adding several fixtures to the body
      */
     protected void createGround() {
+        //verticesListArray = defenciveCopyVerticesList(polyVerts);
         BodyDef groundDef = new BodyDef();
         groundDef.type = BodyDef.BodyType.StaticBody;
         groundDef.position.set(0.0F, 0.0F);
 
         for (GroundFixture polyVert : this.polyVerts) {
+
             Body nground = world.createBody(groundDef);
             this.terrain = nground;
             UserData usrData = new UserData(0);
@@ -134,39 +148,36 @@ public class TerrainHandler implements ITerrainHandler {
             polyVert.setFixtures(fixtures);
         }
 
-        List<float[]> verticesListArray = new ArrayList<float[]>();
+        /*List<float[]> verticesListArray = new ArrayList<float[]>();
         for (GroundFixture groundFixture : polyVerts) {
             //List<Float> verticesList = new ArrayList<Float>();
             verticesListArray.addAll(groundFixture.getVerts());
-        }
-
+        }*/
+        //verticesListArray = defenciveCopyVerticesList(polyVerts);
         /*for(int i = 0; i < verticesListArray.size(); i++){
             for(int j = 0; j < verticesListArray.get(i).length; j++){
                 System.out.println(verticesListArray.get(i)[j]);
             }
         }*/
 
-        oldPolyVerts = polyVerts;
-        polyVerts = new ArrayList();
+        //oldPolyVerts = polyVerts;
+        polyVerts.clear();
         this.mustCreate = false;
 
     }
 
-    public List<float[]> defenciveCopyVerticeList(GroundFixture[] polyVerts){
-        List<float[]> verticesListArray = new ArrayList<float[]>();
+    public List<float[]> defenciveCopyVerticesList(List<float[]> inVerts) {
+        List<float[]> outVerts = new ArrayList<float[]>();
 
-        for (GroundFixture polyVert : polyVerts) {
+        for (int i = 0; i < inVerts.size(); i++) {
+            float[] arrVerts = new float[inVerts.get(i).length];
 
-            for(int i = 0; i < polyVert.getVerts().size(); i++){
-                float[] verticesArray = new float[polyVert.getVerts().get(i).length];
-
-                for(int j = 0; j < polyVert.getVerts().get(i).length; j++){
-                    verticesArray[j] = polyVert.getVerts().get(i)[j];
-                }
-                verticesListArray.add(verticesArray);
+            for (int j = 0; j < inVerts.get(i).length; j++) {
+                arrVerts[j] = inVerts.get(i)[j];
             }
+            outVerts.add(arrVerts);
         }
-        return verticesListArray;
+        return outVerts;
 
         /*for(int i = 0; i < verticesListArray.size(); i++){
             for(int j = 0; j < verticesListArray.get(i).length; j++){

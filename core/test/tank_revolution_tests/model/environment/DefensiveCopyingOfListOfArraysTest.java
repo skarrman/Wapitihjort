@@ -12,31 +12,27 @@ import java.util.List;
 /**
  * Created by antonhagermalm on 2017-05-10.
  */
-public class TerrainHandelerTest {
+public class DefensiveCopyingOfListOfArraysTest {
     @Test
     public void test() {
         TerrainHandler terrainHandler = new TerrainHandler(new World(new Vector2(4f, 4f), false));
-        GroundFixture[] polyVerts = new GroundFixture[4];
+        //GroundFixture[] polyVerts = new GroundFixture[4];
+        //®List<float[]> oldPolyVerts = new ArrayList<float[]>();
+        List<float[]> oldPolyVerts = new ArrayList<float[]>();
 
-        for (int i = 0; i < 4; i++) {
-            List<float[]> verts = new ArrayList<float[]>();
+
             for (int j = 0; j < 4; j++) {
                 float[] points;
                 points = new float[]{1, 2, 3};
-                verts.add(points);
+                oldPolyVerts.add(points);
             }
-            GroundFixture polyVert = new GroundFixture(verts);
-            polyVerts[i] = polyVert;
-        }
 
-        List<float[]> newPolyVerts = terrainHandler.defenciveCopyVerticeList(polyVerts);
+        List<float[]> newPolyVerts = terrainHandler.defenciveCopyVerticesList(oldPolyVerts);
 
         System.out.print("OG is: ");
-        for (int k = 0; k < polyVerts.length; k++) {
-            for (int i = 0; i < polyVerts[k].getVerts().size(); i++) {
-                for (int j = 0; j < polyVerts[k].getVerts().get(i).length; j++) {
-                    System.out.print(polyVerts[k].getVerts().get(i)[j]  + " ");
-                }
+        for(int i = 0; i < oldPolyVerts.size(); i++){
+            for(int j = 0; j < oldPolyVerts.get(i).length; j++){
+                System.out.print(oldPolyVerts.get(i)[j] + " ");
             }
         }
         System.out.println("");

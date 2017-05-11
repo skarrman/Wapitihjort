@@ -1,6 +1,7 @@
 package tank_revolution_tests.model.environment;
 
 
+import com.quailshillstudio.polygonClippingUtils.GroundFixture;
 import org.junit.Test;
 import tankRevolution.framework.terrain.Bezier;
 import tankRevolution.utils.Constants;
@@ -11,8 +12,9 @@ import java.util.List;
 
 /**
  * Created by antonhagermalm on 2017-05-10.
+ * This is a class where i basically dumped some code i no longer need but can be usfull in the future
  */
-public class BezierTest {
+public class CodeDump {
     Point2D[] points = new Point2D[]{new Point2D.Float(0, 0) ,new Point2D.Float(5, 10), new Point2D.Float(10, 0)};
     //Point2D[] points = new Point2D[]{new Point2D.Float(0, 0), new Point2D.Float(-2, 7), new Point2D.Float(2, 12), new Point2D.Float(10, 10)};
 
@@ -66,7 +68,7 @@ public class BezierTest {
 
         return newPoints;
     }
-
+/** some generation with quadcurve2d */
     private float[] generateTerrain() {
         //return new float[]{0, 0, Constants.getMapWidth(), 0, Constants.getMapWidth(), 3f, 0, 3f};
 /*
@@ -105,4 +107,31 @@ public class BezierTest {
         //return new float[]{0, 0, Constants.getMapWidth(), 0, Constants.getMapWidth(), 3, 20, 8, 0, 3};
         return null;
     }
+
+    /**
+     * defensive copying of a list of groundfixtures
+     * TESTED
+     */
+    /*public List<float[]> defenciveCopyVerticesList(List<GroundFixture> polyVerts){
+        List<float[]> verticesListArray = new ArrayList<float[]>();
+
+        for (GroundFixture polyVert : polyVerts) {
+
+            for(int i = 0; i < polyVert.getVerts().size(); i++){
+                float[] verticesArray = new float[polyVert.getVerts().get(i).length];
+
+                for(int j = 0; j < polyVert.getVerts().get(i).length; j++){
+                    verticesArray[j] = polyVert.getVerts().get(i)[j];
+                }
+                verticesListArray.add(verticesArray);
+            }
+        }
+        return verticesListArray;
+
+        /*for(int i = 0; i < verticesListArray.size(); i++){
+            for(int j = 0; j < verticesListArray.get(i).length; j++){
+                System.out.println(verticesListArray.get(i)[j]);
+            }
+        }
+    }*/
 }
