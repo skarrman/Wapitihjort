@@ -1,5 +1,6 @@
 package tankRevolution.model;
 
+import tankRevolution.model.shootablePackage.AmmunitionType;
 import tankRevolution.model.shootablePackage.ProjectileFactory;
 import tankRevolution.model.shootablePackage.Shootable;
 
@@ -16,6 +17,7 @@ public class Tank {
     private float deltaY;
     private Integer angle = 0;
     private boolean alive = true;
+    private AmmunitionType ammunitionType;
 
     //Gives the tank a mass of 600kg
     private final float density = 100;
@@ -28,6 +30,7 @@ public class Tank {
         currentProjectile = 0;
         this.health = health;
         this.fuel = fuel;
+        this.ammunitionType = AmmunitionType.SMALL_MISSILE;
     }
 
     public Tank(){
@@ -38,7 +41,7 @@ public class Tank {
         this.deltaX = deltaX;
         this.deltaY = deltaY;
         angle = (int)Math.toDegrees(Math.tan(deltaY/deltaX));
-        return ProjectileFactory.shootSmallMissile();
+        return ProjectileFactory.create(ammunitionType);
     }
 
     public int getCurrentProjectile() {
@@ -54,7 +57,16 @@ public class Tank {
         alive = health <= 0;
     }
 
+    public void setNextWeapon(){
+        ammunitionType = AmmunitionType.getNext(ammunitionType);
+    }
+    public void setPreviousWeapon(){
+        ammunitionType = AmmunitionType.getPrevious(ammunitionType);
+    }
 
+    public AmmunitionType getCurrentWeapon(){
+        return ammunitionType;
+    }
 
     public float getHealth() {
         return health;

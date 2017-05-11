@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.quailshillstudio.polygonClippingUtils.UserData;
+import tankRevolution.model.shootablePackage.AmmunitionType;
 import tankRevolution.utils.*;
 import tankRevolution.framework.terrain.ITerrainHandler;
 import tankRevolution.model.TankRevolution;
@@ -435,5 +436,16 @@ public class Environment {
         world.setContactListener(new EnvironmentCollisions(this, terrainHandler));
     }
 
+    public AmmunitionType getCurrentWeapon(){
+        return getCurrentTank().getCurrentWeapon();
+    }
+
+    public void setNextWeapon(){
+        getCurrentTank().setNextWeapon();
+    }
+
+    public void setPreviousWeapon(){
+        getCurrentTank().setPreviousWeapon();
+    }
 
 }

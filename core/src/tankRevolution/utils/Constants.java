@@ -102,4 +102,17 @@ public class Constants {
         return new Vector2(getPauseMenuXValue(),  getPauseMenuButtonHeight());
     }
 
+    public static float getWeaponArrowDimension(){
+        return Gdx.graphics.getWidth()/16;
+    }
+
+    public static  Vector2 getRightWeaponPosition(){
+        return new Vector2(5 * Gdx.graphics.getWidth()/8 - getWeaponArrowDimension(),
+                14 * Gdx.graphics.getHeight()/16);
+    }
+
+    public static  Vector2 getLeftWeaponPosition(){
+     return new Vector2(3 * Gdx.graphics.getWidth()/8,14 * Gdx.graphics.getHeight()/16);
+    }
+
 }

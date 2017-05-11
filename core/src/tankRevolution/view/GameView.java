@@ -114,6 +114,8 @@ public class GameView implements Viewable {
     private Sound shotSound;
 
     private Sound explostionSound;
+
+    private  WeaponSwitch weaponSwitch;
     /**
      * The standard constructor that initialize everything to make the graphics work.
      *
@@ -138,6 +140,7 @@ public class GameView implements Viewable {
         shotSound = AssetsManager.getInstance().getSoundEffects().get(0);
         explostionSound = AssetsManager.getInstance().getSoundEffects().get(1);
         projectileHashMap = new HashMap<Shootable, GraphicalProjectile>();
+        weaponSwitch = new WeaponSwitch();
     }
 
     /**
@@ -186,6 +189,8 @@ public class GameView implements Viewable {
         }else {
             labelDrawer.draw(environment.getCharacterList(), batch);
         }
+
+        weaponSwitch.draw(batch, environment.getCurrentWeapon());
 
         batch.end();
 

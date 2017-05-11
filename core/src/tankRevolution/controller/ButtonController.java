@@ -1,5 +1,6 @@
 package tankRevolution.controller;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,6 +21,8 @@ public class ButtonController {
     private Button leftMoveButton;
     private Button pauseMenuButton;
     private Button toMenuButton;
+    private Button rightWeaponButton;
+    private Button leftWeaponButton;
     private boolean isPressed;
     private int direction;
     private boolean gameOverMode;
@@ -34,6 +37,8 @@ public class ButtonController {
         rightMoveButton = new Button();
         pauseMenuButton = new Button();
         toMenuButton = new Button();
+        leftWeaponButton = new Button();
+        rightWeaponButton = new Button();
         setUpButtonBounds();
         setUpButtonListeners();
         addButtonsToStage();
@@ -73,6 +78,14 @@ public class ButtonController {
                 Constants.getSettingsButtonDimension(), Constants.getSettingsButtonDimension());
         toMenuButton.setBounds(Constants.getToMenuPosition().x, Constants.getToMenuPosition().y,
                 Constants.getPauseMenuButtonWidth(), Constants.getPauseMenuButtonHeight());
+
+        float sideLength = Constants.getWeaponArrowDimension();
+
+        Vector2 rightPos = Constants.getRightWeaponPosition();
+        rightWeaponButton.setBounds(rightPos.x, rightPos.y, sideLength, sideLength);
+
+        Vector2 leftPos = Constants.getLeftWeaponPosition();
+        leftWeaponButton.setBounds(leftPos.x, leftPos.y, sideLength, sideLength);
     }
 
     private void setUpButtonListeners(){
@@ -109,12 +122,30 @@ public class ButtonController {
                 return true;
             }
         });
+
+        leftWeaponButton.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                environment.setPreviousWeapon();
+                return true;
+            }
+        });
+
+        rightWeaponButton.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                environment.setNextWeapon();
+                return true;
+            }
+        });
     }
 
     private void addButtonsToStage(){
         stage.addActor(leftMoveButton);
         stage.addActor(rightMoveButton);
         stage.addActor(pauseMenuButton);
+        stage.addActor(leftWeaponButton);
+        stage.addActor(rightWeaponButton);
     }
 
     private void setGameOverMode(){
@@ -129,6 +160,8 @@ public class ButtonController {
         leftMoveButton.removeListener(leftMoveButton.getClickListener());
         rightMoveButton.removeListener(rightMoveButton.getClickListener());
         pauseMenuButton.removeListener(pauseMenuButton.getClickListener());
+        rightWeaponButton.removeListener(rightWeaponButton.getClickListener());
+        leftWeaponButton.removeListener(leftWeaponButton.getClickListener());
     }
 }
 
