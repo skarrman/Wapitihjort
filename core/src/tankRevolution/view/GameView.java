@@ -279,10 +279,6 @@ public class GameView implements Viewable {
     private void drawTerrain(){
         List<float[]> vertices = environment.getVertices();
         for(float[] v : vertices){
-            float[] v2 = new float[v.length];
-            for(int i = 0; i < v.length; i++){
-                v2[i] = v[i];
-            }
             shapeRenderer.setProjectionMatrix(debugMatrix);
             shapeRenderer.begin(ShapeType.Line);
             shapeRenderer.setColor(Color.BLACK);
