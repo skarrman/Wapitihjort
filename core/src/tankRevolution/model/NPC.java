@@ -59,7 +59,6 @@ public class NPC extends Character{
     }
 
     private int getRandomPlace(int exceptionalPlace, int highest){
-        Random rand = new Random();
         int number = -1;
         while(number == -1 || number == exceptionalPlace){
             number = rand.nextInt(highest);
@@ -68,7 +67,6 @@ public class NPC extends Character{
     }
 
     private Vector calculateIdealVector(Point own, Point opponent){
-        Random rand = new Random();
         float deltaX = opponent.getX() - own.getX();
         float deltaY =  opponent.getY() - (own.getY() + 3);
         float minYVelocity = 0;
@@ -100,7 +98,6 @@ public class NPC extends Character{
     }
 
     private Vector getVectorWithDiff(Point own, Point opponent, float diff){
-        Random rand = new Random();
         if(rand.nextBoolean())
             opponent = new Point(opponent.getX()+diff, opponent.getY());
         else
