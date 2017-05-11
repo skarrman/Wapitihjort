@@ -30,5 +30,15 @@ public class Testing {
         assertEquals(40, (int)tank.getHealth());
     }
 
-    @Test public void 
+    @Test public void reduceFuelTest(){
+        Character character = CharacterFactory.newPlayer(Id.PLAYER1);
+        Tank tank = new Tank();
+        character.setTank(tank);
+        List<Character> characters = new ArrayList<Character>();
+        characters.add(character);
+        TankRevolution tankRevolution = new TankRevolution(characters);
+        tankRevolution.reduceFuel();
+        tankRevolution.reduceFuel();
+        assertEquals(99, (int)tankRevolution.getCurrentTank().getFuel());
+    }
 }

@@ -22,12 +22,9 @@ public class Tank {
     //Gives the tank a mass of 600kg
     private final float density = 100;
 
-    //smallMissile = 0
-    private int currentProjectile;
 
 
     public Tank(int health, int fuel) {
-        currentProjectile = 0;
         this.health = health;
         this.fuel = fuel;
         this.ammunitionType = AmmunitionType.SMALL_MISSILE;
@@ -42,10 +39,6 @@ public class Tank {
         this.deltaY = deltaY;
         angle = (int)Math.toDegrees(Math.tan(deltaY/deltaX));
         return ProjectileFactory.create(ammunitionType);
-    }
-
-    public int getCurrentProjectile() {
-        return currentProjectile;
     }
 
     public void setHealth(int n) {
@@ -74,6 +67,10 @@ public class Tank {
 
     public float getFuel() {
         return fuel;
+    }
+
+    public void reduceFuel(){
+        fuel = fuel - 0.5f;
     }
 
     public void setFuel(float n) {
