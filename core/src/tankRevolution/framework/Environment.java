@@ -59,6 +59,10 @@ public class Environment {
 
     private boolean isTankFalling = true;
 
+    private boolean isTerrainChanged = true;
+
+    private double time = System.currentTimeMillis();
+
     /**
      * Creates a new Environment for Bodys to live in.
      */
@@ -227,11 +231,21 @@ public class Environment {
      */
     public void update() {
         stackUpdate();
-        world.step(Gdx.graphics.getDeltaTime(), 6, 2);
+        time = System.currentTimeMillis() - time;
+        System.out.println(time);
+        world.step((float)time/1000, 6, 2);
         terrainHandler.update();
         if (NPCWillShoot()) {
             NPCDoShoot();
         }
+        time = System.currentTimeMillis();
+    }
+
+    public boolean isTerrainChanged(){
+        boolean value = isTerrainChanged;
+        isTerrainChanged = false;
+
+        return value;
     }
 
     public void stackUpdate() {
@@ -278,6 +292,8 @@ public class Environment {
         removeStack.add(projectiles.get(projectile));
         projectiles.remove(projectile);
         tankRevolution.destroyProjectile(projectile);
+        isTerrainChanged = true;
+
         if (projectiles.isEmpty()) {
             tankRevolution.doNextMove();
         }

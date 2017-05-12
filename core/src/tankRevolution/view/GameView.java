@@ -34,7 +34,7 @@ public class GameView implements Viewable {
      * True = debug: ON
      * False = debug: OFF
      */
-    private boolean deBugMode = false;
+    private boolean deBugMode = true;
 
     /**
      * The graphical batch that draws on the screen
@@ -87,11 +87,6 @@ public class GameView implements Viewable {
      */
     private Vector3 getAimingArrowTop;
 
-    /**
-     * A representation of the animation of an explosion
-     */
-    private Animation<TextureRegion> explosionAnimation;
-
     private List<ExplosionAnimation> explosionAnimations;
 
     private TurnIndicatorAnimation turnIndicatorAnimation;
@@ -111,6 +106,9 @@ public class GameView implements Viewable {
     private  WeaponSwitch weaponSwitch;
 
     private Sprite background;
+
+    private GraphicalTerrain terrain;
+
     /**
      * The standard constructor that initialize everything to make the graphics work.
      *
@@ -135,6 +133,7 @@ public class GameView implements Viewable {
         weaponSwitch = new WeaponSwitch();
         background = new Sprite(new Texture(Gdx.files.internal("background.png")));
         background.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        terrain = new GraphicalTerrain();
     }
 
     /**
@@ -185,6 +184,8 @@ public class GameView implements Viewable {
         }
 
         weaponSwitch.draw(batch, environment.getCurrentWeapon());
+
+        drawTerrain();
 
         batch.end();
         drawTerrain();
@@ -256,13 +257,14 @@ public class GameView implements Viewable {
 
     private void drawTerrain(){
         List<float[]> vertices = environment.getVertices();
-        for(float[] v : vertices){
+        terrain.draw(vertices, environment.isTerrainChanged(), batch);
+        /*for(float[] v : vertices){
             shapeRenderer.setProjectionMatrix(debugMatrix);
             shapeRenderer.begin(ShapeType.Line);
             shapeRenderer.setColor(Color.BLACK);
             shapeRenderer.polygon(v);
             shapeRenderer.end();
-        }
+        }*/
     }
 
 
