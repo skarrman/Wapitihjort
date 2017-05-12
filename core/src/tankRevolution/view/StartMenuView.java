@@ -24,6 +24,7 @@ public class StartMenuView implements Viewable {
     private Sprite customStartSprite;
     private Sprite highScoreSprite;
     private Sprite settingsSprite;
+    private Sprite background;
 
 
 
@@ -36,6 +37,8 @@ public class StartMenuView implements Viewable {
         customStartSprite = new Sprite(textures.get(2));
         highScoreSprite = new Sprite(textures.get(3));
         settingsSprite = new Sprite(textures.get(4));
+        background = new Sprite(new Texture(Gdx.files.internal("StartMenuBackground.png")));
+        background.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         setSpriteSizes();
         setSpritePositions();
@@ -45,6 +48,7 @@ public class StartMenuView implements Viewable {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
         batch.begin();
+        setBackground();
         quickStartSprite.draw(batch);
         worldSprite.draw(batch);
         customStartSprite.draw(batch);
@@ -79,6 +83,12 @@ public class StartMenuView implements Viewable {
 
         Vector2 settingsPos = Constants.getSettingsButtonPosition();
         settingsSprite.setPosition(settingsPos.x, settingsPos.y);
+    }
+
+    private void setBackground() {
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+        background.draw(batch);
     }
 
     @Override
