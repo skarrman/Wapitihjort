@@ -2,14 +2,17 @@ package tank_revolution_tests.model;
 
 
 import org.junit.Test;
+import tankRevolution.model.*;
 import tankRevolution.model.Character;
-import tankRevolution.model.CharacterFactory;
-import tankRevolution.model.Tank;
-import tankRevolution.model.TankRevolution;
 import tankRevolution.model.shootablePackage.AmmunitionType;
 import tankRevolution.model.shootablePackage.ProjectileFactory;
 import tankRevolution.utils.Id;
+import tankRevolution.utils.Point;
+import tankRevolution.utils.Vector;
+
 import static org.junit.Assert.*;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,5 +45,12 @@ public class Testing {
         assertEquals(99, (int)tankRevolution.getCurrentTank().getFuel());
     }
 
-    @Test public void
+    @Test public void NPCTest(){
+        NPC NPC = CharacterFactory.newNPC(Id.PLAYER1, NPCDifficulty.MEDIUM);
+        Point own = new Point(1, 1);
+        Point opponent = new Point(21, 1);
+        Vector vector = NPC.calculateIdealVector(own, opponent);
+        assertTrue(vector.getDeltaX() > 0);
+        assertTrue(vector.getDeltaY() > 0);
+    }
 }
