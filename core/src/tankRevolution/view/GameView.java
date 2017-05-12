@@ -164,7 +164,6 @@ public class GameView implements Viewable {
         setBackground();
         drawTanks();
         drawButtons();
-        drawTerrain();
 
         if (environment.isProjectileFlying()) {
             setUpProjectileHashMap();
@@ -198,6 +197,7 @@ public class GameView implements Viewable {
         weaponSwitch.draw(batch, environment.getCurrentWeapon());
 
         batch.end();
+        drawTerrain();
 
         if (deBugMode) {
             drawDebugDetails();
