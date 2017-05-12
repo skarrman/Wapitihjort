@@ -73,8 +73,8 @@ public class TerrainHandler implements ITerrainHandler {
             for (int j = 0; j < verticesListArray.get(i).length; j++) {
                 System.out.println(verticesListArray.get(i)[j]);
             }
-        }
-*/
+        }*/
+
         return verticesListArray;
     }
     

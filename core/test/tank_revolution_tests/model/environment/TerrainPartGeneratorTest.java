@@ -16,7 +16,7 @@ public class TerrainPartGeneratorTest {
     public void generateHillTest() {
 
         float[] vertArr = TerrainPartGenerator.generateHill(1, 1, 4, 5);
-        float[] expectedVertArr = new float[]{2, 3, 3, 5, 4, 3, 5, 1};
+        float[] expectedVertArr = new float[]{2, 2.38f, 3, 4.61f, 4, 4.61f, 5, 2.38f, 6, 1f};
 
         for (float f : vertArr) {
             System.out.print(f + " ");
@@ -26,8 +26,9 @@ public class TerrainPartGeneratorTest {
 
     @Test
     public void generateVallyTest() {
-        float[] vertArr = TerrainPartGenerator.generateVally(1, 1, 4, 5);
+        float[] vertArr = TerrainPartGenerator.generateValley(1, 1, 4, 5);
         float[] expectedVertArr = new float[]{2, -1, 3, -3, 4, -1, 5, 1};
+
 
         for (float f : vertArr) {
             System.out.print(f + " ");

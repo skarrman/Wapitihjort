@@ -15,25 +15,14 @@ public class TerrainGenerator {
         List<Float> verticesList = new ArrayList<Float>();
         float period = 10;
 
+        verticesList.add(Constants.getMapWidth() + 1);
         verticesList.add(0f);
         verticesList.add(0f);
-        verticesList.add(Constants.getMapWidth());
         verticesList.add(0f);
 
-        for(float x = 150; x > -1; x--){
-            /*if (x < 36 || (x > 72 && x < 108)){
-                verticesList.add(x);
-                verticesList.add(a2Sin10a0Add10(x));
-            } else {
-                verticesList.add(x);
-                verticesList.add(a8Sin10an5Add10(x));
-            }*/
-            verticesList = addAllToList(verticesList, TerrainPartGenerator.generateFlatGround(-1, 5, 150));
-            //verticesList = addAllToList(verticesList, TerrainPartGenerator.generateHill(30, 5, 20, 40));
-            //verticesList = addAllToList(verticesList, TerrainPartGenerator.generateValley(70, 5, 3, 80));
-
-
-        }
+        verticesList = addAllToList(verticesList, TerrainPartGenerator.generateFlatGround(0, 5, 30));
+        verticesList = addAllToList(verticesList, TerrainPartGenerator.generateHill(30, 5, 20, 40));
+        verticesList = addAllToList(verticesList, TerrainPartGenerator.generateValley(70, 5, 3, 80));
 
         return listToArray(verticesList);
     }
