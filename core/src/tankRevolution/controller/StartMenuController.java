@@ -8,7 +8,7 @@ import tankRevolution.utils.Constants;
 
 
 /**
- * Created by simonkarrman on 2017-05-04.
+ * Controller class for the menu that shows up when the game is first started.
  */
 public class StartMenuController {
     private Button quickStartButton;
@@ -16,7 +16,7 @@ public class StartMenuController {
     private Button customStartButton;
     private Button highScoreButton;
     private Button settingsButton;
-    Stage stage;
+    private Stage stage;
 
     public StartMenuController(final GameHolder gameHolder) {
         quickStartButton = new Button();
@@ -32,6 +32,9 @@ public class StartMenuController {
         addButtonsToStage();
     }
 
+    /**
+     * @return the stage in which all the buttons's inputs is registered
+     */
     public Stage getStage() {
         return stage;
     }

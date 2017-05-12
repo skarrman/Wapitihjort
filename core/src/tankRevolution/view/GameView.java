@@ -72,6 +72,9 @@ public class GameView implements Viewable {
      */
     private boolean arrowIsActive = false;
 
+    /**
+     * Tells if a move button is pressed
+     */
     private boolean isPressed;
 
     /**

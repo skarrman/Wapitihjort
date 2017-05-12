@@ -18,15 +18,28 @@ public class ButtonController {
     private Environment environment;
     private GameHolder gameHolder;
     private GameView gameView;
+
     private Stage stage;
+
+    //All the different buttons around the UI, names self-explainatory
     private Button rightMoveButton;
     private Button leftMoveButton;
     private Button pauseMenuButton;
     private Button toMenuButton;
     private Button rightWeaponButton;
     private Button leftWeaponButton;
+    /**
+     * Keeps track of wether or not the moveButtons are being pressed
+     */
     private boolean isPressed;
+    /**
+     * Changes depending on which moveButton is being pressed
+     * value = 1 if right button, -1 if left button, 0 if no button.
+     */
     private int direction;
+    /**
+     * Keeps track of if game is over or not
+     */
     private boolean gameOverMode;
 
     public ButtonController(GameView gameView, Environment environment, GameHolder gameHolder){
@@ -56,7 +69,6 @@ public class ButtonController {
         if(!environment.gameOver()) {
             if (isPressed && environment.tankCanMove()) {
                 environment.moveTank(direction);
-                //System.out.println(environment.getCurrentTank().getFuel());
             } else {
                 environment.stopTank();
             }
@@ -68,6 +80,9 @@ public class ButtonController {
         }
     }
 
+    /**
+     * @return The stage in which all the buttons' inputs are registered
+     */
     public Stage getStage(){
         return stage;
     }
