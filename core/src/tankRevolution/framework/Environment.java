@@ -128,7 +128,7 @@ public class Environment {
         float y = tanks.get(shooter).getPosition().y;
 
         //TODO Fix this, since box2D is working with the center coordinates, the missile will be fired from the center of the tank
-        bodyDef.position.set(x, y + 3);
+        bodyDef.position.set(x, y + Constants.getShootOffsetTank());
         Body body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();

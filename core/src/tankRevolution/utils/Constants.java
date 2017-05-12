@@ -11,6 +11,7 @@ public class Constants {
     private static final float gravity = -10f;
     /** The number of edges in the approximated circle of the explosions */
     private static final int explosionSegments = 60;
+    private static final float shootOffsetTank = 3f;
 
     public static int getExplosionSegments() {
         return explosionSegments;
@@ -23,6 +24,9 @@ public class Constants {
     }
     public static float pixelsPerMeter(){
         return Gdx.graphics.getWidth() / mapWidth;
+    }
+    public static float getShootOffsetTank(){
+        return shootOffsetTank;
     }
 
     public static float metersPerPixel(){

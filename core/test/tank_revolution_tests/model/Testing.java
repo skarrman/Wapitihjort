@@ -41,4 +41,6 @@ public class Testing {
         tankRevolution.reduceFuel();
         assertEquals(99, (int)tankRevolution.getCurrentTank().getFuel());
     }
+
+    @Test public void
 }

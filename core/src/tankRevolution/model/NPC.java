@@ -66,9 +66,9 @@ public class NPC extends Character{
         return number;
     }
 
-    private Vector calculateIdealVector(Point own, Point opponent){
+    public Vector calculateIdealVector(Point own, Point opponent){
         float deltaX = opponent.getX() - own.getX();
-        float deltaY =  opponent.getY() - (own.getY() + 3);
+        float deltaY =  opponent.getY() - (own.getY() + Constants.getShootOffsetTank());
         float minYVelocity = 0;
         if(deltaY > 0){
             minYVelocity = Math.abs(Constants.getGravity() * (float) (Math.sqrt(Math.abs(deltaY *2 /Constants.getGravity()))));
