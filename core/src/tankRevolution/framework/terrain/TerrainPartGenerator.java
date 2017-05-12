@@ -32,6 +32,7 @@ public class TerrainPartGenerator {
 
     public static float[] generateValley(float startingX, float startingY, float depth, float width) {
         float[] vertArr = new float[(int)(width * 2)];
+
         depth = - depth;
 
         for (int i = 0; i < vertArr.length; i = i + 2) {
