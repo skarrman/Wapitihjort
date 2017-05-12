@@ -9,7 +9,6 @@ import com.quailshillstudio.polygonClippingUtils.UserData;
 import tankRevolution.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -42,7 +41,7 @@ public class TerrainHandler implements ITerrainHandler {
      */
     private void create() {
         List<float[]> verts = new ArrayList();
-        float[] points = TerrainGenerator.getSinusArray();
+        float[] points = TerrainGenerator.getTerrainVertexArray();
         verts.add(points);
         verticesListArray = defenciveCopyVerticesList(verts);
         GroundFixture grFix = new GroundFixture(verts);
@@ -78,10 +77,7 @@ public class TerrainHandler implements ITerrainHandler {
 */
         return verticesListArray;
     }
-
-    private float[] generateTerrain() {
-        return new float[]{0, 0, Constants.getMapWidth(), 0, Constants.getMapWidth(), 30, 20, 30, 20, 5, 0, 5};
-    }
+    
     /**
      * @param rs is the entire ground in Polygons (only one if not the ground is split in two)
      */
