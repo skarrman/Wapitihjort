@@ -32,7 +32,7 @@ public class MainController {
      * @param gameHolder    The GameHolder is needed to be able to pause the game.
      */
     public void setGameMode(Environment environment, Viewable gameView, GameHolder gameHolder){
-        buttonController = new ButtonController(environment, gameHolder);
+        buttonController = new ButtonController((GameView)gameView, environment, gameHolder);
         inputMultiplexer.clear();
         inputMultiplexer.addProcessor(buttonController.getStage());
         inputMultiplexer.addProcessor(new AimController((GameView) gameView, environment));

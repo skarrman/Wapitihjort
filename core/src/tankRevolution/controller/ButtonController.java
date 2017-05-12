@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import tankRevolution.GameHolder;
 import tankRevolution.utils.Constants;
 import tankRevolution.framework.Environment;
+import tankRevolution.view.GameView;
 
 
 /**
@@ -16,6 +17,7 @@ import tankRevolution.framework.Environment;
 public class ButtonController {
     private Environment environment;
     private GameHolder gameHolder;
+    private GameView gameView;
     private Stage stage;
     private Button rightMoveButton;
     private Button leftMoveButton;
@@ -27,9 +29,10 @@ public class ButtonController {
     private int direction;
     private boolean gameOverMode;
 
-    public ButtonController(Environment environment, GameHolder gameHolder){
+    public ButtonController(GameView gameView, Environment environment, GameHolder gameHolder){
         this.gameHolder = gameHolder;
         this.environment = environment;
+        this.gameView = gameView;
         gameOverMode = false;
         isPressed = false;
         stage = new Stage();
@@ -49,6 +52,7 @@ public class ButtonController {
      * Called 60 times/second from GameHolder.
      */
     public void update(){
+        gameView.setPressed(isPressed);
         if(!environment.gameOver()) {
             if (isPressed && environment.tankCanMove()) {
                 environment.moveTank(direction);

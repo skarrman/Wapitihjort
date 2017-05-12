@@ -47,9 +47,13 @@ public class AssetsManager {
 
     private List<BitmapFont> fonts;
 
-    private Array<Sprite> leftButton;
+    private Array<Sprite> leftPressedButton;
 
-    private Array<Sprite> rightButton;
+    private Array<Sprite> rightPressedButton;
+
+    private Array<Sprite> leftNotPressedButton;
+
+    private Array<Sprite> rightNotPressedButton;
 
     /**
      * our instance
@@ -140,12 +144,20 @@ public class AssetsManager {
         return fonts;
     }
 
-    public Array<Sprite> getLeftButtonSprites(){
-        return leftButton;
+    public Array<Sprite> getLeftPressedButtonSprites(){
+        return leftPressedButton;
     }
 
-    public Array<Sprite> getRightButtonSprites(){
-        return rightButton;
+    public Array<Sprite> getRightPressedButtonSprites(){
+        return rightPressedButton;
+    }
+
+    public Array<Sprite> getLeftNotPressedButtonSprites(){
+        return leftNotPressedButton;
+    }
+
+    public Array<Sprite> getRightNotPressedButtonSprites(){
+        return rightNotPressedButton;
     }
 
     /**
@@ -231,11 +243,15 @@ public class AssetsManager {
     }
 
     private void loadMoveButtonTextures() throws FileNotFoundException{
-        rightButton = new Array<Sprite>();
-        leftButton = new Array<Sprite>();
+        rightPressedButton = new Array<Sprite>();
+        leftPressedButton = new Array<Sprite>();
+        rightNotPressedButton = new Array<Sprite>();
+        leftNotPressedButton = new Array<Sprite>();
         for(int i = 0; i <= 100; i+=10){
-            rightButton.add(new Sprite(new Texture(Gdx.files.internal("RightMoveButtons/right_" + i + "_pressed.png"))));
-            leftButton.add(new Sprite(new Texture(Gdx.files.internal("LeftMoveButtons/left_" + i + "_pressed.png"))));
+            rightPressedButton.add(new Sprite(new Texture(Gdx.files.internal("RightMoveButtons/right_" + i + "_pressed.png"))));
+            leftPressedButton.add(new Sprite(new Texture(Gdx.files.internal("LeftMoveButtons/left_" + i + "_pressed.png"))));
+            rightNotPressedButton.add(new Sprite(new Texture(Gdx.files.internal("RightMoveButtons/right_" + i + "_notPressed.png"))));
+            leftNotPressedButton.add(new Sprite(new Texture(Gdx.files.internal("LeftMoveButtons/left_" + i + "_notPressed.png"))));
         }
 
     }

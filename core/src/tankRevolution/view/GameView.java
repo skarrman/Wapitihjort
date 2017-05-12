@@ -72,6 +72,8 @@ public class GameView implements Viewable {
      */
     private boolean arrowIsActive = false;
 
+    private boolean isPressed;
+
     /**
      * This is the value where the user is touching
      */
@@ -112,6 +114,7 @@ public class GameView implements Viewable {
      * @param environment The current environment.
      */
     public GameView(Environment environment) {
+        isPressed = false;
         this.environment = environment;
         shapeRenderer = new ShapeRenderer();
         batch = new SpriteBatch();
@@ -147,7 +150,7 @@ public class GameView implements Viewable {
 
         setBackground();
         drawTanks();
-        GraphicalUIButtons.draw((int)environment.getCurrentTank().getFuel()/10, batch);
+        GraphicalUIButtons.draw((int)environment.getCurrentTank().getFuel()/10, batch, isPressed);
 
         if (environment.isProjectileFlying()) {
             setUpProjectileHashMap();
@@ -320,6 +323,10 @@ public class GameView implements Viewable {
             }
             projectileHashMap = tempMap;
         }
+    }
+
+    public void setPressed(boolean pressed){
+        isPressed = pressed;
     }
 
     /**
