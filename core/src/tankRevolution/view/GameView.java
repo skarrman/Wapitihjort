@@ -4,16 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
-import com.badlogic.gdx.utils.StringBuilder;
-import org.lwjgl.Sys;
 import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
 import tankRevolution.framework.Environment;
@@ -53,10 +49,8 @@ public class GameView implements Viewable {
     /**
      * Graphical representation of the UI buttons
      */
-    private Sprite leftMoveButtonSprite;
-    private Sprite rightMoveButtonSprite;
-    private Sprite pauseMenuButtonSprite;
 
+    private Sprite pauseMenuButtonSprite;
 
     /**
      * An orthogonal camera
@@ -129,8 +123,6 @@ public class GameView implements Viewable {
         batch = new SpriteBatch();
         setUpTankHashMap();
         List<Texture> textures = AssetsManager.getInstance().getUITextures();
-        leftMoveButtonSprite = new Sprite(textures.get(0));
-        rightMoveButtonSprite = new Sprite(textures.get(1));
         pauseMenuButtonSprite = new Sprite(textures.get(2));
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         createDebugger();
@@ -250,12 +242,16 @@ public class GameView implements Viewable {
     }
 
     private void drawButtons() {
+        int i = (int)environment.getCurrentTank().getFuel()/10;
+        GraphicalUIButtons.draw(i, batch);
+        /*leftMoveButtonSprite = AssetsManager.getInstance().getLeftButtonSprites().get(i);
         leftMoveButtonSprite.setBounds(Constants.getLeftMoveButtonPosition().x, Constants.getLeftMoveButtonPosition().y,
                 Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
         leftMoveButtonSprite.draw(batch);
+        rightMoveButtonSprite = AssetsManager.getInstance().getRightButtonSprites().get(i);
         rightMoveButtonSprite.setBounds(Constants.getRightMoveButtonPosition().x, Constants.getRightMoveButtonPosition().y,
                 Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
-        rightMoveButtonSprite.draw(batch);
+        rightMoveButtonSprite.draw(batch);*/
         pauseMenuButtonSprite.setBounds(Constants.getSettingsButtonPosition().x, Constants.getSettingsButtonPosition().y,
                 Constants.getSettingsButtonDimension(), Constants.getSettingsButtonDimension());
         pauseMenuButtonSprite.draw(batch);

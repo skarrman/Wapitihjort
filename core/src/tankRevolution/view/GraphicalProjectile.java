@@ -11,9 +11,9 @@ import tankRevolution.utils.AssetsManager;
  * Created by simonkarrman on 2017-04-25.
  */
 public class GraphicalProjectile {
-    Body body;
-    Sprite sprite;
-    float metersToPixels;
+    private Body body;
+    private Sprite sprite;
+    private float metersToPixels;
 
     public GraphicalProjectile(Body body, float metersToPixels){
         this.body = body;

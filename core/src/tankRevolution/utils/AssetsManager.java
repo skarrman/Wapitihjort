@@ -43,6 +43,10 @@ public class AssetsManager {
 
     private List<BitmapFont> fonts;
 
+    private Array<Sprite> leftButton;
+
+    private Array<Sprite> rightButton;
+
     /**
      * our instance
      */
@@ -79,6 +83,7 @@ public class AssetsManager {
             loadUIButtonTextures();
             loadSoundEffects();
             loadFonts();
+            loadMoveButtonTextures();
         }
         catch (FileNotFoundException e){
             System.out.println("One or more textures not found");
@@ -119,6 +124,14 @@ public class AssetsManager {
 
     public List<BitmapFont> getFonts(){
         return fonts;
+    }
+
+    public Array<Sprite> getLeftButtonSprites(){
+        return leftButton;
+    }
+
+    public Array<Sprite> getRightButtonSprites(){
+        return rightButton;
     }
 
     /**
@@ -193,6 +206,16 @@ public class AssetsManager {
             blueTank.add(new Sprite(new Texture(Gdx.files.internal("BlueTank/BlueTank"+i+".png"))));
         }
         spriteArrays.put(Id.PLAYER4, blueTank);
+    }
+
+    private void loadMoveButtonTextures() throws FileNotFoundException{
+        rightButton = new Array<Sprite>();
+        leftButton = new Array<Sprite>();
+        for(int i = 0; i <= 100; i+=10){
+            rightButton.add(new Sprite(new Texture(Gdx.files.internal("RightMoveButtons/right_" + i + "_pressed.png"))));
+            leftButton.add(new Sprite(new Texture(Gdx.files.internal("LeftMoveButtons/left_" + i + "_pressed.png"))));
+        }
+
     }
 
     private void loadProjectileSprite(){
