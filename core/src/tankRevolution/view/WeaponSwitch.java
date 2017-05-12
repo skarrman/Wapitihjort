@@ -32,9 +32,8 @@ public class WeaponSwitch {
         font = assetsManager.getFonts().get(0);
         label = new GlyphLayout();
         font.setColor(0, 0, 0, 1);
-        List<Texture> textures = assetsManager.getUITextures();
-        rightArrowSprite = new Sprite(textures.get(1));
-        leftArrowSprite = new Sprite(textures.get(0));
+        rightArrowSprite = new Sprite(assetsManager.getRightSwitchWeaponButton());
+        leftArrowSprite = new Sprite(assetsManager.getLeftSwitchWeaponButton());
         setDimension();
         setPositions();
     }

@@ -47,12 +47,6 @@ public class GameView implements Viewable {
     private Environment environment;
 
     /**
-     * Graphical representation of the UI buttons
-     */
-
-    private Sprite pauseMenuButtonSprite;
-
-    /**
      * An orthogonal camera
      */
     private OrthographicCamera camera;
@@ -122,8 +116,6 @@ public class GameView implements Viewable {
         shapeRenderer = new ShapeRenderer();
         batch = new SpriteBatch();
         setUpTankHashMap();
-        List<Texture> textures = AssetsManager.getInstance().getUITextures();
-        pauseMenuButtonSprite = new Sprite(textures.get(2));
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         createDebugger();
         explosionAnimations = new ArrayList<ExplosionAnimation>();
@@ -155,7 +147,10 @@ public class GameView implements Viewable {
 
         setBackground();
         drawTanks();
-        drawButtons();
+
+        GraphicalUIButtons.draw((int)environment.getCurrentTank().getFuel()/10, batch);
+        drawTerrain();
+
 
         if (environment.isProjectileFlying()) {
             setUpProjectileHashMap();
@@ -239,22 +234,6 @@ public class GameView implements Viewable {
         batch.setProjectionMatrix(camera.combined);
         debugMatrix = batch.getProjectionMatrix().cpy().scale(Constants.pixelsPerMeter(), Constants.pixelsPerMeter(), 0);
         debugRenderer.render(environment.getWorld(), debugMatrix);
-    }
-
-    private void drawButtons() {
-        int i = (int)environment.getCurrentTank().getFuel()/10;
-        GraphicalUIButtons.draw(i, batch);
-        /*leftMoveButtonSprite = AssetsManager.getInstance().getLeftButtonSprites().get(i);
-        leftMoveButtonSprite.setBounds(Constants.getLeftMoveButtonPosition().x, Constants.getLeftMoveButtonPosition().y,
-                Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
-        leftMoveButtonSprite.draw(batch);
-        rightMoveButtonSprite = AssetsManager.getInstance().getRightButtonSprites().get(i);
-        rightMoveButtonSprite.setBounds(Constants.getRightMoveButtonPosition().x, Constants.getRightMoveButtonPosition().y,
-                Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
-        rightMoveButtonSprite.draw(batch);*/
-        pauseMenuButtonSprite.setBounds(Constants.getSettingsButtonPosition().x, Constants.getSettingsButtonPosition().y,
-                Constants.getSettingsButtonDimension(), Constants.getSettingsButtonDimension());
-        pauseMenuButtonSprite.draw(batch);
     }
 
     private void setBackground() {

@@ -37,7 +37,11 @@ public class AssetsManager {
 
     private Texture settingsTexture;
 
-    private List<Texture> UITextures;
+    private Sprite pauseMenuButton;
+
+    private Sprite leftSwitchWeaponButton;
+
+    private  Sprite rightSwitchWeaponButton;
 
     private List<Sound> soundEffects;
 
@@ -80,9 +84,11 @@ public class AssetsManager {
             loadProjectileSprite();
             loadStartMenuTextures();
             loadPauseMenuTextures();
-            loadUIButtonTextures();
+            loadPauseButtonTexture();
             loadSoundEffects();
             loadFonts();
+            loadRightSwitchWeaponButton();
+            loadLeftSwitchWeaponButton();
             loadMoveButtonTextures();
         }
         catch (FileNotFoundException e){
@@ -110,8 +116,16 @@ public class AssetsManager {
         return pauseMenuTextures;
     }
 
-    public List<Texture> getUITextures() {
-        return UITextures;
+    public Sprite getPauseMenuButton() {
+        return pauseMenuButton;
+    }
+
+    public Sprite getLeftSwitchWeaponButton(){
+        return leftSwitchWeaponButton;
+    }
+
+    public Sprite getRightSwitchWeaponButton(){
+        return  rightSwitchWeaponButton;
     }
 
     private AssetsManager() {
@@ -208,6 +222,14 @@ public class AssetsManager {
         spriteArrays.put(Id.PLAYER4, blueTank);
     }
 
+    public void loadRightSwitchWeaponButton(){
+        rightSwitchWeaponButton = new Sprite(new Texture(Gdx.files.internal("RightSwitchWeaponArrow.png")));
+    }
+
+    public void loadLeftSwitchWeaponButton(){
+        leftSwitchWeaponButton = new Sprite(new Texture(Gdx.files.internal("LeftSwitchWeaponArrow.png")));
+    }
+
     private void loadMoveButtonTextures() throws FileNotFoundException{
         rightButton = new Array<Sprite>();
         leftButton = new Array<Sprite>();
@@ -246,11 +268,8 @@ public class AssetsManager {
         pauseMenuTextures.add(getSettingsTexture());
     }
 
-    private void loadUIButtonTextures() throws FileNotFoundException{
-        UITextures = new ArrayList<Texture>();
-        UITextures.add(new Texture(Gdx.files.internal("LeftMoveButton.png")));
-        UITextures.add(new Texture(Gdx.files.internal("RightMoveButton.png")));
-        UITextures.add(new Texture(Gdx.files.internal("PauseMenuButton.png")));
+    private void loadPauseButtonTexture() throws FileNotFoundException{
+        pauseMenuButton = new Sprite(new Texture(Gdx.files.internal("PauseMenuButton.png")));
     }
 
     private void loadSoundEffects() throws FileNotFoundException{
