@@ -147,10 +147,7 @@ public class GameView implements Viewable {
 
         setBackground();
         drawTanks();
-
         GraphicalUIButtons.draw((int)environment.getCurrentTank().getFuel()/10, batch);
-        drawTerrain();
-
 
         if (environment.isProjectileFlying()) {
             setUpProjectileHashMap();
