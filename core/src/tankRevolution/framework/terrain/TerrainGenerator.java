@@ -21,16 +21,28 @@ public class TerrainGenerator {
         verticesList.add(0f);
 
         for(float x = 150; x > -1; x--){
-            if (x < 36 || (x > 72 && x < 108)){
+            /*if (x < 36 || (x > 72 && x < 108)){
                 verticesList.add(x);
                 verticesList.add(a2Sin10a0Add10(x));
             } else {
                 verticesList.add(x);
                 verticesList.add(a8Sin10an5Add10(x));
-            }
+            }*/
+            verticesList = addAllToList(verticesList, TerrainPartGenerator.generateFlatGround(-1, 5, 150));
+            //verticesList = addAllToList(verticesList, TerrainPartGenerator.generateHill(30, 5, 20, 40));
+            //verticesList = addAllToList(verticesList, TerrainPartGenerator.generateValley(70, 5, 3, 80));
+
+
         }
 
         return listToArray(verticesList);
+    }
+
+    public static List<Float> addAllToList(List<Float> list, float[] arr){
+        for (float f : arr){
+            list.add(f);
+        }
+        return list;
     }
 
     private static float a8Sin10an5Add10(float x){
