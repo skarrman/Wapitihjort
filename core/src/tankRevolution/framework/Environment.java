@@ -232,8 +232,7 @@ public class Environment {
     public void update() {
         stackUpdate();
         time = System.currentTimeMillis() - time;
-        System.out.println(time);
-        world.step((float)time/1000, 6, 2);
+        world.step((Math.min((float)time/1000,Gdx.graphics.getDeltaTime())), 6, 2);
         terrainHandler.update();
         if (NPCWillShoot()) {
             NPCDoShoot();

@@ -141,7 +141,6 @@ public class GameView implements Viewable {
      * It draws out all the graphical representation of the objects in the world.
      */
     public void update() {
-        environment.update();
         camera.update();
 
         setCamera();
@@ -151,6 +150,7 @@ public class GameView implements Viewable {
         batch.begin();
 
         setBackground();
+        drawTerrain();
         drawTanks();
         GraphicalUIButtons.draw((int)environment.getCurrentTank().getFuel()/10, batch, isPressed);
 
@@ -185,14 +185,14 @@ public class GameView implements Viewable {
 
         weaponSwitch.draw(batch, environment.getCurrentWeapon());
 
-        drawTerrain();
-
         batch.end();
         drawTerrain();
 
         if (deBugMode) {
             drawDebugDetails();
         }
+
+        environment.update();
     }
 
     /**

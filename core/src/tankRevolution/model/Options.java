@@ -36,7 +36,7 @@ public class Options {
 
     public List<Character> setupQuick() {
         List<Character> characters = new ArrayList<Character>();
-        characters.add(CharacterFactory.newNPC(Id.PLAYER1, NPCDifficulty.SUPERHARD));
+        characters.add(CharacterFactory.newNPC(Id.PLAYER1, NPCDifficulty.EASY));
         characters.add(CharacterFactory.newNPC(Id.PLAYER2, NPCDifficulty.SUPERHARD));
         return characters;
     }
