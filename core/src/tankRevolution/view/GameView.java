@@ -186,7 +186,6 @@ public class GameView implements Viewable {
         weaponSwitch.draw(batch, environment.getCurrentWeapon());
 
         batch.end();
-        drawTerrain();
 
         if (deBugMode) {
             drawDebugDetails();
