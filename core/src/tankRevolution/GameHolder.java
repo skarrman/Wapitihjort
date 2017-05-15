@@ -48,7 +48,7 @@ public class GameHolder implements ApplicationListener {
     public void setGameMode(boolean newGame){
         if(newGame){
             currentGame = new Options().newGame();
-            environment = new Environment(currentGame);
+            environment = new Environment(currentGame, "testMap");
         }
         view = new GameView(environment);
         mainController.setGameMode(environment,view, this);

@@ -167,7 +167,7 @@ public class AssetsManager {
     }
 
     private void loadMapNames(){
-        FileHandle fileHandle = Gdx.files.local("maps/" + "mapNames");
+        FileHandle fileHandle = Gdx.files.internal("maps/" + "mapNames");
         String maps = fileHandle.readString();
         mapNames = new ArrayList<String>();
 
@@ -265,7 +265,7 @@ public class AssetsManager {
     }
 
     public void loadMap(String mapName) {
-        FileHandle fileHandle = Gdx.files.local("maps/" + mapName);
+        FileHandle fileHandle = Gdx.files.internal("maps/" + mapName);
         mapString = fileHandle.readString();
     }
 
