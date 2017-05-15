@@ -8,10 +8,7 @@ import tankRevolution.controller.MainController;
 import tankRevolution.framework.Environment;
 import tankRevolution.model.TankRevolution;
 import tankRevolution.model.Options;
-import tankRevolution.view.GameView;
-import tankRevolution.view.PauseMenuView;
-import tankRevolution.view.StartMenuView;
-import tankRevolution.view.Viewable;
+import tankRevolution.view.*;
 
 /**
  * Main controller class for both game sessions and menu screens, updates view, model
@@ -30,7 +27,7 @@ public class GameHolder implements ApplicationListener {
     public void create() {
         AssetsManager.getInstance().loadStartingAssets(4);
         mainController = new MainController();
-        setStartMenuMode();
+       setStartMenuMode();
     }
 
     /**
@@ -61,6 +58,10 @@ public class GameHolder implements ApplicationListener {
     public void setPauseMenuMode(){
         mainController.setPauseMenuMode(this);
         view = new PauseMenuView();
+    }
+
+    public void setCustomGameMode(){
+        view = new CustomGameView();
     }
 
     /**

@@ -36,9 +36,8 @@ public class Options {
     }
 
     public void setupQuick() {
-        characterList.add(CharacterFactory.newNPC(Id.PLAYER1, NPCDifficulty.EASY));
-        //characterList.add(CharacterFactory.newNPC(Id.PLAYER2, NPCDifficulty.SUPERHARD));
-        characterList.add(CharacterFactory.newPlayer(Id.PLAYER2));
+        characterList.add(CharacterFactory.newPlayer(Id.PLAYER1));
+        characterList.add(CharacterFactory.newNPC(Id.PLAYER2, NPCDifficulty.SUPERHARD));
     }
 
     public List<Character> setUpCustom(int numberOfPlayers, int numberOfNPCs,List<NPCDifficulty> npcDifficulties, String map){

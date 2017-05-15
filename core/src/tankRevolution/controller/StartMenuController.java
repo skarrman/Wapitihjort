@@ -87,12 +87,13 @@ public class StartMenuController {
         customStartButton.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Options options = new Options();
+                /*Options options = new Options();
                 List<NPCDifficulty> npcDifficulties = new ArrayList<NPCDifficulty>();
                 npcDifficulties.add(NPCDifficulty.EASY);
                 npcDifficulties.add(NPCDifficulty.HARD);
                 options.setUpCustom(3, 2, npcDifficulties, "testMap");
-                gameHolder.startNewGame(options.newGame());
+                gameHolder.startNewGame(options.newGame());*/
+                gameHolder.setCustomGameMode();
                 return true;
             }
         });
