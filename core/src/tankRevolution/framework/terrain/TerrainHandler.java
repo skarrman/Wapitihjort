@@ -19,7 +19,7 @@ public class TerrainHandler implements ITerrainHandler {
 
     private boolean mustCreate;
     private List<GroundFixture> polyVerts;
-    List<float[]> verticesListArray;
+    private List<float[]> verticesListArray;
 
     private World world;
     /**
@@ -97,9 +97,7 @@ public class TerrainHandler implements ITerrainHandler {
         this.polyVerts.add(grFix);
     }
 
-    /**
-     * needs to be called in each frame update, checks if any bodies needs to be removed or the terrain needs to be rebuilt
-     */
+    @Override
     public void update() {
         for (int i = 0; i < this.world.getBodyCount(); ++i) {
             Array<Body> bodies = new Array();
@@ -165,6 +163,10 @@ public class TerrainHandler implements ITerrainHandler {
 
     }
 
+    /**
+     * @param inVerts The list of float-arrays to be copied.
+     * @return a defensive copy of the list of points that makes up the ground.
+     */
     public List<float[]> defenciveCopyVerticesList(List<float[]> inVerts) {
         List<float[]> outVerts = new ArrayList<float[]>();
 
@@ -185,12 +187,7 @@ public class TerrainHandler implements ITerrainHandler {
         }*/
     }
 
-    /**
-     * This method basicly does the clipping of polygons. After the algorithm is done, the switchGround is called.
-     * circVerts is a vertices of a circle polygon, segments is the number of edges in the circle
-     *
-     * @param projectileBody The polygon that will clip the ground
-     */
+    @Override
     public void explode(Body projectileBody, int blastRadius) {
         List<PolygonBox2DShape> totalRS = new ArrayList();
         //Approximates the vertices of a circle

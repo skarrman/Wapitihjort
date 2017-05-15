@@ -87,7 +87,10 @@ public class ButtonController {
         return stage;
     }
 
-
+    /**
+     * Sets the size and position of the buttons around the screen. All sizes and positions are based on the size
+     * of the screen.
+     */
     private void setUpButtonBounds(){
         leftMoveButton.setBounds(Constants.getLeftMoveButtonPosition().x, Constants.getLeftMoveButtonPosition().y,
                 Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
@@ -107,6 +110,9 @@ public class ButtonController {
         leftWeaponButton.setBounds(leftPos.x, leftPos.y, sideLength, sideLength);
     }
 
+    /**
+     * Listeners determining what each button will do when pressed.
+     */
     private void setUpButtonListeners(){
         leftMoveButton.addListener(new InputListener(){
             @Override
@@ -167,6 +173,10 @@ public class ButtonController {
         stage.addActor(rightWeaponButton);
     }
 
+    /**
+     * Called when only one tank is remaining, will display the winner and a button to
+     * take the user back to the main menu.
+     */
     private void setGameOverMode(){
         toMenuButton.addListener(new InputListener(){
             @Override

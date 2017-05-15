@@ -270,7 +270,7 @@ public class Environment {
         return value;
     }
 
-    public void stackUpdate() {
+    private void stackUpdate() {
         if (!world.isLocked() && !removeStack.isEmpty()) {
             world.destroyBody(removeStack.get(removeStack.size() - 1));
             removeStack.remove(removeStack.size() - 1);
@@ -287,7 +287,7 @@ public class Environment {
      *
      * @param projectile the projectile that hit something.
      */
-    void projectileHit(Shootable projectile) {
+    public void projectileHit(Shootable projectile) {
         List<Tank> deadTanks = new ArrayList<Tank>();
         for (Tank t : tanks.keySet()) {
             tankRevolution.damage(projectile, t, distanceTo(t, projectile));
@@ -311,7 +311,7 @@ public class Environment {
      *
      * @param projectile the projectile that will be destroyed.
      */
-    public void destroyProjectile(Shootable projectile) {
+    private void destroyProjectile(Shootable projectile) {
         removeStack.add(projectiles.get(projectile));
         projectiles.remove(projectile);
         tankRevolution.destroyProjectile(projectile);
@@ -327,7 +327,7 @@ public class Environment {
      *
      * @param tank the tank that will be destroyed.
      */
-    public void destroyTank(Tank tank) {
+    private void destroyTank(Tank tank) {
         removeStack.add(tanks.get(tank));
         tanks.remove(tank);
         tankRevolution.destroyTank(tank);
@@ -338,7 +338,7 @@ public class Environment {
      * @param projectile
      * @return The distance between the tank and the projectile.
      */
-    public float distanceTo(Tank tank, Shootable projectile) {
+    private float distanceTo(Tank tank, Shootable projectile) {
         float deltaX = Math.abs(getTankX(tank) - getProjectileX(projectile));
         float deltaY = Math.abs(getTankY(tank) - getProjectileY(projectile));
         return (float) Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
@@ -398,7 +398,8 @@ public class Environment {
      * @param deltaX distance x-wise between user's initial input and where touch was let go.
      * @param deltaY distance y-wise between user's initial input and where touch was let go.
      */
-    public void shoot(float deltaX, float deltaY) {
+
+    private void shoot(float deltaX, float deltaY){
         Tank shooter = tankRevolution.getCurrentTank();
         List<Shootable> projectiles = tankRevolution.shoot(deltaX, deltaY);
         for (Shootable s : projectiles) {
@@ -409,7 +410,8 @@ public class Environment {
     /**
      * Calculates the perfect shot and puts a random fault based on difficulty.
      */
-    public void NPCDoShoot() {
+
+    private void NPCDoShoot(){
         List<Tank> tanksToNPC = new ArrayList<Tank>();
         tanksToNPC.addAll(tanks.keySet());
         List<Point> positionsToNPC = new ArrayList<Point>();
@@ -431,11 +433,11 @@ public class Environment {
         return tankRevolution.NPCWillShoot();
     }
 
-    public float getTankX(Tank tank) {
+    private float getTankX(Tank tank) {
         return tanks.get(tank).getPosition().x;
     }
 
-    public float getTankY(Tank tank) {
+    private float getTankY(Tank tank) {
         return tanks.get(tank).getPosition().y;
     }
 
@@ -456,11 +458,11 @@ public class Environment {
         return null;
     }
 
-    public float getProjectileX(Shootable projectile) {
+    private float getProjectileX(Shootable projectile) {
         return projectiles.get(projectile).getPosition().x;
     }
 
-    public float getProjectileY(Shootable projectile) {
+    private float getProjectileY(Shootable projectile) {
         return projectiles.get(projectile).getPosition().y;
     }
 

@@ -58,6 +58,7 @@ public class AssetsManager {
 
     private List<String> mapNames;
 
+
     /**
      * our instance
      */
@@ -163,11 +164,15 @@ public class AssetsManager {
         return rightNotPressedButton;
     }
 
-    public List<String> getMapNames(){
+    public List<String> getMapNames() {
         return mapNames;
     }
 
-    private void loadMapNames(){
+    public String getChosenMapName(int i) {
+        return mapNames.get(i);
+    }
+
+    private void loadMapNames() {
         FileHandle fileHandle = Gdx.files.internal("maps/" + "mapNames");
         String maps = fileHandle.readString();
         mapNames = new ArrayList<String>();
@@ -340,11 +345,64 @@ public class AssetsManager {
         generator.dispose();
     }
 
-    private void loadCustomGameFont(){
+    private void loadCustomGameFont() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Noteworthy-Light.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = Gdx.graphics.getWidth() / 22;
         fonts.add(generator.generateFont(parameter));
         generator.dispose();
+    }
+    public void loadInGameAssets(String mapString) {
+        try {
+            loadLeftSwitchWeaponButton();
+            loadRightSwitchWeaponButton();
+            loadMoveButtonTextures();
+            loadExplosionTextureAtlas();
+            loadFonts();
+            loadPauseButtonTexture();
+            loadProjectileSprite();
+            loadSoundEffects();
+            loadMap(mapString);
+        } catch (FileNotFoundException e) {
+            System.out.println("Files Not Found");
+        }
+    }
+
+    public void loadStartUpAssets() {
+        try {
+            loadStartMenuTextures();
+        } catch (FileNotFoundException e) {
+            System.out.println("Files Not Found");
+        }
+    }
+
+    public void loadCustomGameAssets() {
+        try {
+            loadMapNames();
+            loadFonts();
+            //loadCustomGameMenuAssets();
+        } catch (FileNotFoundException e) {
+            System.out.println("Files Not Found");
+        }
+    }
+
+    public void loadNewGameAssets(int nrOfPlayers, String mapString){
+        if (nrOfPlayers == 2){
+            load2PlayerAssets();
+        }else if (nrOfPlayers == 3){
+            load3PlayerAssets();
+        }else if (nrOfPlayers == 4){
+            load4PlayerAssets();
+        }
+        loadInGameAssets(mapString);
+    }
+
+    public void loadPauseMenuAssets(){
+        try{
+            loadPauseMenuTextures();
+        }catch(FileNotFoundException e){
+            System.out.println("Files Not Found");
+        }
+
     }
 }

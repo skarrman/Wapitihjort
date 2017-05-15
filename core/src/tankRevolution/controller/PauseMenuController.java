@@ -32,10 +32,17 @@ public class PauseMenuController {
         addButtonsToStage();
     }
 
+    /**
+     * @return The stage in which all the buttons' inputs are registered
+     */
     public Stage getStage() {
         return stage;
     }
 
+    /**
+     * Sets the size and position of the buttons around the screen. All sizes and positions are based on the size
+     * of the screen.
+     */
     private void setUpButtonBounds(){
         float buttonWidth = Constants.getPauseMenuButtonWidth();
         float buttonHeight = Constants.getPauseMenuButtonHeight();
@@ -55,6 +62,9 @@ public class PauseMenuController {
 
     }
 
+    /**
+     * Listeners determining what each button will do when pressed.
+     */
     private void setUpButtonListener(final GameHolder gameHolder){
         resumeButton.addListener(new InputListener(){
             @Override
