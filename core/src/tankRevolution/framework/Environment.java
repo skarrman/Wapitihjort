@@ -172,7 +172,6 @@ public class Environment {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = tank.getDensity();
-        //fixtureDef.friction = 1f;
         body.createFixture(fixtureDef);
         shape.dispose();
 
@@ -232,7 +231,7 @@ public class Environment {
      */
     public void update() {
         isTankFalling = true;
-        levelTank();
+        //levelTank();
         stackUpdate();
         time = System.currentTimeMillis() - time;
         world.step((Math.min((float)time/1000,Gdx.graphics.getDeltaTime())), 6, 2);
@@ -329,8 +328,7 @@ public class Environment {
      * @param direction recieves it from ButtonController, 1 if moving right, -1 if moving left
      */
     public void moveTank(int direction) {
-        float angle = (float)Math.toDegrees(getTankBody(tankRevolution.getCurrentTank()).getAngle()) % 360;
-        System.out.println(angle);
+        getTankBody(tankRevolution.getCurrentTank()).getFixtureList().get(0).setFriction(0f);
         getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(direction * 25,
                 Constants.getGravity());
         tankRevolution.reduceFuel();
@@ -340,6 +338,7 @@ public class Environment {
      * Called when the move buttons are released.
      */
     public void stopTank() {
+        getTankBody(tankRevolution.getCurrentTank()).getFixtureList().get(0).setFriction(2.5f);
         getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(0, Constants.getGravity());
     }
 
