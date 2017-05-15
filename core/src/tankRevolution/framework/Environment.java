@@ -63,11 +63,14 @@ public class Environment {
 
     private double time = System.currentTimeMillis();
 
+    private String currentMap;
+
     /**
      * Creates a new Environment for Bodys to live in.
      */
-    public Environment(TankRevolution tankRevolution) {
+    public Environment(TankRevolution tankRevolution, String mapName) {
         this.tankRevolution = tankRevolution;
+        this.currentMap = mapName;
         tanks = new HashMap<Tank, Body>();
         projectiles = new HashMap<Shootable, Body>();
         removeStack = new ArrayList<Body>();
@@ -84,7 +87,7 @@ public class Environment {
         //The gravity force is connected to the world.
         Vector2 g = new Vector2(0f, Constants.getGravity());
         world = new World(g, true);
-        terrainHandler = new TerrainHandler(world);
+        terrainHandler = new TerrainHandler(world, currentMap);
         //setTerrain(3f);
         setupSides();
     }
@@ -402,11 +405,6 @@ public class Environment {
     public List<float[]> getVertices(){
         return terrainHandler.getVertices();
     }
-
-    public void loadMap(String map){
-        TerrainHandler.
-    }
-
 
     private boolean NPCWillShoot() {
         return tankRevolution.NPCWillShoot();

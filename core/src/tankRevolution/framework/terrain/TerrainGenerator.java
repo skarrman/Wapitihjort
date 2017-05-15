@@ -21,24 +21,29 @@ public class TerrainGenerator {
      *
      * @return a float array containing all vertices to the map. %2==0 = x %2==1 = y
      */
-    public static float[] getTerrainVertexArray() {
+    public static float[] getTerrainVertexArray(String mapName) {
+        List<Float> vertexList = getInitValues();
+        List<List<Integer>> mapMatrix;
+
+        /*vertexList = addAllToList(vertexList, TerrainPartGenerator.generateFlatGround(0, 5, 30));
+        vertexList = addAllToList(vertexList, TerrainPartGenerator.generateHill(30, 5, 20, 40));
+        vertexList = addAllToList(vertexList, TerrainPartGenerator.generateValley(70, 5, 3, 80));
+*/
+        mapMatrix = getMatrix(mapName);
+        vertexList = createVertexList(mapMatrix, vertexList);
+
+        return listToArray(vertexList);
+    }
+
+    private static List<Float> getInitValues() {
         List<Float> verticesList = new ArrayList<Float>();
-        float period = 10;
 
         verticesList.add(Constants.getMapWidth() + 1);
         verticesList.add(0f);
         verticesList.add(0f);
         verticesList.add(0f);
 
-        verticesList = addAllToList(verticesList, TerrainPartGenerator.generateFlatGround(0, 5, 30));
-        verticesList = addAllToList(verticesList, TerrainPartGenerator.generateHill(30, 5, 20, 40));
-        verticesList = addAllToList(verticesList, TerrainPartGenerator.generateValley(70, 5, 3, 80));
-
-        AssetsManager.getInstance().loadMap("testMap");
-        String mapString = AssetsManager.getInstance().getMapString();
-
-        getMatrix("testMap");
-        return listToArray(verticesList);
+        return verticesList;
     }
 
     private static List<String> createMapStringList(String mapName) {
@@ -56,6 +61,7 @@ public class TerrainGenerator {
         }
         mapStringList.add(mapString.substring(firstIndexOfRow));
 
+        //Debug
 /*        for (int i = 0; i < mapStringList.size(); i++) {
             System.out.print(i + " = ");
             System.out.println(mapStringList.get(i));
@@ -65,16 +71,18 @@ public class TerrainGenerator {
     }
 
     private static List<List<Integer>> createMapMatrix(List<String> mapStringList) {
-        List<List<Integer>> mapMatrix = new ArrayList<List<Integer>>(2);
+        List<List<Integer>> mapMatrix = new ArrayList<List<Integer>>();
         for (int i = 0; i < mapStringList.size(); i++) {
-            mapMatrix.add(i, new ArrayList<Integer>());
+            mapMatrix.add(new ArrayList<Integer>());
             int firstIndexOfInteger = 0;
             for (int j = 0; j < mapStringList.get(i).length(); j++) {
                 if (mapStringList.get(i).charAt(j) == ',') {
-                    mapMatrix.get(i).add(Integer.getInteger(mapStringList.get(i).substring(firstIndexOfInteger, j)));
+                    mapMatrix.get(i).add(Integer.parseInt(mapStringList.get(i).substring(firstIndexOfInteger, j)));
+
                     firstIndexOfInteger = j + 1;
                 }
             }
+            mapMatrix.get(i).add(Integer.parseInt(mapStringList.get(i).substring(firstIndexOfInteger)));
         }
         return mapMatrix;
     }
@@ -86,14 +94,47 @@ public class TerrainGenerator {
         mapStringList = createMapStringList(mapName);
         mapMatrix = createMapMatrix(mapStringList);
 
-        for(List<Integer> integers : mapMatrix){
+        //Debug
+        /*for(List<Integer> integers : mapMatrix){
             System.out.println("");
             for (Integer integer : integers){
                 System.out.print(integer + ", ");
             }
-        }
+        }*/
 
         return mapMatrix;
+    }
+
+    private static List<Float> createVertexList(List<List<Integer>> matrix, List<Float> vertexList) {
+
+        for (int i = 0; i < matrix.size(); i++) {
+
+            int type = matrix.get(i).get(0);
+
+            switch (type) {
+                case hill:
+                    addAllToList(vertexList, TerrainPartGenerator.generateHill(
+                            matrix.get(i).get(1),
+                            matrix.get(i).get(2),
+                            matrix.get(i).get(3),
+                            matrix.get(i).get(4)));
+                    break;
+                case valley:
+                    addAllToList(vertexList, TerrainPartGenerator.generateValley(
+                            matrix.get(i).get(1),
+                            matrix.get(i).get(2),
+                            matrix.get(i).get(3),
+                            matrix.get(i).get(4)));
+                    break;
+                case flat:
+                    addAllToList(vertexList, TerrainPartGenerator.generateFlatGround(
+                            matrix.get(i).get(1),
+                            matrix.get(i).get(2),
+                            matrix.get(i).get(3)));
+                    break;
+            }
+        }
+        return vertexList;
     }
 
     /**

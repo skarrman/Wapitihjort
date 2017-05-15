@@ -31,7 +31,7 @@ public class TerrainHandler implements ITerrainHandler {
         polyVerts = new ArrayList();
         this.world = world;
         verticesListArray = new ArrayList<float[]>();
-        create();
+        create(mapName);
     }
 
 
@@ -39,9 +39,9 @@ public class TerrainHandler implements ITerrainHandler {
      * creates the initial body by creating an array of floats. This array of floats is then added to a list given to a
      * GroundFixture that stores this list of arrays. polyVerts is a list of GroundFixtures (only one element if not the ground is split in two)
      */
-    private void create() {
+    private void create(String mapName) {
         List<float[]> verts = new ArrayList();
-        float[] points = TerrainGenerator.getTerrainVertexArray();
+        float[] points = TerrainGenerator.getTerrainVertexArray(mapName);
         verts.add(points);
         verticesListArray = defenciveCopyVerticesList(verts);
         GroundFixture grFix = new GroundFixture(verts);

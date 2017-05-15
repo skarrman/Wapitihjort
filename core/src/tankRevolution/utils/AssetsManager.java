@@ -56,6 +56,8 @@ public class AssetsManager {
 
     private String mapString;
 
+    private List<String> mapNames;
+
     /**
      * our instance
      */
@@ -157,6 +159,10 @@ public class AssetsManager {
 
     public Array<Sprite> getRightNotPressedButtonSprites() {
         return rightNotPressedButton;
+    }
+
+    public List<String> getMapNames(){
+        return mapNames;
     }
 
     /**
