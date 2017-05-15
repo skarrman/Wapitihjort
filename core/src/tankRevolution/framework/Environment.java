@@ -66,7 +66,7 @@ public class Environment {
     private String currentMap;
 
     /**
-     * Creates a new Environment for Bodys to live in.
+     * Creates a new Environment for Bodies to live in.
      */
     public Environment(TankRevolution tankRevolution, String mapName) {
         this.tankRevolution = tankRevolution;
@@ -177,7 +177,6 @@ public class Environment {
         tanks.put(tank, body);
     }
 
-    //TODO create different terrains.
     private void setTerrain(float y) {
         Body terrain;
         BodyDef bodyDef = new BodyDef();
