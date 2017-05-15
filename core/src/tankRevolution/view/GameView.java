@@ -144,14 +144,16 @@ public class GameView implements Viewable {
         camera.update();
 
         setCamera();
-        if (arrowIsActive) {
+       /* if (arrowIsActive) {
             drawVector();
-        }
+        }*/
         batch.begin();
 
         setBackground();
         drawTerrain();
         drawTanks();
+
+
         GraphicalUIButtons.draw((int)environment.getCurrentTank().getFuel()/10, batch, isPressed);
 
         if (environment.isProjectileFlying()) {
@@ -187,6 +189,9 @@ public class GameView implements Viewable {
 
         batch.end();
 
+        if (arrowIsActive) {
+            drawVectorArrow();
+        }
         if (deBugMode) {
             drawDebugDetails();
         }
@@ -197,11 +202,33 @@ public class GameView implements Viewable {
     /**
      * This method is called if the user is aiming and is about to shoot.
      */
-    private void drawVector() {
+    private void drawVectorArrow() {
+        float angle = getAngle(aimingArrowBottom.x, aimingArrowBottom.y, getAimingArrowTop.x, getAimingArrowTop.y);
+        float angle1 = angle + 45;
+        float angle2 = angle - 45;
+        Vector3 arrow1 = getArrowLine(aimingArrowBottom, angle1);
+        Vector3 arrow2 = getArrowLine(aimingArrowBottom, angle2);
         shapeRenderer.begin(ShapeType.Line);
         shapeRenderer.setColor(Color.BLACK);
+        shapeRenderer.line(arrow1.x, arrow1.y, aimingArrowBottom.x, aimingArrowBottom.y);
+        shapeRenderer.line(arrow2.x, arrow2.y, aimingArrowBottom.x, aimingArrowBottom.y);
         shapeRenderer.line(aimingArrowBottom.x, aimingArrowBottom.y, getAimingArrowTop.x, getAimingArrowTop.y);
         shapeRenderer.end();
+    }
+
+    private float getAngle(float x1, float y1, float x2, float y2){
+        float angle = (float) -Math.toDegrees(Math.atan2(x2 - x1, y2 - y1)) + 90;
+        if (angle < 0){
+            angle += 360;
+        }
+
+        return angle;
+    }
+
+    private Vector3 getArrowLine(Vector3 center, float angle){
+        float x = (float)(Math.cos(angle) * 10) + center.x;
+        float y = (float)(Math.sin(angle) * 10) + center.y;
+        return new Vector3(x, y, 0);
     }
 
     /**

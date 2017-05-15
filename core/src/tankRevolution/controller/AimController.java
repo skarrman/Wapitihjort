@@ -47,7 +47,7 @@ public class AimController implements InputProcessor {
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         if (touchAllowed) {
-            if (Math.sqrt((screenX - touchX) * (screenX - touchX) + (screenY - touchY) * (screenY - touchY)) > 6) {
+            if (Math.sqrt(((screenX - touchX) * (screenX - touchX)) + ((screenY - touchY) * (screenY - touchY))) > 6) {
                 gameView.createArrow(touchX, touchY, screenX, screenY);
                 return true;
             }
