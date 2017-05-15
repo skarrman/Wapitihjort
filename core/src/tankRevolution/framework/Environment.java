@@ -44,7 +44,7 @@ public class Environment {
      * The Projectiles in the world and their Body.
      */
     private Map<Shootable, Body> projectiles;
-    
+
     /**
      * List of bodies pending to be destroyed
      */
@@ -57,7 +57,7 @@ public class Environment {
 
     private ITerrainHandler terrainHandler;
 
-    private boolean isTankFalling = true;
+    private boolean isTankFalling;
 
     private boolean isTerrainChanged = true;
 
@@ -172,6 +172,7 @@ public class Environment {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = tank.getDensity();
+        //fixtureDef.friction = 1f;
         body.createFixture(fixtureDef);
         shape.dispose();
 
@@ -230,6 +231,8 @@ public class Environment {
      * Moves the world forward one step and updates everything accordingly. called 60 times/second.
      */
     public void update() {
+        isTankFalling = true;
+        levelTank();
         stackUpdate();
         time = System.currentTimeMillis() - time;
         world.step((Math.min((float)time/1000,Gdx.graphics.getDeltaTime())), 6, 2);
@@ -326,7 +329,10 @@ public class Environment {
      * @param direction recieves it from ButtonController, 1 if moving right, -1 if moving left
      */
     public void moveTank(int direction) {
-        getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(direction * 25, Constants.getGravity());
+        float angle = (float)Math.toDegrees(getTankBody(tankRevolution.getCurrentTank()).getAngle()) % 360;
+        System.out.println(angle);
+        getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(direction * 25,
+                Constants.getGravity());
         tankRevolution.reduceFuel();
     }
 
@@ -344,7 +350,16 @@ public class Environment {
         return tankRevolution.tankCanMove() && !isTankFalling;
     }
 
-
+    /**
+     * Applies torque to make the tank level itself out to stop it from flipping over.
+     */
+    private void levelTank(){
+        if (getTankBody(tankRevolution.getCurrentTank()).getAngle() < -0.1){
+            getTankBody(tankRevolution.getCurrentTank()).applyTorque(100000, true);
+        }else if (getTankBody(tankRevolution.getCurrentTank()).getAngle() > 0.1){
+            getTankBody(tankRevolution.getCurrentTank()).applyTorque(-100000, true);
+        }
+    }
     /**
      * @param screenX x-coordinate of the point where the user released touch.
      * @param screenY y-coordinate of the point where the user released touch.
