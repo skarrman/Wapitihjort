@@ -135,6 +135,7 @@ public class AssetsManager {
 
     private AssetsManager() {
         spriteArrays = new HashMap<Id, Array<Sprite>>();
+        loadMapNames();
     }
 
     public List<Sound> getSoundEffects() {
@@ -163,6 +164,23 @@ public class AssetsManager {
 
     public List<String> getMapNames(){
         return mapNames;
+    }
+
+    private void loadMapNames(){
+        FileHandle fileHandle = Gdx.files.local("maps/" + mapNames);
+        String maps = fileHandle.readString();
+        mapNames = new ArrayList<String>();
+
+        int firstIndexOfRow = 0;
+
+        for (int i = 0; i < maps.length(); i++) {
+            if (maps.charAt(i) == '\n') {
+                //System.out.println(i + " = i");
+                mapNames.add(maps.substring(firstIndexOfRow, i));
+                firstIndexOfRow = i + 1;
+            }
+        }
+        mapNames.add(maps.substring(firstIndexOfRow));
     }
 
     /**
