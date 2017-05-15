@@ -221,14 +221,14 @@ public class GameView implements Viewable {
         if (angle < 0){
             angle += 360;
         }
-
         return angle;
     }
 
     private Vector3 getArrowLine(Vector3 center, float angle){
-        float x = (float)(Math.cos(angle) * 10) + center.x;
-        float y = (float)(Math.sin(angle) * 10) + center.y;
+        float x = (float)(Math.cos(Math.toRadians(angle)) * 50) + center.x;
+        float y = (float)(Math.sin(Math.toRadians(angle)) * 50) + center.y;
         return new Vector3(x, y, 0);
+
     }
 
     /**
