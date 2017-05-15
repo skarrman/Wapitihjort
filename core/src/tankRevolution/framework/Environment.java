@@ -163,11 +163,7 @@ public class Environment {
         Body body;
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        if (id == Id.PLAYER1) {
-            bodyDef.position.set(5f, 20f);
-        } else if (id == Id.PLAYER2) {
-            bodyDef.position.set(Constants.getMapWidth() - 5f, 40f);
-        }
+        bodyDef.position.set(getStartingPosition(id));
         body = world.createBody(bodyDef);
         body.setUserData(new UserData(2));
         PolygonShape shape = new PolygonShape();
@@ -477,6 +473,32 @@ public class Environment {
 
     public void setPreviousWeapon(){
         getCurrentTank().setPreviousWeapon();
+    }
+
+    private Vector2 getStartingPosition(Id id){
+        switch (id){
+            case PLAYER1:
+                return new Vector2(5f, 20f);
+
+            case PLAYER2:
+                return new Vector2(Constants.getMapWidth() - 5f, 40f);
+
+            case PLAYER3:
+                Vector2 vector;
+                if(getCharacterList().size() == 3){
+                    vector = new Vector2(Constants.getMapWidth()/2, 40f);
+                }else{
+                   vector = new Vector2(Constants.getMapWidth()/2-20, 40f);
+                }
+                return vector;
+
+            case PLAYER4:
+               return new Vector2(Constants.getMapWidth()/2+20, 40f);
+
+            default:
+                System.out.println("Invalid Id");
+                return new Vector2(0,0);
+        }
     }
 
 }

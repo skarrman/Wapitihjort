@@ -31,14 +31,26 @@ public class Options {
      * For a quick setup
      */
     public Options() {
-        characterList = setupQuick();
+        characterList = new ArrayList<Character>();
+
     }
 
-    public List<Character> setupQuick() {
-        List<Character> characters = new ArrayList<Character>();
-        characters.add(CharacterFactory.newPlayer(Id.PLAYER1));
-        characters.add(CharacterFactory.newNPC(Id.PLAYER2, NPCDifficulty.SUPERHARD));
-        return characters;
+    public void setupQuick() {
+        characterList.add(CharacterFactory.newNPC(Id.PLAYER1, NPCDifficulty.EASY));
+        characterList.add(CharacterFactory.newNPC(Id.PLAYER2, NPCDifficulty.SUPERHARD));
+    }
+
+    public List<Character> setUpCustom(int numberOfPlayers, int numberOfNPCs,List<NPCDifficulty> npcDifficulties, String map){
+        characterList.add(CharacterFactory.newPlayer(Id.PLAYER1));
+        for(int i = 1; i < numberOfPlayers; i++){
+            if(numberOfNPCs > 0){
+                characterList.add(CharacterFactory.newNPC(Id.get(i+1), npcDifficulties.remove(0)));
+            }else{
+                characterList.add(CharacterFactory.newPlayer(Id.get(i+1)));
+            }
+        }
+        return characterList;
+
     }
 
     private List<Character> defenciveCopiedCharacterList(){

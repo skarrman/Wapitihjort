@@ -4,7 +4,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import tankRevolution.GameHolder;
+import tankRevolution.model.NPC;
+import tankRevolution.model.NPCDifficulty;
+import tankRevolution.model.Options;
 import tankRevolution.utils.Constants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -63,7 +69,9 @@ public class StartMenuController {
         quickStartButton.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                gameHolder.setGameMode(true);
+                Options options = new Options();
+                options.setupQuick();
+                gameHolder.startNewGame(options.newGame());
                 return true;
             }
         });
@@ -79,7 +87,12 @@ public class StartMenuController {
         customStartButton.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Custom Start Button pressed");
+                Options options = new Options();
+                List<NPCDifficulty> npcDifficulties = new ArrayList<NPCDifficulty>();
+                npcDifficulties.add(NPCDifficulty.EASY);
+                npcDifficulties.add(NPCDifficulty.HARD);
+                options.setUpCustom(3, 2, npcDifficulties, "testMap");
+                gameHolder.startNewGame(options.newGame());
                 return true;
             }
         });

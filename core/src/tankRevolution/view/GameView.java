@@ -147,6 +147,7 @@ public class GameView implements Viewable {
        /* if (arrowIsActive) {
             drawVector();
         }*/
+
         batch.begin();
 
         setBackground();
@@ -190,8 +191,10 @@ public class GameView implements Viewable {
         batch.end();
 
         if (arrowIsActive) {
+
             drawVectorArrow();
         }
+
         if (deBugMode) {
             drawDebugDetails();
         }

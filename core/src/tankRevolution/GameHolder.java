@@ -2,6 +2,7 @@ package tankRevolution;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
+import tankRevolution.model.Tank;
 import tankRevolution.utils.AssetsManager;
 import tankRevolution.controller.MainController;
 import tankRevolution.framework.Environment;
@@ -27,7 +28,7 @@ public class GameHolder implements ApplicationListener {
      */
     @Override
     public void create() {
-        AssetsManager.getInstance().loadStartingAssets(2);
+        AssetsManager.getInstance().loadStartingAssets(4);
         mainController = new MainController();
         setStartMenuMode();
     }
@@ -45,13 +46,16 @@ public class GameHolder implements ApplicationListener {
         view = new StartMenuView();
         mainController.setStartMenuMode(this);
     }
-    public void setGameMode(boolean newGame){
-        if(newGame){
-            currentGame = new Options().newGame();
-            environment = new Environment(currentGame, "testMap");
-        }
+
+    public void setGameMode(){
         view = new GameView(environment);
         mainController.setGameMode(environment,view, this);
+    }
+
+    public void startNewGame(TankRevolution currentGame){
+            this.currentGame = currentGame;
+            environment = new Environment(currentGame, "testMap");
+            setGameMode();
     }
 
     public void setPauseMenuMode(){
