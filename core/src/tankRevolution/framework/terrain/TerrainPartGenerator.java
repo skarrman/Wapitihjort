@@ -1,5 +1,7 @@
 package tankRevolution.framework.terrain;
 
+import tankRevolution.utils.Constants;
+
 /**
  * Created by antonhagermalm on 2017-05-11.
  */
@@ -11,7 +13,7 @@ public class TerrainPartGenerator {
         float[] vertArr = new float[((int)width * 2)];
 
         for (int i = 0; i < vertArr.length; i = i + 2) {
-            vertArr[i] = (i / 2) + startingX + 1;
+            vertArr[i] = ((i / 2) + startingX + 1) * (Constants.getMapWidth() / 150);
             vertArr[i + 1] = (float) (height / 2 * Math.sin(((i / 2 + 1) - (width / 4)) * (Math.PI / (width / 2))) + height/2 + startingY);
         }
 
@@ -19,10 +21,10 @@ public class TerrainPartGenerator {
     }
 
     public static  float[] generateFlatGround(float startingX, float startingY, int width){
-        float[] vertArr = new float[(width * 2) + 2];
+        float[] vertArr = new float[(width * 2)];
 
         for (int i = 0; i < vertArr.length; i = i + 2) {
-            vertArr[i] = (i / 2) + startingX;
+            vertArr[i] = ((i / 2) + startingX + 1) * (Constants.getMapWidth() / 150);
             vertArr[i + 1] = startingY;
         }
         return vertArr;
@@ -34,7 +36,7 @@ public class TerrainPartGenerator {
         depth = - depth;
 
         for (int i = 0; i < vertArr.length; i = i + 2) {
-            vertArr[i] = (i / 2) + startingX + 1;
+            vertArr[i] = ((i / 2) + startingX + 1) * (Constants.getMapWidth() / 150);
             vertArr[i + 1] = (float) (depth / 2 * Math.sin(((i / 2 + 1) - (width / 4)) * (Math.PI / (width / 2))) + depth/2 + startingY);
         }
 

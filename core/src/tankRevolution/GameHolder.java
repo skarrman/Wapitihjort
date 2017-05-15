@@ -54,7 +54,7 @@ public class GameHolder implements ApplicationListener {
 
     public void startNewGame(TankRevolution currentGame){
             this.currentGame = currentGame;
-            environment = new Environment(currentGame, "testMap");
+            environment = new Environment(currentGame, "Flower Hill of Doom");
             setGameMode();
     }
 
