@@ -11,10 +11,8 @@ public class TerrainPartGenerator {
         float[] vertArr = new float[((int)width * 2)];
 
         for (int i = 0; i < vertArr.length; i = i + 2) {
-            //vertArr[i] = (i / 2) + startingX + 1;
             vertArr[i] = (i / 2) + startingX + 1;
             vertArr[i + 1] = (float) (height / 2 * Math.sin(((i / 2 + 1) - (width / 4)) * (Math.PI / (width / 2))) + height/2 + startingY);
-            //vertArr[i + 1] = (float) (height / 2 * Math.sin(((i / 2) - (width / 4)) * (Math.PI / (width/ 2))) + height/2);
         }
 
         return vertArr;

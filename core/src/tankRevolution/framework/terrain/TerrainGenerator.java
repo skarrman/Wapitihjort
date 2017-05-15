@@ -1,5 +1,6 @@
 package tankRevolution.framework.terrain;
 
+import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
 
 import java.util.ArrayList;
@@ -7,11 +8,20 @@ import java.util.List;
 
 /**
  * Created by antonhagermalm on 2017-05-10.
+ * This class creates a map from a source, it's not decided yet if it's from a file or classes
  */
 public class TerrainGenerator {
 
+    private static final int hill = 0;
+    private static final int valley = 1;
+    private static final int flat = 2;
 
-    public static float[] getTerrainVertexArray(){
+    /**
+     * This method will be called to get the map in the floatArray
+     *
+     * @return a float array containing all vertices to the map. %2==0 = x %2==1 = y
+     */
+    public static float[] getTerrainVertexArray() {
         List<Float> verticesList = new ArrayList<Float>();
         float period = 10;
 
@@ -24,53 +34,91 @@ public class TerrainGenerator {
         verticesList = addAllToList(verticesList, TerrainPartGenerator.generateHill(30, 5, 20, 40));
         verticesList = addAllToList(verticesList, TerrainPartGenerator.generateValley(70, 5, 3, 80));
 
+        AssetsManager.getInstance().loadMap("testMap");
+        String mapString = AssetsManager.getInstance().getMapString();
+
+        getMatrix("testMap");
         return listToArray(verticesList);
     }
 
-    public static List<Float> addAllToList(List<Float> list, float[] arr){
-        for (float f : arr){
+    private static List<String> createMapStringList(String mapName) {
+        AssetsManager.getInstance().loadMap(mapName);
+        String mapString = AssetsManager.getInstance().getMapString();
+        List<String> mapStringList = new ArrayList<String>();
+        int firstIndexOfRow = 0;
+
+        for (int i = 0; i < mapString.length(); i++) {
+            if (mapString.charAt(i) == '\n') {
+                //System.out.println(i + " = i");
+                mapStringList.add(mapString.substring(firstIndexOfRow, i));
+                firstIndexOfRow = i + 1;
+            }
+        }
+        mapStringList.add(mapString.substring(firstIndexOfRow));
+
+/*        for (int i = 0; i < mapStringList.size(); i++) {
+            System.out.print(i + " = ");
+            System.out.println(mapStringList.get(i));
+        }
+*/
+        return mapStringList;
+    }
+
+    private static List<List<Integer>> createMapMatrix(List<String> mapStringList) {
+        List<List<Integer>> mapMatrix = new ArrayList<List<Integer>>(2);
+        for (int i = 0; i < mapStringList.size(); i++) {
+            mapMatrix.add(i, new ArrayList<Integer>());
+            int firstIndexOfInteger = 0;
+            for (int j = 0; j < mapStringList.get(i).length(); j++) {
+                if (mapStringList.get(i).charAt(j) == ',') {
+                    mapMatrix.get(i).add(Integer.getInteger(mapStringList.get(i).substring(firstIndexOfInteger, j)));
+                    firstIndexOfInteger = j + 1;
+                }
+            }
+        }
+        return mapMatrix;
+    }
+
+    private static List<List<Integer>> getMatrix(String mapName) {
+        List<String> mapStringList;
+        List<List<Integer>> mapMatrix;
+
+        mapStringList = createMapStringList(mapName);
+        mapMatrix = createMapMatrix(mapStringList);
+
+        for(List<Integer> integers : mapMatrix){
+            System.out.println("");
+            for (Integer integer : integers){
+                System.out.print(integer + ", ");
+            }
+        }
+
+        return mapMatrix;
+    }
+
+    /**
+     * Adds the array to the list
+     *
+     * @param list
+     * @param arr
+     * @return
+     */
+    public static List<Float> addAllToList(List<Float> list, float[] arr) {
+        for (float f : arr) {
             list.add(f);
         }
         return list;
     }
 
-    private static float a8Sin10an5Add10(float x){
-        //x is in deg
-        //this makes the curve go between 10 and 26 with 36 as period
-        //the map will start at y = sin
 
-        float amplitude = 8f;
-        float period = 10;
-        float verticalShift = 10f;
-        float parseShift = 0;
-
-
-        return (float)(amplitude * Math.sin(Math.toRadians((x + parseShift) * period)) + verticalShift);
-    }
-
-    private static float a2Sin10a0Add10(float x){
-        //x is in deg
-        //this makes the curve go between 10 and 26 with 36 as period
-        //the map will start at y = sin
-
-        float amplitude = 2f;
-        float period = 10f;
-        float verticalShift = 10f;
-        float parseShift = 0f;
-
-
-        return (float)(amplitude * Math.sin(Math.toRadians((x + parseShift) * period)) + verticalShift);
-    }
-
-
-    private static float[] listToArray(List<Float> verticesList){
+    private static float[] listToArray(List<Float> verticesList) {
         float[] verticesArray = new float[verticesList.size()];
-        for(int i = 0; i < verticesArray.length; i++){
+        for (int i = 0; i < verticesArray.length; i++) {
             verticesArray[i] = verticesList.remove(0);
         }
         return verticesArray;
     }
 
-    public enum Maps{
+    public enum Maps {
     }
 }

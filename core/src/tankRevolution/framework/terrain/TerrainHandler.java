@@ -27,7 +27,7 @@ public class TerrainHandler implements ITerrainHandler {
      */
     private Body terrain;
 
-    public TerrainHandler(World world) {
+    public TerrainHandler(World world, String mapName) {
         polyVerts = new ArrayList();
         this.world = world;
         verticesListArray = new ArrayList<float[]>();
@@ -77,7 +77,7 @@ public class TerrainHandler implements ITerrainHandler {
 
         return verticesListArray;
     }
-    
+
     /**
      * @param rs is the entire ground in Polygons (only one if not the ground is split in two)
      */

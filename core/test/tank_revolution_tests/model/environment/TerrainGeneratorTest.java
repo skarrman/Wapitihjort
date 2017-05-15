@@ -13,6 +13,9 @@ import static org.junit.Assert.assertTrue;
  * Created by antonhagermalm on 2017-05-10.
  */
 public class TerrainGeneratorTest {
+    /**
+     * this test will fail since junit cant access the assets
+     */
     @Test public void TerrainTest(){
         TerrainGenerator terrainGenerator = new TerrainGenerator();
         float[] fl;
@@ -37,4 +40,6 @@ public class TerrainGeneratorTest {
         assertTrue(list.equals(expectedList));
 
     }
+
+
 }

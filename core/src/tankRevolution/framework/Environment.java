@@ -66,7 +66,7 @@ public class Environment {
     /**
      * Creates a new Environment for Bodys to live in.
      */
-    public Environment( TankRevolution tankRevolution) {
+    public Environment(TankRevolution tankRevolution) {
         this.tankRevolution = tankRevolution;
         tanks = new HashMap<Tank, Body>();
         projectiles = new HashMap<Shootable, Body>();
@@ -401,6 +401,10 @@ public class Environment {
 
     public List<float[]> getVertices(){
         return terrainHandler.getVertices();
+    }
+
+    public void loadMap(String map){
+        TerrainHandler.
     }
 
 

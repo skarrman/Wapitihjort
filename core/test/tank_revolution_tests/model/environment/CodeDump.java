@@ -1,6 +1,7 @@
 package tank_revolution_tests.model.environment;
 
 
+import com.badlogic.gdx.Gdx;
 import com.quailshillstudio.polygonClippingUtils.GroundFixture;
 import org.junit.Test;
 import tankRevolution.framework.terrain.Bezier;
@@ -19,12 +20,13 @@ public class CodeDump {
     //Point2D[] points = new Point2D[]{new Point2D.Float(0, 0), new Point2D.Float(-2, 7), new Point2D.Float(2, 12), new Point2D.Float(10, 10)};
 
     @Test public void getPoints(){
-        Bezier bezier = new Bezier(points);
+        /*Bezier bezier = new Bezier(points);
         points = bezier.getPoints();
         for(Point2D point2D : points){
             System.out.println(point2D.getX() + " " + point2D.getY());
         }
-
+*/
+        //System.out.println(Gdx.files.local("testMap"));
         /*Point2D[] points = new Point2D[]{new Point2D.Float(Constants.getMapWidth(), 3), new Point2D.Float(20, 8), new Point2D.Float(0, 3)};
         points = getTotalArr(points);
 
