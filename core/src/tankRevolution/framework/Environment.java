@@ -252,7 +252,7 @@ public class Environment {
         isTankFalling = true;
         tankOutsideMapCheck();
         projectileOutsideMapCheck();
-        //levelTank();
+        levelTank();
         stackUpdate();
         time = System.currentTimeMillis() - time;
         world.step((Math.min((float) time / 1000, Gdx.graphics.getDeltaTime())), 6, 2);
