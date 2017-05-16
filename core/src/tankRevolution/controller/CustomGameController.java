@@ -9,6 +9,7 @@ import tankRevolution.GameHolder;
 import tankRevolution.model.NPCDifficulty;
 import tankRevolution.model.Options;
 import tankRevolution.utils.Constants;
+import tankRevolution.utils.Id;
 import tankRevolution.view.CustomGameView;
 
 import java.util.ArrayList;
@@ -193,7 +194,6 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 selectedMap--;
-                System.out.println("leftArrow");
                 return true;
             }
         });
@@ -201,7 +201,6 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 selectedMap++;
-                System.out.println("rightArrow");
                 return true;
             }
         });
@@ -209,7 +208,7 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 numnberOfPlayers = 2;
-                System.out.println("two");
+                view.setNumberOfPlayers(2);
                 return true;
             }
         });
@@ -217,7 +216,9 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 numnberOfPlayers = 3;
-                System.out.println("three");
+                view.setNumberOfPlayers(3);
+                player3IsNpc = true;
+                player3Difficulty = NPCDifficulty.EASY;
                 return true;
             }
         });
@@ -225,7 +226,11 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 numnberOfPlayers = 4;
-                System.out.println("four");
+                view.setNumberOfPlayers(4);
+                player3IsNpc = true;
+                player3Difficulty = NPCDifficulty.EASY;
+                player4IsNpc = true;
+                player4Difficulty = NPCDifficulty.EASY;
                 return true;
             }
         });
@@ -233,7 +238,7 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 player1IsNpc = true;
-                System.out.println("p1NPC");
+                view.setNPC(true, Id.PLAYER1);
                 return true;
             }
         });
@@ -241,7 +246,7 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 player1IsNpc = false;
-                System.out.println("p1Actual");
+                view.setNPC(false, Id.PLAYER1);
                 return true;
             }
         });
@@ -250,8 +255,8 @@ public class CustomGameController {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player1IsNpc){
                     player1Difficulty = NPCDifficulty.EASY;
+                    view.setDifficulty(Id.PLAYER1, player1Difficulty);
                 }
-                System.out.println("p1Easy");
                 return true;
             }
         });
@@ -260,8 +265,8 @@ public class CustomGameController {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player1IsNpc){
                     player1Difficulty = NPCDifficulty.MEDIUM;
+                    view.setDifficulty(Id.PLAYER1, player1Difficulty);
                 }
-                System.out.println("p1Medium");
                 return true;
             }
         });
@@ -270,8 +275,8 @@ public class CustomGameController {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player1IsNpc){
                     player1Difficulty = NPCDifficulty.HARD;
+                    view.setDifficulty(Id.PLAYER1, player1Difficulty);
                 }
-                System.out.println("p1Hard");
                 return true;
             }
         });
@@ -280,8 +285,8 @@ public class CustomGameController {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player1IsNpc){
                     player1Difficulty = NPCDifficulty.SUPERHARD;
+                    view.setDifficulty(Id.PLAYER1, player1Difficulty);
                 }
-                System.out.println("p1Expert");
                 return true;
             }
         });
@@ -289,7 +294,7 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 player2IsNpc = true;
-                System.out.println("p2NPC");
+                view.setNPC(true, Id.PLAYER2);
                 return true;
             }
         });
@@ -297,7 +302,7 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 player2IsNpc = false;
-                System.out.println("p2Actual");
+                view.setNPC(false, Id.PLAYER2);
                 return true;
             }
         });
@@ -305,9 +310,9 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player2IsNpc){
-                    player1Difficulty = NPCDifficulty.EASY;
+                    player2Difficulty = NPCDifficulty.EASY;
+                    view.setDifficulty(Id.PLAYER2, player2Difficulty);
                 }
-                System.out.println("p2Easy");
                 return true;
             }
         });
@@ -315,9 +320,9 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player2IsNpc){
-                    player1Difficulty = NPCDifficulty.MEDIUM;
+                    player2Difficulty = NPCDifficulty.MEDIUM;
+                    view.setDifficulty(Id.PLAYER2, player2Difficulty);
                 }
-                System.out.println("p2Medium");
                 return true;
             }
         });
@@ -325,9 +330,9 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player2IsNpc){
-                    player1Difficulty = NPCDifficulty.HARD;
+                    player2Difficulty = NPCDifficulty.HARD;
+                    view.setDifficulty(Id.PLAYER2, player2Difficulty);
                 }
-                System.out.println("p2Hard");
                 return true;
             }
         });
@@ -335,9 +340,9 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player2IsNpc){
-                    player1Difficulty = NPCDifficulty.SUPERHARD;
+                    player2Difficulty = NPCDifficulty.SUPERHARD;
+                    view.setDifficulty(Id.PLAYER2, player2Difficulty);
                 }
-                System.out.println("p2Expert");
                 return true;
             }
         });
@@ -345,7 +350,7 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 player3IsNpc = true;
-                System.out.println("p3NPC");
+                view.setNPC(true, Id.PLAYER3);
                 return true;
             }
         });
@@ -353,7 +358,7 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 player3IsNpc = false;
-                System.out.println("p3Actual");
+                view.setNPC(false, Id.PLAYER3);
                 return true;
             }
         });
@@ -361,9 +366,9 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player3IsNpc){
-                    player1Difficulty = NPCDifficulty.EASY;
+                    player3Difficulty = NPCDifficulty.EASY;
+                    view.setDifficulty(Id.PLAYER3, player3Difficulty);
                 }
-                System.out.println("p3Easy");
                 return true;
             }
         });
@@ -371,9 +376,9 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player3IsNpc){
-                    player1Difficulty = NPCDifficulty.MEDIUM;
+                    player3Difficulty = NPCDifficulty.MEDIUM;
+                    view.setDifficulty(Id.PLAYER3, player3Difficulty);
                 }
-                System.out.println("p3Medium");
                 return true;
             }
         });
@@ -381,9 +386,9 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player3IsNpc){
-                    player1Difficulty = NPCDifficulty.HARD;
+                    player3Difficulty = NPCDifficulty.HARD;
+                    view.setDifficulty(Id.PLAYER3, player3Difficulty);
                 }
-                System.out.println("p3Hard");
                 return true;
             }
         });
@@ -391,9 +396,9 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player3IsNpc){
-                    player1Difficulty = NPCDifficulty.SUPERHARD;
+                    player3Difficulty = NPCDifficulty.SUPERHARD;
+                    view.setDifficulty(Id.PLAYER3, player3Difficulty);
                 }
-                System.out.println("p3Expert");
                 return true;
             }
         });
@@ -401,7 +406,7 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 player4IsNpc = true;
-                System.out.println("p4NPC");
+                view.setNPC(true, Id.PLAYER4);
                 return true;
             }
         });
@@ -409,7 +414,7 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 player4IsNpc = false;
-                System.out.println("p4Actual");
+                view.setNPC(false, Id.PLAYER4);
                 return true;
             }
         });
@@ -417,9 +422,9 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player4IsNpc){
-                    player1Difficulty = NPCDifficulty.EASY;
+                    player4Difficulty = NPCDifficulty.EASY;
+                    view.setDifficulty(Id.PLAYER4, player4Difficulty);
                 }
-                System.out.println("p4Easy");
                 return true;
             }
         });
@@ -427,9 +432,9 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player4IsNpc){
-                    player1Difficulty = NPCDifficulty.MEDIUM;
+                    player4Difficulty = NPCDifficulty.MEDIUM;
+                    view.setDifficulty(Id.PLAYER4, player4Difficulty);
                 }
-                System.out.println("p4Medium");
                 return true;
             }
         });
@@ -437,9 +442,9 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player4IsNpc){
-                    player1Difficulty = NPCDifficulty.HARD;
+                    player4Difficulty = NPCDifficulty.HARD;
+                    view.setDifficulty(Id.PLAYER4, player4Difficulty);
                 }
-                System.out.println("p4Hard");
                 return true;
             }
         });
@@ -447,9 +452,9 @@ public class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if(player4IsNpc){
-                    player1Difficulty = NPCDifficulty.SUPERHARD;
+                    player4Difficulty = NPCDifficulty.SUPERHARD;
+                    view.setDifficulty(Id.PLAYER4, player4Difficulty);
                 }
-                System.out.println("p4Expert");
                 return true;
             }
         });
