@@ -5,6 +5,7 @@ import java.util.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.quailshillstudio.polygonClippingUtils.CollisionGeometry;
 import com.quailshillstudio.polygonClippingUtils.UserData;
 import tankRevolution.model.shootablePackage.AmmunitionType;
 import tankRevolution.utils.*;
@@ -167,8 +168,8 @@ public class Environment {
         bodyDef.position.set(getStartingPosition(id));
         body = world.createBody(bodyDef);
         body.setUserData(new UserData(2));
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(tank.getWidth() / 2, tank.getHeight() / 2);
+        PolygonShape shape = createCircleShape(body, tank.getWidth() / 2);
+        //shape.setAsBox(tank.getWidth() / 2, tank.getHeight() / 8);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = tank.getDensity();
@@ -176,6 +177,21 @@ public class Environment {
         shape.dispose();
 
         tanks.put(tank, body);
+    }
+
+    private PolygonShape createCircleShape(Body body, float radius) {
+        float[] floatVertices = CollisionGeometry.approxCircle(0,0, radius, 8);
+/*        Vector2[] vector2Vertices = new Vector2[floatVertices.length / 2];
+
+        for (int i = 0; i < floatVertices.length; i = i + 2) {
+            vector2Vertices[i] = new Vector2(floatVertices[i], floatVertices[i+1]);
+        }
+
+        */
+
+        PolygonShape shape = new PolygonShape();
+        shape.set(floatVertices);
+        return shape;
     }
 
     private void setTerrain(float y) {
@@ -399,7 +415,7 @@ public class Environment {
      * @param deltaY distance y-wise between user's initial input and where touch was let go.
      */
 
-    private void shoot(float deltaX, float deltaY){
+    private void shoot(float deltaX, float deltaY) {
         Tank shooter = tankRevolution.getCurrentTank();
         List<Shootable> projectiles = tankRevolution.shoot(deltaX, deltaY);
         for (Shootable s : projectiles) {
@@ -411,7 +427,7 @@ public class Environment {
      * Calculates the perfect shot and puts a random fault based on difficulty.
      */
 
-    private void NPCDoShoot(){
+    private void NPCDoShoot() {
         List<Tank> tanksToNPC = new ArrayList<Tank>();
         tanksToNPC.addAll(tanks.keySet());
         List<Point> positionsToNPC = new ArrayList<Point>();
