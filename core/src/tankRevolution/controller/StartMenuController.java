@@ -72,7 +72,7 @@ public class StartMenuController {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 Options options = new Options();
                 options.setupQuick();
-                gameHolder.startNewGame(options.newGame());
+                gameHolder.startNewGame(options.newGame(), "Burning Desert Wolf");
                 return true;
             }
         });

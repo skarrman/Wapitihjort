@@ -38,11 +38,9 @@ public class Options {
     public void setupQuick() {
         characterList.add(CharacterFactory.newPlayer(Id.PLAYER1));
         characterList.add(CharacterFactory.newNPC(Id.PLAYER2, NPCDifficulty.SUPERHARD));
-        AssetsManager.getInstance().loadNewGameAssets(2,"Burning Desert Wolf");
     }
 
     public List<Character> setUpCustom(int numberOfPlayers, int numberOfNPCs,List<NPCDifficulty> npcDifficulties, String map){
-        AssetsManager.getInstance().loadNewGameAssets(numberOfPlayers+numberOfNPCs,map);
         characterList.add(CharacterFactory.newPlayer(Id.PLAYER1));
         for(int i = 1; i < numberOfPlayers; i++){
             if(numberOfNPCs > 0){

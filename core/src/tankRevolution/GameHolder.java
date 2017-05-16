@@ -63,9 +63,10 @@ public class GameHolder implements ApplicationListener {
      *
      * @param currentGame The current game model.
      */
-    public void startNewGame(TankRevolution currentGame) {
+    public void startNewGame(TankRevolution currentGame, String mapName) {
+        AssetsManager.getInstance().loadNewGameAssets(currentGame.getCharacterList().size(), mapName);
         this.currentGame = currentGame;
-        environment = new Environment(currentGame, "Burning Desert Wolf");
+        environment = new Environment(currentGame, mapName);
         setGameMode();
     }
 

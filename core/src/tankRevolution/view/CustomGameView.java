@@ -331,6 +331,13 @@ public class CustomGameView implements Viewable {
         }
     }
 
+    public void setNextMap(){
+        selectedMap = (selectedMap + 1) % mapNames.size();
+    }
+
+    public void setPreviousMap() {
+        selectedMap = (selectedMap - 1) % mapNames.size();
+    }
     private void setSizes() {
         float arrowSize = Constants.getWeaponArrowDimension();
         leftMapArrow.setSize(arrowSize, arrowSize);
@@ -396,6 +403,5 @@ public class CustomGameView implements Viewable {
         player2DifficultySprite = npcDifficultySprites.get(1);
 
         numberOfPlayersPicker = numberOfPlayerSprites.get(0);
-
     }
 }

@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import tankRevolution.GameHolder;
 import tankRevolution.model.NPCDifficulty;
 import tankRevolution.model.Options;
+import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
 import tankRevolution.utils.Id;
 import tankRevolution.view.CustomGameView;
@@ -59,6 +60,8 @@ public class CustomGameController {
     private Stage stage;
 
     private int selectedMap = 0;
+
+    List<String> mapNames;
 
     private int numnberOfPlayers = 2;
 
@@ -116,6 +119,7 @@ public class CustomGameController {
         player4Hard = new Button();
         player4Expert = new Button();
 
+        mapNames = AssetsManager.getInstance().getMapNames();
 
         startGameButton = new Button();
 
@@ -193,14 +197,16 @@ public class CustomGameController {
         leftMapArrow.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                selectedMap--;
+                selectedMap = (selectedMap - 1) % mapNames.size();
+                view.setPreviousMap();
                 return true;
             }
         });
         rightMapArrow.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                selectedMap++;
+                selectedMap = (selectedMap + 1) % mapNames.size();
+                view.setNextMap();
                 return true;
             }
         });
@@ -485,8 +491,8 @@ public class CustomGameController {
                         }
                     }
                 }
-                options.setUpCustom(numnberOfPlayers, numberOfNpc, npcDifficulties, "testMap");
-                gameHolder.startNewGame(options.newGame());
+                options.setUpCustom(numnberOfPlayers, numberOfNpc, npcDifficulties, mapNames.get(selectedMap));
+                gameHolder.startNewGame(options.newGame(), mapNames.get(selectedMap));
                 return true;
             }
         });
