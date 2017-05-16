@@ -51,9 +51,7 @@ public class TerrainHandler implements ITerrainHandler {
     }
 
     /**
-     * may fucked this up, if there is any problems, it may be here
-     *
-     * @return a list of lists with all the vertices to the shapes in the ground
+     * @return a list of arrays with all the vertices to the shapes in the ground
      */
     public List<float[]> getVertices() {
         //DebugMessage

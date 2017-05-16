@@ -75,9 +75,9 @@ public class Environment {
         projectiles = new HashMap<Shootable, Body>();
         removeStack = new ArrayList<Body>();
         setupWorld();
+        setupTanks();
         createContactListener();
         this.explosions = new ArrayList<Explosion>();
-        InitializeTank();
     }
 
     /**
@@ -195,7 +195,7 @@ public class Environment {
         ground.dispose();
     }
 
-    private void InitializeTank() {
+    private void setupTanks() {
         for (Character c : tankRevolution.getCharacterList()) {
             addTank(c.getTank(), c.getId());
         }
