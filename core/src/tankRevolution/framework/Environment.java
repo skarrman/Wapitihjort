@@ -168,8 +168,7 @@ public class Environment {
         bodyDef.position.set(getStartingPosition(id));
         body = world.createBody(bodyDef);
         body.setUserData(new UserData(2));
-        PolygonShape shape = createCircleShape(body, tank.getWidth() / 2);
-        //shape.setAsBox(tank.getWidth() / 2, tank.getHeight() / 8);
+        PolygonShape shape = createCircleShape(tank.getWidth() / 3);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = tank.getDensity();
@@ -179,36 +178,11 @@ public class Environment {
         tanks.put(tank, body);
     }
 
-    private PolygonShape createCircleShape(Body body, float radius) {
-        float[] floatVertices = CollisionGeometry.approxCircle(0,0, radius, 8);
-/*        Vector2[] vector2Vertices = new Vector2[floatVertices.length / 2];
-
-        for (int i = 0; i < floatVertices.length; i = i + 2) {
-            vector2Vertices[i] = new Vector2(floatVertices[i], floatVertices[i+1]);
-        }
-
-        */
-
+    private PolygonShape createCircleShape(float radius) {
+        float[] floatVertices = CollisionGeometry.approxCircle(0,0, radius, 6);
         PolygonShape shape = new PolygonShape();
         shape.set(floatVertices);
         return shape;
-    }
-
-    private void setTerrain(float y) {
-        Body terrain;
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-
-        bodyDef.position.set(0, 0);
-        FixtureDef fixtureDef3 = new FixtureDef();
-
-        EdgeShape ground = new EdgeShape();
-        ground.set(-2, y, Constants.getMapWidth() + 2, y);
-        fixtureDef3.shape = ground;
-
-        terrain = world.createBody(bodyDef);
-        terrain.createFixture(fixtureDef3);
-        ground.dispose();
     }
 
     private void setupTanks() {

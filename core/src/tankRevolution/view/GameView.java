@@ -184,6 +184,7 @@ public class GameView implements Viewable {
             gameOverView.draw(batch);
         }else {
             labelDrawer.draw(environment.getCharacterList(), batch);
+            environment.update();
         }
 
         weaponSwitch.draw(batch, environment.getCurrentWeapon());
@@ -199,7 +200,6 @@ public class GameView implements Viewable {
             drawDebugDetails();
         }
 
-        environment.update();
     }
 
     /**
