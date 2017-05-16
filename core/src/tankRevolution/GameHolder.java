@@ -39,22 +39,36 @@ public class GameHolder implements ApplicationListener {
             mainController.update();
     }
 
+    /**
+     * Shows the main menu where the user can chose between starting a quick game, a custom game, show highscore
+     * and show the world for the campaign mode.
+     */
     public void setStartMenuMode(){
         view = new StartMenuView();
         mainController.setStartMenuMode(this);
     }
 
+    /**
+     * Shows the in-game UI and connects the relevant model, view and controller.
+     */
     public void setGameMode(){
         view = new GameView(environment);
         mainController.setGameMode(environment,view, this);
     }
 
+    /**
+     * Sets up classes to start a new game.
+     * @param currentGame The current game model.
+     */
     public void startNewGame(TankRevolution currentGame){
             this.currentGame = currentGame;
             environment = new Environment(currentGame, "Burning Dessert Wolf");
             setGameMode();
     }
 
+    /**
+     * Called when the pause menu button is pressed
+     */
     public void setPauseMenuMode(){
         mainController.setPauseMenuMode(this);
         view = new PauseMenuView();

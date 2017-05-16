@@ -16,49 +16,86 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Singleton that handles all assets.
+ * Singleton that handles and loads all assets when needed.
  */
 public class AssetsManager {
 
     //private Map<TextureAtlasAssets, TextureAtlas> textureAtlases;
+
     /**
      * A Map with all textureAtlases and with a String for key
      */
     private Map<Id, Array<Sprite>> spriteArrays;
+
     /**
      * the sprite for the standard projectile
      */
     private Sprite projectile;
 
+    /**
+     * The images shown in the main menu.
+     */
     private List<Texture> startMenuTextures;
 
+    /**
+     * The images shown in the pause menu.
+     */
     private List<Texture> pauseMenuTextures;
 
+    /**
+     * The images shown in the settings menu.
+     */
     private Texture settingsTexture;
 
+    // Buttons in the UI
     private Sprite pauseMenuButton;
-
     private Sprite leftSwitchWeaponButton;
-
     private Sprite rightSwitchWeaponButton;
 
+    /**
+     * List of sound effects the game uses.
+     */
     private List<Sound> soundEffects;
 
+    /**
+     * List of fonts for menus and in-game text.
+     */
     private List<BitmapFont> fonts;
 
+    /**
+     * All the different appearances of the left move button when pressed
+     */
     private Array<Sprite> leftPressedButton;
 
-    private Array<Sprite> rightPressedButton;
-
+    /**
+     * All the different appearances of the left move button when not pressed
+     */
     private Array<Sprite> leftNotPressedButton;
 
+    /**
+     * All the different appearances of the right move button when pressed
+     */
+    private Array<Sprite> rightPressedButton;
+
+    /**
+     * All the different appearances of the right move button when not pressed
+     */
     private Array<Sprite> rightNotPressedButton;
 
+    /**
+     * The chosen map name.
+     */
     private String mapString;
 
+    /**
+     * All of the available map names.
+     */
     private List<String> mapNames;
 
-
+    private AssetsManager() {
+        spriteArrays = new HashMap<Id, Array<Sprite>>();
+        loadMapNames();
+    }
     /**
      * our instance
      */
@@ -78,7 +115,7 @@ public class AssetsManager {
      * @param nrOfPlayers nr of players
      */
     public void loadStartingAssets(int nrOfPlayers) {
-        if (nrOfPlayers == 2) {
+       /* if (nrOfPlayers == 2) {
             load2PlayerAssets();
         } else if (nrOfPlayers == 3) {
             load3PlayerAssets();
@@ -100,7 +137,7 @@ public class AssetsManager {
             loadMoveButtonTextures();
         } catch (FileNotFoundException e) {
             System.out.println("One or more textures not found");
-        }
+        }*/
     }
 
     /**
@@ -112,55 +149,146 @@ public class AssetsManager {
     }
 
     public Sprite getProjectileSprite() {
+        if (projectile == null) {
+            try {
+                loadProjectileSprite();
+            } catch (FileNotFoundException e) {
+                System.out.print("File Not Found");
+            }
+
+        }
         return projectile;
     }
 
     public List<Texture> getStartMenuTextures() {
+        if (startMenuTextures == null) {
+            try {
+                loadStartMenuTextures();
+            } catch (FileNotFoundException e) {
+                System.out.print("File Not Found");
+            }
+
+        }
         return startMenuTextures;
     }
 
     public List<Texture> getPauseMenuTextures() {
+        if (pauseMenuTextures == null) {
+            try {
+                loadPauseMenuTextures();
+            } catch (FileNotFoundException e) {
+                System.out.print("File Not Found");
+            }
+
+        }
         return pauseMenuTextures;
     }
 
     public Sprite getPauseMenuButton() {
+        if (pauseMenuButton == null) {
+            try {
+                loadStartMenuTextures();
+            } catch (FileNotFoundException e) {
+                System.out.print("File Not Found");
+            }
+
+        }
         return pauseMenuButton;
     }
 
     public Sprite getLeftSwitchWeaponButton() {
+        if (leftSwitchWeaponButton == null) {
+            try {
+                loadStartMenuTextures();
+            } catch (FileNotFoundException e) {
+                System.out.print("File Not Found");
+            }
+
+        }
         return leftSwitchWeaponButton;
     }
 
     public Sprite getRightSwitchWeaponButton() {
+        if (rightSwitchWeaponButton == null) {
+            try {
+                loadStartMenuTextures();
+            } catch (FileNotFoundException e) {
+                System.out.print("File Not Found");
+            }
+
+        }
         return rightSwitchWeaponButton;
     }
 
-    private AssetsManager() {
-        spriteArrays = new HashMap<Id, Array<Sprite>>();
-        loadMapNames();
-    }
-
     public List<Sound> getSoundEffects() {
+        if (soundEffects == null) {
+            try {
+                loadPauseMenuTextures();
+            } catch (FileNotFoundException e) {
+                System.out.print("File Not Found");
+            }
+
+        }
         return soundEffects;
     }
 
     public List<BitmapFont> getFonts() {
+        if (fonts == null) {
+            try {
+                loadPauseMenuTextures();
+            } catch (FileNotFoundException e) {
+                System.out.print("File Not Found");
+            }
+
+        }
         return fonts;
     }
 
     public Array<Sprite> getLeftPressedButtonSprites() {
+        if (leftPressedButton == null) {
+            try {
+                loadPauseMenuTextures();
+            } catch (FileNotFoundException e) {
+                System.out.print("File Not Found");
+            }
+
+        }
         return leftPressedButton;
     }
 
     public Array<Sprite> getRightPressedButtonSprites() {
+        if (rightPressedButton == null) {
+            try {
+                loadPauseMenuTextures();
+            } catch (FileNotFoundException e) {
+                System.out.print("File Not Found");
+            }
+
+        }
         return rightPressedButton;
     }
 
     public Array<Sprite> getLeftNotPressedButtonSprites() {
+        if (leftNotPressedButton == null) {
+            try {
+                loadPauseMenuTextures();
+            } catch (FileNotFoundException e) {
+                System.out.print("File Not Found");
+            }
+
+        }
         return leftNotPressedButton;
     }
 
     public Array<Sprite> getRightNotPressedButtonSprites() {
+        if (rightNotPressedButton == null) {
+            try {
+                loadPauseMenuTextures();
+            } catch (FileNotFoundException e) {
+                System.out.print("File Not Found");
+            }
+
+        }
         return rightNotPressedButton;
     }
 
@@ -293,7 +421,7 @@ public class AssetsManager {
 
     }
 
-    private void loadProjectileSprite() {
+    private void loadProjectileSprite() throws FileNotFoundException {
         projectile = new Sprite(new Texture(Gdx.files.internal("Projectile.png")));
     }
 
@@ -352,7 +480,13 @@ public class AssetsManager {
         fonts.add(generator.generateFont(parameter));
         generator.dispose();
     }
-    public void loadInGameAssets(String mapString) {
+
+    /**
+     * Called right before a gamesession is launched to load all images in the UI.
+     *
+     * @param mapString name of the map being played
+     */
+    private void loadInGameAssets(String mapString) {
         try {
             loadLeftSwitchWeaponButton();
             loadRightSwitchWeaponButton();
@@ -368,7 +502,10 @@ public class AssetsManager {
         }
     }
 
-    public void loadStartUpAssets() {
+    /**
+     * Called when the app is first launched to load all images in the main menu.
+     */
+    public void loadStartMenuAssets() {
         try {
             loadStartMenuTextures();
         } catch (FileNotFoundException e) {
@@ -376,6 +513,9 @@ public class AssetsManager {
         }
     }
 
+    /**
+     * Called when the user goes into the custom game menu to load all the images in it.
+     */
     public void loadCustomGameAssets() {
         try {
             loadMapNames();
@@ -386,21 +526,32 @@ public class AssetsManager {
         }
     }
 
-    public void loadNewGameAssets(int nrOfPlayers, String mapString){
-        if (nrOfPlayers == 2){
+    /**
+     * Loads the assets needed to start a game with a set number of players and a
+     * specified map.
+     *
+     * @param nrOfPlayers The number of tanks in the game session.
+     * @param mapString   Name of the chosen map.
+     */
+    public void loadNewGameAssets(int nrOfPlayers, String mapString) {
+        if (nrOfPlayers == 2) {
             load2PlayerAssets();
-        }else if (nrOfPlayers == 3){
+        } else if (nrOfPlayers == 3) {
             load3PlayerAssets();
-        }else if (nrOfPlayers == 4){
+        } else if (nrOfPlayers == 4) {
             load4PlayerAssets();
         }
         loadInGameAssets(mapString);
     }
 
-    public void loadPauseMenuAssets(){
-        try{
+
+    /**
+     * Called the first time the pause menu is opened to load all the images there.
+     */
+    public void loadPauseMenuAssets() {
+        try {
             loadPauseMenuTextures();
-        }catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("Files Not Found");
         }
 

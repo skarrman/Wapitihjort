@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Created by antonhagermalm on 2017-04-27.
+ * Static class holding information about constant values used in the game.
  */
 public class Constants {
     private static final float mapWidth = 150f;
@@ -22,15 +22,14 @@ public class Constants {
     public static float getGravity(){
         return gravity;
     }
-    public static float pixelsPerMeter(){
-        return Gdx.graphics.getWidth() / mapWidth;
-    }
     public static float getShootOffsetTank(){
         return shootOffsetTank;
     }
 
+    public static float pixelsPerMeter(){
+        return Gdx.graphics.getWidth() / mapWidth;
+    }
     public static float metersPerPixel(){
-        //System.out.println(mapWidth / Gdx.graphics.getWidth());
         return mapWidth / Gdx.graphics.getWidth();
     }
 
