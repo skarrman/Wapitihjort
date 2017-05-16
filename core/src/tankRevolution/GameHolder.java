@@ -65,7 +65,7 @@ public class GameHolder implements ApplicationListener {
      */
     public void startNewGame(TankRevolution currentGame) {
         this.currentGame = currentGame;
-        environment = new Environment(currentGame, "Burning Dessert Wolf");
+        environment = new Environment(currentGame, "Burning Desert Wolf");
         setGameMode();
     }
 
