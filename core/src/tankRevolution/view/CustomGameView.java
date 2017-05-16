@@ -23,8 +23,6 @@ public class CustomGameView implements Viewable {
 
     private Batch batch;
 
-    private BitmapFont bigFont;
-
     private BitmapFont smallFont;
 
     private GlyphLayout label;
@@ -80,9 +78,7 @@ public class CustomGameView implements Viewable {
         batch = new SpriteBatch();
         str = new StringBuilder();
         AssetsManager assetsManager = AssetsManager.getInstance();
-        bigFont = assetsManager.getFonts().get(1);
         label = new GlyphLayout();
-        bigFont.setColor(0, 0, 0, 1);
         smallFont = assetsManager.getFonts().get(2);
         smallFont.setColor(0, 0, 0, 1);
         mapNames = assetsManager.getMapNames();
