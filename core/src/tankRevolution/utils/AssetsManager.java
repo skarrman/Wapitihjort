@@ -438,7 +438,7 @@ public class AssetsManager {
         generator.dispose();
     }
 
-    private void loadCustomGameFont() {
+    private void loadCustomGameFont() throws FileNotFoundException{
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Noteworthy-Light.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = Gdx.graphics.getWidth() / 22;
@@ -484,7 +484,7 @@ public class AssetsManager {
     public void loadCustomGameAssets() {
         try {
             loadMapNames();
-            loadFonts();
+            loadCustomGameFont();
             //loadCustomGameMenuAssets();
         } catch (FileNotFoundException e) {
             System.out.println("Files Not Found");

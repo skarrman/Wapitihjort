@@ -80,7 +80,7 @@ public class GameHolder implements ApplicationListener {
     }
 
     public void setCustomGameMode() {
-        AssetsManager.getInstance().getCustomGameMenuTextures();
+        AssetsManager.getInstance().loadCustomGameAssets();
         view = new CustomGameView();
         mainController.setCustomGameMode(this, (CustomGameView) view);
     }
