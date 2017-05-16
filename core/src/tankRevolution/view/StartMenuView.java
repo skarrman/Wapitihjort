@@ -37,7 +37,7 @@ public class StartMenuView implements Viewable {
         customStartSprite = new Sprite(textures.get(2));
         highScoreSprite = new Sprite(textures.get(3));
         settingsSprite = new Sprite(textures.get(4));
-        background = new Sprite(new Texture(Gdx.files.internal("StartMenuBackground.png")));
+        background = new Sprite(new Texture(Gdx.files.internal("MainMenu/Backgroundgreen.png")));
         background.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         setSpriteSizes();

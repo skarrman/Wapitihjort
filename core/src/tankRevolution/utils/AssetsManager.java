@@ -427,17 +427,17 @@ public class AssetsManager {
 
     private Texture getSettingsTexture() {
         if (settingsTexture == null) {
-            settingsTexture = new Texture(Gdx.files.internal("Kugghjul.png"));
+            settingsTexture = new Texture(Gdx.files.internal("MainMenu/gear.png"));
         }
         return settingsTexture;
     }
 
     private void loadStartMenuTextures() throws FileNotFoundException {
         startMenuTextures = new ArrayList<Texture>();
-        startMenuTextures.add(new Texture(Gdx.files.internal("NewGameButtonIcon.png")));
-        startMenuTextures.add(new Texture(Gdx.files.internal("Disabled.png")));
-        startMenuTextures.add(new Texture(Gdx.files.internal("Disabled.png")));
-        startMenuTextures.add(new Texture(Gdx.files.internal("Disabled.png")));
+        startMenuTextures.add(new Texture(Gdx.files.internal("MainMenu/QuickGame.png")));
+        startMenuTextures.add(new Texture(Gdx.files.internal("MainMenu/WorldCS.png")));
+        startMenuTextures.add(new Texture(Gdx.files.internal("MainMenu/CustomGame.png")));
+        startMenuTextures.add(new Texture(Gdx.files.internal("MainMenu/HighScoreCS.png")));
         startMenuTextures.add(getSettingsTexture());
     }
 
