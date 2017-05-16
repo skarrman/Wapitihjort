@@ -115,7 +115,7 @@ public class AssetsManager {
      * @param nrOfPlayers nr of players
      */
     public void loadStartingAssets(int nrOfPlayers) {
-       /* if (nrOfPlayers == 2) {
+       if (nrOfPlayers == 2) {
             load2PlayerAssets();
         } else if (nrOfPlayers == 3) {
             load3PlayerAssets();
@@ -137,7 +137,7 @@ public class AssetsManager {
             loadMoveButtonTextures();
         } catch (FileNotFoundException e) {
             System.out.println("One or more textures not found");
-        }*/
+        }
     }
 
     /**
