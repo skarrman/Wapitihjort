@@ -38,6 +38,10 @@ public class AssetsManager {
     private List<Texture> startMenuTextures;
 
     /**
+     * The images shown in the custom game menu.
+     */
+    private List<Sprite> customGameMenuTextures;
+    /**
      * The images shown in the pause menu.
      */
     private List<Texture> pauseMenuTextures;
@@ -92,10 +96,6 @@ public class AssetsManager {
      */
     private List<String> mapNames;
 
-    private AssetsManager() {
-        spriteArrays = new HashMap<Id, Array<Sprite>>();
-        loadMapNames();
-    }
     /**
      * our instance
      */
@@ -106,38 +106,6 @@ public class AssetsManager {
      */
     public static AssetsManager getInstance() {
         return ourInstance;
-    }
-
-    /**
-     * loads all assets that is need to start the game, should be called during game startup.
-     * Only loads the tank textures for the players who are playing
-     *
-     * @param nrOfPlayers nr of players
-     */
-    public void loadStartingAssets(int nrOfPlayers) {
-       if (nrOfPlayers == 2) {
-            load2PlayerAssets();
-        } else if (nrOfPlayers == 3) {
-            load3PlayerAssets();
-        } else {
-            load4PlayerAssets();
-        }
-
-        try {
-            loadExplosionTextureAtlas();
-            loadProjectileSprite();
-            loadStartMenuTextures();
-            loadPauseMenuTextures();
-            loadPauseButtonTexture();
-            loadSoundEffects();
-            loadFonts();
-            loadCustomGameFont();
-            loadRightSwitchWeaponButton();
-            loadLeftSwitchWeaponButton();
-            loadMoveButtonTextures();
-        } catch (FileNotFoundException e) {
-            System.out.println("One or more textures not found");
-        }
     }
 
     /**
@@ -194,6 +162,16 @@ public class AssetsManager {
 
         }
         return pauseMenuButton;
+    }
+
+    public List<Sprite> getCustomGameMenuTextures(){
+        if (customGameMenuTextures == null){
+            try{
+                loadCustomGameMenuAssets();
+            }catch(FileNotFoundException e){
+                System.out.println("File Not Found");
+            }
+        }return customGameMenuTextures;
     }
 
     public Sprite getLeftSwitchWeaponButton() {
@@ -300,7 +278,7 @@ public class AssetsManager {
         return mapNames.get(i);
     }
 
-    private void loadMapNames() {
+    public void loadMapNames() {
         FileHandle fileHandle = Gdx.files.internal("maps/" + "mapNames");
         String maps = fileHandle.readString();
         mapNames = new ArrayList<String>();
@@ -554,6 +532,10 @@ public class AssetsManager {
         } catch (FileNotFoundException e) {
             System.out.println("Files Not Found");
         }
+
+    }
+
+    public void loadCustomGameMenuAssets() throws FileNotFoundException{
 
     }
 }

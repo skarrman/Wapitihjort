@@ -7,6 +7,7 @@ import tankRevolution.GameHolder;
 import tankRevolution.model.NPC;
 import tankRevolution.model.NPCDifficulty;
 import tankRevolution.model.Options;
+import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
 
 import java.util.ArrayList;

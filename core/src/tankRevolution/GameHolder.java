@@ -20,14 +20,15 @@ public class GameHolder implements ApplicationListener {
     private TankRevolution currentGame;
     private Environment environment;
     private MainController mainController;
+
     /**
      * Called when the {@link Application} is first created.
      */
     @Override
     public void create() {
-        AssetsManager.getInstance().loadStartingAssets(4);
+        AssetsManager.getInstance().loadMapNames();
         mainController = new MainController();
-       setStartMenuMode();
+        setStartMenuMode();
     }
 
     /**
@@ -35,15 +36,16 @@ public class GameHolder implements ApplicationListener {
      */
     @Override
     public void render() {
-            view.update();
-            mainController.update();
+        view.update();
+        mainController.update();
     }
 
     /**
      * Shows the main menu where the user can chose between starting a quick game, a custom game, show highscore
      * and show the world for the campaign mode.
      */
-    public void setStartMenuMode(){
+    public void setStartMenuMode() {
+        AssetsManager.getInstance().loadStartMenuAssets();
         view = new StartMenuView();
         mainController.setStartMenuMode(this);
     }
@@ -51,30 +53,33 @@ public class GameHolder implements ApplicationListener {
     /**
      * Shows the in-game UI and connects the relevant model, view and controller.
      */
-    public void setGameMode(){
+    public void setGameMode() {
         view = new GameView(environment);
-        mainController.setGameMode(environment,view, this);
+        mainController.setGameMode(environment, view, this);
     }
 
     /**
      * Sets up classes to start a new game.
+     *
      * @param currentGame The current game model.
      */
-    public void startNewGame(TankRevolution currentGame){
-            this.currentGame = currentGame;
-            environment = new Environment(currentGame, "Burning Dessert Wolf");
-            setGameMode();
+    public void startNewGame(TankRevolution currentGame) {
+        this.currentGame = currentGame;
+        environment = new Environment(currentGame, "Burning Dessert Wolf");
+        setGameMode();
     }
 
     /**
      * Called when the pause menu button is pressed
      */
-    public void setPauseMenuMode(){
+    public void setPauseMenuMode() {
+        AssetsManager.getInstance().getPauseMenuTextures();
         mainController.setPauseMenuMode(this);
         view = new PauseMenuView();
     }
 
-    public void setCustomGameMode(){
+    public void setCustomGameMode() {
+        AssetsManager.getInstance().getCustomGameMenuTextures();
         view = new CustomGameView();
         mainController.setCustomGameMode(this, (CustomGameView) view);
     }
