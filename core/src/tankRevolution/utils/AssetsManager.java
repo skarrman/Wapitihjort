@@ -96,6 +96,10 @@ public class AssetsManager {
      */
     private List<String> mapNames;
 
+    private AssetsManager(){
+        spriteArrays = new HashMap<Id, Array<Sprite>>();
+    }
+
     /**
      * our instance
      */
