@@ -159,7 +159,7 @@ public class AssetsManager {
     public Sprite getPauseMenuButton() {
         if (pauseMenuButton == null) {
             try {
-                loadStartMenuTextures();
+                loadPauseButtonTexture();
             } catch (FileNotFoundException e) {
                 System.out.print("File Not Found");
             }
@@ -180,24 +180,14 @@ public class AssetsManager {
 
     public Sprite getLeftSwitchWeaponButton() {
         if (leftSwitchWeaponButton == null) {
-            try {
-                loadStartMenuTextures();
-            } catch (FileNotFoundException e) {
-                System.out.print("File Not Found");
-            }
-
+            loadLeftSwitchWeaponButton();
         }
         return leftSwitchWeaponButton;
     }
 
     public Sprite getRightSwitchWeaponButton() {
         if (rightSwitchWeaponButton == null) {
-            try {
-                loadStartMenuTextures();
-            } catch (FileNotFoundException e) {
-                System.out.print("File Not Found");
-            }
-
+            loadRightSwitchWeaponButton();
         }
         return rightSwitchWeaponButton;
     }
@@ -205,7 +195,7 @@ public class AssetsManager {
     public List<Sound> getSoundEffects() {
         if (soundEffects == null) {
             try {
-                loadPauseMenuTextures();
+                loadSoundEffects();
             } catch (FileNotFoundException e) {
                 System.out.print("File Not Found");
             }
@@ -217,7 +207,8 @@ public class AssetsManager {
     public List<BitmapFont> getFonts() {
         if (fonts == null) {
             try {
-                loadPauseMenuTextures();
+                loadFonts();
+                loadCustomGameFont();
             } catch (FileNotFoundException e) {
                 System.out.print("File Not Found");
             }
@@ -229,7 +220,7 @@ public class AssetsManager {
     public Array<Sprite> getLeftPressedButtonSprites() {
         if (leftPressedButton == null) {
             try {
-                loadPauseMenuTextures();
+                loadMoveButtonTextures();
             } catch (FileNotFoundException e) {
                 System.out.print("File Not Found");
             }
@@ -241,7 +232,7 @@ public class AssetsManager {
     public Array<Sprite> getRightPressedButtonSprites() {
         if (rightPressedButton == null) {
             try {
-                loadPauseMenuTextures();
+                loadMoveButtonTextures();
             } catch (FileNotFoundException e) {
                 System.out.print("File Not Found");
             }
@@ -253,7 +244,7 @@ public class AssetsManager {
     public Array<Sprite> getLeftNotPressedButtonSprites() {
         if (leftNotPressedButton == null) {
             try {
-                loadPauseMenuTextures();
+                loadMoveButtonTextures();
             } catch (FileNotFoundException e) {
                 System.out.print("File Not Found");
             }
@@ -265,7 +256,7 @@ public class AssetsManager {
     public Array<Sprite> getRightNotPressedButtonSprites() {
         if (rightNotPressedButton == null) {
             try {
-                loadPauseMenuTextures();
+                loadMoveButtonTextures();
             } catch (FileNotFoundException e) {
                 System.out.print("File Not Found");
             }
