@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 public class TurnIndicatorAnimation {
 
     /** The distance between the arrow and the thank vertically */
-    private int distanceToTank = 10;
+    private int distanceToTank = 25;
 
     /** Keeps track of the time so that the animation is correct */
     private float time = 0;

@@ -338,42 +338,34 @@ public class AssetsManager {
 
     private void loadPlayer1TankTextureAtlas() throws FileNotFoundException {
         Array<Sprite> greenTank = new Array<Sprite>();
-        for (int i = 0; i <= 180; i += 10) {
-            greenTank.add(new Sprite(new Texture(Gdx.files.internal("GreenTank/GreenTank" + i + ".png"))));
-        }
+        greenTank.add(new Sprite(new Texture(Gdx.files.internal("TankBody/greentank.png"))));
         spriteArrays.put(Id.PLAYER1, greenTank);
     }
 
     private void loadPlayer2TankTextureAtlas() throws FileNotFoundException {
         Array<Sprite> whiteTank = new Array<Sprite>();
-        for (int i = 0; i <= 180; i += 10) {
-            whiteTank.add(new Sprite(new Texture(Gdx.files.internal("WhiteTank/WhiteTank" + i + ".png"))));
-        }
+        whiteTank.add(new Sprite(new Texture(Gdx.files.internal("TankBody/whitetank.png"))));
         spriteArrays.put(Id.PLAYER2, whiteTank);
     }
 
     private void loadPlayer3TankTextureAtlas() throws FileNotFoundException {
         Array<Sprite> yellowTank = new Array<Sprite>();
-        for (int i = 0; i <= 180; i += 10) {
-            yellowTank.add(new Sprite(new Texture(Gdx.files.internal("YellowTank/YellowTank" + i + ".png"))));
-        }
+        yellowTank.add(new Sprite(new Texture(Gdx.files.internal("TankBody/yellowtank.png"))));
         spriteArrays.put(Id.PLAYER3, yellowTank);
     }
 
     private void loadPlayer4TankTextureAtlas() throws FileNotFoundException {
         Array<Sprite> blueTank = new Array<Sprite>();
-        for (int i = 0; i <= 180; i += 10) {
-            blueTank.add(new Sprite(new Texture(Gdx.files.internal("BlueTank/BlueTank" + i + ".png"))));
-        }
+        blueTank.add(new Sprite(new Texture(Gdx.files.internal("TankBody/bluetank.png"))));
         spriteArrays.put(Id.PLAYER4, blueTank);
     }
 
     public void loadRightSwitchWeaponButton() {
-        rightSwitchWeaponButton = new Sprite(new Texture(Gdx.files.internal("RightSwitchWeaponArrow.png")));
+        rightSwitchWeaponButton = new Sprite(new Texture(Gdx.files.internal("Arrows/RightArrow.png")));
     }
 
     public void loadLeftSwitchWeaponButton() {
-        leftSwitchWeaponButton = new Sprite(new Texture(Gdx.files.internal("LeftSwitchWeaponArrow.png")));
+        leftSwitchWeaponButton = new Sprite(new Texture(Gdx.files.internal("Arrows/LeftArrow.png")));
     }
 
     public void loadMap(String mapName) {
