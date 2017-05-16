@@ -93,6 +93,7 @@ public class AssetsManager {
             loadPauseButtonTexture();
             loadSoundEffects();
             loadFonts();
+            loadCustomGameFont();
             loadRightSwitchWeaponButton();
             loadLeftSwitchWeaponButton();
             loadMoveButtonTextures();
@@ -335,6 +336,14 @@ public class AssetsManager {
         generator = new FreeTypeFontGenerator(Gdx.files.internal("Noteworthy-Bold.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = Gdx.graphics.getWidth() / 16;
+        fonts.add(generator.generateFont(parameter));
+        generator.dispose();
+    }
+
+    private void loadCustomGameFont(){
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Noteworthy-Light.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = Gdx.graphics.getWidth() / 22;
         fonts.add(generator.generateFont(parameter));
         generator.dispose();
     }

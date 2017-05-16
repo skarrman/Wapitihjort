@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
+import tankRevolution.utils.Vector;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class CustomGameView implements Viewable {
         bigFont = assetsManager.getFonts().get(1);
         label = new GlyphLayout();
         bigFont.setColor(0, 0, 0, 1);
-        smallFont = assetsManager.getFonts().get(0);
+        smallFont = assetsManager.getFonts().get(2);
         smallFont.setColor(0,0,0,1);
         mapNames = assetsManager.getMapNames();
 
@@ -100,12 +101,17 @@ public class CustomGameView implements Viewable {
         Vector2 rightArrowPos = Constants.getRightWeaponPosition();
         rightMapArrow.setPosition(rightArrowPos.x, rightArrowPos.y);
 
-        numberOfPlayersPicker.setPosition(Gdx.graphics.getWidth()/2 - numberOfPlayersPicker.getWidth()/2 ,
-                12 * Gdx.graphics.getHeight()/16);
-        npcOrPlayerPicker.setPosition(Gdx.graphics.getWidth()/2, 10 * Gdx.graphics.getHeight()/16);
+        Vector2 numberOfPlayerPos = Constants.getNumberOfPlayersPos();
+        numberOfPlayersPicker.setPosition(numberOfPlayerPos.x, numberOfPlayerPos.y);
 
-        npcDifficutlyPicker.setPosition(numberOfPlayersPicker.getX()+numberOfPlayersPicker.getWidth()-npcDifficutlyPicker.getWidth(),
-                                        10 * Gdx.graphics.getHeight()/16);
+        float npcOrPlayerX = Constants.getNpcOrPlayerX();
+        npcOrPlayerPicker.setX(npcOrPlayerX);
+
+        float npcDifficultyX = Constants.getNpcDifficultyX();
+        npcDifficutlyPicker.setX(npcDifficultyX);
+
+        Vector2 startButtonPos = Constants.getStartCustomGamePos();
+        startGameButton.setPosition(startButtonPos.x, startButtonPos.y);
 
     }
 
@@ -114,12 +120,20 @@ public class CustomGameView implements Viewable {
         leftMapArrow.setSize(arrowSize, arrowSize);
         rightMapArrow.setSize(arrowSize, arrowSize);
 
-        Vector2 numberOfPlayersSize = new Vector2(6 * Gdx.graphics.getWidth()/8, Gdx.graphics.getHeight()/10);
-        numberOfPlayersPicker.setSize(numberOfPlayersSize.x, numberOfPlayersSize.y);
+        float pickerHeight = Constants.getPickerHeight();
 
-        Vector2 playerSettingsPickerSize = new Vector2(4 * Gdx.graphics.getWidth()/24, Gdx.graphics.getHeight()/10);
-        npcOrPlayerPicker.setSize(playerSettingsPickerSize.x, playerSettingsPickerSize.y);
-        npcDifficutlyPicker.setSize(playerSettingsPickerSize.x, playerSettingsPickerSize.y);
+        float numberOfPlayersWidth = Constants.getNumberOfPlayerWidth();
+        numberOfPlayersPicker.setSize(numberOfPlayersWidth, pickerHeight);
+
+        float npcOrPlayerWidth = Constants.getNpcOrPlayerWidth();
+        npcOrPlayerPicker.setSize(npcOrPlayerWidth, pickerHeight);
+
+        float npcDifficultyWidth = Constants.getNpcDifficultyWidth();
+        npcDifficutlyPicker.setSize(npcDifficultyWidth, pickerHeight);
+
+        float startCustomGameWidth = Constants.getStartCustomGameWidth();
+        float startCustomGameHeight = Constants.getStartCustomGameHeight();
+        startGameButton.setSize(startCustomGameWidth, startCustomGameHeight);
 
     }
 
@@ -130,9 +144,9 @@ public class CustomGameView implements Viewable {
             label.setText(smallFont, str);
             float height = label.height;
             smallFont.draw(batch, str, numberOfPlayersPicker.getX(),
-                        (10 - i * 2)*Gdx.graphics.getHeight()/16 + npcDifficutlyPicker.getHeight()/2 + height/2);
-            npcOrPlayerPicker.setY((10 - i * 2)*Gdx.graphics.getHeight()/16);
-            npcDifficutlyPicker.setY((10 - i * 2)*Gdx.graphics.getHeight()/16);
+                        Constants.getPickerY(i) + npcDifficutlyPicker.getHeight()/2 + height/2);
+            npcOrPlayerPicker.setY(Constants.getPickerY(i));
+            npcDifficutlyPicker.setY(Constants.getPickerY(i));
             npcOrPlayerPicker.draw(batch);
             npcDifficutlyPicker.draw(batch);
         }

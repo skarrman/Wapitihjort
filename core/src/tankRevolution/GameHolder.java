@@ -62,6 +62,7 @@ public class GameHolder implements ApplicationListener {
 
     public void setCustomGameMode(){
         view = new CustomGameView();
+        mainController.setCustomGameMode(this, (CustomGameView) view);
     }
 
     /**

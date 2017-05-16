@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import tankRevolution.GameHolder;
 import tankRevolution.framework.Environment;
 import tankRevolution.model.TankRevolution;
+import tankRevolution.view.CustomGameView;
 import tankRevolution.view.GameView;
 import tankRevolution.view.Viewable;
 
@@ -56,6 +57,10 @@ public class MainController {
      */
     public void setPauseMenuMode(GameHolder gameHolder) {
         Gdx.input.setInputProcessor(new PauseMenuController(gameHolder).getStage());
+    }
+
+    public void setCustomGameMode(GameHolder gameHolder, CustomGameView view){
+        Gdx.input.setInputProcessor(new CustomGameController(gameHolder, view).getStage());
     }
 
     /**

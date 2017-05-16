@@ -119,4 +119,48 @@ public class Constants {
      return new Vector2(3 * Gdx.graphics.getWidth()/8,14 * Gdx.graphics.getHeight()/16);
     }
 
+    public static float getPickerHeight(){
+        return Gdx.graphics.getHeight()/10;
+    }
+
+    public static float getNumberOfPlayerWidth(){
+        return 6 * Gdx.graphics.getWidth()/8;
+    }
+
+    public static float getNpcOrPlayerWidth(){
+        return 4 * Gdx.graphics.getWidth()/24;
+    }
+
+    public static float getNpcDifficultyWidth(){
+        return getNpcOrPlayerWidth()*2;
+    }
+
+    public static float getPickerY(int i){
+       return  (10 - i * 2)*Gdx.graphics.getHeight()/16;
+    }
+
+    public static Vector2 getNumberOfPlayersPos(){
+        return new Vector2(Gdx.graphics.getWidth()/2 - getNumberOfPlayerWidth()/2 ,12 * Gdx.graphics.getHeight()/16);
+    }
+
+    public static float getNpcOrPlayerX(){
+        return Gdx.graphics.getWidth()/2 - getNpcOrPlayerWidth();
+    }
+
+    public static float getNpcDifficultyX(){
+        return getNumberOfPlayersPos().x+getNumberOfPlayerWidth()-getNpcDifficultyWidth();
+    }
+
+    public static float getStartCustomGameWidth(){
+        return getNumberOfPlayerWidth();
+    }
+
+    public static float getStartCustomGameHeight(){
+        return getPickerHeight()*2;
+    }
+
+    public static Vector2 getStartCustomGamePos(){
+        return new Vector2(Gdx.graphics.getWidth()/2 - getStartCustomGameWidth()/2, Gdx.graphics.getHeight()/16);
+    }
+
 }
