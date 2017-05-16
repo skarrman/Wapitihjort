@@ -157,6 +157,7 @@ public class Environment {
 
     /**
      * Places the body of a tank at a specified location based on what player owns it.
+     *
      * @param tank the tank object from the model being created.
      */
     public void addTank(Tank tank, Id id) {
@@ -208,7 +209,7 @@ public class Environment {
         return tanks.get(tank);
     }
 
-    public Body getProjectileBody(Shootable s){
+    public Body getProjectileBody(Shootable s) {
         return projectiles.get(s);
     }
 
@@ -216,7 +217,7 @@ public class Environment {
         return explosions;
     }
 
-    public boolean gameOver(){
+    public boolean gameOver() {
         return tanks.size() < 2;
     }
 
@@ -224,15 +225,37 @@ public class Environment {
         world.dispose();
     }
 
+    private void tankOutsideMapCheck() {
+        for (int i = 0; i < tankRevolution.getCharacterList().size(); i++) {
+            Vector2 position = tanks.get(tankRevolution.getCharacterList().get(i).getTank()).getPosition();
+            if (position.y < -2) {
+                destroyTank(tankRevolution.getCharacterList().get(i).getTank());
+                i--;
+            }
+        }
+    }
+
+    private void projectileOutsideMapCheck() {
+        for (int i = 0; i < tankRevolution.getFlyingProjectiles().size(); i++) {
+            Vector2 position = projectiles.get(tankRevolution.getFlyingProjectiles().get(i)).getPosition();
+            if (position.y < -2) {
+                destroyProjectile(tankRevolution.getFlyingProjectiles().get(i));
+                i--;
+            }
+        }
+    }
+
     /**
      * Moves the world forward one step and updates everything accordingly. called 60 times/second.
      */
     public void update() {
         isTankFalling = true;
+        tankOutsideMapCheck();
+        projectileOutsideMapCheck();
         //levelTank();
         stackUpdate();
         time = System.currentTimeMillis() - time;
-        world.step((Math.min((float)time/1000,Gdx.graphics.getDeltaTime())), 6, 2);
+        world.step((Math.min((float) time / 1000, Gdx.graphics.getDeltaTime())), 6, 2);
         terrainHandler.update();
         if (NPCWillShoot()) {
             NPCDoShoot();
@@ -240,7 +263,7 @@ public class Environment {
         time = System.currentTimeMillis();
     }
 
-    public boolean isTerrainChanged(){
+    public boolean isTerrainChanged() {
         boolean value = isTerrainChanged;
         isTerrainChanged = false;
 
@@ -261,6 +284,7 @@ public class Environment {
 
     /**
      * Damages the tanks hit and plays the explosion animation where the projectile hit.
+     *
      * @param projectile the projectile that hit something.
      */
     void projectileHit(Shootable projectile) {
@@ -310,10 +334,9 @@ public class Environment {
     }
 
     /**
-     *
      * @param tank
      * @param projectile
-     * @return  The distance between the tank and the projectile.
+     * @return The distance between the tank and the projectile.
      */
     public float distanceTo(Tank tank, Shootable projectile) {
         float deltaX = Math.abs(getTankX(tank) - getProjectileX(projectile));
@@ -323,6 +346,7 @@ public class Environment {
 
     /**
      * Moves tank based on input from user.
+     *
      * @param direction recieves it from ButtonController, 1 if moving right, -1 if moving left
      */
     public void moveTank(int direction) {
@@ -343,20 +367,21 @@ public class Environment {
     /**
      * @return true if there is nothing stopping the tank from moving.
      */
-    public boolean tankCanMove(){
+    public boolean tankCanMove() {
         return tankRevolution.tankCanMove() && !isTankFalling;
     }
 
     /**
      * Applies torque to make the tank level itself out to stop it from flipping over.
      */
-    private void levelTank(){
-        if (getTankBody(tankRevolution.getCurrentTank()).getAngle() < -0.1){
+    private void levelTank() {
+        if (getTankBody(tankRevolution.getCurrentTank()).getAngle() < -0.1) {
             getTankBody(tankRevolution.getCurrentTank()).applyTorque(100000, true);
-        }else if (getTankBody(tankRevolution.getCurrentTank()).getAngle() > 0.1){
+        } else if (getTankBody(tankRevolution.getCurrentTank()).getAngle() > 0.1) {
             getTankBody(tankRevolution.getCurrentTank()).applyTorque(-100000, true);
         }
     }
+
     /**
      * @param screenX x-coordinate of the point where the user released touch.
      * @param screenY y-coordinate of the point where the user released touch.
@@ -364,30 +389,31 @@ public class Environment {
      * @param touchY  y-coordinate of the user's initial touch.
      */
     public void shoot(int screenX, int screenY, float touchX, float touchY) {
-        shoot(Constants.metersPerPixel() * (touchX - screenX),Constants.metersPerPixel() * (screenY - touchY));
+        shoot(Constants.metersPerPixel() * (touchX - screenX), Constants.metersPerPixel() * (screenY - touchY));
     }
 
     /**
      * Fires a projectile in a direction based on either the user's input or a calculation for the NPC.
+     *
      * @param deltaX distance x-wise between user's initial input and where touch was let go.
      * @param deltaY distance y-wise between user's initial input and where touch was let go.
      */
-    public void shoot(float deltaX, float deltaY){
+    public void shoot(float deltaX, float deltaY) {
         Tank shooter = tankRevolution.getCurrentTank();
         List<Shootable> projectiles = tankRevolution.shoot(deltaX, deltaY);
         for (Shootable s : projectiles) {
-            addProjectile(s, shooter,  deltaX, deltaY);
+            addProjectile(s, shooter, deltaX, deltaY);
         }
     }
 
     /**
      * Calculates the perfect shot and puts a random fault based on difficulty.
      */
-    public void NPCDoShoot(){
+    public void NPCDoShoot() {
         List<Tank> tanksToNPC = new ArrayList<Tank>();
         tanksToNPC.addAll(tanks.keySet());
         List<Point> positionsToNPC = new ArrayList<Point>();
-        for (Tank t: tanksToNPC){
+        for (Tank t : tanksToNPC) {
             float positionX = getTankX(t);
             float positionY = getTankY(t);
             positionsToNPC.add(new Point(positionX, positionY));
@@ -397,7 +423,7 @@ public class Environment {
         shoot(vector.getDeltaX(), vector.getDeltaY());
     }
 
-    public List<float[]> getVertices(){
+    public List<float[]> getVertices() {
         return terrainHandler.getVertices();
     }
 
@@ -413,11 +439,11 @@ public class Environment {
         return tanks.get(tank).getPosition().y;
     }
 
-    public boolean getTankFalling(){
+    public boolean getTankFalling() {
         return isTankFalling;
     }
 
-    public void setTankFalling(boolean b){
+    public void setTankFalling(boolean b) {
         isTankFalling = b;
     }
 
@@ -462,20 +488,20 @@ public class Environment {
         world.setContactListener(new EnvironmentCollisions(this, terrainHandler));
     }
 
-    public AmmunitionType getCurrentWeapon(){
+    public AmmunitionType getCurrentWeapon() {
         return getCurrentTank().getCurrentWeapon();
     }
 
-    public void setNextWeapon(){
+    public void setNextWeapon() {
         getCurrentTank().setNextWeapon();
     }
 
-    public void setPreviousWeapon(){
+    public void setPreviousWeapon() {
         getCurrentTank().setPreviousWeapon();
     }
 
-    private Vector2 getStartingPosition(Id id){
-        switch (id){
+    private Vector2 getStartingPosition(Id id) {
+        switch (id) {
             case PLAYER1:
                 return new Vector2(5f, 20f);
 
@@ -484,19 +510,19 @@ public class Environment {
 
             case PLAYER3:
                 Vector2 vector;
-                if(getCharacterList().size() == 3){
-                    vector = new Vector2(Constants.getMapWidth()/2, 40f);
-                }else{
-                   vector = new Vector2(Constants.getMapWidth()/2-20, 40f);
+                if (getCharacterList().size() == 3) {
+                    vector = new Vector2(Constants.getMapWidth() / 2, 40f);
+                } else {
+                    vector = new Vector2(Constants.getMapWidth() / 2 - 20, 40f);
                 }
                 return vector;
 
             case PLAYER4:
-               return new Vector2(Constants.getMapWidth()/2+20, 40f);
+                return new Vector2(Constants.getMapWidth() / 2 + 20, 40f);
 
             default:
                 System.out.println("Invalid Id");
-                return new Vector2(0,0);
+                return new Vector2(0, 0);
         }
     }
 
