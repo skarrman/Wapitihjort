@@ -484,6 +484,7 @@ public class AssetsManager {
     public void loadCustomGameAssets() {
         try {
             loadMapNames();
+            loadFonts();
             loadCustomGameFont();
             //loadCustomGameMenuAssets();
         } catch (FileNotFoundException e) {

@@ -27,33 +27,13 @@ public class CustomGameController {
     private Button numberOfPlayersThree;
     private Button numberOfPlayersFour;
 
-    private Button player1Npc;
-    private Button player1Actual;
-    private Button player1Easy;
-    private Button player1Medium;
-    private Button player1Hard;
-    private Button player1Expert;
+    private PlayerOptionsPicker player1;
 
-    private Button player2Npc;
-    private Button player2Actual;
-    private Button player2Easy;
-    private Button player2Medium;
-    private Button player2Hard;
-    private Button player2Expert;
+    private PlayerOptionsPicker player2;
 
-    private Button player3Npc;
-    private Button player3Actual;
-    private Button player3Easy;
-    private Button player3Medium;
-    private Button player3Hard;
-    private Button player3Expert;
+    private PlayerOptionsPicker player3;
 
-    private Button player4Npc;
-    private Button player4Actual;
-    private Button player4Easy;
-    private Button player4Medium;
-    private Button player4Hard;
-    private Button player4Expert;
+    private PlayerOptionsPicker player4;
 
     private Button startGameButton;
 
@@ -63,23 +43,8 @@ public class CustomGameController {
 
     List<String> mapNames;
 
-    private int numnberOfPlayers = 2;
+    private int numberOfPlayers = 2;
 
-    private boolean player1IsNpc = false;
-
-    private NPCDifficulty player1Difficulty;
-
-    private boolean player2IsNpc = true;
-
-    private NPCDifficulty player2Difficulty = NPCDifficulty.MEDIUM;
-
-    private boolean player3IsNpc = false;
-
-    private NPCDifficulty player3Difficulty;
-
-    private boolean player4IsNpc = false;
-
-    private NPCDifficulty player4Difficulty;
 
 
     public CustomGameController(GameHolder gameHolder, CustomGameView view){
@@ -90,40 +55,17 @@ public class CustomGameController {
         numberOfPlayersThree = new Button();
         numberOfPlayersFour = new Button();
 
-        player1Npc = new Button();
-        player1Actual = new Button();
-        player1Easy = new Button();
-        player1Medium = new Button();
-        player1Hard = new Button();
-        player1Expert = new Button();
+        player1 = new PlayerOptionsPicker(view, Id.PLAYER1);
+        player2 = new PlayerOptionsPicker(view, Id.PLAYER2);
+        player3 = new PlayerOptionsPicker(view, Id.PLAYER3);
+        player4 = new PlayerOptionsPicker(view, Id.PLAYER4);
 
-        player2Npc = new Button();
-        player2Actual = new Button();
-        player2Easy = new Button();
-        player2Medium = new Button();
-        player2Hard = new Button();
-        player2Expert = new Button();
-
-        player3Npc = new Button();
-        player3Actual = new Button();
-        player3Easy = new Button();
-        player3Medium = new Button();
-        player3Hard = new Button();
-        player3Expert = new Button();
-
-
-        player4Npc = new Button();
-        player4Actual = new Button();
-        player4Easy = new Button();
-        player4Medium = new Button();
-        player4Hard = new Button();
-        player4Expert = new Button();
-
-        mapNames = AssetsManager.getInstance().getMapNames();
 
         startGameButton = new Button();
 
         stage = new Stage();
+
+        mapNames = AssetsManager.getInstance().getMapNames();
 
         setUpButtonBounds();
         setUpButtonListener(gameHolder, view);
@@ -137,11 +79,6 @@ public class CustomGameController {
     private void setUpButtonBounds(){
         float pickerHeight = Constants.getPickerHeight();
         float numberOfPlayerWidth = Constants.getNumberOfPlayerWidth();
-        float npcOrPlayerWidth = Constants.getNpcOrPlayerWidth();
-        float npcDifficultyWidth = Constants.getNpcDifficultyWidth();
-
-        float npcOrPlayerX = Constants.getNpcOrPlayerX();
-        float npcDifficultyX = Constants.getNpcDifficultyX();
 
         float arrowSize = Constants.getWeaponArrowDimension();
         Vector2 rightArrowPos = Constants.getRightWeaponPosition();
@@ -153,38 +90,6 @@ public class CustomGameController {
         numberOfPlayersTwo.setBounds(numberOfPLayerPos.x, numberOfPLayerPos.y, numberOfPlayerWidth/3, pickerHeight);
         numberOfPlayersThree.setBounds(numberOfPLayerPos.x + numberOfPlayerWidth/3, numberOfPLayerPos.y, numberOfPlayerWidth/3, pickerHeight);
         numberOfPlayersFour.setBounds(numberOfPLayerPos.x + 2 * numberOfPlayerWidth/3, numberOfPLayerPos.y, numberOfPlayerWidth/3, pickerHeight);
-
-        float player1Y = Constants.getPickerY(0);
-        player1Npc.setBounds(npcOrPlayerX, player1Y, npcOrPlayerWidth/2, pickerHeight);
-        player1Actual.setBounds(npcOrPlayerX + npcOrPlayerWidth/2, player1Y, npcOrPlayerWidth/2, pickerHeight);
-        player1Easy.setBounds(npcDifficultyX, player1Y, npcDifficultyWidth/4, pickerHeight);
-        player1Medium.setBounds(npcDifficultyX + npcDifficultyWidth/4, player1Y, npcDifficultyWidth/4, pickerHeight);
-        player1Hard.setBounds(npcDifficultyX + 2 * npcDifficultyWidth/4, player1Y, npcDifficultyWidth/4, pickerHeight);
-        player1Expert.setBounds(npcDifficultyX + 3 * npcDifficultyWidth/4, player1Y, npcDifficultyWidth/4, pickerHeight);
-
-        float player2Y = Constants.getPickerY(1);
-        player2Npc.setBounds(npcOrPlayerX, player2Y, npcOrPlayerWidth/2, pickerHeight);
-        player2Actual.setBounds(npcOrPlayerX + npcOrPlayerWidth/2, player2Y, npcOrPlayerWidth/2, pickerHeight);
-        player2Easy.setBounds(npcDifficultyX, player2Y, npcDifficultyWidth/4, pickerHeight);
-        player2Medium.setBounds(npcDifficultyX + npcDifficultyWidth/4, player2Y, npcDifficultyWidth/4, pickerHeight);
-        player2Hard.setBounds(npcDifficultyX + 2 * npcDifficultyWidth/4, player2Y, npcDifficultyWidth/4, pickerHeight);
-        player2Expert.setBounds(npcDifficultyX + 3 * npcDifficultyWidth/4, player2Y, npcDifficultyWidth/4, pickerHeight);
-
-        float player3Y = Constants.getPickerY(2);
-        player3Npc.setBounds(npcOrPlayerX, player3Y, npcOrPlayerWidth/2, pickerHeight);
-        player3Actual.setBounds(npcOrPlayerX + npcOrPlayerWidth/2, player3Y, npcOrPlayerWidth/2, pickerHeight);
-        player3Easy.setBounds(npcDifficultyX, player3Y, npcDifficultyWidth/4, pickerHeight);
-        player3Medium.setBounds(npcDifficultyX + npcDifficultyWidth/4, player3Y, npcDifficultyWidth/4, pickerHeight);
-        player3Hard.setBounds(npcDifficultyX + 2 * npcDifficultyWidth/4, player3Y, npcDifficultyWidth/4, pickerHeight);
-        player3Expert.setBounds(npcDifficultyX + 3 * npcDifficultyWidth/4, player3Y, npcDifficultyWidth/4, pickerHeight);
-
-        float player4Y = Constants.getPickerY(3);
-        player4Npc.setBounds(npcOrPlayerX, player4Y, npcOrPlayerWidth/2, pickerHeight);
-        player4Actual.setBounds(npcOrPlayerX + npcOrPlayerWidth/2, player4Y, npcOrPlayerWidth/2, pickerHeight);
-        player4Easy.setBounds(npcDifficultyX, player4Y, npcDifficultyWidth/4, pickerHeight);
-        player4Medium.setBounds(npcDifficultyX + npcDifficultyWidth/4, player4Y, npcDifficultyWidth/4, pickerHeight);
-        player4Hard.setBounds(npcDifficultyX + 2 * npcDifficultyWidth/4, player4Y, npcDifficultyWidth/4, pickerHeight);
-        player4Expert.setBounds(npcDifficultyX + 3 * npcDifficultyWidth/4, player4Y, npcDifficultyWidth/4, pickerHeight);
 
         Vector2 startCustomGamePos = Constants.getStartCustomGamePos();
         float startCustomGameWidth = Constants.getStartCustomGameWidth();
@@ -213,7 +118,7 @@ public class CustomGameController {
         numberOfPlayersTwo.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                numnberOfPlayers = 2;
+                numberOfPlayers = 2;
                 view.setNumberOfPlayers(2);
                 return true;
             }
@@ -221,246 +126,22 @@ public class CustomGameController {
         numberOfPlayersThree.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                numnberOfPlayers = 3;
+                numberOfPlayers = 3;
                 view.setNumberOfPlayers(3);
-                player3IsNpc = true;
-                player3Difficulty = NPCDifficulty.EASY;
+                player3.setIsNPC(true);
+                player3.setDifficulty(NPCDifficulty.MEDIUM);
                 return true;
             }
         });
         numberOfPlayersFour.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                numnberOfPlayers = 4;
+                numberOfPlayers = 4;
                 view.setNumberOfPlayers(4);
-                player3IsNpc = true;
-                player3Difficulty = NPCDifficulty.EASY;
-                player4IsNpc = true;
-                player4Difficulty = NPCDifficulty.EASY;
-                return true;
-            }
-        });
-        player1Npc.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                player1IsNpc = true;
-                view.setNPC(true, Id.PLAYER1);
-                return true;
-            }
-        });
-        player1Actual.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                player1IsNpc = false;
-                view.setNPC(false, Id.PLAYER1);
-                return true;
-            }
-        });
-        player1Easy.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player1IsNpc){
-                    player1Difficulty = NPCDifficulty.EASY;
-                    view.setDifficulty(Id.PLAYER1, player1Difficulty);
-                }
-                return true;
-            }
-        });
-        player1Medium.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player1IsNpc){
-                    player1Difficulty = NPCDifficulty.MEDIUM;
-                    view.setDifficulty(Id.PLAYER1, player1Difficulty);
-                }
-                return true;
-            }
-        });
-        player1Hard.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player1IsNpc){
-                    player1Difficulty = NPCDifficulty.HARD;
-                    view.setDifficulty(Id.PLAYER1, player1Difficulty);
-                }
-                return true;
-            }
-        });
-        player1Expert.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player1IsNpc){
-                    player1Difficulty = NPCDifficulty.SUPERHARD;
-                    view.setDifficulty(Id.PLAYER1, player1Difficulty);
-                }
-                return true;
-            }
-        });
-        player2Npc.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                player2IsNpc = true;
-                view.setNPC(true, Id.PLAYER2);
-                return true;
-            }
-        });
-        player2Actual.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                player2IsNpc = false;
-                view.setNPC(false, Id.PLAYER2);
-                return true;
-            }
-        });
-        player2Easy.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player2IsNpc){
-                    player2Difficulty = NPCDifficulty.EASY;
-                    view.setDifficulty(Id.PLAYER2, player2Difficulty);
-                }
-                return true;
-            }
-        });
-        player2Medium.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player2IsNpc){
-                    player2Difficulty = NPCDifficulty.MEDIUM;
-                    view.setDifficulty(Id.PLAYER2, player2Difficulty);
-                }
-                return true;
-            }
-        });
-        player2Hard.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player2IsNpc){
-                    player2Difficulty = NPCDifficulty.HARD;
-                    view.setDifficulty(Id.PLAYER2, player2Difficulty);
-                }
-                return true;
-            }
-        });
-        player2Expert.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player2IsNpc){
-                    player2Difficulty = NPCDifficulty.SUPERHARD;
-                    view.setDifficulty(Id.PLAYER2, player2Difficulty);
-                }
-                return true;
-            }
-        });
-        player3Npc.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                player3IsNpc = true;
-                view.setNPC(true, Id.PLAYER3);
-                return true;
-            }
-        });
-        player3Actual.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                player3IsNpc = false;
-                view.setNPC(false, Id.PLAYER3);
-                return true;
-            }
-        });
-        player3Easy.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player3IsNpc){
-                    player3Difficulty = NPCDifficulty.EASY;
-                    view.setDifficulty(Id.PLAYER3, player3Difficulty);
-                }
-                return true;
-            }
-        });
-        player3Medium.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player3IsNpc){
-                    player3Difficulty = NPCDifficulty.MEDIUM;
-                    view.setDifficulty(Id.PLAYER3, player3Difficulty);
-                }
-                return true;
-            }
-        });
-        player3Hard.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player3IsNpc){
-                    player3Difficulty = NPCDifficulty.HARD;
-                    view.setDifficulty(Id.PLAYER3, player3Difficulty);
-                }
-                return true;
-            }
-        });
-        player3Expert.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player3IsNpc){
-                    player3Difficulty = NPCDifficulty.SUPERHARD;
-                    view.setDifficulty(Id.PLAYER3, player3Difficulty);
-                }
-                return true;
-            }
-        });
-        player4Npc.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                player4IsNpc = true;
-                view.setNPC(true, Id.PLAYER4);
-                return true;
-            }
-        });
-        player4Actual.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                player4IsNpc = false;
-                view.setNPC(false, Id.PLAYER4);
-                return true;
-            }
-        });
-        player4Easy.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player4IsNpc){
-                    player4Difficulty = NPCDifficulty.EASY;
-                    view.setDifficulty(Id.PLAYER4, player4Difficulty);
-                }
-                return true;
-            }
-        });
-        player4Medium.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player4IsNpc){
-                    player4Difficulty = NPCDifficulty.MEDIUM;
-                    view.setDifficulty(Id.PLAYER4, player4Difficulty);
-                }
-                return true;
-            }
-        });
-        player4Hard.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player4IsNpc){
-                    player4Difficulty = NPCDifficulty.HARD;
-                    view.setDifficulty(Id.PLAYER4, player4Difficulty);
-                }
-                return true;
-            }
-        });
-        player4Expert.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(player4IsNpc){
-                    player4Difficulty = NPCDifficulty.SUPERHARD;
-                    view.setDifficulty(Id.PLAYER4, player4Difficulty);
-                }
+                player3.setIsNPC(true);
+                player3.setDifficulty(NPCDifficulty.MEDIUM);
+                player4.setIsNPC(true);
+                player4.setDifficulty(NPCDifficulty.MEDIUM);
                 return true;
             }
         });
@@ -471,33 +152,31 @@ public class CustomGameController {
                 Options options = new Options();
                 List<NPCDifficulty> npcDifficulties = new ArrayList<NPCDifficulty>();
                 int numberOfNpc = 0;
-                if(player1IsNpc){
+                if(player1.isNPC()){
                     numberOfNpc++;
-                    npcDifficulties.add(player1Difficulty);
+                    npcDifficulties.add(player1.getNpcDifficulty());
                 }
-                if(player2IsNpc){
+                if(player2.isNPC()){
                     numberOfNpc++;
-                    npcDifficulties.add(player2Difficulty);
+                    npcDifficulties.add(player2.getNpcDifficulty());
                 }
-                if(numnberOfPlayers > 2){
-                    if(player3IsNpc){
+                if(numberOfPlayers > 2){
+                    if(player3.isNPC()){
                         numberOfNpc++;
-                        npcDifficulties.add(player3Difficulty);
+                        npcDifficulties.add(player3.getNpcDifficulty());
                     }
-                    if(numnberOfPlayers == 4){
-                        if(player4IsNpc){
+                    if(numberOfPlayers == 4){
+                        if(player4.isNPC()){
                             numberOfNpc++;
-                            npcDifficulties.add(player4Difficulty);
+                            npcDifficulties.add(player4.getNpcDifficulty());
                         }
                     }
                 }
-                options.setUpCustom(numnberOfPlayers, numberOfNpc, npcDifficulties, mapNames.get(selectedMap));
+                options.setUpCustom(numberOfPlayers, numberOfNpc, npcDifficulties, mapNames.get(selectedMap));
                 gameHolder.startNewGame(options.newGame(), mapNames.get(selectedMap));
                 return true;
             }
         });
-
-
     }
 
     private void addButtonsToStage(){
@@ -506,30 +185,10 @@ public class CustomGameController {
        stage.addActor(numberOfPlayersTwo);
        stage.addActor(numberOfPlayersThree);
        stage.addActor(numberOfPlayersFour);
-       stage.addActor(player1Npc);
-       stage.addActor(player1Actual);
-       stage.addActor(player1Easy);
-       stage.addActor(player1Medium);
-       stage.addActor(player1Hard);
-       stage.addActor(player1Expert);
-       stage.addActor(player2Npc);
-       stage.addActor(player2Actual);
-       stage.addActor(player2Easy);
-       stage.addActor(player2Medium);
-       stage.addActor(player2Hard);
-       stage.addActor(player2Expert);
-       stage.addActor(player3Npc);
-       stage.addActor(player3Actual);
-       stage.addActor(player3Easy);
-       stage.addActor(player3Medium);
-       stage.addActor(player3Hard);
-       stage.addActor(player3Expert);
-       stage.addActor(player4Npc);
-       stage.addActor(player4Actual);
-       stage.addActor(player4Easy);
-       stage.addActor(player4Medium);
-       stage.addActor(player4Hard);
-       stage.addActor(player4Expert);
        stage.addActor(startGameButton);
+       player1.addToStage(stage);
+       player2.addToStage(stage);
+       player3.addToStage(stage);
+       player4.addToStage(stage);
     }
 }
