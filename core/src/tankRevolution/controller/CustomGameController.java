@@ -17,36 +17,61 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by simonkarrman on 2017-05-16.
+ * CustomGameController is the controller class that is responsible for handling
+ * user actions in the custom game set up screen.
  */
 public class CustomGameController {
+
+    /** Button that represents the right arrow in the map selector */
     private Button rightMapArrow;
+
+    /** Button that represents the left arrow in the map selector */
     private Button leftMapArrow;
 
+    /** Button that sets the number of players to two */
     private Button numberOfPlayersTwo;
+
+    /** Button that sets the number of players to three */
     private Button numberOfPlayersThree;
+
+    /** Button that sets the number of players to four */
     private Button numberOfPlayersFour;
 
+    /** The options picker that handles options for player one */
     private PlayerOptionsPicker player1;
 
+    /** The options picker that handles options for player two */
     private PlayerOptionsPicker player2;
 
+    /** The options picker that handles options for player three */
     private PlayerOptionsPicker player3;
 
+    /** The options picker that handles options for player four */
     private PlayerOptionsPicker player4;
 
+    /** Button that starts the game with the selected options */
     private Button startGameButton;
 
+    /** The stage where all the buttons is in */
     private Stage stage;
 
+    /** The index of the selected map in the map names array */
     private int selectedMap = 0;
 
-    List<String> mapNames;
+    /** Array of names of all the available maps */
+    private List<String> mapNames;
 
+    /** The amount of players. Start with value of two because it the least amout of players posible to start a game */
     private int numberOfPlayers = 2;
 
 
-
+    /**
+     * The only constructor in this class. It initialize everything and calling
+     * methods to place all the buttons in the right place.
+     *
+     * @param gameHolder The current game holder. Is necessary to be able to switch view.
+     * @param view The current view the represent the custom game screen.
+     */
     public CustomGameController(GameHolder gameHolder, CustomGameView view){
         rightMapArrow = new Button();
         leftMapArrow = new Button();
@@ -73,10 +98,16 @@ public class CustomGameController {
         setStartValues();
     }
 
+    /**
+     * @return The stage that all the buttons are in.
+     */
     public Stage getStage() {
         return stage;
     }
 
+    /**
+     * Setting upp all the button's bounds (position, width and height).
+     */
     private void setUpButtonBounds(){
         float pickerHeight = Constants.getPickerHeight();
         float numberOfPlayerWidth = Constants.getNumberOfPlayerWidth();
@@ -99,6 +130,11 @@ public class CustomGameController {
         startGameButton.setBounds(startCustomGamePos.x, startCustomGamePos.y, startCustomGameWidth, startCustomGameHeight);
     }
 
+    /**
+     * Setting up all the listeners for the buttons.
+     * @param gameHolder the current game holder
+     * @param view the current Custom game view.
+     */
     private void setUpButtonListener(final GameHolder gameHolder, final CustomGameView view){
         leftMapArrow.addListener(new InputListener(){
             @Override
@@ -180,19 +216,26 @@ public class CustomGameController {
         });
     }
 
+    /**
+     * Adding all the elements to the stage.
+     */
     private void addButtonsToStage(){
-       stage.addActor(leftMapArrow);
-       stage.addActor(rightMapArrow);
-       stage.addActor(numberOfPlayersTwo);
-       stage.addActor(numberOfPlayersThree);
-       stage.addActor(numberOfPlayersFour);
-       stage.addActor(startGameButton);
-       player1.addToStage(stage);
-       player2.addToStage(stage);
-       player3.addToStage(stage);
-       player4.addToStage(stage);
+        stage.addActor(leftMapArrow);
+        stage.addActor(rightMapArrow);
+        stage.addActor(numberOfPlayersTwo);
+        stage.addActor(numberOfPlayersThree);
+        stage.addActor(numberOfPlayersFour);
+        stage.addActor(startGameButton);
+        player1.addToStage(stage);
+        player2.addToStage(stage);
+        player3.addToStage(stage);
+        player4.addToStage(stage);
     }
 
+    /**
+     * Setting up the start values of the switchers so that the
+     * good defaults are the same as quick games options.
+     */
     private void setStartValues(){
         player1.setIsNPC(false);
         player2.setIsNPC(true);
