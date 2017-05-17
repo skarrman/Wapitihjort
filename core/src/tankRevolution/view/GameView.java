@@ -155,7 +155,6 @@ public class GameView implements Viewable {
         drawTanks();
 
 
-        GraphicalUIButtons.draw((int)environment.getCurrentTank().getFuel()/10, batch, isPressed);
 
         if (environment.isProjectileFlying()) {
             setUpProjectileHashMap();
@@ -171,23 +170,26 @@ public class GameView implements Viewable {
         }
         if (explosionAnimations.size() > 0) {
             for (int i = 0; i < explosionAnimations.size(); i++) {
-                if (!explosionAnimations.get(i).isAnimationFinished())
+                if (!explosionAnimations.get(i).isAnimationFinished()) {
                     explosionAnimations.get(i).draw(batch);
-                else
+                }
+                else {
                     explosionAnimations.remove(i);
+                }
             }
         }
-        Body currentPlayer = environment.getTankBody(environment.getCurrentTank());
-        turnIndicatorAnimation.draw(batch, currentPlayer.getPosition());
 
         if(environment.gameOver()){
             gameOverView.draw(batch);
         }else {
+            Body currentPlayer = environment.getTankBody(environment.getCurrentTank());
+            turnIndicatorAnimation.draw(batch, currentPlayer.getPosition());
             labelDrawer.draw(environment.getCharacterList(), batch);
+            weaponSwitch.draw(batch, environment.getCurrentWeapon());
+            GraphicalUIButtons.draw((int)environment.getCurrentTank().getFuel()/10, batch, isPressed);
             environment.update();
         }
 
-        weaponSwitch.draw(batch, environment.getCurrentWeapon());
 
         batch.end();
 

@@ -10,20 +10,28 @@ import java.util.List;
  */
 public class TankRevolution {
 
-    /** list of the playing character */
+    /**
+     * list of the playing character
+     */
     private List<Character> characterList;
 
-    /** The projectile, will hold the projectile in air */
+    /**
+     * The projectile, will hold the projectile in air
+     */
     private List<Shootable> flyingProjectiles;
 
-    /** The index of the current playing character */
+    /**
+     * The index of the current playing character
+     */
     private int characterTurn = 0;
 
-    /** true if the current character is a player, false if npc */
-    private boolean isActive;
     /**
+     * true if the current character is a player, false if npc
+     */
+    private boolean isActive;
 
     /**
+     * /**
      * Creates a new gameSession from a list of characters and gives the characters tanks and addes the tanks to the world.
      * (max four characters)
      * Note that this is the first iteration and is only made for two characters
@@ -42,48 +50,47 @@ public class TankRevolution {
         setIsActive();
     }
 
-    private void initializeTanks(){
-        for(Character c: characterList){
+    private void initializeTanks() {
+        for (Character c : characterList) {
             Tank tank = new Tank();
             c.setTank(tank);
         }
     }
 
-    public boolean isInputAllowed(){
+    public boolean isInputAllowed() {
         return (isActive && !getCurrentCharacter().isNPC());
     }
 
-    public List<Shootable> shoot(float deltaX, float deltaY){
+    public List<Shootable> shoot(float deltaX, float deltaY) {
         flyingProjectiles.add(getCurrentTank().shoot(deltaX, deltaY));
         isActive = false;
         return flyingProjectiles;
     }
 
-    public Character getCurrentCharacter(){
+    public Character getCurrentCharacter() {
         return characterList.get(characterTurn);
     }
 
-    public Tank getCurrentTank(){
+    public Tank getCurrentTank() {
         return getCurrentCharacter().getTank();
     }
 
-    public List<Shootable> getFlyingProjectiles(){
+    public List<Shootable> getFlyingProjectiles() {
         return flyingProjectiles;
     }
 
-    public void doNextMove(){
+    public void doNextMove() {
         setNextCharacter();
         getCurrentCharacter().setNewTurn();
         setIsActive();
-
     }
 
-    public boolean NPCWillShoot(){
+    public boolean NPCWillShoot() {
         return (getCurrentCharacter() instanceof NPC && flyingProjectiles.size() == 0
-        && characterList.size() > 1);
+                && characterList.size() > 1);
     }
 
-    public void reduceFuel(){
+    public void reduceFuel() {
         Tank tank = characterList.get(characterTurn).getTank();
         tank.reduceFuel();
     }
@@ -100,7 +107,7 @@ public class TankRevolution {
      * ends the turn of the current playing character and gives the turn too the next player
      */
     private void setNextCharacter() {
-        characterTurn = (characterTurn+1)%characterList.size();
+        characterTurn = (characterTurn + 1) % characterList.size();
     }
 
     /**
@@ -128,35 +135,36 @@ public class TankRevolution {
     /**
      * sets that the current character is a player
      */
-    private void setIsActive(){
+    private void setIsActive() {
         isActive = !getCurrentCharacter().isNPC();
     }
 
     /**
      * calculates the damage that will be inflicted on a tank
-     * @param damage the starting damage of the projectile
-     * @param distance the distance from the tanks center to the hitdown
+     *
+     * @param damage      the starting damage of the projectile
+     * @param distance    the distance from the tanks center to the hitdown
      * @param blastRadius the projectiles blast radius
      * @return the damage inflicted to the tank
      */
-    private int calculateDamage(int damage, float distance, float blastRadius){
-        float d = blastRadius -  distance;
-        if(d < 0){
+    private int calculateDamage(int damage, float distance, float blastRadius) {
+        float d = blastRadius - distance;
+        if (d < 0) {
             d = 0;
         }
         return (int) (d / blastRadius * damage);
     }
 
-    public void damage(Shootable projectile, Tank tank, float distance){
+    public void damage(Shootable projectile, Tank tank, float distance) {
         tank.reduceHealth(calculateDamage(projectile.getDamage(), distance, projectile.getBlastRadius()));
     }
 
     public void destroyTank(Tank tank) {
-
-        for(int i = 0; i < characterList.size(); i++){
+        for (int i = 0; i < characterList.size(); i++) {
             if (characterList.get(i).getTank() == tank) {
                 characterList.remove(i);
-                setNextCharacter();
+                if (characterList.size() > 0)
+                    setNextCharacter();
             }
         }
     }

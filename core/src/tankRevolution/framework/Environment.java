@@ -60,7 +60,7 @@ public class Environment {
      * TODO
      */
     private ITerrainHandler terrainHandler;
-    
+
     /**
      * A boolean indicating if the terrain is changed.
      */
@@ -73,8 +73,9 @@ public class Environment {
 
     /**
      * Creates a new Environment for Bodies to live in.
+     *
      * @param tankRevolution The logical part of the model that not interacts with the framework.
-     * @param mapName The name of the map being used in the game.
+     * @param mapName        The name of the map being used in the game.
      */
     public Environment(TankRevolution tankRevolution, String mapName) {
         this.tankRevolution = tankRevolution;
@@ -91,6 +92,7 @@ public class Environment {
 
     /**
      * Sets up the world with gravity and terrain with two sides.
+     *
      * @param currentMap The name of the map being used in the game.
      */
     private void setupWorld(String currentMap) {
@@ -111,6 +113,7 @@ public class Environment {
 
     /**
      * Set up one side.
+     *
      * @param x the x coordinate of the side being created.
      */
     private void setupSide(float x) {
@@ -133,10 +136,11 @@ public class Environment {
 
     /**
      * Adds a projectile to the world.
+     *
      * @param projectile The instance of the projectile being shoot.
-     * @param shooter The tank shooting the projectile.
-     * @param deltaX The horizontal force (left to right) of the projectile.
-     * @param deltaY The vertical force (down to up) of the projectile.
+     * @param shooter    The tank shooting the projectile.
+     * @param deltaX     The horizontal force (left to right) of the projectile.
+     * @param deltaY     The vertical force (down to up) of the projectile.
      */
     private void addProjectile(Shootable projectile, Tank shooter, float deltaX, float deltaY) {
         //Get the projectiles initial position (above the tank).
@@ -169,8 +173,9 @@ public class Environment {
 
     /**
      * Adds a tank to a specific position in the world based on the owning player.
+     *
      * @param tank The instance of the tank being initialized to the world.
-     * @param id The player of the tank.
+     * @param id   The player of the tank.
      */
     private void addTank(Tank tank, Id id) {
         BodyDef bodyDef = new BodyDef();
@@ -192,6 +197,7 @@ public class Environment {
 
     /**
      * Returns a polygonshape of an approximated circle.
+     *
      * @param radius the radius of the circle.
      * @return A polygonshape of an approximated circle.
      */
@@ -213,6 +219,7 @@ public class Environment {
 
     /**
      * Returns the world of the game.
+     *
      * @return the world of the game.
      */
     public World getWorld() {
@@ -221,6 +228,7 @@ public class Environment {
 
     /**
      * Returns the body connected to a tank.
+     *
      * @param tank the logical model of the tank.
      * @return The body och that tank.
      */
@@ -230,6 +238,7 @@ public class Environment {
 
     /**
      * Returns the body connected to a projectile.
+     *
      * @param s The logical model of the projectile.
      * @return The body och that tank.
      */
@@ -239,6 +248,7 @@ public class Environment {
 
     /**
      * Returns a list of current explosions.
+     *
      * @return a list of current explosions.
      */
     public List<Explosion> getExplosions() {
@@ -247,6 +257,7 @@ public class Environment {
 
     /**
      * Checks if it's only one player left alive.
+     *
      * @return true if it's only one player left.
      */
     public boolean gameOver() {
@@ -290,8 +301,6 @@ public class Environment {
      * Is called for the world to update the bodies within it.
      */
     public void update() {
-        tankOutsideMapCheck();
-        projectileOutsideMapCheck();
         setAllTanksFalling();
         stackUpdate();
         time = System.currentTimeMillis() - time;
@@ -301,6 +310,8 @@ public class Environment {
             NPCDoShoot();
         }
         time = System.currentTimeMillis();
+        tankOutsideMapCheck();
+        projectileOutsideMapCheck();
     }
 
     /**
@@ -336,19 +347,20 @@ public class Environment {
      * @param body
      * @param isFalling
      */
-    public void setTankFalling(Body body, boolean isFalling){
-        for (Tank t: tanks.keySet()){
-            if (tanks.get(t).equals(body)){
+    public void setTankFalling(Body body, boolean isFalling) {
+        for (Tank t : tanks.keySet()) {
+            if (tanks.get(t).equals(body)) {
                 t.setTankFalling(isFalling);
             }
         }
     }
 
+
     /**
      * TODO Jakob Erlandsson?
      */
     private void setAllTanksFalling(){
-        for (int i  = 0; i < tanks.size(); i++){
+        for (int i = 0; i < tanks.size(); i++) {
             setTankFalling(tanks.get(getCharacterList().get(i).getTank()), true);
         }
     }
@@ -429,7 +441,7 @@ public class Environment {
         for (int i = 0; i < tanks.size(); i++) {
             if (!getCharacterList().get(i).getTank().isTankFalling()) {
                 tanks.get(getCharacterList().get(i).getTank()).setLinearVelocity(0, 0);
-            }else{
+            } else {
                 tanks.get(getCharacterList().get(i).getTank()).setLinearVelocity(0, Constants.getGravity());
             }
         }
@@ -517,7 +529,7 @@ public class Environment {
     private float getTankY(Tank tank) {
         return tanks.get(tank).getPosition().y;
     }
-
+    
     /**
      * Get the position of a tank as a vector.
      * @param tank the tank
@@ -642,8 +654,8 @@ public class Environment {
      * @param i the index of the player, 1 for PLAYER1, 2 for PLAYER2, 3 for PLAYER3, 4 for PLAYER 4.
      * @return the start position as a vector.
      */
-    private Vector2 getStartingPosition(int i){
-        return new Vector2(5 + (i - 1)* ((Constants.getMapWidth() - 10) / (getCharacterList().size()-1)),
+    private Vector2 getStartingPosition(int i) {
+        return new Vector2(5 + (i - 1) * ((Constants.getMapWidth() - 10) / (getCharacterList().size() - 1)),
                 Constants.getTankStartPositionY());
     }
 
