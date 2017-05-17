@@ -70,6 +70,7 @@ public class CustomGameController {
         setUpButtonBounds();
         setUpButtonListener(gameHolder, view);
         addButtonsToStage();
+        setStartValues();
     }
 
     public Stage getStage() {
@@ -190,5 +191,11 @@ public class CustomGameController {
        player2.addToStage(stage);
        player3.addToStage(stage);
        player4.addToStage(stage);
+    }
+
+    private void setStartValues(){
+        player1.setIsNPC(false);
+        player2.setIsNPC(true);
+        player2.setDifficulty(NPCDifficulty.MEDIUM);
     }
 }

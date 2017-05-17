@@ -45,6 +45,7 @@ public class Options {
         for(int i = 1; i < numberOfPlayers; i++){
             if(numberOfNPCs > 0){
                 characterList.add(CharacterFactory.newNPC(Id.get(i+1), npcDifficulties.remove(0)));
+                numberOfNPCs--;
             }else{
                 characterList.add(CharacterFactory.newPlayer(Id.get(i+1)));
             }
