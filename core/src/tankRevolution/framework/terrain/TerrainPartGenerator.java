@@ -36,7 +36,7 @@ public class TerrainPartGenerator {
      * @param width the width of the hill
      * @return the float array for the vertices, x = %2
      */
-    public static  float[] generateFlatGround(float startingX, float startingY, int width){
+    static  float[] generateFlatGround(float startingX, float startingY, int width){
         float[] vertArr = new float[(width * 2)];
 
         for (int i = 0; i < vertArr.length; i = i + 2) {

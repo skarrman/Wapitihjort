@@ -8,6 +8,7 @@ import tankRevolution.model.shootablePackage.Shootable;
 
 /**
  * Created by antonhagermalm on 2017-05-04.
+ * Handles collisions in the world and tells the terrainHandler if an explosion has happened.
  */
 public class EnvironmentCollisions implements ContactListener {
 
@@ -22,7 +23,7 @@ public class EnvironmentCollisions implements ContactListener {
     /**
      * Called when two fixtures begin to touch.
      *
-     * @param contact
+     * @param contact the contact
      */
     @Override
     public void beginContact(Contact contact) {
@@ -32,7 +33,7 @@ public class EnvironmentCollisions implements ContactListener {
     /**
      * Called when two fixtures cease to touch.
      *
-     * @param contact
+     * @param contact the cotact
      */
     @Override
     public void endContact(Contact contact) {
@@ -44,6 +45,11 @@ public class EnvironmentCollisions implements ContactListener {
 
     }
 
+    /**
+     * called after the contact
+     * @param contact the contact
+     * @param impulse the impulse of the impact
+     */
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
         Body a = contact.getFixtureA().getBody();
@@ -66,10 +72,13 @@ public class EnvironmentCollisions implements ContactListener {
 
     }
 
+    /**
+     * if the contact was between a projectile and a tank/ground the terrain is told to preform a polygon clipping
+     * @param body the body of the projectile
+     */
     private void explode(Body body){
         Shootable projectile = environment.getProjectile(body);
         if(projectile != null) {
-            //terrainHandler.explode(b, projectile.getBlastRadius());
             terrainHandler.explode(body, projectile.getBlastRadius());
             environment.projectileHit(projectile);
         }

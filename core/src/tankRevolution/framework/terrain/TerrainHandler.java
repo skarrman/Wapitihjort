@@ -33,7 +33,7 @@ public class TerrainHandler implements ITerrainHandler {
     private Body terrain;
 
     public TerrainHandler(World world, String mapName) {
-        polyVerts = new ArrayList();
+        polyVerts = new ArrayList<GroundFixture>();
         this.world = world;
         verticesListArray = new ArrayList<float[]>();
         create(mapName);
@@ -45,7 +45,7 @@ public class TerrainHandler implements ITerrainHandler {
      * GroundFixture that stores this list of arrays. polyVerts is a list of GroundFixtures (only one element if not the ground is split in two)
      */
     private void create(String mapName) {
-        List<float[]> verts = new ArrayList();
+        List<float[]> verts = new ArrayList<float[]>();
         float[] points = TerrainGenerator.getTerrainVertexArray(mapName);
         verts.add(points);
         verticesListArray = defenciveCopyVerticesList(verts);
@@ -86,7 +86,7 @@ public class TerrainHandler implements ITerrainHandler {
      */
     private void switchGround(List<PolygonBox2DShape> rs) {
         mustCreate = true;
-        List<float[]> verts = new ArrayList();
+        List<float[]> verts = new ArrayList<float[]>();
         //gets all vertices from the polygons
         for (PolygonBox2DShape r : rs) {
             verts.add(r.verticesToLoop());
@@ -106,7 +106,7 @@ public class TerrainHandler implements ITerrainHandler {
     @Override
     public void update() {
         for (int i = 0; i < this.world.getBodyCount(); ++i) {
-            Array<Body> bodies = new Array();
+            Array<Body> bodies = new Array<Body>();
             this.world.getBodies(bodies);
             UserData data = (UserData) (bodies.get(i)).getUserData();
             if (data != null && data.getType() == 0 && (data.mustDestroy || this.mustCreate) && !data.destroyed) {
@@ -122,7 +122,7 @@ public class TerrainHandler implements ITerrainHandler {
     /**
      * creates the ground by adding several fixtures to the body
      */
-    protected void createGround() {
+    private void createGround() {
         //verticesListArray = defenciveCopyVerticesList(polyVerts);
         BodyDef groundDef = new BodyDef();
         groundDef.type = BodyDef.BodyType.StaticBody;
@@ -134,7 +134,7 @@ public class TerrainHandler implements ITerrainHandler {
             this.terrain = nground;
             UserData usrData = new UserData(0);
             nground.setUserData(usrData);
-            List<Fixture> fixtures = new ArrayList();
+            List<Fixture> fixtures = new ArrayList<Fixture>();
 
             for (int y = 0; y < polyVert.getVerts().size(); ++y) {
                 if (polyVert.getVerts().get(y).length >= 6) {
@@ -161,15 +161,13 @@ public class TerrainHandler implements ITerrainHandler {
      * @param inVerts The list of float-arrays to be copied.
      * @return a defensive copy of the list of points that makes up the ground.
      */
-    public List<float[]> defenciveCopyVerticesList(List<float[]> inVerts) {
+    private List<float[]> defenciveCopyVerticesList(List<float[]> inVerts) {
         List<float[]> outVerts = new ArrayList<float[]>();
 
-        for (int i = 0; i < inVerts.size(); i++) {
-            float[] arrVerts = new float[inVerts.get(i).length];
+        for (float[] inVert : inVerts) {
+            float[] arrVerts = new float[inVert.length];
 
-            for (int j = 0; j < inVerts.get(i).length; j++) {
-                arrVerts[j] = inVerts.get(i)[j];
-            }
+            System.arraycopy(inVert, 0, arrVerts, 0, inVert.length);
             outVerts.add(arrVerts);
         }
         return outVerts;
@@ -183,7 +181,7 @@ public class TerrainHandler implements ITerrainHandler {
 
     @Override
     public void explode(Body projectileBody, int blastRadius) {
-        List<PolygonBox2DShape> totalRS = new ArrayList();
+        List<PolygonBox2DShape> totalRS = new ArrayList<PolygonBox2DShape>();
         //Approximates the vertices of a circle
         float[] circVerts = CollisionGeometry.approxCircle(projectileBody.getPosition().x, projectileBody.getPosition().y, blastRadius, Constants.getExplosionSegments());
         //Creates a shape from the vertices
@@ -205,6 +203,7 @@ public class TerrainHandler implements ITerrainHandler {
             // the javaDoc for the algorithm can be read here
             //https://github.com/helderco/univ-polyclip/blob/java/src/compgraphics/Polygon.java
 
+            assert polyClip != null;
             List<PolygonBox2DShape> rs = polyClip.differenceCS(circlePoly);
 
             //Adding all the polygons in the list to the new total, totalRS is init here above
