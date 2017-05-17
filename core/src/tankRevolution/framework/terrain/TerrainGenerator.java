@@ -8,7 +8,8 @@ import java.util.List;
 
 /**
  * Created by antonhagermalm on 2017-05-10.
- * This class creates a map from a source, it's not decided yet if it's from a file or classes
+ * This class creates a map from a textfile in assets/maps/..
+ *
  */
 public class TerrainGenerator {
 

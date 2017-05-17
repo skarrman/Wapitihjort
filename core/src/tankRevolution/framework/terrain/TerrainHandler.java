@@ -14,17 +14,22 @@ import java.util.List;
 /**
  * Created by antonhagermalm on 2017-05-03.
  * The terrain consists of a list of GroundFixtures that consists of a list of arrays of floats.
+ * This class is basically just rewritten from quailshillstudio's destructibleTerrain.
+ * The original class from quailshillstudio's was way to specific and not meant to be a library for further development
+ * but since it would have taken to much time to make our own implementations of the algorithms used,
+ * it was decided that the class was merely rewritten and as much as possible from the rest of the library should be reused.
  */
 public class TerrainHandler implements ITerrainHandler {
 
+    /** if the terrain needs to be redone or not*/
     private boolean mustCreate;
+    /** the ground in groundFixtures */
     private List<GroundFixture> polyVerts;
+    /** the ground in float cords in a array*/
     private List<float[]> verticesListArray;
-
+    /** the world where everything exits */
     private World world;
-    /**
-     * The body of the entire terrain
-     */
+    /** the body of the entire terrain */
     private Body terrain;
 
     public TerrainHandler(World world, String mapName) {
@@ -95,6 +100,9 @@ public class TerrainHandler implements ITerrainHandler {
         this.polyVerts.add(grFix);
     }
 
+    /**
+     * the method that updates the terrain if needed
+     */
     @Override
     public void update() {
         for (int i = 0; i < this.world.getBodyCount(); ++i) {
@@ -142,18 +150,6 @@ public class TerrainHandler implements ITerrainHandler {
 
             polyVert.setFixtures(fixtures);
         }
-
-        /*List<float[]> verticesListArray = new ArrayList<float[]>();
-        for (GroundFixture groundFixture : polyVerts) {
-            //List<Float> verticesList = new ArrayList<Float>();
-            verticesListArray.addAll(groundFixture.getVerts());
-        }*/
-        //verticesListArray = defenciveCopyVerticesList(polyVerts);
-        /*for(int i = 0; i < verticesListArray.size(); i++){
-            for(int j = 0; j < verticesListArray.get(i).length; j++){
-                System.out.println(verticesListArray.get(i)[j]);
-            }
-        }*/
 
         //oldPolyVerts = polyVerts;
         polyVerts.clear();
