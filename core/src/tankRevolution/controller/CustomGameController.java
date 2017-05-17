@@ -82,9 +82,9 @@ public class CustomGameController {
         float numberOfPlayerWidth = Constants.getNumberOfPlayerWidth();
 
         float arrowSize = Constants.getWeaponArrowDimension();
-        Vector2 rightArrowPos = Constants.getRightWeaponPosition();
+        Vector2 rightArrowPos = Constants.getRightMapArrowPos();
         rightMapArrow.setBounds(rightArrowPos.x, rightArrowPos.y, arrowSize, arrowSize);
-        Vector2 leftArrowPos = Constants.getLeftWeaponPosition();
+        Vector2 leftArrowPos = Constants.getLeftMapArrowPos();
         leftMapArrow.setBounds(leftArrowPos.x, leftArrowPos.y, arrowSize, arrowSize);
 
         Vector2 numberOfPLayerPos = Constants.getNumberOfPlayersPos();

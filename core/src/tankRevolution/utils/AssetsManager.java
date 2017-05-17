@@ -100,6 +100,10 @@ public class AssetsManager {
 
     private List<Sprite> npcDifficultySprites;
 
+    private List<Sprite> numberOfPlayerSprites;
+
+    private Sprite startCustomGameButton;
+
     private AssetsManager(){
         spriteArrays = new HashMap<Id, Array<Sprite>>();
     }
@@ -384,6 +388,14 @@ public class AssetsManager {
         return npcDifficultySprites;
     }
 
+    public List<Sprite> getNumberOfPlayerSprites(){
+        return numberOfPlayerSprites;
+    }
+
+    public Sprite getCustomGameButtonSprite(){
+        return startCustomGameButton;
+    }
+
     private void loadMoveButtonTextures() throws FileNotFoundException {
         rightPressedButton = new Array<Sprite>();
         leftPressedButton = new Array<Sprite>();
@@ -548,5 +560,15 @@ public class AssetsManager {
             npcDifficultySprites.add(new Sprite(new Texture(Gdx.files.internal("NPCDifficultyPicker3.png"))));
             npcDifficultySprites.add(new Sprite(new Texture(Gdx.files.internal("NPCDifficultyPicker4.png"))));
         }
+        if(numberOfPlayerSprites == null){
+            numberOfPlayerSprites = new ArrayList<Sprite>();
+            numberOfPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NumberOfPlayersPicker1.png"))));
+            numberOfPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NumberOfPlayersPicker2.png"))));
+            numberOfPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NumberOfPlayersPicker3.png"))));
+        }
+        if(startCustomGameButton == null){
+            startCustomGameButton = new Sprite(new Texture(Gdx.files.internal("StartGameButton.png")));
+        }
+
     }
 }

@@ -61,14 +61,12 @@ public class CustomGameView implements Viewable {
         font.setColor(0, 0, 0, 1);
         mapNames = assetsManager.getMapNames();
 
-        leftMapArrow = new Sprite(new Texture(Gdx.files.internal("LeftSwitchWeaponArrow.png")));
-        rightMapArrow = new Sprite(new Texture(Gdx.files.internal("RightSwitchWeaponArrow.png")));
-        startGameButton = new Sprite(new Texture(Gdx.files.internal("StartGameButton.png")));
+        leftMapArrow = new Sprite(assetsManager.getLeftSwitchWeaponButton());
+        rightMapArrow = new Sprite(assetsManager.getRightSwitchWeaponButton());
+        startGameButton = assetsManager.getCustomGameButtonSprite();
 
-        numberOfPlayerSprites = new ArrayList<Sprite>();
-        numberOfPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NumberOfPlayersPicker1.png"))));
-        numberOfPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NumberOfPlayersPicker2.png"))));
-        numberOfPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NumberOfPlayersPicker3.png"))));
+        numberOfPlayerSprites = assetsManager.getNumberOfPlayerSprites();
+
 
         player1 = new OptionsPickerView(Id.PLAYER1);
         player2 = new OptionsPickerView(Id.PLAYER2);
@@ -205,10 +203,10 @@ public class CustomGameView implements Viewable {
     }
 
     private void setPositions() {
-        Vector2 leftArrowPos = Constants.getLeftWeaponPosition();
+        Vector2 leftArrowPos = Constants.getLeftMapArrowPos();
         leftMapArrow.setPosition(leftArrowPos.x, leftArrowPos.y);
 
-        Vector2 rightArrowPos = Constants.getRightWeaponPosition();
+        Vector2 rightArrowPos = Constants.getRightMapArrowPos();
         rightMapArrow.setPosition(rightArrowPos.x, rightArrowPos.y);
 
         Vector2 numberOfPlayerPos = Constants.getNumberOfPlayersPos();

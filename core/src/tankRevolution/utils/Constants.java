@@ -162,4 +162,12 @@ public class Constants {
         return new Vector2(Gdx.graphics.getWidth()/2 - getStartCustomGameWidth()/2, Gdx.graphics.getHeight()/16);
     }
 
+    public static Vector2 getLeftMapArrowPos(){
+        return new Vector2(2 * Gdx.graphics.getWidth()/8,14 * Gdx.graphics.getHeight()/16);
+    }
+
+    public static Vector2 getRightMapArrowPos(){
+        return new Vector2(6 * Gdx.graphics.getWidth()/8 - getWeaponArrowDimension(),
+                14 * Gdx.graphics.getHeight()/16);
+    }
 }
