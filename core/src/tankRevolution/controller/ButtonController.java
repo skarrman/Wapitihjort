@@ -42,7 +42,7 @@ public class ButtonController {
      */
     private boolean gameOverMode;
 
-    public ButtonController(GameView gameView, Environment environment, GameHolder gameHolder){
+    public ButtonController(GameView gameView, Environment environment, GameHolder gameHolder) {
         this.gameHolder = gameHolder;
         this.environment = environment;
         this.gameView = gameView;
@@ -64,15 +64,14 @@ public class ButtonController {
      * Keeps track of when buttons are being held down and when they're released.
      * Called 60 times/second from GameHolder.
      */
-    public void update(){
+    public void update() {
         gameView.setPressed(isPressed);
-        if(!environment.gameOver()) {
+        environment.stopTank();
+        if (!environment.gameOver()) {
             if (isPressed && environment.tankCanMove()) {
                 environment.moveTank(direction);
-            } else {
-                environment.stopTank();
             }
-        }else {
+        } else {
             if (!gameOverMode) {
                 setGameOverMode();
                 gameOverMode = true;
@@ -83,7 +82,7 @@ public class ButtonController {
     /**
      * @return The stage in which all the buttons' inputs are registered
      */
-    public Stage getStage(){
+    public Stage getStage() {
         return stage;
     }
 
@@ -91,7 +90,7 @@ public class ButtonController {
      * Sets the size and position of the buttons around the screen. All sizes and positions are based on the size
      * of the screen.
      */
-    private void setUpButtonBounds(){
+    private void setUpButtonBounds() {
         leftMoveButton.setBounds(Constants.getLeftMoveButtonPosition().x, Constants.getLeftMoveButtonPosition().y,
                 Constants.getMoveButtonWidth(), Constants.getMoveButtonHeight());
         rightMoveButton.setBounds(Constants.getRightMoveButtonPosition().x, Constants.getRightMoveButtonPosition().y,
@@ -113,34 +112,36 @@ public class ButtonController {
     /**
      * Listeners determining what each button will do when pressed.
      */
-    private void setUpButtonListeners(){
-        leftMoveButton.addListener(new InputListener(){
+    private void setUpButtonListeners() {
+        leftMoveButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 isPressed = true;
                 direction = -1;
                 return true;
             }
+
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button){
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 isPressed = false;
                 direction = 0;
             }
         });
-        rightMoveButton.addListener(new InputListener(){
+        rightMoveButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 isPressed = true;
                 direction = 1;
                 return true;
             }
+
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button){
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 isPressed = false;
                 direction = 0;
             }
         });
-        pauseMenuButton.addListener(new InputListener(){
+        pauseMenuButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 gameHolder.setPauseMenuMode();
@@ -148,7 +149,7 @@ public class ButtonController {
             }
         });
 
-        leftWeaponButton.addListener(new InputListener(){
+        leftWeaponButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 environment.setPreviousWeapon();
@@ -156,7 +157,7 @@ public class ButtonController {
             }
         });
 
-        rightWeaponButton.addListener(new InputListener(){
+        rightWeaponButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 environment.setNextWeapon();
@@ -165,7 +166,7 @@ public class ButtonController {
         });
     }
 
-    private void addButtonsToStage(){
+    private void addButtonsToStage() {
         stage.addActor(leftMoveButton);
         stage.addActor(rightMoveButton);
         stage.addActor(pauseMenuButton);
@@ -177,8 +178,8 @@ public class ButtonController {
      * Called when only one tank is remaining, will display the winner and a button to
      * take the user back to the main menu.
      */
-    private void setGameOverMode(){
-        toMenuButton.addListener(new InputListener(){
+    private void setGameOverMode() {
+        toMenuButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 gameHolder.setStartMenuMode();

@@ -179,7 +179,7 @@ public class Environment {
     }
 
     private PolygonShape createCircleShape(float radius) {
-        float[] floatVertices = CollisionGeometry.approxCircle(0,0, radius, 6);
+        float[] floatVertices = CollisionGeometry.approxCircle(0, 0, radius, 6);
         PolygonShape shape = new PolygonShape();
         shape.set(floatVertices);
         return shape;
@@ -350,8 +350,11 @@ public class Environment {
      * Called when the move buttons are released.
      */
     public void stopTank() {
-        getTankBody(tankRevolution.getCurrentTank()).getFixtureList().get(0).setFriction(2.5f);
-        getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(0, Constants.getGravity());
+        for (int i = 0; i < tanks.size(); i++) {
+            if (!isTankFalling) {
+                tanks.get(tankRevolution.getCharacterList().get(i).getTank()).setLinearVelocity(0, 0);
+            }
+        }
     }
 
     /**
