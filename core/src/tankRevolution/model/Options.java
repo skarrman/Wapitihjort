@@ -40,8 +40,12 @@ public class Options {
         characterList.add(CharacterFactory.newNPC(Id.PLAYER2, NPCDifficulty.SUPERHARD));
     }
 
-    public List<Character> setUpCustom(int numberOfPlayers, int numberOfNPCs,List<NPCDifficulty> npcDifficulties, String map){
-        characterList.add(CharacterFactory.newPlayer(Id.PLAYER1));
+    public List<Character> setUpCustom(int numberOfPlayers, int numberOfNPCs,List<NPCDifficulty> npcDifficulties){
+        if(numberOfNPCs < numberOfPlayers){
+            characterList.add(CharacterFactory.newPlayer(Id.PLAYER1));
+        }else {
+            characterList.add(CharacterFactory.newNPC(Id.PLAYER1, npcDifficulties.remove(0)));
+        }
         for(int i = 1; i < numberOfPlayers; i++){
             if(numberOfNPCs > 0){
                 characterList.add(CharacterFactory.newNPC(Id.get(i+1), npcDifficulties.remove(0)));

@@ -173,7 +173,7 @@ public class CustomGameController {
                         }
                     }
                 }
-                options.setUpCustom(numberOfPlayers, numberOfNpc, npcDifficulties, mapNames.get(selectedMap));
+                options.setUpCustom(numberOfPlayers, numberOfNpc, npcDifficulties);
                 gameHolder.startNewGame(options.newGame(), mapNames.get(selectedMap));
                 return true;
             }
