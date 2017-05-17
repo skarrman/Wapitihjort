@@ -18,8 +18,7 @@ public class TerrainGenerator {
     private static final int flat = 2;
 
     /**
-     * This method will be called to get the map in the floatArray
-     *
+     * This method will be called to get the map in a floatArray
      * @return a float array containing all vertices to the map. %2==0 = x %2==1 = y
      */
     public static float[] getTerrainVertexArray(String mapName) {
@@ -36,6 +35,9 @@ public class TerrainGenerator {
         return listToArray(vertexList);
     }
 
+    /**
+     * @return the first values needed in order to create a map
+     */
     private static List<Float> getInitValues() {
         List<Float> verticesList = new ArrayList<Float>();
 
@@ -47,6 +49,11 @@ public class TerrainGenerator {
         return verticesList;
     }
 
+    /**
+     * of the list string in the file, creates a string list of the different components in the map (each row in the textfile)
+     * @param mapName The name of the map, needed in order to choose what file to generate the values from
+     * @return the string list of the components
+     */
     private static List<String> createMapStringList(String mapName) {
         AssetsManager.getInstance().loadMap(mapName);
         String mapString = AssetsManager.getInstance().getMapString();
@@ -71,6 +78,11 @@ public class TerrainGenerator {
         return mapStringList;
     }
 
+    /**
+     * of the string list, creates a matrix of ints that can be used in mapGeneration
+     * @param mapStringList the list of the components in string format
+     * @return a matrix of ints
+     */
     private static List<List<Integer>> createMapMatrix(List<String> mapStringList) {
         List<List<Integer>> mapMatrix = new ArrayList<List<Integer>>();
         for (int i = 0; i < mapStringList.size(); i++) {
@@ -88,6 +100,11 @@ public class TerrainGenerator {
         return mapMatrix;
     }
 
+    /**
+     * delegates the tasks of transforming the string to a int matrix
+     * @param mapName the name of the map
+     * @return matrix of ints
+     */
     private static List<List<Integer>> getMatrix(String mapName) {
         List<String> mapStringList;
         List<List<Integer>> mapMatrix;
@@ -106,6 +123,12 @@ public class TerrainGenerator {
         return mapMatrix;
     }
 
+    /**
+     *
+     * @param matrix
+     * @param vertexList
+     * @return
+     */
     private static List<Float> createVertexList(List<List<Integer>> matrix, List<Float> vertexList) {
 
         for (int i = 0; i < matrix.size(); i++) {
