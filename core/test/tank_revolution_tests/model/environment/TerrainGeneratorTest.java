@@ -16,16 +16,16 @@ public class TerrainGeneratorTest {
     /**
      * this test will fail since junit cant access the assets
      */
-    @Test public void TerrainTest(){
+ /*   @Test public void TerrainTest(){
         TerrainGenerator terrainGenerator = new TerrainGenerator();
         float[] fl;
-        fl = terrainGenerator.getTerrainVertexArray();
+        fl = terrainGenerator.getTerrainVertexArray("Burning Desert Wolf");
 
         for(int i = 0; i < fl.length; i++) {
             System.out.println(fl[i] + " ");
         }
 
-    }
+    }*/
 
     @Test public void AddAllTest(){
         List<Float> list = new ArrayList<Float>();
