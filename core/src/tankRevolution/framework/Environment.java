@@ -415,7 +415,7 @@ public class Environment {
 
     /**
      * Moves tank based on input from user.
-     * @param direction recieves it from ButtonController, 1 if moving right, -1 if moving left
+     * @param direction 1 if moving right, -1 if moving left.
      */
     public void moveTank(int direction) {
         getTankBody(getCurrentTank()).setLinearVelocity(direction * 25, Constants.getGravity());
@@ -423,7 +423,7 @@ public class Environment {
     }
 
     /**
-     * Called when the move buttons are released.
+     * Stops the current playing tank.
      */
     public void stopTank() {
         for (int i = 0; i < tanks.size(); i++) {
@@ -436,6 +436,7 @@ public class Environment {
     }
 
     /**
+     * TODO JAKOBERLANDSSON, IS THIS STILL NEEDED?
      * @return true if there is nothing stopping the tank from moving.
      */
     public boolean tankCanMove() {
@@ -443,6 +444,7 @@ public class Environment {
     }
 
     /**
+     * Shoots a projectile.
      * @param screenX x-coordinate of the point where the user released touch.
      * @param screenY y-coordinate of the point where the user released touch.
      * @param touchX  x-coordinate of the user's initial touch.
@@ -454,11 +456,9 @@ public class Environment {
 
     /**
      * Fires a projectile in a direction based on either the user's input or a calculation for the NPC.
-     *
      * @param deltaX distance x-wise between user's initial input and where touch was let go.
      * @param deltaY distance y-wise between user's initial input and where touch was let go.
      */
-
     private void shoot(float deltaX, float deltaY) {
         Tank shooter = getCurrentTank();
         List<Shootable> projectiles = tankRevolution.shoot(deltaX, deltaY);
@@ -470,7 +470,6 @@ public class Environment {
     /**
      * Calculates the perfect shot and puts a random fault based on difficulty.
      */
-
     private void NPCDoShoot() {
         List<Tank> tanksToNPC = new ArrayList<Tank>();
         tanksToNPC.addAll(tanks.keySet());
@@ -485,26 +484,54 @@ public class Environment {
         shoot(vector.getDeltaX(), vector.getDeltaY());
     }
 
+    /**
+     * TODO
+     * @return
+     */
     public List<float[]> getVertices() {
         return terrainHandler.getVertices();
     }
 
+    /**
+     *
+     * @return
+     */
     private boolean NPCWillShoot() {
         return tankRevolution.NPCWillShoot();
     }
 
+    /**
+     * Get the x position of a tank.
+     * @param tank the tank
+     * @return the x position value of the tank.
+     */
     private float getTankX(Tank tank) {
         return tanks.get(tank).getPosition().x;
     }
 
+    /**
+     * Get the y position of a tank.
+     * @param tank the tank
+     * @return the y position value of the tank.
+     */
     private float getTankY(Tank tank) {
         return tanks.get(tank).getPosition().y;
     }
 
+    /**
+     * Get the position of a tank as a vector.
+     * @param tank the tank
+     * @return the vector position value of the tank.
+     */
     private Vector2 getTankPosition(Tank tank){
         return new Vector2(getTankX(tank), getTankY(tank));
     }
 
+    /**
+     * Get teh projectile from a body.
+     * @param body the body of a projectile.
+     * @return the projectile with that body.
+     */
     public Shootable getProjectile(Body body) {
         for (Shootable s : projectiles.keySet()) {
             if (projectiles.get(s).equals(body)) {
@@ -514,59 +541,117 @@ public class Environment {
         return null;
     }
 
+    /**
+     * Get the x position of a projectile.
+     * @param projectile the projectile
+     * @return the x position value of the projectile.
+     */
     private float getProjectileX(Shootable projectile) {
         return projectiles.get(projectile).getPosition().x;
     }
 
+    /**
+     * Get the y position of a projectile.
+     * @param projectile the projectile
+     * @return the y position value of the projectile.
+     */
     private float getProjectileY(Shootable projectile) {
         return projectiles.get(projectile).getPosition().y;
     }
 
+    /**
+     * Get the vector position of a projectile.
+     * @param projectile the projectile
+     * @return the vector position value of the projectile.
+     */
     private Vector2 getProjectilePosition(Shootable projectile){
         return new Vector2(getProjectileX(projectile), getProjectileY(projectile));
     }
 
+    /**
+     * Get the character list of the current game.
+     * @return the current character list.
+     */
     public List<Character> getCharacterList() {
         return tankRevolution.getCharacterList();
     }
 
+    /**
+     * Get the list of currently flying projectiles.
+     * @return A list of flying projectiles.
+     */
     public List<Shootable> getFlyingProjectiles() {
         return tankRevolution.getFlyingProjectiles();
     }
 
+    /**
+     * Tells if a projectile is flying.
+     * @return true if a projectile is flying.
+     */
     public boolean isProjectileFlying() {
         return tankRevolution.isProjectileFlying();
     }
 
+    /**
+     * Get the current tank.
+     * @return the current tank.
+     */
     public Tank getCurrentTank() {
         return tankRevolution.getCurrentTank();
     }
 
+    /**
+     * Tells if input from the user is allowed.
+     * @return true is input is allowed.
+     */
     public boolean isInputAllowed() {
         return tankRevolution.isInputAllowed();
     }
 
+    /**
+     * Creates a contact listener.
+     */
     private void createContactListener() {
         world.setContactListener(new EnvironmentCollisions(this, terrainHandler));
     }
 
+    /**
+     * Get the current weapon being used in the game.
+     * @return the current weapon.
+     */
     public AmmunitionType getCurrentWeapon() {
         return getCurrentTank().getCurrentWeapon();
     }
 
+    /**
+     * Set the weapon of the tank to the next in the list of weapons.
+     */
     public void setNextWeapon() {
         getCurrentTank().setNextWeapon();
     }
 
+    /**
+     * Set the weapon of the tank to the previous in the list of weapons.
+     */
     public void setPreviousWeapon() {
         getCurrentTank().setPreviousWeapon();
     }
 
+    /**
+     * Get the start position.
+     * @param i the index of the player, 1 for PLAYER1, 2 for PLAYER2, 3 for PLAYER3, 4 for PLAYER 4.
+     * @return the start position as a vector.
+     */
     private Vector2 getStartingPosition(int i){
         return new Vector2(5 + (i - 1)* ((Constants.getMapWidth() - 10) / (getCharacterList().size()-1)),
                 Constants.getTankStartPositionY());
     }
 
+    /**
+     * Determines the starting position of a tank.
+     * @param id the id of the tank's player.
+     * @return the start position as a vector.
+     */
     private Vector2 getStartingPosition(Id id) {
         switch (id) {
             case PLAYER1:
