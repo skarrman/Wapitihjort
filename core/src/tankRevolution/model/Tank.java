@@ -6,60 +6,47 @@ import tankRevolution.model.shootablePackage.Shootable;
 
 /**
  * Created by antonhagermalm on 2017-03-30.
+ * the logic representation of tanks
  */
 public class Tank {
 
-    private int health;
-    private float fuel;
-    private final float width = 3f;
-    private final float height = 2f;
-    private float deltaX;
-    private float deltaY;
     private Integer angle = 0;
-    private boolean alive = true;
     private boolean isFalling;
     private AmmunitionType ammunitionType;
-
-    //Gives the tank a mass of 600kg
+    /**
+     * Tank specs
+     */
+        //Gives the tank a mass of 600kg
     private final float density = 100;
+    private final float width = 3f;
+    private final float height = 2f;
+    private final float maxFuel = 100f;
+    private int health = 100;
+    private float fuel = 100;
 
-
-
-    public Tank(int health, int fuel) {
-        this.health = health;
-        this.fuel = fuel;
+    public Tank() {
         this.ammunitionType = AmmunitionType.SMALL_MISSILE;
         isFalling = true;
     }
 
-    public Tank(){
-        this(100, 100);
-    }
-
-    public Shootable shoot(float deltaX, float deltaY) {
-        this.deltaX = deltaX;
-        this.deltaY = deltaY;
-        angle = (int)Math.toDegrees(Math.tan(deltaY/deltaX));
+    Shootable shoot(float deltaX, float deltaY) {
+        angle = (int) Math.toDegrees(Math.tan(deltaY / deltaX));
         return ProjectileFactory.create(ammunitionType);
     }
 
-    public void setHealth(int n) {
-        health = n;
-    }
-
-    public void reduceHealth(int damage) {
+    void reduceHealth(int damage) {
         health = health - damage;
-        alive = health <= 0;
     }
 
-    public void setNextWeapon(){
+    public void setNextWeapon() {
         ammunitionType = AmmunitionType.getNext(ammunitionType);
     }
-    public void setPreviousWeapon(){
+
+    public void setPreviousWeapon() {
         ammunitionType = AmmunitionType.getPrevious(ammunitionType);
     }
 
-    public AmmunitionType getCurrentWeapon(){
+    public AmmunitionType getCurrentWeapon() {
         return ammunitionType;
     }
 
@@ -71,15 +58,13 @@ public class Tank {
         return fuel;
     }
 
-    public void reduceFuel(){
+    void reduceFuel() {
         fuel = fuel - 0.5f;
     }
 
-    public void setFuel(float n) {
-        fuel = n;
+    void resetFuel() {
+        fuel = maxFuel;
     }
-
-    public void drive(int direction) {  }
 
     public float getWidth() {
         return width;
@@ -97,28 +82,20 @@ public class Tank {
         return health >= 0;
     }
 
-    public float getDeltaX(){
-        return deltaX;
-    }
-
-    public float getDeltaY(){
-        return deltaY;
-    }
-
-    public Integer getAngle(){
+    public Integer getAngle() {
         return angle;
     }
 
-    public boolean hasFuel() {
+    boolean hasFuel() {
         return (fuel > 0);
 
     }
 
-    public boolean isTankFalling(){
+    public boolean isTankFalling() {
         return isFalling;
     }
 
-    public void setTankFalling(boolean b){
+    public void setTankFalling(boolean b) {
         isFalling = b;
     }
 

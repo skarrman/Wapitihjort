@@ -2,6 +2,7 @@ package tankRevolution.model;
 
 /**
  * Created by jakobwall on 2017-05-11.
+ * the logic implementation of NPCDifficulty
  */
 public enum NPCDifficulty {
     EASY(0.4f, 0.8f, 0.95f),

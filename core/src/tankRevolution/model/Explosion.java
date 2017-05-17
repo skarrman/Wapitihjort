@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by antonhagermalm on 2017-04-06.
+ * The logic representation of a explosion
  */
 public class Explosion {
 

@@ -2,10 +2,11 @@ package tankRevolution.model.shootablePackage;
 
 /**
  * Created by jakobwall on 2017-05-11.
+ *  {@inheritDoc}
  */
-public class Missile extends Projectile{
+class Missile extends Projectile{
 
-    protected Missile() {
+    Missile() {
         super(100, 5);
     }
 

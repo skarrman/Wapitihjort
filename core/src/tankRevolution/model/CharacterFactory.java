@@ -14,7 +14,7 @@ public class CharacterFactory {
         return new NPC(id, difficulty);
     }
 
-    public static Character defenciveCopyCharacter(Character characterToCopy){
+    static Character defenciveCopyCharacter(Character characterToCopy){
         if (!characterToCopy.isNPC()){
             return new Player((Player)characterToCopy);
         }

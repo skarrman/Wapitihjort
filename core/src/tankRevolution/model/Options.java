@@ -1,6 +1,5 @@
 package tankRevolution.model;
 
-import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Id;
 
 import java.util.ArrayList;
@@ -40,27 +39,26 @@ public class Options {
         characterList.add(CharacterFactory.newNPC(Id.PLAYER2, NPCDifficulty.SUPERHARD));
     }
 
-    public List<Character> setUpCustom(int numberOfPlayers, int numberOfNPCs,List<NPCDifficulty> npcDifficulties){
-        if(numberOfNPCs < numberOfPlayers){
+    public void setUpCustom(int numberOfPlayers, int numberOfNPCs, List<NPCDifficulty> npcDifficulties) {
+        if (numberOfNPCs < numberOfPlayers) {
             characterList.add(CharacterFactory.newPlayer(Id.PLAYER1));
-        }else {
+        } else {
             characterList.add(CharacterFactory.newNPC(Id.PLAYER1, npcDifficulties.remove(0)));
         }
-        for(int i = 1; i < numberOfPlayers; i++){
-            if(numberOfNPCs > 0){
-                characterList.add(CharacterFactory.newNPC(Id.get(i+1), npcDifficulties.remove(0)));
+        for (int i = 1; i < numberOfPlayers; i++) {
+            if (numberOfNPCs > 0) {
+                characterList.add(CharacterFactory.newNPC(Id.get(i + 1), npcDifficulties.remove(0)));
                 numberOfNPCs--;
-            }else{
-                characterList.add(CharacterFactory.newPlayer(Id.get(i+1)));
+            } else {
+                characterList.add(CharacterFactory.newPlayer(Id.get(i + 1)));
             }
         }
-        return characterList;
 
     }
 
-    private List<Character> defenciveCopiedCharacterList(){
+    private List<Character> defenciveCopiedCharacterList() {
         List<Character> safeCharacters = new ArrayList<Character>();
-        for (Character character : characterList){
+        for (Character character : characterList) {
             safeCharacters.add(CharacterFactory.defenciveCopyCharacter(character));
         }
         return safeCharacters;
@@ -69,10 +67,5 @@ public class Options {
     public TankRevolution newGame() {
         return new TankRevolution(defenciveCopiedCharacterList());
     }
-
-    public List<Character> getCharacterList() {
-        return characterList;
-    }
-
 
 }

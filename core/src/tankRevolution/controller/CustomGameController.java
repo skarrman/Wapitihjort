@@ -20,7 +20,7 @@ import java.util.List;
  * CustomGameController is the controller class that is responsible for handling
  * user actions in the custom game set up screen.
  */
-public class CustomGameController {
+class CustomGameController {
 
     /** Button that represents the right arrow in the map selector */
     private Button rightMapArrow;
@@ -72,7 +72,7 @@ public class CustomGameController {
      * @param gameHolder The current game holder. Is necessary to be able to switch view.
      * @param view The current view the represent the custom game screen.
      */
-    public CustomGameController(GameHolder gameHolder, CustomGameView view){
+    CustomGameController(GameHolder gameHolder, CustomGameView view){
         rightMapArrow = new Button();
         leftMapArrow = new Button();
 
@@ -101,7 +101,7 @@ public class CustomGameController {
     /**
      * @return The stage that all the buttons are in.
      */
-    public Stage getStage() {
+    Stage getStage() {
         return stage;
     }
 

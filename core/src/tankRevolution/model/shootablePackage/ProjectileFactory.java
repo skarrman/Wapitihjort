@@ -2,6 +2,7 @@ package tankRevolution.model.shootablePackage;
 
 /**
  * Created by antonhagermalm on 2017-03-31.
+ * factory responsible for creating projectiles
  */
 public class ProjectileFactory {
 
@@ -9,8 +10,8 @@ public class ProjectileFactory {
      * Maybe return the projectile-object to the gameSession
      */
 
-    public static Shootable create(AmmunitionType ammunitionType){
-        switch (ammunitionType){
+    public static Shootable create(AmmunitionType ammunitionType) {
+        switch (ammunitionType) {
             case SMALL_MISSILE:
                 return createSmallMissile();
             case MISSILE:
@@ -24,19 +25,19 @@ public class ProjectileFactory {
         }
     }
 
-    public static Shootable createSmallMissile(){
+    private static Shootable createSmallMissile() {
         return new SmallMissile();
     }
 
-    public static Shootable createMissile(){
+    private static Shootable createMissile() {
         return new Missile();
     }
 
-    public static Shootable createSmallAtomBomb(){
+    private static Shootable createSmallAtomBomb() {
         return new SmallAtomBomb();
     }
 
-    public static Shootable createAtomBomb(){
+    private static Shootable createAtomBomb() {
         return new AtomBomb();
     }
 }

@@ -19,9 +19,6 @@ public class TankRevolution {
     /** The index of the current playing character */
     private int characterTurn = 0;
 
-    /** if the projectile has hit something and will be removed */
-    private boolean projectileHasHit = false;
-
     /** true if the current character is a player, false if npc */
     private boolean isActive;
     /**
@@ -31,7 +28,7 @@ public class TankRevolution {
      * (max four characters)
      * Note that this is the first iteration and is only made for two characters
      *
-     * @param characterList
+     * @param characterList the characterList
      */
 
     public TankRevolution(List<Character> characterList) {
@@ -75,7 +72,6 @@ public class TankRevolution {
     }
 
     public void doNextMove(){
-        getCurrentTank().setFuel(100);
         setNextCharacter();
         getCurrentCharacter().setNewTurn();
         setIsActive();
@@ -108,13 +104,6 @@ public class TankRevolution {
     }
 
     /**
-     * @return the index of the current playing character
-     */
-    public int getCharacterTurn() {
-        return characterTurn;
-    }
-
-    /**
      * @return true if the projectile is currently in the air
      */
     public boolean isProjectileFlying() {
@@ -139,7 +128,7 @@ public class TankRevolution {
     /**
      * sets that the current character is a player
      */
-    public void setIsActive(){
+    private void setIsActive(){
         isActive = !getCurrentCharacter().isNPC();
     }
 
@@ -162,27 +151,7 @@ public class TankRevolution {
         tank.reduceHealth(calculateDamage(projectile.getDamage(), distance, projectile.getBlastRadius()));
     }
 
-
-
-    /*private void projectileImpacted(float x, float y){
-        projectileHasHit = true;
-
-        //TODO find the blastradius from somewhere else.
-        explosions.add(new Explosion(x, y, flyingProjectile.getBlastRadius()));
-
-        for(int i = 0; i < characterList.size(); i++){
-            Tank tank = characterList.get(i).getTank();
-            float distance = environment.distanceTo(tank, flyingProjectile);
-            if(distance < flyingProjectile.getBlastRadius()){
-                tank.reduceHealth(calculateDamage(flyingProjectile.getDamage(), distance, flyingProjectile.getBlastRadius()));
-            }
-            System.out.println(tank.getHealth());
-        }
-    }*/
     public void destroyTank(Tank tank) {
-        /* if bodies doesnt disappear, it's because this if statment is only ran once, to fix this put it in update
-        maybe make a list of bodies to be removed and in update remove them and make the removeMethod in environment
-        generic */
 
         for(int i = 0; i < characterList.size(); i++){
             if (characterList.get(i).getTank() == tank) {
@@ -190,6 +159,5 @@ public class TankRevolution {
                 setNextCharacter();
             }
         }
-        //TODO look in the character list for the character with this tank and remove it. Make sure to have defencive copying from model
     }
 }

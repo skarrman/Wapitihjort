@@ -2,7 +2,9 @@ package tankRevolution.model.shootablePackage;
 
 /**
  * Created by jakobwall on 2017-05-11.
+ * Handling of the different kinds of ammunition
  */
+@SuppressWarnings("Duplicates")
 public enum AmmunitionType {
     SMALL_MISSILE("Small Missile"),
     MISSILE("Missile"),

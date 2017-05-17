@@ -7,9 +7,9 @@ package tankRevolution.model.shootablePackage;
  * {@inheritDoc}
  *
  */
-public class SmallMissile extends Projectile {
+class SmallMissile extends Projectile {
 
-    protected SmallMissile() {
+    SmallMissile() {
         super(100, 3);
     }
 

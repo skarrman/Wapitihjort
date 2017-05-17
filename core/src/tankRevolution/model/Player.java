@@ -16,6 +16,6 @@ public class Player extends Character{
     }
 
     public void setNewTurn(){
-//TODO logic for what happens when player has new turn.
+        getTank().resetFuel();
     }
 }

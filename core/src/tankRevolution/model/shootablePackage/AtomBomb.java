@@ -2,10 +2,11 @@ package tankRevolution.model.shootablePackage;
 
 /**
  * Created by jakobwall on 2017-05-11.
+ *  {@inheritDoc}
  */
-public class AtomBomb extends Projectile{
+class AtomBomb extends Projectile{
 
-    protected AtomBomb() {
+    AtomBomb() {
         super(50, 25);
     }
 

@@ -36,7 +36,7 @@ public abstract class Character {
 
     /**
      * Sets the tank
-     * @param tank
+     * @param tank the tank
      */
     public void setTank(Tank tank) {
         this.tank = tank;
@@ -44,7 +44,7 @@ public abstract class Character {
 
     /**
      * gets the tank
-     * @return
+     * @return the tank
      */
     public Tank getTank(){
         return tank;
@@ -52,7 +52,7 @@ public abstract class Character {
 
     /**
      * gets the name
-     * @return
+     * @return the name
      */
     public Id getId() {
         return id;
@@ -61,7 +61,7 @@ public abstract class Character {
     /**
      * @return whether or not the current character is a npc or not
      */
-    public boolean isNPC(){
+    boolean isNPC(){
         return isNPC;
     }
 
