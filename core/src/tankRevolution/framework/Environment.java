@@ -260,6 +260,9 @@ public class Environment {
         world.dispose();
     }
 
+    /**
+     * TODO refactoring
+     */
     private void tankOutsideMapCheck() {
         for (int i = 0; i < getCharacterList().size(); i++) {
             Vector2 position = tanks.get(getCharacterList().get(i).getTank()).getPosition();
@@ -270,6 +273,9 @@ public class Environment {
         }
     }
 
+    /**
+     * TODO refactoring
+     */
     private void projectileOutsideMapCheck() {
         for (int i = 0; i < getFlyingProjectiles().size(); i++) {
             Vector2 position = projectiles.get(getFlyingProjectiles().get(i)).getPosition();
@@ -281,7 +287,7 @@ public class Environment {
     }
 
     /**
-     * Moves the world forward one step and updates everything accordingly. called 60 times/second.
+     * Is called for the world to update the bodies within it.
      */
     public void update() {
         tankOutsideMapCheck();
@@ -297,6 +303,9 @@ public class Environment {
         time = System.currentTimeMillis();
     }
 
+    /**
+     * TODO
+     */
     public boolean isTerrainChanged() {
         boolean value = isTerrainChanged;
         isTerrainChanged = false;
@@ -304,6 +313,9 @@ public class Environment {
         return value;
     }
 
+    /**
+     * Updates the remove-stack.
+     */
     private void stackUpdate() {
         if (!world.isLocked() && !removeStack.isEmpty()) {
             world.destroyBody(removeStack.get(removeStack.size() - 1));
@@ -311,10 +323,19 @@ public class Environment {
         }
     }
 
+    /**
+     * Checks if the world is locked.
+     * @return true if the world is locked.
+     */
     public boolean isLocked() {
         return world.isLocked();
     }
 
+    /**
+     * TODO JAKOB ERLANDSSON?
+     * @param body
+     * @param isFalling
+     */
     public void setTankFalling(Body body, boolean isFalling){
         for (Tank t: tanks.keySet()){
             if (tanks.get(t).equals(body)){
@@ -323,6 +344,9 @@ public class Environment {
         }
     }
 
+    /**
+     * TODO Jakob Erlandsson?
+     */
     private void setAllTanksFalling(){
         for (int i  = 0; i < tanks.size(); i++){
             setTankFalling(tanks.get(getCharacterList().get(i).getTank()), true);
@@ -335,7 +359,9 @@ public class Environment {
      *
      * @param projectile the projectile that hit something.
      */
-    public void projectileHit(Shootable projectile) {
+
+    //TODO refactor this projectile hit method, seems like it's doing more than one thing.
+    void projectileHit(Shootable projectile) {
         List<Tank> deadTanks = new ArrayList<Tank>();
         for (Tank t : tanks.keySet()) {
             tankRevolution.damage(projectile, t, distanceTo(t, projectile));
@@ -352,8 +378,7 @@ public class Environment {
     }
 
     /**
-     * Removes the body of the projectile fram the environment.
-     *
+     * Removes the body of the projectile from the world.
      * @param projectile the projectile that will be destroyed.
      */
     private void destroyProjectile(Shootable projectile) {
@@ -368,8 +393,7 @@ public class Environment {
     }
 
     /**
-     * Removes the body of the tank from the environment.
-     *
+     * Removes the body of the tank from the world.
      * @param tank the tank that will be destroyed.
      */
     private void destroyTank(Tank tank) {
@@ -379,8 +403,8 @@ public class Environment {
     }
 
     /**
-     * @param tank
-     * @param projectile
+     * @param tank the actual tank.
+     * @param projectile the actual projectile.
      * @return The distance between the tank and the projectile.
      */
     private float distanceTo(Tank tank, Shootable projectile) {
@@ -391,7 +415,6 @@ public class Environment {
 
     /**
      * Moves tank based on input from user.
-     *
      * @param direction recieves it from ButtonController, 1 if moving right, -1 if moving left
      */
     public void moveTank(int direction) {
