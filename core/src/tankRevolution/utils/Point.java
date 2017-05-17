@@ -2,6 +2,7 @@ package tankRevolution.utils;
 
 /**
  * Created by jakobwall on 2017-05-08.
+ * Non-mutable version of the Point class.
  */
 public class Point {
     private float x;

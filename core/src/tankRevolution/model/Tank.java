@@ -17,6 +17,7 @@ public class Tank {
     private float deltaY;
     private Integer angle = 0;
     private boolean alive = true;
+    private boolean isFalling;
     private AmmunitionType ammunitionType;
 
     //Gives the tank a mass of 600kg
@@ -28,6 +29,7 @@ public class Tank {
         this.health = health;
         this.fuel = fuel;
         this.ammunitionType = AmmunitionType.SMALL_MISSILE;
+        isFalling = true;
     }
 
     public Tank(){
@@ -110,6 +112,14 @@ public class Tank {
     public boolean hasFuel() {
         return (fuel > 0);
 
+    }
+
+    public boolean isTankFalling(){
+        return isFalling;
+    }
+
+    public void setTankFalling(boolean b){
+        isFalling = b;
     }
 
 }

@@ -60,12 +60,7 @@ public class Environment {
      * TODO
      */
     private ITerrainHandler terrainHandler;
-
-    /**
-     * A boolean indicating if a tank is falling.
-     */
-    private boolean isTankFalling;
-
+    
     /**
      * A boolean indicating if the terrain is changed.
      */
@@ -270,10 +265,9 @@ public class Environment {
      * Moves the world forward one step and updates everything accordingly. called 60 times/second.
      */
     public void update() {
-        isTankFalling = true;
         tankOutsideMapCheck();
         projectileOutsideMapCheck();
-        levelTank();
+        setAllTanksFalling();
         stackUpdate();
         time = System.currentTimeMillis() - time;
         world.step((Math.min((float) time / 1000, Gdx.graphics.getDeltaTime())), 6, 2);
@@ -300,6 +294,20 @@ public class Environment {
 
     public boolean isLocked() {
         return world.isLocked();
+    }
+
+    public void setTankFalling(Body body, boolean isFalling){
+        for (Tank t: tanks.keySet()){
+            if (tanks.get(t).equals(body)){
+                t.setTankFalling(isFalling);
+            }
+        }
+    }
+
+    private void setAllTanksFalling(){
+        for (int i  = 0; i < tanks.size(); i++){
+            setTankFalling(tanks.get(tankRevolution.getCharacterList().get(i).getTank()), true);
+        }
     }
 
 
@@ -371,7 +379,6 @@ public class Environment {
      * @param direction recieves it from ButtonController, 1 if moving right, -1 if moving left
      */
     public void moveTank(int direction) {
-        getTankBody(tankRevolution.getCurrentTank()).getFixtureList().get(0).setFriction(0f);
         getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(direction * 25,
                 Constants.getGravity());
         tankRevolution.reduceFuel();
@@ -382,8 +389,10 @@ public class Environment {
      */
     public void stopTank() {
         for (int i = 0; i < tanks.size(); i++) {
-            if (!isTankFalling) {
+            if (!tankRevolution.getCharacterList().get(i).getTank().isTankFalling()) {
                 tanks.get(tankRevolution.getCharacterList().get(i).getTank()).setLinearVelocity(0, 0);
+            }else{
+                tanks.get(tankRevolution.getCharacterList().get(i).getTank()).setLinearVelocity(0, Constants.getGravity());
             }
         }
     }
@@ -392,18 +401,7 @@ public class Environment {
      * @return true if there is nothing stopping the tank from moving.
      */
     public boolean tankCanMove() {
-        return tankRevolution.tankCanMove() && !isTankFalling;
-    }
-
-    /**
-     * Applies torque to make the tank level itself out to stop it from flipping over.
-     */
-    private void levelTank() {
-        if (getTankBody(tankRevolution.getCurrentTank()).getAngle() < -0.1) {
-            getTankBody(tankRevolution.getCurrentTank()).applyTorque(100000, true);
-        } else if (getTankBody(tankRevolution.getCurrentTank()).getAngle() > 0.1) {
-            getTankBody(tankRevolution.getCurrentTank()).applyTorque(-100000, true);
-        }
+        return tankRevolution.tankCanMove() && !getCurrentTank().isTankFalling();
     }
 
     /**
@@ -463,14 +461,6 @@ public class Environment {
 
     private float getTankY(Tank tank) {
         return tanks.get(tank).getPosition().y;
-    }
-
-    public boolean getTankFalling() {
-        return isTankFalling;
-    }
-
-    public void setTankFalling(boolean b) {
-        isTankFalling = b;
     }
 
     public Shootable getProjectile(Body body) {

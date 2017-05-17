@@ -203,7 +203,8 @@ public class GameView implements Viewable {
     }
 
     /**
-     * This method is called if the user is aiming and is about to shoot.
+     * This method is called if the user is aiming and is about to shoot. Draws one line from where the user
+     * touched the screen to the point where it releases. Draws two lines from the top of the line to make it an arrow.
      */
     private void drawVectorArrow() {
         float angle = getAngle(aimingArrowBottom.x, aimingArrowBottom.y, getAimingArrowTop.x, getAimingArrowTop.y);

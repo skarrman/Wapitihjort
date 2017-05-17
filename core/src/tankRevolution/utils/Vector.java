@@ -2,6 +2,7 @@ package tankRevolution.utils;
 
 /**
  * Created by jakobwall on 2017-05-08.
+ * Non-mutable version of the Vector class.
  */
 public class Vector {
     private float deltaX;

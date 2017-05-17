@@ -66,10 +66,11 @@ public class ButtonController {
      */
     public void update() {
         gameView.setPressed(isPressed);
-        environment.stopTank();
         if (!environment.gameOver()) {
             if (isPressed && environment.tankCanMove()) {
                 environment.moveTank(direction);
+            } else{
+                environment.stopTank();
             }
         } else {
             if (!gameOverMode) {

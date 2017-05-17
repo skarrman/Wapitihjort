@@ -54,7 +54,7 @@ public class LabelDrawer {
                     pos = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
                     break;
             }
-            str.append("Health :").append((int)c.getTank().getHealth()).append("\n").append("Fuel: ").append((int)c.getTank().getFuel());
+            str.append("Health :").append((int)c.getTank().getHealth());
             label.setText(font, str);
             float width = label.width;
 
