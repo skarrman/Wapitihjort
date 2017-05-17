@@ -1,4 +1,4 @@
-package tank_revolution_tests.Utils;
+package tank_revolution_tests.utils;
 
 import org.junit.Test;
 import tankRevolution.utils.AssetsManager;

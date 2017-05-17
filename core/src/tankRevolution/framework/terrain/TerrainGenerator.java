@@ -9,7 +9,8 @@ import java.util.List;
 /**
  * Created by antonhagermalm on 2017-05-10.
  * This class creates a map from a textfile in assets/maps/..
- *
+ * These text files contain ints which will be used to generate hills, valleys or flat ground.
+ * Further explanation of these text files is in the ReadMe in assets/maps/..
  */
 public class TerrainGenerator {
 
@@ -124,10 +125,10 @@ public class TerrainGenerator {
     }
 
     /**
-     *
-     * @param matrix
-     * @param vertexList
-     * @return
+     * generates the vertex values from the matrix and adds them to the vertexList
+     * @param matrix the matrix with the values needed to generate the vertices to the map
+     * @param vertexList the list of vertices
+     * @return the total list, with the new and the old vertices
      */
     private static List<Float> createVertexList(List<List<Integer>> matrix, List<Float> vertexList) {
 
@@ -162,10 +163,9 @@ public class TerrainGenerator {
     }
 
     /**
-     * Adds the array to the list
-     *
-     * @param list
-     * @param arr
+     * Adds a array to a list
+     * @param list the list
+     * @param arr the array
      * @return
      */
     public static List<Float> addAllToList(List<Float> list, float[] arr) {
@@ -175,15 +175,17 @@ public class TerrainGenerator {
         return list;
     }
 
-
-    private static float[] listToArray(List<Float> verticesList) {
-        float[] verticesArray = new float[verticesList.size()];
-        for (int i = 0; i < verticesArray.length; i++) {
-            verticesArray[i] = verticesList.remove(0);
+    /**
+     * makes a list of floats to an array of floats
+     * @param list the list
+     * @return the array
+     */
+    private static float[] listToArray(List<Float> list) {
+        float[] array = new float[list.size()];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = list.remove(0);
         }
-        return verticesArray;
+        return array;
     }
 
-    public enum Maps {
-    }
 }
