@@ -7,12 +7,10 @@ import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Id;
 import tankRevolution.model.Explosion;
 
-import java.util.List;
-
 /**
  * <p>The animation of a explosion</p>
  */
-public class ExplosionAnimation{
+class ExplosionAnimation{
 
     /** Keeps track of the time so that the animation is correct */
     private float time;
@@ -59,13 +57,6 @@ public class ExplosionAnimation{
             s.setSize(2 * blastRadius * pixelsPerMeter, 2 * blastRadius * pixelsPerMeter);
             s.setPosition((x * pixelsPerMeter) - s.getWidth()/2, (y * pixelsPerMeter) - s.getHeight()/2);
         }
-    }
-
-    /**
-     * Disposes all the disposes.
-     */
-    void dispose() {
-        //textureAtlas.dispose();
     }
 
 }

@@ -15,24 +15,31 @@ import tankRevolution.utils.Constants;
 import java.util.List;
 
 /**
- * Created by simonkarrman on 2017-05-10.
+ * The class that handles the graphical elements that is shown when the game is over.
  */
 public class GameOverView {
+
+    /** The font that is used */
     private BitmapFont font;
 
+    /** An instance that helps with the layout of texts */
     private GlyphLayout label;
 
+    /** The sprite that represents the button that takes you back to the start menu */
     private Sprite toMenuSprite;
 
-    private StringBuilder str;
+    /** The string that is drawn */
+    private String str;
 
+    /**
+     * Initializes everything and putting everything where it should be.
+     */
     public GameOverView(){
         AssetsManager assetsManager = AssetsManager.getInstance();
         font = assetsManager.getFonts().get(1);
         label = new GlyphLayout();
         font.setColor(0, 0, 0, 1);
-        str = new StringBuilder();
-        str.append("GAME OVER!");
+        str = "GAME OVER!";
         toMenuSprite = new Sprite(AssetsManager.getInstance().getPauseMenuTextures().get(2));
         float width = Constants.getPauseMenuButtonWidth();
         float height = Constants.getPauseMenuButtonHeight();
@@ -40,6 +47,10 @@ public class GameOverView {
         toMenuSprite.setBounds(pos.x, pos.y, width, height);
     }
 
+    /**
+     * The method that render the graphical items on the screen-
+     * @param batch The batch that we draw on.
+     */
     public void draw(Batch batch){
         toMenuSprite.draw(batch);
         label.setText(font, str);

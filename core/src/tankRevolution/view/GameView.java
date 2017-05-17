@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -80,33 +81,46 @@ public class GameView implements Viewable {
     /**
      * This is the value where the user is touching
      */
-    private Vector3 aimingArrowBottom;
+    private Vector2 aimingArrowBottom;
 
     /**
      * Value of where the user started to drag on the screen
      */
-    private Vector3 getAimingArrowTop;
+    private Vector2 aimingArrowTop;
 
+    /**
+     * The list of all the on going explosion animations.
+     */
     private List<ExplosionAnimation> explosionAnimations;
 
+    /** The instance that handles the arrow that show whose turn it is */
     private TurnIndicatorAnimation turnIndicatorAnimation;
 
+    /** A map that connect a character with a graphical tank */
     private HashMap<Character, GraphicalTank> characterTankHashMap;
 
+    /** A map that connect a shootable with a graphical projectile */
     private HashMap<Shootable, GraphicalProjectile> projectileHashMap;
 
+    /** The instance of the class that handles the drawing of labels on the screen */
     private LabelDrawer labelDrawer;
 
+    /** Handles the graphical elements that is shown when the game is over */
     private GameOverView gameOverView;
 
+    /** The sound of a shot that is fired */
     private Sound shotSound;
 
-    private Sound explostionSound;
+    /** The sound of an explosion */
+    private Sound explosionSound;
 
+    /** The graphical representation of the weapon switch */
     private  WeaponSwitch weaponSwitch;
 
+    /** The background of the map */
     private Sprite background;
 
+    /** The graphical representation of the terrain */
     private GraphicalTerrain terrain;
 
     /**
@@ -128,7 +142,7 @@ public class GameView implements Viewable {
         labelDrawer = new LabelDrawer();
         gameOverView = new GameOverView();
         shotSound = AssetsManager.getInstance().getSoundEffects().get(0);
-        explostionSound = AssetsManager.getInstance().getSoundEffects().get(1);
+        explosionSound = AssetsManager.getInstance().getSoundEffects().get(1);
         projectileHashMap = new HashMap<Shootable, GraphicalProjectile>();
         weaponSwitch = new WeaponSwitch();
         background = new Sprite(new Texture(Gdx.files.internal("background.png")));
@@ -144,10 +158,6 @@ public class GameView implements Viewable {
         camera.update();
 
         setCamera();
-       /* if (arrowIsActive) {
-            drawVector();
-        }*/
-
         batch.begin();
 
         setBackground();
@@ -164,7 +174,7 @@ public class GameView implements Viewable {
         if (explosions.size() > 0) {
             for (Explosion e : explosions) {
                 explosionAnimations.add(new ExplosionAnimation(e, Constants.pixelsPerMeter()));
-                explostionSound.play();
+                explosionSound.play();
             }
             explosions.clear();
         }
@@ -209,19 +219,27 @@ public class GameView implements Viewable {
      * touched the screen to the point where it releases. Draws two lines from the top of the line to make it an arrow.
      */
     private void drawVectorArrow() {
-        float angle = getAngle(aimingArrowBottom.x, aimingArrowBottom.y, getAimingArrowTop.x, getAimingArrowTop.y);
+        float angle = getAngle(aimingArrowBottom.x, aimingArrowBottom.y, aimingArrowTop.x, aimingArrowTop.y);
         float angle1 = angle + 45;
         float angle2 = angle - 45;
-        Vector3 arrow1 = getArrowLine(aimingArrowBottom, angle1);
-        Vector3 arrow2 = getArrowLine(aimingArrowBottom, angle2);
+        Vector2 arrow1 = getArrowLine(aimingArrowBottom, angle1);
+        Vector2 arrow2 = getArrowLine(aimingArrowBottom, angle2);
         shapeRenderer.begin(ShapeType.Line);
         shapeRenderer.setColor(Color.BLACK);
         shapeRenderer.line(arrow1.x, arrow1.y, aimingArrowBottom.x, aimingArrowBottom.y);
         shapeRenderer.line(arrow2.x, arrow2.y, aimingArrowBottom.x, aimingArrowBottom.y);
-        shapeRenderer.line(aimingArrowBottom.x, aimingArrowBottom.y, getAimingArrowTop.x, getAimingArrowTop.y);
+        shapeRenderer.line(aimingArrowBottom.x, aimingArrowBottom.y, aimingArrowTop.x, aimingArrowTop.y);
         shapeRenderer.end();
     }
 
+    /**
+     * Returns the angle of the arrow that the user draws on the screen when aiming.
+     * @param x1 The x-coordinate of the starting point.
+     * @param y1 The y-coordinate of the starting point.
+     * @param x2 The x-coordinate of the ending point.
+     * @param y2 The y-coordinate of the ending point.
+     * @return The angle of the line that is between the two points.
+     */
     private float getAngle(float x1, float y1, float x2, float y2){
         float angle = (float) -Math.toDegrees(Math.atan2(x2 - x1, y2 - y1)) + 90;
         if (angle < 0){
@@ -230,10 +248,16 @@ public class GameView implements Viewable {
         return angle;
     }
 
-    private Vector3 getArrowLine(Vector3 center, float angle){
+    /**
+     * The method that calculates the points to make the tip of the arrow.
+     * @param center The end point of the arrow.
+     * @param angle The angle of the line.
+     * @return The point to where a line will be drawn to make an arrow tip.
+     */
+    private Vector2 getArrowLine(Vector2 center, float angle){
         float x = (float)(Math.cos(Math.toRadians(angle)) * 50) + center.x;
         float y = (float)(Math.sin(Math.toRadians(angle)) * 50) + center.y;
-        return new Vector3(x, y, 0);
+        return new Vector2(x, y);
 
     }
 
@@ -246,10 +270,12 @@ public class GameView implements Viewable {
      * @param endY   The y-coordinate of where the user is touching at the moment.
      */
     public void createArrow(float startX, float startY, float endX, float endY) {
-        aimingArrowBottom = new Vector3(startX, startY, 0);
-        getAimingArrowTop = new Vector3(endX, endY, 0);
-        camera.unproject(aimingArrowBottom);
-        camera.unproject(getAimingArrowTop);
+        Vector3 unProjectVectorBottom = new Vector3(startX, startY, 0);
+        Vector3 unProjectVectorTop = new Vector3(endX, endY, 0);
+        camera.unproject(unProjectVectorBottom);
+        camera.unproject(unProjectVectorTop);
+        aimingArrowBottom = new Vector2(unProjectVectorBottom.x, unProjectVectorBottom.y);
+        aimingArrowTop = new Vector2(unProjectVectorTop.x, unProjectVectorTop.y);
         arrowIsActive = true;
     }
 
@@ -260,18 +286,27 @@ public class GameView implements Viewable {
         arrowIsActive = false;
     }
 
+    /**
+     * Initialize the debugger.
+     */
     private void createDebugger() {
         debugMatrix = new Matrix4(camera.combined);
         debugRenderer = new Box2DDebugRenderer();
         shapeRenderer = new ShapeRenderer();
     }
 
+    /**
+     * Draws the debug details.
+     */
     private void drawDebugDetails() {
         batch.setProjectionMatrix(camera.combined);
         debugMatrix = batch.getProjectionMatrix().cpy().scale(Constants.pixelsPerMeter(), Constants.pixelsPerMeter(), 0);
         debugRenderer.render(environment.getWorld(), debugMatrix);
     }
 
+    /**
+     * Sets the background.
+     */
     private void setBackground() {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
@@ -287,19 +322,18 @@ public class GameView implements Viewable {
         camera.position.set(new Vector3(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0));
     }
 
+    /**
+     * Draws the terrain.
+     */
     private void drawTerrain(){
         List<float[]> vertices = environment.getVertices();
         terrain.draw(vertices, environment.isTerrainChanged(), batch);
-        /*for(float[] v : vertices){
-            shapeRenderer.setProjectionMatrix(debugMatrix);
-            shapeRenderer.begin(ShapeType.Line);
-            shapeRenderer.setColor(Color.BLACK);
-            shapeRenderer.polygon(v);
-            shapeRenderer.end();
-        }*/
     }
 
 
+    /**
+     * Pairing shootables with flying projectiles in a map.
+     */
     private void setUpProjectileHashMap() {
         for (Shootable s : environment.getFlyingProjectiles()) {
             if (!projectileHashMap.containsKey(s)){
@@ -322,6 +356,9 @@ public class GameView implements Viewable {
 
     }
 
+    /**
+     * Pairing characters with graphical tanks in a map.
+     */
     private void setUpTankHashMap() {
         characterTankHashMap = new HashMap<Character, GraphicalTank>();
         for (Character c : environment.getCharacterList()) {
@@ -332,7 +369,7 @@ public class GameView implements Viewable {
     }
 
     /**
-     * Draws the tank
+     * Draws all the tanks that is in in the current game and alive.
      */
     private void drawTanks() {
         for (Character c : environment.getCharacterList()) {
@@ -342,6 +379,10 @@ public class GameView implements Viewable {
         checkCharacterList();
     }
 
+    /**
+     * Checks the map with characters and tank and sees if someone has died.
+     * In that case that tank/character is removed from the map.
+     */
     private void checkCharacterList() {
         if (characterTankHashMap.size() > environment.getCharacterList().size()) {
             HashMap<Character, GraphicalTank> tempMap = new HashMap<Character, GraphicalTank>();
@@ -352,6 +393,10 @@ public class GameView implements Viewable {
         }
     }
 
+    /**
+     * Checks the map with shootables and projectiles and sees if any has exploded.
+     * In that case that shootable is removed from the map.
+     */
     private void checkShootableList() {
         if (projectileHashMap.size() > environment.getFlyingProjectiles().size()) {
             HashMap<Shootable, GraphicalProjectile> tempMap = new HashMap<Shootable, GraphicalProjectile>();
@@ -362,6 +407,10 @@ public class GameView implements Viewable {
         }
     }
 
+    /**
+     * Tells the button if it is pressed of not.
+     * @param pressed The value if the buttons is pressed.
+     */
     public void setPressed(boolean pressed){
         isPressed = pressed;
     }
@@ -374,6 +423,7 @@ public class GameView implements Viewable {
             debugRenderer.dispose();
         }
         turnIndicatorAnimation.dispose();
+        environment.dispose();
         batch.dispose();
     }
 
