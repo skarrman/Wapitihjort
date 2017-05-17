@@ -96,6 +96,10 @@ public class AssetsManager {
      */
     private List<String> mapNames;
 
+    private List<Sprite> npcOrPlayerSprites;
+
+    private List<Sprite> npcDifficultySprites;
+
     private AssetsManager(){
         spriteArrays = new HashMap<Id, Array<Sprite>>();
     }
@@ -372,6 +376,14 @@ public class AssetsManager {
         return mapString;
     }
 
+    public List<Sprite> getNpcOrPlayerSprites(){
+        return npcOrPlayerSprites;
+    }
+
+    public List<Sprite> getNpcDifficultySprites(){
+        return npcDifficultySprites;
+    }
+
     private void loadMoveButtonTextures() throws FileNotFoundException {
         rightPressedButton = new Array<Sprite>();
         leftPressedButton = new Array<Sprite>();
@@ -486,7 +498,7 @@ public class AssetsManager {
             loadMapNames();
             loadFonts();
             loadCustomGameFont();
-            //loadCustomGameMenuAssets();
+            loadCustomGameMenuAssets();
         } catch (FileNotFoundException e) {
             System.out.println("Files Not Found");
         }
@@ -524,6 +536,17 @@ public class AssetsManager {
     }
 
     public void loadCustomGameMenuAssets() throws FileNotFoundException{
-
+        if(npcOrPlayerSprites == null){
+            npcOrPlayerSprites = new ArrayList<Sprite>();
+            npcOrPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NPCPicker1.png"))));
+            npcOrPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NPCPicker2.png"))));
+        }
+        if(npcDifficultySprites == null){
+            npcDifficultySprites = new ArrayList<Sprite>();
+            npcDifficultySprites.add(new Sprite(new Texture(Gdx.files.internal("NPCDifficultyPicker1.png"))));
+            npcDifficultySprites.add(new Sprite(new Texture(Gdx.files.internal("NPCDifficultyPicker2.png"))));
+            npcDifficultySprites.add(new Sprite(new Texture(Gdx.files.internal("NPCDifficultyPicker3.png"))));
+            npcDifficultySprites.add(new Sprite(new Texture(Gdx.files.internal("NPCDifficultyPicker4.png"))));
+        }
     }
 }

@@ -1,7 +1,5 @@
 package tankRevolution.view;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -10,8 +8,6 @@ import tankRevolution.model.NPCDifficulty;
 import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
 import tankRevolution.utils.Id;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,15 +34,9 @@ public class OptionsPickerView {
     private float y;
 
     public OptionsPickerView(Id id){
-        npcOrPlayerSprites = new ArrayList<Sprite>();
-        npcOrPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NPCPicker1.png"))));
-        npcOrPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NPCPicker2.png"))));
 
-        npcDifficultySprites = new ArrayList<Sprite>();
-        npcDifficultySprites.add(new Sprite(new Texture(Gdx.files.internal("NPCDifficultyPicker1.png"))));
-        npcDifficultySprites.add(new Sprite(new Texture(Gdx.files.internal("NPCDifficultyPicker2.png"))));
-        npcDifficultySprites.add(new Sprite(new Texture(Gdx.files.internal("NPCDifficultyPicker3.png"))));
-        npcDifficultySprites.add(new Sprite(new Texture(Gdx.files.internal("NPCDifficultyPicker4.png"))));
+        npcOrPlayerSprites = AssetsManager.getInstance().getNpcOrPlayerSprites();
+        npcDifficultySprites = AssetsManager.getInstance().getNpcDifficultySprites();
 
         npcOrPlayerSprite = npcOrPlayerSprites.get(0);
         npcDifficultySprite = npcDifficultySprites.get(0);
