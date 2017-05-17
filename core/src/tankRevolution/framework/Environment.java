@@ -206,7 +206,7 @@ public class Environment {
      * Setup the tanks of all characters.
      */
     private void setupTanks() {
-        for (Character c : tankRevolution.getCharacterList()) {
+        for (Character c : getCharacterList()) {
             addTank(c.getTank(), c.getId());
         }
     }
@@ -261,20 +261,20 @@ public class Environment {
     }
 
     private void tankOutsideMapCheck() {
-        for (int i = 0; i < tankRevolution.getCharacterList().size(); i++) {
-            Vector2 position = tanks.get(tankRevolution.getCharacterList().get(i).getTank()).getPosition();
+        for (int i = 0; i < getCharacterList().size(); i++) {
+            Vector2 position = tanks.get(getCharacterList().get(i).getTank()).getPosition();
             if (position.y < -2) {
-                destroyTank(tankRevolution.getCharacterList().get(i).getTank());
+                destroyTank(getCharacterList().get(i).getTank());
                 i--;
             }
         }
     }
 
     private void projectileOutsideMapCheck() {
-        for (int i = 0; i < tankRevolution.getFlyingProjectiles().size(); i++) {
-            Vector2 position = projectiles.get(tankRevolution.getFlyingProjectiles().get(i)).getPosition();
+        for (int i = 0; i < getFlyingProjectiles().size(); i++) {
+            Vector2 position = projectiles.get(getFlyingProjectiles().get(i)).getPosition();
             if (position.y < -2) {
-                destroyProjectile(tankRevolution.getFlyingProjectiles().get(i));
+                destroyProjectile(getFlyingProjectiles().get(i));
                 i--;
             }
         }
@@ -325,7 +325,7 @@ public class Environment {
 
     private void setAllTanksFalling(){
         for (int i  = 0; i < tanks.size(); i++){
-            setTankFalling(tanks.get(tankRevolution.getCharacterList().get(i).getTank()), true);
+            setTankFalling(tanks.get(getCharacterList().get(i).getTank()), true);
         }
     }
 
@@ -342,14 +342,11 @@ public class Environment {
             if (!t.isAlive()) {
                 deadTanks.add(t);
             }
-            //System.out.println(t.getHealth());
         }
-        explosions.add(new Explosion(projectiles.get(projectile).getPosition().x, projectiles.get(projectile).getPosition().y,
-                projectile.getBlastRadius()));
+        explosions.add(new Explosion(getProjectilePosition(projectile), projectile.getBlastRadius()));
         destroyProjectile(projectile);
-
         for (Tank t : deadTanks) {
-            explosions.add(new Explosion(tanks.get(t).getPosition().x, tanks.get(t).getPosition().y, 10));
+            explosions.add(new Explosion(getTankPosition(t), 25));
             destroyTank(t);
         }
     }
@@ -398,8 +395,7 @@ public class Environment {
      * @param direction recieves it from ButtonController, 1 if moving right, -1 if moving left
      */
     public void moveTank(int direction) {
-        getTankBody(tankRevolution.getCurrentTank()).setLinearVelocity(direction * 25,
-                Constants.getGravity());
+        getTankBody(getCurrentTank()).setLinearVelocity(direction * 25, Constants.getGravity());
         tankRevolution.reduceFuel();
     }
 
@@ -408,10 +404,10 @@ public class Environment {
      */
     public void stopTank() {
         for (int i = 0; i < tanks.size(); i++) {
-            if (!tankRevolution.getCharacterList().get(i).getTank().isTankFalling()) {
-                tanks.get(tankRevolution.getCharacterList().get(i).getTank()).setLinearVelocity(0, 0);
+            if (!getCharacterList().get(i).getTank().isTankFalling()) {
+                tanks.get(getCharacterList().get(i).getTank()).setLinearVelocity(0, 0);
             }else{
-                tanks.get(tankRevolution.getCharacterList().get(i).getTank()).setLinearVelocity(0, Constants.getGravity());
+                tanks.get(getCharacterList().get(i).getTank()).setLinearVelocity(0, Constants.getGravity());
             }
         }
     }
@@ -441,7 +437,7 @@ public class Environment {
      */
 
     private void shoot(float deltaX, float deltaY) {
-        Tank shooter = tankRevolution.getCurrentTank();
+        Tank shooter = getCurrentTank();
         List<Shootable> projectiles = tankRevolution.shoot(deltaX, deltaY);
         for (Shootable s : projectiles) {
             addProjectile(s, shooter, deltaX, deltaY);
@@ -482,6 +478,10 @@ public class Environment {
         return tanks.get(tank).getPosition().y;
     }
 
+    private Vector2 getTankPosition(Tank tank){
+        return new Vector2(getTankX(tank), getTankY(tank));
+    }
+
     public Shootable getProjectile(Body body) {
         for (Shootable s : projectiles.keySet()) {
             if (projectiles.get(s).equals(body)) {
@@ -497,6 +497,10 @@ public class Environment {
 
     private float getProjectileY(Shootable projectile) {
         return projectiles.get(projectile).getPosition().y;
+    }
+
+    private Vector2 getProjectilePosition(Shootable projectile){
+        return new Vector2(getProjectileX(projectile), getProjectileY(projectile));
     }
 
     public List<Character> getCharacterList() {

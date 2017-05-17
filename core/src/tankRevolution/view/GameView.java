@@ -34,7 +34,7 @@ public class GameView implements Viewable {
      * True = debug: ON
      * False = debug: OFF
      */
-    private boolean deBugMode = true;
+    private boolean deBugMode = false;
 
     /**
      * The graphical batch that draws on the screen

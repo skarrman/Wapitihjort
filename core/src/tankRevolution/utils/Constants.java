@@ -21,7 +21,7 @@ public class Constants {
         return mapWidth;
     }
     public static float getGravity(){
-        return gravity;
+        return gravity*2;
     }
     public static float getShootOffsetTank(){
         return shootOffsetTank;
