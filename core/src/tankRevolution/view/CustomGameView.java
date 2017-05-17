@@ -1,60 +1,75 @@
 package tankRevolution.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import tankRevolution.model.NPCDifficulty;
 import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
 import tankRevolution.utils.Id;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 
 /**
- * Created by simonkarrman on 2017-05-15.
+ * The graphical representation of the custom game screen.
  */
 public class CustomGameView implements Viewable {
 
+    /** The batch that all the graphical elements is drawn on */
     private Batch batch;
 
+    /** The font that is used in this view */
     private BitmapFont font;
 
+    /** The class that helps with logic when drawing texts */
     private GlyphLayout label;
 
-    private StringBuilder str;
-
+    /**
+     * A list of sprites containing all the different sprite to represents
+     * all the different number of players selected.
+     */
     private List<Sprite> numberOfPlayerSprites;
 
+    /** The sprite that represents the right arrow in the map selector */
     private Sprite rightMapArrow;
 
+    /** The sprite that represents the right arrow in the map selector */
     private Sprite leftMapArrow;
 
+    /** The sprite that represents the current selected amount of players */
     private Sprite numberOfPlayersPicker;
 
+    /** The graphical representation of the player options for player 1 */
     private OptionsPickerView player1;
 
+    /** The graphical representation of the player options for player 2 */
     private OptionsPickerView player2;
 
+    /** The graphical representation of the player options for player 3 */
     private OptionsPickerView player3;
 
+    /** The graphical representation of the player options for player 4 */
     private OptionsPickerView player4;
 
+    /** The sprite that represent the start game button */
     private Sprite startGameButton;
 
+    /** A list that contains the names of all the available maps */
     private List<String> mapNames;
 
+    /** The index in the mapNames array that is selected */
     private int selectedMap = 0;
 
+    /** The amount of players selected */
     private int numberOfPlayers = 2;
 
+    /**
+     * Initialising all the elements in the view.
+     */
     public CustomGameView() {
         batch = new SpriteBatch();
-        str = new StringBuilder();
         AssetsManager assetsManager = AssetsManager.getInstance();
         label = new GlyphLayout();
         font = assetsManager.getFonts().get(2);
@@ -78,6 +93,9 @@ public class CustomGameView implements Viewable {
         setStartingValues();
     }
 
+    /**
+     * The method that render all the graphical elements on the screen.
+     */
     @Override
     public void update() {
         batch.begin();
@@ -110,11 +128,19 @@ public class CustomGameView implements Viewable {
 
     }
 
+    /**
+     * Disposes all the disposable elements.
+     */
     @Override
     public void dispose() {
 
     }
 
+    /**
+     * The method that handles when a player switching from being a NPC or vice versa.
+     * @param isNPC Tells if the affected player is an NPC or not.
+     * @param player The affected player.
+     */
     public void setNPC(boolean isNPC, Id player){
         switch (player){
             case PLAYER1:
@@ -132,6 +158,11 @@ public class CustomGameView implements Viewable {
         }
     }
 
+    /**
+     * Handles changes where the difficulty of an NPC is changed.
+     * @param player The affected player.
+     * @param difficulty The new difficulty level.
+     */
     public void setDifficulty(Id player, NPCDifficulty difficulty){
         switch (player){
             case PLAYER1:
@@ -150,6 +181,10 @@ public class CustomGameView implements Viewable {
         }
     }
 
+    /**
+     * Handels changes in number of players.
+     * @param numberOfPlayers the new amount of player chosen.
+     */
     public void setNumberOfPlayers(int numberOfPlayers){
 
         switch (numberOfPlayers){
@@ -177,13 +212,23 @@ public class CustomGameView implements Viewable {
         this.numberOfPlayers = numberOfPlayers;
     }
 
+    /**
+     * Increases the index of the selected map.
+     */
     public void setNextMap(){
         selectedMap = (selectedMap + 1) % mapNames.size();
     }
 
+    /**
+     * Decreases the index of the selected map.
+     */
     public void setPreviousMap() {
         selectedMap = (selectedMap - 1) % mapNames.size();
     }
+
+    /**
+     * Setting all the sizes of the sprites.
+     */
     private void setSizes() {
         float arrowSize = Constants.getWeaponArrowDimension();
         leftMapArrow.setSize(arrowSize, arrowSize);
@@ -202,6 +247,9 @@ public class CustomGameView implements Viewable {
 
     }
 
+    /**
+     * Setting all the positions of the sprites.
+     */
     private void setPositions() {
         Vector2 leftArrowPos = Constants.getLeftMapArrowPos();
         leftMapArrow.setPosition(leftArrowPos.x, leftArrowPos.y);
@@ -219,6 +267,11 @@ public class CustomGameView implements Viewable {
 
     }
 
+    /**
+     * Setting the starting values on the two first players
+     * because it is only two players shown when the screen
+     * is launched.
+     */
     private void setStartingValues(){
         numberOfPlayersPicker = numberOfPlayerSprites.get(0);
         player1.setNPC(false);
