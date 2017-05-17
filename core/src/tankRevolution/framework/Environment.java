@@ -112,9 +112,8 @@ public class Environment {
     /**
      * Set up one side.
      * @param x the x coordinate of the side being created.
-     * @return a body of the side.
      */
-    private Body setupSide(float x) {
+    private void setupSide(float x) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(0, 0);
@@ -129,7 +128,6 @@ public class Environment {
         body.createFixture(fixtureDef);
         body.setUserData(new UserData(UserData.BALL));
         wall.dispose();
-        return body;
     }
 
 
@@ -140,7 +138,7 @@ public class Environment {
      * @param deltaX The horizontal force (left to right) of the projectile.
      * @param deltaY The vertical force (down to up) of the projectile.
      */
-    public void addProjectile(Shootable projectile, Tank shooter, float deltaX, float deltaY) {
+    private void addProjectile(Shootable projectile, Tank shooter, float deltaX, float deltaY) {
         //Get the projectiles initial position (above the tank).
         float x = tanks.get(shooter).getPosition().x;
         float y = tanks.get(shooter).getPosition().y + Constants.getShootOffsetTank();
@@ -174,7 +172,7 @@ public class Environment {
      * @param tank The instance of the tank being initialized to the world.
      * @param id The player of the tank.
      */
-    public void addTank(Tank tank, Id id) {
+    private void addTank(Tank tank, Id id) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(getStartingPosition(id));
@@ -221,22 +219,43 @@ public class Environment {
         return world;
     }
 
+    /**
+     * Returns the body connected to a tank.
+     * @param tank the logical model of the tank.
+     * @return The body och that tank.
+     */
     public Body getTankBody(Tank tank) {
         return tanks.get(tank);
     }
 
+    /**
+     * Returns the body connected to a projectile.
+     * @param s The logical model of the projectile.
+     * @return The body och that tank.
+     */
     public Body getProjectileBody(Shootable s) {
         return projectiles.get(s);
     }
 
+    /**
+     * Returns a list of current explosions.
+     * @return a list of current explosions.
+     */
     public List<Explosion> getExplosions() {
         return explosions;
     }
 
+    /**
+     * Checks if it's only one player left alive.
+     * @return true if it's only one player left.
+     */
     public boolean gameOver() {
         return tanks.size() < 2;
     }
 
+    /**
+     * Disposes the world.
+     */
     public void dispose() {
         world.dispose();
     }

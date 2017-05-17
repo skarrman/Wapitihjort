@@ -12,7 +12,7 @@ public class Constants {
     /** The number of edges in the approximated circle of the explosions */
     private static final int explosionSegments = 60;
     private static final float shootOffsetTank = 3f;
-    private static final float tankStartPositionY = 40f;
+    private static final float tankStartPositionY = 100f;
 
     public static int getExplosionSegments() {
         return explosionSegments;
