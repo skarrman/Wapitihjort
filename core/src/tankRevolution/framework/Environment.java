@@ -37,64 +37,77 @@ public class Environment {
     private World world;
 
     /**
-     * The tanks in the world and their body.
+     * The active tanks in the world and their body.
      */
     private Map<Tank, Body> tanks;
 
     /**
-     * The Projectiles in the world and their Body.
+     * The active projectiles in the world and their body.
      */
     private Map<Shootable, Body> projectiles;
 
     /**
-     * List of bodies pending to be destroyed
+     * List of bodies pending to be destroyed.
      */
     private List<Body> removeStack;
 
     /**
-     * List of current explosions
+     * List of current explosions.
      */
     private List<Explosion> explosions;
 
+    /**
+     * TODO
+     */
     private ITerrainHandler terrainHandler;
 
+    /**
+     * A boolean indicating if a tank is falling.
+     */
     private boolean isTankFalling;
 
+    /**
+     * A boolean indicating if the terrain is changed.
+     */
     private boolean isTerrainChanged = true;
 
-    private double time = System.currentTimeMillis();
-
-    private String currentMap;
+    /**
+     * The current time.
+     */
+    private double time;
 
     /**
      * Creates a new Environment for Bodies to live in.
+     * @param tankRevolution The logical part of the model that not interacts with the framework.
+     * @param mapName The name of the map being used in the game.
      */
     public Environment(TankRevolution tankRevolution, String mapName) {
         this.tankRevolution = tankRevolution;
-        this.currentMap = mapName;
-        tanks = new HashMap<Tank, Body>();
-        projectiles = new HashMap<Shootable, Body>();
-        removeStack = new ArrayList<Body>();
-        setupWorld();
+        this.time = System.currentTimeMillis();
+        this.tanks = new HashMap<Tank, Body>();
+        this.projectiles = new HashMap<Shootable, Body>();
+        this.removeStack = new ArrayList<Body>();
+        this.explosions = new ArrayList<Explosion>();
+
+        setupWorld(mapName);
         setupTanks();
         createContactListener();
-        this.explosions = new ArrayList<Explosion>();
     }
 
     /**
      * Sets up the world with gravity and terrain with two sides.
+     * @param currentMap The name of the map being used in the game.
      */
-    private void setupWorld() {
-        //The gravity force is connected to the world.
+    private void setupWorld(String currentMap) {
         Vector2 g = new Vector2(0f, Constants.getGravity());
         world = new World(g, true);
+
         terrainHandler = new TerrainHandler(world, currentMap);
-        //setTerrain(3f);
         setupSides();
     }
 
     /**
-     * Sets up sides.
+     * Sets up both sides.
      */
     private void setupSides() {
         setupSide(0);
@@ -102,45 +115,49 @@ public class Environment {
     }
 
     /**
-     * @param n the x coordinate of the side being created.
+     * Set up one side.
+     * @param x the x coordinate of the side being created.
      * @return a body of the side.
      */
-    private Body setupSide(float n) {
-        Body body;
+    private Body setupSide(float x) {
         BodyDef bodyDef = new BodyDef();
-        FixtureDef fixtureDef3 = new FixtureDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
-
         bodyDef.position.set(0, 0);
 
         EdgeShape wall = new EdgeShape();
-        wall.set(n, 0, n, Constants.getMapWidth() * 2);
-        fixtureDef3.shape = wall;
+        wall.set(x, 0, x, Constants.getMapWidth() * 2);
 
-        body = world.createBody(bodyDef);
-        body.createFixture(fixtureDef3);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = wall;
+
+        Body body = world.createBody(bodyDef);
+        body.createFixture(fixtureDef);
         body.setUserData(new UserData(UserData.BALL));
         wall.dispose();
         return body;
     }
 
+
     /**
-     * @param projectile the projectile from the model.
-     * @param shooter    the tank shooting the projectile.
+     * Adds a projectile to the world.
+     * @param projectile The instance of the projectile being shoot.
+     * @param shooter The tank shooting the projectile.
+     * @param deltaX The horizontal force (left to right) of the projectile.
+     * @param deltaY The vertical force (down to up) of the projectile.
      */
     public void addProjectile(Shootable projectile, Tank shooter, float deltaX, float deltaY) {
+        //Get the projectiles initial position (above the tank).
+        float x = tanks.get(shooter).getPosition().x;
+        float y = tanks.get(shooter).getPosition().y + Constants.getShootOffsetTank();
+
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-
-        float x = tanks.get(shooter).getPosition().x;
-        float y = tanks.get(shooter).getPosition().y;
-
-        //TODO Fix this, since box2D is working with the center coordinates, the missile will be fired from the center of the tank
-        bodyDef.position.set(x, y + Constants.getShootOffsetTank());
+        bodyDef.position.set(x, y);
         Body body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(projectile.getMissileRadius(), projectile.getMissileRadius());
+
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = projectile.getMissileDensity();
@@ -148,25 +165,26 @@ public class Environment {
         body.createFixture(fixtureDef);
         shape.dispose();
 
-        //Translation will be needed, this vector will suck
         Vector2 force = new Vector2(deltaX, deltaY);
-        body.setLinearVelocity(force/*, body.getPosition(), true*/);
+        body.setLinearVelocity(force);
         body.setUserData(new UserData(1));
 
+        //Put the projectile in the map of active projectiles.
         projectiles.put(projectile, body);
     }
 
+
     /**
-     * Places the body of a tank at a specified location based on what player owns it.
-     *
-     * @param tank the tank object from the model being created.
+     * Adds a tank to a specific position in the world based on the owning player.
+     * @param tank The instance of the tank being initialized to the world.
+     * @param id The player of the tank.
      */
     public void addTank(Tank tank, Id id) {
-        Body body;
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(getStartingPosition(id));
-        body = world.createBody(bodyDef);
+
+        Body body = world.createBody(bodyDef);
         body.setUserData(new UserData(2));
         PolygonShape shape = createCircleShape(tank.getWidth() / 3);
         FixtureDef fixtureDef = new FixtureDef();
@@ -175,9 +193,15 @@ public class Environment {
         body.createFixture(fixtureDef);
         shape.dispose();
 
+        //Put the tank in the map of active tanks.
         tanks.put(tank, body);
     }
 
+    /**
+     * Returns a polygonshape of an approximated circle.
+     * @param radius the radius of the circle.
+     * @return A polygonshape of an approximated circle.
+     */
     private PolygonShape createCircleShape(float radius) {
         float[] floatVertices = CollisionGeometry.approxCircle(0, 0, radius, 6);
         PolygonShape shape = new PolygonShape();
@@ -185,12 +209,19 @@ public class Environment {
         return shape;
     }
 
+    /**
+     * Setup the tanks of all characters.
+     */
     private void setupTanks() {
         for (Character c : tankRevolution.getCharacterList()) {
             addTank(c.getTank(), c.getId());
         }
     }
 
+    /**
+     * Returns the world of the game.
+     * @return the world of the game.
+     */
     public World getWorld() {
         return world;
     }
@@ -495,25 +526,24 @@ public class Environment {
         getCurrentTank().setPreviousWeapon();
     }
 
+    private Vector2 getStartingPosition(int i){
+        return new Vector2(5 + (i - 1)* ((Constants.getMapWidth() - 10) / (getCharacterList().size()-1)),
+                Constants.getTankStartPositionY());
+    }
+
     private Vector2 getStartingPosition(Id id) {
         switch (id) {
             case PLAYER1:
-                return new Vector2(5f, 20f);
+                return getStartingPosition(1);
 
             case PLAYER2:
-                return new Vector2(Constants.getMapWidth() - 5f, 40f);
+                return getStartingPosition(2);
 
             case PLAYER3:
-                Vector2 vector;
-                if (getCharacterList().size() == 3) {
-                    vector = new Vector2(Constants.getMapWidth() / 2, 40f);
-                } else {
-                    vector = new Vector2(Constants.getMapWidth() / 2 - 20, 40f);
-                }
-                return vector;
+                return getStartingPosition(3);
 
             case PLAYER4:
-                return new Vector2(Constants.getMapWidth() / 2 + 20, 40f);
+                return getStartingPosition(4);
 
             default:
                 System.out.println("Invalid Id");

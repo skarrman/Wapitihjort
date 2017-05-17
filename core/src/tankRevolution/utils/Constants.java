@@ -12,6 +12,7 @@ public class Constants {
     /** The number of edges in the approximated circle of the explosions */
     private static final int explosionSegments = 60;
     private static final float shootOffsetTank = 3f;
+    private static final float tankStartPositionY = 40f;
 
     public static int getExplosionSegments() {
         return explosionSegments;
@@ -116,6 +117,10 @@ public class Constants {
 
     public static  Vector2 getLeftWeaponPosition(){
      return new Vector2(3 * Gdx.graphics.getWidth()/8,14 * Gdx.graphics.getHeight()/16);
+    }
+
+    public static float getTankStartPositionY(){
+        return tankStartPositionY;
     }
 
     public static float getPickerHeight(){
