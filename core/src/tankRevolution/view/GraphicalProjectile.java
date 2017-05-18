@@ -9,12 +9,15 @@ import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
 
 /**
- * Created by simonkarrman on 2017-04-25.
- * Class holding information about the graphical representation of the projectile.
+ * Handles the graphical representation of a projectile that is flying.
  */
 public class GraphicalProjectile {
-    private Body body;
-    private Sprite sprite;
+
+    /** The projectiles body */
+    private final Body body;
+
+    /** The projectiles sprite. I will represent the body graphically */
+    private final Sprite sprite;
 
     GraphicalProjectile(Body body){
         this.body = body;
