@@ -13,9 +13,6 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class TurnIndicatorAnimation {
 
-    /** The distance between the arrow and the thank vertically */
-    private int distanceToTank = 25;
-
     /** Keeps track of the time so that the animation is correct */
     private float time = 0;
 
@@ -32,7 +29,7 @@ public class TurnIndicatorAnimation {
      * The only constructor of the class that creates all the objects that is needed.
      * @param metersToPixels the ratio between meters in the world and pixels on the screen.
      */
-    public TurnIndicatorAnimation(float metersToPixels) {
+    TurnIndicatorAnimation(float metersToPixels) {
         textureAtlas = new TextureAtlas(Gdx.files.internal("CurrentPlayerArrow.txt"));
         animation = new Animation<TextureRegion>(   1/15f, textureAtlas.getRegions());
         this.metersToPixels = metersToPixels;
@@ -46,7 +43,9 @@ public class TurnIndicatorAnimation {
     public void draw(Batch batch, Vector2 pos) {
         time += Gdx.graphics.getDeltaTime();
         TextureRegion animationFrame = new TextureRegion(animation.getKeyFrame(time, true));
-        batch.draw(animationFrame, pos.x * metersToPixels - animationFrame.getRegionWidth()/2, (pos.y + distanceToTank * metersToPixels) - animationFrame.getRegionHeight()/2);
+        int distanceToTank = 25;
+        batch.draw(animationFrame, pos.x * metersToPixels - animationFrame.getRegionWidth()/2,
+                (pos.y + distanceToTank * metersToPixels) - animationFrame.getRegionHeight()/2);
     }
 
     /**

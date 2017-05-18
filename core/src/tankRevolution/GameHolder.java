@@ -2,12 +2,10 @@ package tankRevolution;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
-import tankRevolution.model.Tank;
 import tankRevolution.utils.AssetsManager;
 import tankRevolution.controller.MainController;
 import tankRevolution.framework.Environment;
 import tankRevolution.model.TankRevolution;
-import tankRevolution.model.Options;
 import tankRevolution.view.*;
 
 /**
@@ -17,7 +15,6 @@ import tankRevolution.view.*;
 
 public class GameHolder implements ApplicationListener {
     private Viewable view;
-    private TankRevolution currentGame;
     private Environment environment;
     private MainController mainController;
 
@@ -65,7 +62,6 @@ public class GameHolder implements ApplicationListener {
      */
     public void startNewGame(TankRevolution currentGame, String mapName) {
         AssetsManager.getInstance().loadNewGameAssets(currentGame.getCharacterList().size(), mapName);
-        this.currentGame = currentGame;
         environment = new Environment(currentGame, mapName);
         setGameMode();
     }

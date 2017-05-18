@@ -1,22 +1,18 @@
 package tankRevolution.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import tankRevolution.model.Tank;
 import tankRevolution.model.shootablePackage.AmmunitionType;
 import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
-import tankRevolution.utils.Vector;
-
-import java.util.List;
 
 /**
  * Created by jakobwall on 2017-05-11.
+ * Class handling the graphic representation of the way to switch between weapons.
  */
 public class WeaponSwitch {
     private BitmapFont font;
@@ -27,13 +23,12 @@ public class WeaponSwitch {
 
     private Sprite leftArrowSprite;
 
-    public WeaponSwitch(){
-        AssetsManager assetsManager = AssetsManager.getInstance();
-        font = assetsManager.getFonts().get(0);
+    WeaponSwitch(){
+        font = AssetsManager.getInstance().getFonts().get(0);
         label = new GlyphLayout();
         font.setColor(0, 0, 0, 1);
-        rightArrowSprite = new Sprite(assetsManager.getRightSwitchWeaponButton());
-        leftArrowSprite = new Sprite(assetsManager.getLeftSwitchWeaponButton());
+        rightArrowSprite = AssetsManager.getInstance().getRightSwitchWeaponButton();
+        leftArrowSprite = AssetsManager.getInstance().getLeftSwitchWeaponButton();
         setDimension();
         setPositions();
     }

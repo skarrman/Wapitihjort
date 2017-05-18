@@ -426,7 +426,7 @@ public class Environment {
     }
 
     /**
-     * Moves tank based on input from user.
+     * Moves tank based on input from user. Multiplies the direction by 25 to make the tank move at a good pace.
      * @param direction 1 if moving right, -1 if moving left.
      */
     public void moveTank(int direction) {
@@ -498,7 +498,7 @@ public class Environment {
 
     /**
      * TODO
-     * @return
+     * @return the vertices that makes up the terrain
      */
     public List<float[]> getVertices() {
         return terrainHandler.getVertices();
