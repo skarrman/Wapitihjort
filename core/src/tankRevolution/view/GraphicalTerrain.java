@@ -5,25 +5,19 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import org.lwjgl.Sys;
 import tankRevolution.utils.Constants;
-import tankRevolution.utils.Vector;
 
-import java.awt.*;
 import java.util.List;
 
 /**
  * Created by JakobErlandsson on 2017-05-10.
+ * Class holding information about the graphical representation of the terrain.
  */
 public class GraphicalTerrain {
 
     private Array<Polygon> polygons;
-
-    private ShapeRenderer shapeRenderer;
 
     private Texture texture;
 
@@ -31,8 +25,8 @@ public class GraphicalTerrain {
 
     private float radius = Constants.pixelsPerMeter()/2;
 
-    public GraphicalTerrain(){
-        shapeRenderer = new ShapeRenderer();
+    GraphicalTerrain(){
+        ShapeRenderer shapeRenderer = new ShapeRenderer();
         shapeRenderer.setColor(0,1,0,1);
         polygons = new Array<Polygon>();
         pixmap = new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);

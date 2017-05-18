@@ -27,6 +27,7 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 /**
  * GameView is the class that present the game to the user.
  * Its responsibility is to render the graphics of the game.
+ * {@inheritDoc}
  */
 public class GameView implements Viewable {
 
@@ -93,34 +94,54 @@ public class GameView implements Viewable {
      */
     private List<ExplosionAnimation> explosionAnimations;
 
-    /** The instance that handles the arrow that show whose turn it is */
+    /**
+     * The instance that handles the arrow that show whose turn it is
+     */
     private TurnIndicatorAnimation turnIndicatorAnimation;
 
-    /** A map that connect a character with a graphical tank */
+    /**
+     * A map that connect a character with a graphical tank
+     */
     private HashMap<Character, GraphicalTank> characterTankHashMap;
 
-    /** A map that connect a shootable with a graphical projectile */
+    /**
+     * A map that connect a shootable with a graphical projectile
+     */
     private HashMap<Shootable, GraphicalProjectile> projectileHashMap;
 
-    /** The instance of the class that handles the drawing of labels on the screen */
+    /**
+     * The instance of the class that handles the drawing of labels on the screen
+     */
     private LabelDrawer labelDrawer;
 
-    /** Handles the graphical elements that is shown when the game is over */
+    /**
+     * Handles the graphical elements that is shown when the game is over
+     */
     private GameOverView gameOverView;
 
-    /** The sound of a shot that is fired */
+    /**
+     * The sound of a shot that is fired
+     */
     private Sound shotSound;
 
-    /** The sound of an explosion */
+    /**
+     * The sound of an explosion
+     */
     private Sound explosionSound;
 
-    /** The graphical representation of the weapon switch */
-    private  WeaponSwitch weaponSwitch;
+    /**
+     * The graphical representation of the weapon switch
+     */
+    private WeaponSwitch weaponSwitch;
 
-    /** The background of the map */
+    /**
+     * The background of the map
+     */
     private Sprite background;
 
-    /** The graphical representation of the terrain */
+    /**
+     * The graphical representation of the terrain
+     */
     private GraphicalTerrain terrain;
 
     /**
@@ -165,7 +186,6 @@ public class GameView implements Viewable {
         drawTanks();
 
 
-
         if (environment.isProjectileFlying()) {
             setUpProjectileHashMap();
             drawProjectiles();
@@ -182,21 +202,20 @@ public class GameView implements Viewable {
             for (int i = 0; i < explosionAnimations.size(); i++) {
                 if (!explosionAnimations.get(i).isAnimationFinished()) {
                     explosionAnimations.get(i).draw(batch);
-                }
-                else {
+                } else {
                     explosionAnimations.remove(i);
                 }
             }
         }
 
-        if(environment.gameOver()){
+        if (environment.gameOver()) {
             gameOverView.draw(batch);
-        }else {
+        } else {
             Body currentPlayer = environment.getTankBody(environment.getCurrentTank());
             turnIndicatorAnimation.draw(batch, currentPlayer.getPosition());
             labelDrawer.draw(environment.getCharacterList(), batch);
             weaponSwitch.draw(batch, environment.getCurrentWeapon());
-            GraphicalUIButtons.draw((int)environment.getCurrentTank().getFuel()/10, batch, isPressed);
+            GraphicalUIButtons.draw((int) environment.getCurrentTank().getFuel() / 10, batch, isPressed);
             environment.update();
         }
 
@@ -234,15 +253,16 @@ public class GameView implements Viewable {
 
     /**
      * Returns the angle of the arrow that the user draws on the screen when aiming.
+     *
      * @param x1 The x-coordinate of the starting point.
      * @param y1 The y-coordinate of the starting point.
      * @param x2 The x-coordinate of the ending point.
      * @param y2 The y-coordinate of the ending point.
      * @return The angle of the line that is between the two points.
      */
-    private float getAngle(float x1, float y1, float x2, float y2){
+    private float getAngle(float x1, float y1, float x2, float y2) {
         float angle = (float) -Math.toDegrees(Math.atan2(x2 - x1, y2 - y1)) + 90;
-        if (angle < 0){
+        if (angle < 0) {
             angle += 360;
         }
         return angle;
@@ -250,13 +270,14 @@ public class GameView implements Viewable {
 
     /**
      * The method that calculates the points to make the tip of the arrow.
+     *
      * @param center The end point of the arrow.
-     * @param angle The angle of the line.
+     * @param angle  The angle of the line.
      * @return The point to where a line will be drawn to make an arrow tip.
      */
-    private Vector2 getArrowLine(Vector2 center, float angle){
-        float x = (float)(Math.cos(Math.toRadians(angle)) * 50) + center.x;
-        float y = (float)(Math.sin(Math.toRadians(angle)) * 50) + center.y;
+    private Vector2 getArrowLine(Vector2 center, float angle) {
+        float x = (float) (Math.cos(Math.toRadians(angle)) * 50) + center.x;
+        float y = (float) (Math.sin(Math.toRadians(angle)) * 50) + center.y;
         return new Vector2(x, y);
 
     }
@@ -325,7 +346,7 @@ public class GameView implements Viewable {
     /**
      * Draws the terrain.
      */
-    private void drawTerrain(){
+    private void drawTerrain() {
         List<float[]> vertices = environment.getVertices();
         terrain.draw(vertices, environment.isTerrainChanged(), batch);
     }
@@ -336,8 +357,8 @@ public class GameView implements Viewable {
      */
     private void setUpProjectileHashMap() {
         for (Shootable s : environment.getFlyingProjectiles()) {
-            if (!projectileHashMap.containsKey(s)){
-                GraphicalProjectile graphicalProjectile = new GraphicalProjectile(environment.getProjectileBody(s), Constants.pixelsPerMeter());
+            if (!projectileHashMap.containsKey(s)) {
+                GraphicalProjectile graphicalProjectile = new GraphicalProjectile(environment.getProjectileBody(s));
                 projectileHashMap.put(s, graphicalProjectile);
                 shotSound.play();
             }
@@ -350,7 +371,7 @@ public class GameView implements Viewable {
     private void drawProjectiles() {
         for (Shootable s : environment.getFlyingProjectiles()) {
             GraphicalProjectile graphicalProjectile = projectileHashMap.get(s);
-                graphicalProjectile.draw(batch);
+            graphicalProjectile.draw(batch);
         }
         checkShootableList();
 
@@ -363,7 +384,7 @@ public class GameView implements Viewable {
         characterTankHashMap = new HashMap<Character, GraphicalTank>();
         for (Character c : environment.getCharacterList()) {
             GraphicalTank graphicalTank = new GraphicalTank(environment.getTankBody(c.getTank()), c.getId(),
-                    c.getTank().getAngle(),Constants.pixelsPerMeter(), c.getTank().getWidth(), c.getTank().getHeight());
+                    c.getTank().getWidth(), c.getTank().getHeight());
             characterTankHashMap.put(c, graphicalTank);
         }
     }
@@ -409,9 +430,10 @@ public class GameView implements Viewable {
 
     /**
      * Tells the button if it is pressed of not.
+     *
      * @param pressed The value if the buttons is pressed.
      */
-    public void setPressed(boolean pressed){
+    public void setPressed(boolean pressed) {
         isPressed = pressed;
     }
 

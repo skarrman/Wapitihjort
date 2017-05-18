@@ -10,15 +10,15 @@ import tankRevolution.utils.Constants;
 
 /**
  * Created by simonkarrman on 2017-04-25.
+ * Class holding information about the graphical representation of the projectile.
  */
 public class GraphicalProjectile {
     private Body body;
     private Sprite sprite;
 
-    public GraphicalProjectile(Body body, float side){
+    GraphicalProjectile(Body body){
         this.body = body;
         sprite = AssetsManager.getInstance().getProjectileSprite();
-        setSpriteDimensions(side);
     }
 
     public void draw(Batch batch){
@@ -28,10 +28,4 @@ public class GraphicalProjectile {
         sprite.draw(batch);
 
     }
-
-    public void setSpriteDimensions(float side){
-
-    }
-
-
 }

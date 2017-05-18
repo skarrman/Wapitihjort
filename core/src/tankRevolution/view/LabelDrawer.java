@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.StringBuilder;
 import tankRevolution.model.Character;
@@ -14,13 +13,14 @@ import java.util.List;
 
 /**
  * Created by simonkarrman on 2017-05-09.
+ * Class responsible for drawing information on the screen about the tanks' health.
  */
 public class LabelDrawer {
     private BitmapFont font;
 
     private GlyphLayout label;
 
-    public LabelDrawer(){
+    LabelDrawer(){
         font = AssetsManager.getInstance().getFonts().get(0);
         label = new GlyphLayout();
         font.setColor(0, 0, 0, 1);

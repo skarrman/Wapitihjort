@@ -16,10 +16,12 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 /**
  * Created by simonkarrman on 2017-05-08.
+ * View showing the graphical representation of the pause menu.
+ * {@inheritDoc}
  */
 public class PauseMenuView implements Viewable {
-    private Batch batch;
 
+    private Batch batch;
     private Sprite resumeSprite;
     private Sprite restartSprite;
     private Sprite toMenuSprite;

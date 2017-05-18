@@ -1,18 +1,14 @@
 package tankRevolution.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
 
-import java.util.List;
 
 /**
  * The class that handles the graphical elements that is shown when the game is over.
@@ -34,7 +30,7 @@ public class GameOverView {
     /**
      * Initializes everything and putting everything where it should be.
      */
-    public GameOverView(){
+    GameOverView(){
         AssetsManager assetsManager = AssetsManager.getInstance();
         font = assetsManager.getFonts().get(1);
         label = new GlyphLayout();

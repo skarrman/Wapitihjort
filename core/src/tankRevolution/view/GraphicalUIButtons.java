@@ -8,6 +8,7 @@ import tankRevolution.utils.Constants;
 
 /**
  * Created by JakobErlandsson on 2017-05-12.
+ * Static class holding the dimension and positions of the UI buttons.
  */
 public class GraphicalUIButtons {
     private static Array<Sprite> leftMoveButtonPressedSprites = AssetsManager.getInstance().getLeftPressedButtonSprites();

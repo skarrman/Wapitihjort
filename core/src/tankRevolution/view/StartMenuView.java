@@ -16,6 +16,8 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 /**
  * Created by simonkarrman on 2017-05-04.
+ * View class showing the graphical representation of the start-up menu.
+ * {@inheritDoc}
  */
 public class StartMenuView implements Viewable {
     private Batch batch;

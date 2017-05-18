@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by simonkarrman on 2017-05-17.
+ * View showing the different options available in the custom game menu.
  */
 public class OptionsPickerView {
 
@@ -33,7 +34,7 @@ public class OptionsPickerView {
 
     private float y;
 
-    public OptionsPickerView(Id id){
+    OptionsPickerView(Id id){
 
         npcOrPlayerSprites = AssetsManager.getInstance().getNpcOrPlayerSprites();
         npcDifficultySprites = AssetsManager.getInstance().getNpcDifficultySprites();
@@ -66,7 +67,7 @@ public class OptionsPickerView {
         }
     }
 
-    public void setNPC(boolean isNPC){
+    void setNPC(boolean isNPC){
         this.isNPC = isNPC;
         if(isNPC)
             npcOrPlayerSprite = npcOrPlayerSprites.get(0);
@@ -75,7 +76,7 @@ public class OptionsPickerView {
             npcOrPlayerSprite = npcOrPlayerSprites.get(1);
     }
 
-    public void setDifficulty(NPCDifficulty difficulty){
+    void setDifficulty(NPCDifficulty difficulty){
         switch (difficulty){
             case EASY:
                 npcDifficultySprite = npcDifficultySprites.get(0);

@@ -51,7 +51,7 @@ public class TurnIndicatorAnimation {
     /**
      * Disposes all the disposable objects in the class.
      */
-    public void dispose() {
+    void dispose() {
         textureAtlas.dispose();
     }
 }

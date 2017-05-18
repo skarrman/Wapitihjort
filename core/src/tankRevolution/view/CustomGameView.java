@@ -14,6 +14,7 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 /**
  * The graphical representation of the custom game screen.
+ * {@inheritDoc}
  */
 public class CustomGameView implements Viewable {
 
@@ -93,9 +94,6 @@ public class CustomGameView implements Viewable {
         setStartingValues();
     }
 
-    /**
-     * The method that render all the graphical elements on the screen.
-     */
     @Override
     public void update() {
         batch.begin();
@@ -128,9 +126,6 @@ public class CustomGameView implements Viewable {
 
     }
 
-    /**
-     * Disposes all the disposable elements.
-     */
     @Override
     public void dispose() {
 
