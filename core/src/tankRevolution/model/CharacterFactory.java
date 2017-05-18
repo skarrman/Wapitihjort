@@ -2,9 +2,6 @@ package tankRevolution.model;
 
 import tankRevolution.utils.Id;
 
-/**
- * Created by antonhagermalm on 2017-04-13.
- */
 public class CharacterFactory {
     public static Player newPlayer(Id id){
         return new Player(id);
