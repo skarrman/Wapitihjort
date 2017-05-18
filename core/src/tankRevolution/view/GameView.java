@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
-import tankRevolution.utils.AssetsManager;
+import tankRevolution.services.AssetsManager;
 import tankRevolution.utils.Constants;
 import tankRevolution.framework.Environment;
 import tankRevolution.model.Character;

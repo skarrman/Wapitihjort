@@ -3,7 +3,7 @@ package tankRevolution.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.utils.Array;
-import tankRevolution.utils.AssetsManager;
+import tankRevolution.services.AssetsManager;
 import tankRevolution.utils.Id;
 import tankRevolution.model.Explosion;
 

@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import tankRevolution.utils.AssetsManager;
+import tankRevolution.services.AssetsManager;
 import tankRevolution.utils.Constants;
 
 

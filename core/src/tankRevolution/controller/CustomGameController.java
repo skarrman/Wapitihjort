@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import tankRevolution.GameHolder;
 import tankRevolution.model.NPCDifficulty;
 import tankRevolution.model.Options;
-import tankRevolution.utils.AssetsManager;
+import tankRevolution.services.AssetsManager;
 import tankRevolution.utils.Constants;
 import tankRevolution.utils.Id;
 import tankRevolution.view.CustomGameView;

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Logical model free from the framework "LibGDX"
+ * Logical model, free from the framework "LibGDX".
  */
 public class TankRevolution {
 
@@ -32,13 +32,12 @@ public class TankRevolution {
 
     /**
      * /**
-     * Creates a new gameSession from a list of characters and gives the characters tanks and addes the tanks to the world.
+     * Creates a new gameSession from a list of characters and gives the characters tanks and adds the tanks to the world.
      * (max four characters)
      * Note that this is the first iteration and is only made for two characters
      *
      * @param characterList the characterList
      */
-
     public TankRevolution(List<Character> characterList) {
         this.characterList = characterList;
         gameSessionSetup();

@@ -2,7 +2,7 @@ package tankRevolution;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
-import tankRevolution.utils.AssetsManager;
+import tankRevolution.services.AssetsManager;
 import tankRevolution.controller.MainController;
 import tankRevolution.framework.Environment;
 import tankRevolution.model.TankRevolution;

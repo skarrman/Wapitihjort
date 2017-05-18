@@ -1,4 +1,4 @@
-package tankRevolution.utils;
+package tankRevolution.services;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Array;
+import tankRevolution.utils.Id;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.Map;
 /**
  * Singleton that handles and loads all assets when needed.
  */
-public class AssetsManager {
+public class AssetsManager implements IAssetManager{
 
     /**
      * A Map with all textureAtlases and with a String for key
