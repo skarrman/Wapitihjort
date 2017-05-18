@@ -14,16 +14,24 @@ import java.util.List;
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 /**
- * Created by simonkarrman on 2017-05-08.
  * View showing the graphical representation of the pause menu.
  * {@inheritDoc}
  */
 public class PauseMenuView implements Viewable {
 
+    /** The batch to draw all the graphical components on */
     private Batch batch;
+
+    /** The sprite that represents the "Resume Game"-button */
     private Sprite resumeSprite;
+
+    /** The sprite that represents the "Restart Game"-button */
     private Sprite restartSprite;
+
+    /** The sprite that represents the "Main menu"-button */
     private Sprite toMenuSprite;
+
+    /** The sprite that represents the "Settings"(Gear)-button */
     private Sprite settingsSprite;
 
     public PauseMenuView(){
@@ -50,6 +58,9 @@ public class PauseMenuView implements Viewable {
         batch.end();
     }
 
+    /**
+     * Setting up all de sprites sizes.
+     */
     private void setUpSpriteSize(){
         float buttonWidth = Constants.getPauseMenuButtonWidth();
         float buttonHeight = Constants.getPauseMenuButtonHeight();
@@ -62,6 +73,9 @@ public class PauseMenuView implements Viewable {
         settingsSprite.setSize(settingsLength, settingsLength);
     }
 
+    /**
+     * Setting the position on all sprites.
+     */
     private void setUpSpritePosition(){
         Vector2 resumePos = Constants.getResumeButtonPosition();
         resumeSprite.setPosition(resumePos.x, resumePos.y);
