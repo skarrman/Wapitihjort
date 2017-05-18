@@ -12,13 +12,15 @@ import tankRevolution.services.AssetsManager;
 import java.util.List;
 
 /**
- * Created by simonkarrman on 2017-05-09.
  * Class responsible for drawing information on the screen about the tanks' health.
  */
 public class LabelDrawer {
-    private BitmapFont font;
 
-    private GlyphLayout label;
+    /** The font that text is using */
+    private final BitmapFont font;
+
+    /** Layout tool for text */
+    private final GlyphLayout label;
 
     LabelDrawer(){
         font = AssetsManager.getInstance().getFonts().get(0);
@@ -26,6 +28,11 @@ public class LabelDrawer {
         font.setColor(0, 0, 0, 1);
     }
 
+    /**
+     * Draws the text on the screen to communicate the health of all tanks.
+     * @param characterList The list of the characters in the current game.
+     * @param batch The batch to draw on.
+     */
     public void draw(List<Character> characterList, Batch batch){
         float rowHeight = Gdx.graphics.getHeight()/16;
         float rowWidth = Gdx.graphics.getWidth()/8;

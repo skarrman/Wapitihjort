@@ -11,27 +11,35 @@ import tankRevolution.utils.Id;
 import java.util.List;
 
 /**
- * Created by simonkarrman on 2017-05-17.
  * View showing the different options available in the custom game menu.
  */
-public class OptionsPickerView {
+class OptionsPickerView {
 
-    private List<Sprite> npcOrPlayerSprites;
+    /** The list of sprites to represent if the player is a NPC or player */
+    private final List<Sprite> npcOrPlayerSprites;
 
-    private List<Sprite> npcDifficultySprites;
+    /** The list of sprites to represent the different choices in NPC difficulty */
+    private final List<Sprite> npcDifficultySprites;
 
+    /** The sprite that represents the current choice if the player is NPC or not */
     private Sprite npcOrPlayerSprite;
 
+    /** The sprite that represents the current selected NPC difficulty */
     private Sprite npcDifficultySprite;
 
-    private BitmapFont font;
+    /** The font that is used by the text */
+    private final BitmapFont font;
 
-    private GlyphLayout label;
+    /** Tool to help with layout */
+    private final GlyphLayout label;
 
+    /** The string that tells which player the different options affect. */
     private String str;
 
+    /** Tells if the player is selected to be a NPC at the moment */
     private boolean isNPC;
 
+    /** The y-coordinate of there the items will be */
     private float y;
 
     OptionsPickerView(Id id){
@@ -54,7 +62,11 @@ public class OptionsPickerView {
         isNPC = false;
     }
 
-    public void draw(Batch batch) {
+    /**
+     * Draws the text, npc/player picker and NPC difficulty picker.
+     * @param batch The batch to draw the items on.
+     */
+    void draw(Batch batch) {
         label.setText(font, str);
         float height = label.height;
         font.draw(batch, str, Constants.getNumberOfPlayersPos().x,
@@ -67,6 +79,11 @@ public class OptionsPickerView {
         }
     }
 
+    /**
+     * Sets the value of NPC and changes the sprite to the correct one
+     * according to the new value of isNPC.
+     * @param isNPC The value if the this player is set to be a NPC or not.
+     */
     void setNPC(boolean isNPC){
         this.isNPC = isNPC;
         if(isNPC)
@@ -76,6 +93,10 @@ public class OptionsPickerView {
             npcOrPlayerSprite = npcOrPlayerSprites.get(1);
     }
 
+    /**
+     * Changes the difficulty picker sprite to be correct to the new setting.
+     * @param difficulty The new NPC difficulty value.
+     */
     void setDifficulty(NPCDifficulty difficulty){
         switch (difficulty){
             case EASY:
@@ -93,6 +114,10 @@ public class OptionsPickerView {
         }
     }
 
+    /**
+     * Sets the value of the string and y-coordinate with help from the id.
+     * @param id The id of the player that this picker affects.
+     */
     private void setValues(Id id){
         switch (id){
             case PLAYER1:
@@ -118,6 +143,9 @@ public class OptionsPickerView {
         }
     }
 
+    /**
+     * Sets the sizes of the sprites.
+     */
     private void setSizes(){
         float pickerHeight = Constants.getPickerHeight();
         float npcOrPlayerWidth = Constants.getNpcOrPlayerWidth();
@@ -131,6 +159,9 @@ public class OptionsPickerView {
         }
     }
 
+    /**
+     * Sets the positions of the sprites.
+     */
     private void setPositions(){
         float npcOrPlayerX = Constants.getNpcOrPlayerX();
         for(Sprite npcOrPlayer : npcOrPlayerSprites){

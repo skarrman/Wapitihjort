@@ -7,15 +7,14 @@ import tankRevolution.services.AssetsManager;
 import tankRevolution.utils.Constants;
 
 /**
- * Created by JakobErlandsson on 2017-05-12.
- * Static class holding the dimension and positions of the UI buttons.
+ * Static class holding the dimension and positions of the UI buttons in the game.
  */
 public class GraphicalUIButtons {
-    private static Array<Sprite> leftMoveButtonPressedSprites = AssetsManager.getInstance().getLeftPressedButtonSprites();
-    private static Array<Sprite> rightMoveButtonPressedSprites = AssetsManager.getInstance().getRightPressedButtonSprites();
-    private static Array<Sprite> leftMoveButtonNotPressedSprites = AssetsManager.getInstance().getLeftNotPressedButtonSprites();
-    private static Array<Sprite> rightMoveButtonNotPressedSprites = AssetsManager.getInstance().getRightNotPressedButtonSprites();
-    private static Sprite pauseMenuButton = AssetsManager.getInstance().getPauseMenuButton();
+    private static final Array<Sprite> leftMoveButtonPressedSprites = AssetsManager.getInstance().getLeftPressedButtonSprites();
+    private static final Array<Sprite> rightMoveButtonPressedSprites = AssetsManager.getInstance().getRightPressedButtonSprites();
+    private static final Array<Sprite> leftMoveButtonNotPressedSprites = AssetsManager.getInstance().getLeftNotPressedButtonSprites();
+    private static final Array<Sprite> rightMoveButtonNotPressedSprites = AssetsManager.getInstance().getRightNotPressedButtonSprites();
+    private static final Sprite pauseMenuButton = AssetsManager.getInstance().getPauseMenuButton();
 
     public static void draw(int i, Batch batch, boolean pressed){
         if(pressed) {

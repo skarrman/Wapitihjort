@@ -19,11 +19,19 @@ public class GraphicalProjectile {
     /** The projectiles sprite. I will represent the body graphically */
     private final Sprite sprite;
 
+    /**
+     * Initializes the sprite.
+     * @param body The projectile's body. Necessary to know where to draw the sprite.
+     */
     GraphicalProjectile(Body body){
         this.body = body;
         sprite = AssetsManager.getInstance().getProjectileSprite();
     }
 
+    /**
+     * Draw the projectile sprite on the position of the projectile's body.
+     * @param batch The batch to draw the sprite on.
+     */
     public void draw(Batch batch){
         Vector2 projectilePos = new Vector2(body.getPosition().x, body.getPosition().y);
         sprite.setPosition(projectilePos.x * Constants.pixelsPerMeter() - sprite.getWidth() / 2,

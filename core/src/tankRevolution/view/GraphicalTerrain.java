@@ -12,19 +12,25 @@ import tankRevolution.utils.Constants;
 import java.util.List;
 
 /**
- * Created by JakobErlandsson on 2017-05-10.
  * Class holding information about the graphical representation of the terrain.
  */
 public class GraphicalTerrain {
 
-    private Array<Polygon> polygons;
+    /** Array containing all polygons that the terrain consist of. */
+    private final Array<Polygon> polygons;
 
+    /** The texture that is the graphical representation of the terrain. */
     private Texture texture;
 
-    private Pixmap pixmap;
+    /** Pixmap purpose is to create the terrain graphically */
+    private final Pixmap pixmap;
 
-    private float radius = Constants.pixelsPerMeter()/2;
+    /** The radius of the circles that build the terrain */
+    private final float radius = Constants.pixelsPerMeter()/2;
 
+    /**
+     * Initializing
+     */
     GraphicalTerrain(){
         ShapeRenderer shapeRenderer = new ShapeRenderer();
         shapeRenderer.setColor(0,1,0,1);
@@ -33,6 +39,13 @@ public class GraphicalTerrain {
         setPoints();
     }
 
+    /**
+     * Checks if the terrain has changed since the last rendering. If it has changed
+     * the polygon and pixmap is recalculated.
+     * @param vertices The vertices that the terrain polygon consists of.
+     * @param isTerrainChanged Tells if the terrain has changed since the last rendering loop.
+     * @param batch The batch to draw the terrain on.
+     */
     public void draw(List<float[]> vertices, boolean isTerrainChanged, Batch batch){
         if(isTerrainChanged){
             polygons.clear();
@@ -47,10 +60,17 @@ public class GraphicalTerrain {
         draw(batch);
     }
 
+    /**
+     * Draws the texture.
+     * @param batch The batch to draw the texture on.
+     */
     private void draw(Batch batch){
         batch.draw(texture, 0,0);
     }
 
+    /**
+     * Recalculates the pixmap and then sets the texture to the draw the new pixmap.
+     */
     private  void setPoints() {
         float pixelsToMeter = Constants.pixelsPerMeter();
         pixmap.setColor(0,1,0,0);
