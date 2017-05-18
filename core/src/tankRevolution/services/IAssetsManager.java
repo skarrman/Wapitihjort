@@ -13,7 +13,7 @@ import java.util.List;
  * Created by jakobwall on 2017-05-18.
  * Created as a facade for the Asset Manager.
  */
-public interface IAssetManager {
+public interface IAssetsManager {
 
     Array<Sprite> getSpriteArray(Id textureName);
 

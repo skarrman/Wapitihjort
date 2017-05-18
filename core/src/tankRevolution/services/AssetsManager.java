@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * Singleton that handles and loads all assets when needed.
  */
-public class AssetsManager implements IAssetManager{
+public class AssetsManager implements IAssetsManager{
 
     /**
      * A Map with all textureAtlases and with a String for key
