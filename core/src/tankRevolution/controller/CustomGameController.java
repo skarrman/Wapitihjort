@@ -118,6 +118,8 @@ class CustomGameController {
         Vector2 leftArrowPos = Constants.getLeftMapArrowPos();
         leftMapArrow.setBounds(leftArrowPos.x, leftArrowPos.y, arrowSize, arrowSize);
 
+        //TODO a bug that makes the game terminate. When in custom and iterates map backwards, the game is unable to start
+
         Vector2 numberOfPLayerPos = Constants.getNumberOfPlayersPos();
         numberOfPlayersTwo.setBounds(numberOfPLayerPos.x, numberOfPLayerPos.y, numberOfPlayerWidth/3, pickerHeight);
         numberOfPlayersThree.setBounds(numberOfPLayerPos.x + numberOfPlayerWidth/3, numberOfPLayerPos.y, numberOfPlayerWidth/3, pickerHeight);

@@ -105,7 +105,9 @@ public class PlayerOptionsPicker {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 playerIsNpc = true;
+                npcDifficulty = NPCDifficulty.MEDIUM;
                 view.setNPC(true, id);
+                view.setDifficulty(id, npcDifficulty);
                 return true;
             }
         });
