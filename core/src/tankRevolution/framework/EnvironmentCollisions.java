@@ -3,7 +3,6 @@ package tankRevolution.framework;
 import com.badlogic.gdx.physics.box2d.*;
 import com.quailshillstudio.polygonClippingUtils.UserData;
 import tankRevolution.framework.terrain.ITerrainHandler;
-import tankRevolution.framework.terrain.TerrainHandler;
 import tankRevolution.model.shootablePackage.Shootable;
 
 /**

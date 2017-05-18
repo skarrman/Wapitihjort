@@ -20,8 +20,6 @@ import java.util.Map;
  */
 public class AssetsManager {
 
-    //private Map<TextureAtlasAssets, TextureAtlas> textureAtlases;
-
     /**
      * A Map with all textureAtlases and with a String for key
      */
@@ -37,10 +35,6 @@ public class AssetsManager {
      */
     private List<Texture> startMenuTextures;
 
-    /**
-     * The images shown in the custom game menu.
-     */
-    private List<Sprite> customGameMenuTextures;
     /**
      * The images shown in the pause menu.
      */
@@ -176,16 +170,6 @@ public class AssetsManager {
         return pauseMenuButton;
     }
 
-    public List<Sprite> getCustomGameMenuTextures(){
-        if (customGameMenuTextures == null){
-            try{
-                loadCustomGameMenuAssets();
-            }catch(FileNotFoundException e){
-                System.out.println("File Not Found");
-            }
-        }return customGameMenuTextures;
-    }
-
     public Sprite getLeftSwitchWeaponButton() {
         if (leftSwitchWeaponButton == null) {
             loadLeftSwitchWeaponButton();
@@ -277,10 +261,6 @@ public class AssetsManager {
         return mapNames;
     }
 
-    public String getChosenMapName(int i) {
-        return mapNames.get(i);
-    }
-
     public void loadMapNames() {
         FileHandle fileHandle = Gdx.files.internal("maps/" + "mapNames");
         String maps = fileHandle.readString();
@@ -363,11 +343,11 @@ public class AssetsManager {
         spriteArrays.put(Id.PLAYER4, blueTank);
     }
 
-    public void loadRightSwitchWeaponButton() {
+    private void loadRightSwitchWeaponButton() {
         rightSwitchWeaponButton = new Sprite(new Texture(Gdx.files.internal("Arrows/RightArrow.png")));
     }
 
-    public void loadLeftSwitchWeaponButton() {
+    private void loadLeftSwitchWeaponButton() {
         leftSwitchWeaponButton = new Sprite(new Texture(Gdx.files.internal("Arrows/LeftArrow.png")));
     }
 
@@ -534,20 +514,7 @@ public class AssetsManager {
         loadInGameAssets(mapString);
     }
 
-
-    /**
-     * Called the first time the pause menu is opened to load all the images there.
-     */
-    public void loadPauseMenuAssets() {
-        try {
-            loadPauseMenuTextures();
-        } catch (FileNotFoundException e) {
-            System.out.println("Files Not Found");
-        }
-
-    }
-
-    public void loadCustomGameMenuAssets() throws FileNotFoundException{
+    private void loadCustomGameMenuAssets() throws FileNotFoundException{
         if(npcOrPlayerSprites == null){
             npcOrPlayerSprites = new ArrayList<Sprite>();
             npcOrPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NPCPicker1.png"))));

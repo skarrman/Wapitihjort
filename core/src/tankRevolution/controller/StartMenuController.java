@@ -4,14 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import tankRevolution.GameHolder;
-import tankRevolution.model.NPC;
-import tankRevolution.model.NPCDifficulty;
 import tankRevolution.model.Options;
-import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**

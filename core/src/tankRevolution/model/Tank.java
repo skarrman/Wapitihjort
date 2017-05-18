@@ -22,6 +22,7 @@ public class Tank {
     private final float height = 2f;
     private final float maxFuel = 100f;
     private int health = 100;
+    private final int enginePower = 100;
     private float fuel = 100;
 
     public Tank() {
@@ -56,6 +57,10 @@ public class Tank {
 
     public float getFuel() {
         return fuel;
+    }
+
+    public int getEnginePower(){
+        return enginePower;
     }
 
     void reduceFuel() {

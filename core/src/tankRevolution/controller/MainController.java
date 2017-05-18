@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import tankRevolution.GameHolder;
 import tankRevolution.framework.Environment;
-import tankRevolution.model.TankRevolution;
 import tankRevolution.view.CustomGameView;
 import tankRevolution.view.GameView;
 import tankRevolution.view.Viewable;

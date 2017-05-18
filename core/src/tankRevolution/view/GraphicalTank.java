@@ -16,8 +16,9 @@ import tankRevolution.utils.Id;
  */
 public class GraphicalTank {
 
-    private Body tankBody;
-    private Array<Sprite> sprites;
+    private final Body tankBody;
+    private final Array<Sprite> sprites;
+    private final float pixelsPerMeter = Constants.pixelsPerMeter();
 
     GraphicalTank(Body body, Id id, float width, float height){
         this.tankBody = body;
@@ -29,14 +30,13 @@ public class GraphicalTank {
     public void draw(Batch batch){
         Sprite sprite = sprites.get(0);
         Vector2 pos = tankBody.getPosition();
-        sprite.setPosition((Constants.metersPerPixel() * pos.x) - sprite.getWidth()/2,
-                (Constants.metersPerPixel() * pos.y) - sprite.getHeight()/2);
+        sprite.setPosition((pixelsPerMeter * pos.x) - sprite.getWidth()/2, (pixelsPerMeter * pos.y) - sprite.getHeight()/2);
         sprite.draw(batch);
     }
 
     private void setSpriteDimensions(float width, float height){
         for(Sprite s : sprites){
-            s.setSize(width * Constants.metersPerPixel(), height * Constants.metersPerPixel());
+            s.setSize(width * pixelsPerMeter, height * pixelsPerMeter);
         }
     }
 }

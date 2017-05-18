@@ -1,7 +1,6 @@
 package tankRevolution.framework.terrain;
 
 import com.badlogic.gdx.physics.box2d.Body;
-import com.quailshillstudio.polygonClippingUtils.PolygonBox2DShape;
 
 import java.util.List;
 

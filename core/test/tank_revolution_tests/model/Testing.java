@@ -12,7 +12,6 @@ import tankRevolution.utils.Vector;
 
 import static org.junit.Assert.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

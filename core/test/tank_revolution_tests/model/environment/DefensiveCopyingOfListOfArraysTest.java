@@ -1,18 +1,5 @@
 package tank_revolution_tests.model.environment;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
-import com.quailshillstudio.polygonClippingUtils.GroundFixture;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import tankRevolution.framework.terrain.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by antonhagermalm on 2017-05-10.
  */

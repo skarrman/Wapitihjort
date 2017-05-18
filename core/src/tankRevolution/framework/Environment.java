@@ -426,11 +426,11 @@ public class Environment {
     }
 
     /**
-     * Moves tank based on input from user. Multiplies the direction by 25 to make the tank move at a good pace.
+     * Moves tank based on input from user. Multiplies the direction by the tank's engine power to make the tank move at a good pace.
      * @param direction 1 if moving right, -1 if moving left.
      */
     public void moveTank(int direction) {
-        getTankBody(getCurrentTank()).setLinearVelocity(direction * 25, Constants.getGravity());
+        getTankBody(getCurrentTank()).setLinearVelocity(direction * getCurrentTank().getEnginePower(), Constants.getGravity());
         tankRevolution.reduceFuel();
     }
 

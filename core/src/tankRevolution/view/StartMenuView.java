@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 import tankRevolution.utils.AssetsManager;
 import tankRevolution.utils.Constants;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;

@@ -2,7 +2,6 @@ package tankRevolution.controller;
 
 import com.badlogic.gdx.InputProcessor;
 import tankRevolution.framework.Environment;
-import tankRevolution.model.TankRevolution;
 import tankRevolution.view.GameView;
 
 /**

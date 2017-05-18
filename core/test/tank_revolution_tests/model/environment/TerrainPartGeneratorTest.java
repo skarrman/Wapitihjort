@@ -4,8 +4,6 @@ import org.junit.Test;
 import tankRevolution.framework.terrain.TerrainPartGenerator;
 
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 
 /**
