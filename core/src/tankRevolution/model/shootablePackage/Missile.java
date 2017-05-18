@@ -7,7 +7,7 @@ package tankRevolution.model.shootablePackage;
 class Missile extends Projectile{
 
     Missile() {
-        super(100, 5);
+        super(30, 4);
     }
 
 }

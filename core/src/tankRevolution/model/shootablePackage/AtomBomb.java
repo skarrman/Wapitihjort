@@ -7,7 +7,7 @@ package tankRevolution.model.shootablePackage;
 class AtomBomb extends Projectile{
 
     AtomBomb() {
-        super(50, 25);
+        super(50, 10);
     }
 
 }
