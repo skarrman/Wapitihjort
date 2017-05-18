@@ -3,6 +3,7 @@ package tankRevolution;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import tankRevolution.services.AssetsManager;
+import tankRevolution.model.Options;
 import tankRevolution.controller.MainController;
 import tankRevolution.framework.Environment;
 import tankRevolution.model.TankRevolution;
@@ -17,6 +18,7 @@ public class GameHolder implements ApplicationListener {
     private Viewable view;
     private Environment environment;
     private MainController mainController;
+    private Options lastGameOptions;
 
     /**
      * Called when the {@link Application} is first created.
@@ -58,11 +60,21 @@ public class GameHolder implements ApplicationListener {
     /**
      * Sets up classes to start a new game.
      *
-     * @param currentGame The current game model.
+     * @param options The current options.
      */
-    public void startNewGame(TankRevolution currentGame, String mapName) {
-        AssetsManager.getInstance().loadNewGameAssets(currentGame.getCharacterList().size(), mapName);
-        environment = new Environment(currentGame, mapName);
+    public void startNewGame(Options options) {
+        lastGameOptions = options;
+        TankRevolution currentGame = options.newGame();
+        AssetsManager.getInstance().loadNewGameAssets(currentGame.getCharacterList().size(), options.getMapName());
+        environment = new Environment(currentGame, options.getMapName());
+        setGameMode();
+    }
+
+
+    public void restartGame(){
+        TankRevolution currentGame = lastGameOptions.newGame();
+        AssetsManager.getInstance().loadNewGameAssets(currentGame.getCharacterList().size(), lastGameOptions.getMapName());
+        environment = new Environment(currentGame, lastGameOptions.getMapName());
         setGameMode();
     }
 

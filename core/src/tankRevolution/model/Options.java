@@ -15,31 +15,23 @@ public class Options {
      * The list of characters
      */
     private final List<Character> characterList;
-
-
-    /**
-     * For custom setup from the custom game menu
-     *
-     * @param characterList The list of characters received from the meny setup
-     */
-    public Options(List<Character> characterList) {
-        this.characterList = characterList;
-    }
+    private String mapName;
 
     /**
      * For a quick setup
      */
     public Options() {
         characterList = new ArrayList<Character>();
-
     }
 
     public void setupQuick() {
         characterList.add(CharacterFactory.newPlayer(Id.PLAYER1));
         characterList.add(CharacterFactory.newNPC(Id.PLAYER2, NPCDifficulty.SUPERHARD));
+        mapName = "Burning Desert Wolf";
     }
 
-    public void setUpCustom(int numberOfPlayers, int numberOfNPCs, List<NPCDifficulty> npcDifficulties) {
+    public void setUpCustom(int numberOfPlayers, int numberOfNPCs, List<NPCDifficulty> npcDifficulties, String mapName) {
+        this.mapName = mapName;
         if (numberOfNPCs < numberOfPlayers) {
             characterList.add(CharacterFactory.newPlayer(Id.PLAYER1));
         } else {
@@ -54,6 +46,10 @@ public class Options {
             }
         }
 
+    }
+
+    public String getMapName() {
+        return mapName;
     }
 
     private List<Character> defenciveCopiedCharacterList() {
