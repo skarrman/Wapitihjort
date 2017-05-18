@@ -218,7 +218,11 @@ public class CustomGameView implements Viewable {
      * Decreases the index of the selected map.
      */
     public void setPreviousMap() {
-        selectedMap = (selectedMap - 1) % mapNames.size();
+        if(selectedMap == 0){
+            selectedMap = mapNames.size()-1;
+        }else{
+            selectedMap = selectedMap -1;
+        }
     }
 
     /**
