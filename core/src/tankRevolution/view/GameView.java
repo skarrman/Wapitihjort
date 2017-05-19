@@ -36,22 +36,22 @@ public class GameView implements Viewable {
      * True = debug: ON
      * False = debug: OFF
      */
-    private boolean deBugMode = false;
+    private final boolean deBugMode = false;
 
     /**
      * The graphical batch that draws on the screen
      */
-    private Batch batch;
+    private final Batch batch;
 
     /**
      * The environment
      */
-    private Environment environment;
+    private final Environment environment;
 
     /**
      * An orthogonal camera
      */
-    private OrthographicCamera camera;
+    private final OrthographicCamera camera;
 
     /**
      * A debug renderer to debug the box2d bodies
@@ -92,12 +92,12 @@ public class GameView implements Viewable {
     /**
      * The list of all the on going explosion animations.
      */
-    private List<ExplosionAnimation> explosionAnimations;
+    private final List<ExplosionAnimation> explosionAnimations;
 
     /**
      * The instance that handles the arrow that show whose turn it is
      */
-    private TurnIndicatorAnimation turnIndicatorAnimation;
+    private final TurnIndicatorAnimation turnIndicatorAnimation;
 
     /**
      * A map that connect a character with a graphical tank
@@ -112,37 +112,37 @@ public class GameView implements Viewable {
     /**
      * The instance of the class that handles the drawing of labels on the screen
      */
-    private LabelDrawer labelDrawer;
+    private final LabelDrawer labelDrawer;
 
     /**
      * Handles the graphical elements that is shown when the game is over
      */
-    private GameOverView gameOverView;
+    private final GameOverView gameOverView;
 
     /**
      * The sound of a shot that is fired
      */
-    private Sound shotSound;
+    private final Sound shotSound;
 
     /**
      * The sound of an explosion
      */
-    private Sound explosionSound;
+    private final Sound explosionSound;
 
     /**
      * The graphical representation of the weapon switch
      */
-    private WeaponSwitch weaponSwitch;
+    private final WeaponSwitch weaponSwitch;
 
     /**
      * The background of the map
      */
-    private Sprite background;
+    private final Sprite background;
 
     /**
      * The graphical representation of the terrain
      */
-    private GraphicalTerrain terrain;
+    private final GraphicalTerrain terrain;
 
     /**
      * The standard constructor that initialize everything to make the graphics work.
@@ -158,7 +158,6 @@ public class GameView implements Viewable {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         createDebugger();
         explosionAnimations = new ArrayList<ExplosionAnimation>();
-        turnIndicatorAnimation = new TurnIndicatorAnimation(Constants.pixelsPerMeter());
         turnIndicatorAnimation = new TurnIndicatorAnimation(Constants.pixelsPerMeter());
         labelDrawer = new LabelDrawer();
         gameOverView = new GameOverView();

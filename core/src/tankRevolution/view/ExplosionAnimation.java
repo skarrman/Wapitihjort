@@ -16,10 +16,10 @@ class ExplosionAnimation{
     private float time;
 
     /** The texture atlas of all the textures that represents the explosions that is animated. */
-    private Array<Sprite> sprites;
+    private final Array<Sprite> sprites;
 
     /** The object that handel the animation */
-    private Animation<Sprite> animation;
+    private final Animation<Sprite> animation;
 
     /**
      * The constructor of this class that is creating all the object that is needed

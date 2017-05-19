@@ -19,46 +19,46 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 public class CustomGameView implements Viewable {
 
     /** The batch that all the graphical elements is drawn on */
-    private Batch batch;
+    private final Batch batch;
 
     /** The font that is used in this view */
-    private BitmapFont font;
+    private final BitmapFont font;
 
     /** The class that helps with logic when drawing texts */
-    private GlyphLayout label;
+    private final GlyphLayout label;
 
     /**
      * A list of sprites containing all the different sprite to represents
      * all the different number of players selected.
      */
-    private List<Sprite> numberOfPlayerSprites;
+    private final List<Sprite> numberOfPlayerSprites;
 
     /** The sprite that represents the right arrow in the map selector */
-    private Sprite rightMapArrow;
+    private final Sprite rightMapArrow;
 
     /** The sprite that represents the right arrow in the map selector */
-    private Sprite leftMapArrow;
+    private final Sprite leftMapArrow;
 
     /** The sprite that represents the current selected amount of players */
     private Sprite numberOfPlayersPicker;
 
     /** The graphical representation of the player options for player 1 */
-    private OptionsPickerView player1;
+    private final OptionsPickerView player1;
 
     /** The graphical representation of the player options for player 2 */
-    private OptionsPickerView player2;
+    private final OptionsPickerView player2;
 
     /** The graphical representation of the player options for player 3 */
-    private OptionsPickerView player3;
+    private final OptionsPickerView player3;
 
     /** The graphical representation of the player options for player 4 */
-    private OptionsPickerView player4;
+    private final OptionsPickerView player4;
 
     /** The sprite that represent the start game button */
-    private Sprite startGameButton;
+    private final Sprite startGameButton;
 
     /** A list that contains the names of all the available maps */
-    private List<String> mapNames;
+    private final List<String> mapNames;
 
     /** The index in the mapNames array that is selected */
     private int selectedMap = 0;
@@ -128,7 +128,7 @@ public class CustomGameView implements Viewable {
 
     @Override
     public void dispose() {
-
+        batch.dispose();
     }
 
     /**

@@ -11,17 +11,21 @@ import tankRevolution.services.AssetsManager;
 import tankRevolution.utils.Constants;
 
 /**
- * Created by jakobwall on 2017-05-11.
  * Class handling the graphic representation of the way to switch between weapons.
  */
-public class WeaponSwitch {
-    private BitmapFont font;
+class WeaponSwitch {
 
-    private GlyphLayout label;
+    /** The font that it used */
+    private final BitmapFont font;
 
-    private Sprite rightArrowSprite;
+    /** Tool for helping layout for text */
+    private final GlyphLayout label;
 
-    private Sprite leftArrowSprite;
+    /** Sprite that represents the right arrow */
+    private final Sprite rightArrowSprite;
+
+    /** Sprite that represents the left arrow */
+    private final Sprite leftArrowSprite;
 
     WeaponSwitch(){
         font = AssetsManager.getInstance().getFonts().get(0);
@@ -33,7 +37,12 @@ public class WeaponSwitch {
         setPositions();
     }
 
-    public void draw(Batch batch, AmmunitionType ammunitionType){
+    /**
+     * Draws all the graphical items.
+     * @param batch The batch to draw graphical items on.
+     * @param ammunitionType The current ammunition that is chosen.
+     */
+    void draw(Batch batch, AmmunitionType ammunitionType){
         leftArrowSprite.draw(batch);
         rightArrowSprite.draw(batch);
         label.setText(font, ammunitionType.getName());
@@ -43,12 +52,18 @@ public class WeaponSwitch {
                 14 * Gdx.graphics.getHeight()/16 + leftArrowSprite.getHeight()/2 + height/2);
     }
 
+    /**
+     * Sets the dimension of the sprites.
+     */
     private void setDimension(){
         float sideLength = Constants.getWeaponArrowDimension();
         rightArrowSprite.setSize(sideLength, sideLength);
         leftArrowSprite.setSize(sideLength, sideLength);
     }
 
+    /**
+     * Sets the positions of the sprites.
+     */
     private void setPositions(){
         Vector2 rightPos = Constants.getRightWeaponPosition();
         rightArrowSprite.setPosition(rightPos.x, rightPos.y);

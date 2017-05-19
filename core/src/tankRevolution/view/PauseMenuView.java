@@ -20,19 +20,19 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 public class PauseMenuView implements Viewable {
 
     /** The batch to draw all the graphical components on */
-    private Batch batch;
+    private final Batch batch;
 
     /** The sprite that represents the "Resume Game"-button */
-    private Sprite resumeSprite;
+    private final Sprite resumeSprite;
 
     /** The sprite that represents the "Restart Game"-button */
-    private Sprite restartSprite;
+    private final Sprite restartSprite;
 
     /** The sprite that represents the "Main menu"-button */
-    private Sprite toMenuSprite;
+    private final Sprite toMenuSprite;
 
     /** The sprite that represents the "Settings"(Gear)-button */
-    private Sprite settingsSprite;
+    private final Sprite settingsSprite;
 
     public PauseMenuView(){
         batch = new SpriteBatch();

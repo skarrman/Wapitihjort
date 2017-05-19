@@ -16,16 +16,16 @@ import tankRevolution.utils.Constants;
 public class GameOverView {
 
     /** The font that is used */
-    private BitmapFont font;
+    private final BitmapFont font;
 
     /** An instance that helps with the layout of texts */
-    private GlyphLayout label;
+    private final GlyphLayout label;
 
     /** The sprite that represents the button that takes you back to the start menu */
-    private Sprite toMenuSprite;
+    private final Sprite toMenuSprite;
 
     /** The string that is drawn */
-    private String str;
+    private final String str;
 
     /**
      * Initializes everything and putting everything where it should be.

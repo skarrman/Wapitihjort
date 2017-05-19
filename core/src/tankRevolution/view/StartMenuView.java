@@ -19,13 +19,27 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
  * {@inheritDoc}
  */
 public class StartMenuView implements Viewable {
-    private Batch batch;
-    private Sprite quickStartSprite;
-    private Sprite worldSprite;
-    private Sprite customStartSprite;
-    private Sprite highScoreSprite;
-    private Sprite settingsSprite;
-    private Sprite background;
+
+    /** The batch to draw the graphical items on */
+    private final Batch batch;
+
+    /** The sprite that represents the "Quick Game"-button */
+    private final Sprite quickStartSprite;
+
+    /** The sprite that represents the "World"-button */
+    private final Sprite worldSprite;
+
+    /** The sprite that represents the "Custom game"-button */
+    private final Sprite customStartSprite;
+
+    /** The sprite that represents the "High score"-button */
+    private final Sprite highScoreSprite;
+
+    /** The sprite that represents the "Settings"-button */
+    private final Sprite settingsSprite;
+
+    /** The background spite */
+    private final Sprite background;
 
 
 
@@ -38,7 +52,7 @@ public class StartMenuView implements Viewable {
         customStartSprite = new Sprite(textures.get(2));
         highScoreSprite = new Sprite(textures.get(3));
         settingsSprite = new Sprite(textures.get(4));
-        background = new Sprite(new Texture(Gdx.files.internal("MainMenu/StartMenuBackgroundCopy.png")));
+        background = new Sprite(new Texture(Gdx.files.internal("MainMenu/StartMenuBackgroundCopy.png"))); //TODO move to assets
         background.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         setSpriteSizes();
