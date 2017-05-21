@@ -409,6 +409,8 @@ public class AssetsManager implements IAssetsManager{
         startMenuTextures.add(new Texture(Gdx.files.internal("MainMenu/CustomGame.png")));
         startMenuTextures.add(new Texture(Gdx.files.internal("MainMenu/HighScoreCS.png")));
         startMenuTextures.add(getSettingsTexture());
+        startMenuTextures.add(new Texture(Gdx.files.internal("MainMenu/StartMenuBackgroundCopy.png")));
+
     }
 
     private void loadPauseMenuTextures() throws FileNotFoundException {

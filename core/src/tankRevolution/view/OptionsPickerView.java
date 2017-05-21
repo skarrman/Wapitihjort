@@ -70,7 +70,7 @@ class OptionsPickerView {
         label.setText(font, str);
         float height = label.height;
         font.draw(batch, str, Constants.getNumberOfPlayersPos().x,
-                y + Constants.getPickerHeight() + height / 2);
+                y + Constants.getPickerHeight());
         npcOrPlayerSprite.setY(y);
         npcOrPlayerSprite.draw(batch);
         if (isNPC) {

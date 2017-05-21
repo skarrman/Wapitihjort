@@ -160,7 +160,7 @@ public class Constants {
     }
 
     public static float getStartCustomGameHeight(){
-        return getPickerHeight()*2;
+        return getPickerHeight()*1.75f;
     }
 
     public static Vector2 getStartCustomGamePos(){
