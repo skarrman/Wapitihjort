@@ -10,25 +10,47 @@ import tankRevolution.utils.Id;
 import tankRevolution.view.CustomGameView;
 
 /**
- * Created by simonkarrman on 2017-05-17.
+ * Handles the options of a player in the custom game view.
  */
-public class PlayerOptionsPicker {
+class PlayerOptionsPicker {
 
-    private CustomGameView view;
-    private Id id;
+    /** The current custom game view */
+    private final CustomGameView view;
 
-    private Button playerNpc;
-    private Button playerActual;
-    private Button playerEasy;
-    private Button playerMedium;
-    private Button playerHard;
-    private Button playerExpert;
+    /** The ID of the player that this object handles */
+    private final Id id;
 
+    /** The button to chose that the player will be a npc */
+    private final Button playerNpc;
+
+    /** The button to chose that the player will not be a npc */
+    private final Button playerActual;
+
+    /** The button to chose easy as the NPC difficulty */
+    private final Button playerEasy;
+
+    /** The button to chose medium as the NPC difficulty */
+    private final Button playerMedium;
+
+    /** The button to chose hard as the NPC difficulty */
+    private final Button playerHard;
+
+    /** The button to chose expert as the NPC difficulty */
+    private final Button playerExpert;
+
+    /** The current NPC difficulty that is chosen */
     private NPCDifficulty npcDifficulty;
 
-    boolean playerIsNpc = false;
+    /** The status of if the player is a NPC or not */
+    private boolean playerIsNpc = false;
 
-    public PlayerOptionsPicker(CustomGameView view, Id id){
+    /**
+     * Initializing
+     * @param view The current custom game view. Necessary to be able to change the view
+     *             so it is correct accordingly to the user input.
+     * @param id The ID of the player that this picker is handling.
+     */
+    PlayerOptionsPicker(CustomGameView view, Id id){
         this.view = view;
         this.id = id;
 
@@ -40,28 +62,46 @@ public class PlayerOptionsPicker {
         playerExpert = new Button();
 
         setBounds(id);
-        addListeners(view, id);
+        addListeners(id);
     }
 
-    public boolean isNPC(){
+    /**
+     * @return <code>true</code> if the player is a NPC otherwise <code>false</code>.
+     */
+    boolean isNPC(){
         return playerIsNpc;
     }
 
-    public NPCDifficulty getNpcDifficulty(){
+    /**
+     * @return Returns the current NPC difficulty.
+     */
+    NPCDifficulty getNpcDifficulty(){
         return npcDifficulty;
     }
 
-    public void setIsNPC(boolean isNPC){
+    /**
+     * Sets the isNPC instance.
+     * @param isNPC The new value of isNPC.
+     */
+    void setIsNPC(boolean isNPC){
         playerIsNpc = isNPC;
         view.setNPC(isNPC, id);
     }
 
-    public void setDifficulty(NPCDifficulty npcDifficulty){
+    /**
+     * Sets the NPC difficulty.
+     * @param npcDifficulty The new NPC difficulty.
+     */
+    void setDifficulty(NPCDifficulty npcDifficulty){
         this.npcDifficulty = npcDifficulty;
         view.setDifficulty(id, npcDifficulty);
     }
 
-    public void addToStage(Stage stage){
+    /**
+     * Adds the buttons to the stage that the custom game controller instances.
+     * @param stage The stage to add the buttons in.
+     */
+    void addToStage(Stage stage){
         stage.addActor(playerNpc);
         stage.addActor(playerActual);
         stage.addActor(playerEasy);
@@ -70,6 +110,10 @@ public class PlayerOptionsPicker {
         stage.addActor(playerExpert);
     }
 
+    /**
+     * Sets the bounds (Position and dimensions) of the buttons.
+     * @param id To determine the y-coordinate of the buttons.
+     */
     private void setBounds(Id id){
         float pickerHeight = Constants.getPickerHeight();
         float npcOrPlayerX = Constants.getNpcOrPlayerX();
@@ -85,6 +129,11 @@ public class PlayerOptionsPicker {
         playerExpert.setBounds(npcDifficultyX + 3 * npcDifficultyWidth/4, y, npcDifficultyWidth/4, pickerHeight);
     }
 
+    /**
+     * Determin the index of the row that is equivalent with the ID.
+     * @param id The id of the player.
+     * @return The row index.
+     */
     private int getIndex(Id id){
         switch (id){
             case PLAYER1:
@@ -100,7 +149,11 @@ public class PlayerOptionsPicker {
         }
     }
 
-    private void addListeners(final CustomGameView view, final Id id){
+    /**
+     * Adds the listeners to the buttons.
+     * @param id The ID of the player.
+     */
+    private void addListeners(final Id id){
         playerNpc.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

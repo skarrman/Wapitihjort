@@ -9,17 +9,30 @@ import tankRevolution.GameHolder;
 import tankRevolution.utils.Constants;
 
 /**
- * Created by simonkarrman on 2017-05-08.
+ * The controller to handle user input on the pause menu screen.
  */
-public class PauseMenuController {
-    private Button resumeButton;
-    private Button restartButton;
-    private Button toMenuButton;
-    private Button settingsButton;
+class PauseMenuController {
 
+    /** The resume game button */
+    private final Button resumeButton;
+
+    /** The restart game Button */
+    private final Button restartButton;
+
+    /** The main menu button */
+    private final Button toMenuButton;
+
+    /** The settings button. No functionality yet though */
+    private final Button settingsButton;
+
+    /** The stage that the buttons are in */
     private Stage stage;
 
-    public PauseMenuController(GameHolder gameHolder){
+    /**
+     * Initializing.
+     * @param gameHolder The current game holder. Necessary to be able to switch screens.
+     */
+    PauseMenuController(GameHolder gameHolder){
         resumeButton = new Button();
         restartButton = new Button();
         toMenuButton = new Button();
@@ -35,7 +48,7 @@ public class PauseMenuController {
     /**
      * @return The stage in which all the buttons' inputs are registered
      */
-    public Stage getStage() {
+    Stage getStage() {
         return stage;
     }
 
@@ -99,6 +112,9 @@ public class PauseMenuController {
         });
     }
 
+    /**
+     * Adding the buttons to the stage.
+     */
     private void addButtonsToStage(){
         stage.addActor(resumeButton);
         stage.addActor(restartButton);

@@ -14,15 +14,10 @@ import tankRevolution.view.Viewable;
 public class MainController {
 
     /**
-     * Used to be able to handle more than one source of input at the same time.
+     * The current button controller. Necessary to be able to check id player
+     * is holding on a button on the in game screen.
      */
-    private InputMultiplexer inputMultiplexer;
-
     private ButtonController buttonController;
-
-    public MainController() {
-       inputMultiplexer = new InputMultiplexer();
-    }
 
     /**
      * Called when a new game is started, game gets input from dragging across the screen
@@ -32,6 +27,7 @@ public class MainController {
      * @param gameHolder    The GameHolder is needed to be able to pause the game.
      */
     public void setGameMode(Environment environment, Viewable gameView, GameHolder gameHolder){
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
         buttonController = new ButtonController((GameView)gameView, environment, gameHolder);
         inputMultiplexer.clear();
         inputMultiplexer.addProcessor(buttonController.getStage());
@@ -45,9 +41,7 @@ public class MainController {
      * @param gameHolder The GameHolder is needed to start another mode.
      */
     public void setStartMenuMode(GameHolder gameHolder){
-        inputMultiplexer.clear();
-        inputMultiplexer.addProcessor(new StartMenuController(gameHolder).getStage());
-        Gdx.input.setInputProcessor(inputMultiplexer);
+        Gdx.input.setInputProcessor(new StartMenuController(gameHolder).getStage());
     }
 
     /**

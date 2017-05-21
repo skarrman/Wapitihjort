@@ -15,19 +15,19 @@ import tankRevolution.view.GameView;
  * Controller class responsible for handling input from buttons around the UI
  */
 public class ButtonController {
-    private Environment environment;
-    private GameHolder gameHolder;
-    private GameView gameView;
+    private final Environment environment;
+    private final GameHolder gameHolder;
+    private final GameView gameView;
 
-    private Stage stage;
+    private final Stage stage;
 
-    //All the different buttons around the UI, names self-explainatory
-    private Button rightMoveButton;
-    private Button leftMoveButton;
-    private Button pauseMenuButton;
-    private Button toMenuButton;
-    private Button rightWeaponButton;
-    private Button leftWeaponButton;
+    //All the different buttons around the UI, names self-explanatory
+    private final Button rightMoveButton;
+    private final Button leftMoveButton;
+    private final Button pauseMenuButton;
+    private final Button toMenuButton;
+    private final Button rightWeaponButton;
+    private final Button leftWeaponButton;
     /**
      * Keeps track of wether or not the moveButtons are being pressed
      */
@@ -42,7 +42,7 @@ public class ButtonController {
      */
     private boolean gameOverMode;
 
-    public ButtonController(GameView gameView, Environment environment, GameHolder gameHolder) {
+    ButtonController(GameView gameView, Environment environment, GameHolder gameHolder) {
         this.gameHolder = gameHolder;
         this.environment = environment;
         this.gameView = gameView;
@@ -83,7 +83,7 @@ public class ButtonController {
     /**
      * @return The stage in which all the buttons' inputs are registered
      */
-    public Stage getStage() {
+    Stage getStage() {
         return stage;
     }
 

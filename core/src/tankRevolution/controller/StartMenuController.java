@@ -11,15 +11,31 @@ import tankRevolution.utils.Constants;
 /**
  * Controller class for the menu that shows up when the game is first started.
  */
-public class StartMenuController {
-    private Button quickStartButton;
-    private Button worldButton;
-    private Button customStartButton;
-    private Button highScoreButton;
-    private Button settingsButton;
-    private Stage stage;
+class StartMenuController {
 
-    public StartMenuController(final GameHolder gameHolder) {
+    /** The button to start a quick game */
+    private final Button quickStartButton;
+
+    /** The button to go into world mode. The game mode not yet implemented */
+    private final Button worldButton;
+
+    /** The game to go to the custom game screen */
+    private final Button customStartButton;
+
+    /** The button to go to the high score screen. Not yet implemented though.*/
+    private final Button highScoreButton;
+
+    /** The button to go to settings. Not yet implemented. */
+    private final Button settingsButton;
+
+    /** The stage that the buttons are in. */
+    private final Stage stage;
+
+    /**
+     * Initializing
+     * @param gameHolder The current game holder. Necessary to be able to switch screens.
+     */
+    StartMenuController(final GameHolder gameHolder) {
         quickStartButton = new Button();
         worldButton = new Button();
         customStartButton = new Button();
@@ -36,10 +52,13 @@ public class StartMenuController {
     /**
      * @return the stage in which all the buttons's inputs is registered
      */
-    public Stage getStage() {
+    Stage getStage() {
         return stage;
     }
 
+    /**
+     * Sets up the bounds (dimensions and position) of the buttons.
+     */
     private void setUpButtonBounds(){
         float sideLength = Constants.getStartMenuButtonDimension();
 
@@ -60,6 +79,10 @@ public class StartMenuController {
         settingsButton.setBounds(settingsPos.x, settingsPos.y, settingsLength, settingsLength);
     }
 
+    /**
+     * Adds listeners to the buttons.
+     * @param gameHolder The current game holder. So that screens can be switched.
+     */
     private void setUpButtonListener(final GameHolder gameHolder){
         quickStartButton.addListener(new InputListener(){
             @Override
@@ -105,6 +128,9 @@ public class StartMenuController {
         });
     }
 
+    /**
+     * Adds the buttons to the stage.
+     */
     private void addButtonsToStage(){
         stage.addActor(quickStartButton);
         stage.addActor(worldButton);

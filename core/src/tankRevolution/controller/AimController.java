@@ -9,38 +9,45 @@ import tankRevolution.view.GameView;
  * to aim their shot.
  */
 public class AimController implements InputProcessor {
-    // x and y-coordinates for the initial press.
+
+    /** The x-coordinate for the initial press. */
     private float touchX;
+
+    /** The y-coordinate for the initial press. */
     private float touchY;
+
+    /** This tells if a touch is allowed. Reasons it may not be is if it isn't a the users turn
+     * or a projectile is in the air when the initial press is made.
+     */
     private boolean touchAllowed;
 
-    private GameView gameView;
-    private Environment environment;
+    /** The current game view. Necessary to be able to draw the aiming arrow. */
+    private final GameView gameView;
 
-    public AimController(GameView gameView, Environment environment) {
+    /** The current environment. Necessary to be able to shoot when the drag is released. */
+    private final Environment environment;
+
+    /**
+     * Initializing.
+     * @param gameView The current game view.
+     * @param environment The current environment.
+     */
+    AimController(GameView gameView, Environment environment) {
         touchX = 0;
         touchY = 0;
         this.gameView = gameView;
         this.environment = environment;
     }
 
+
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         touchAllowed = environment.isInputAllowed();
-        touchX = screenX;
-        touchY = screenY;
-        return true;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if(touchAllowed){
-        if (Math.sqrt((screenX - touchX) * (screenX - touchX) + (screenY - touchY) * (screenY - touchY)) > 6) {
-            gameView.removeVector();
-            environment.shoot(screenX, screenY, touchX, touchY);
-            return true;
+        if(touchAllowed) {
+            touchX = screenX;
+            touchY = screenY;
         }
-        }return false;
+        return true;
     }
 
     @Override
@@ -48,6 +55,17 @@ public class AimController implements InputProcessor {
         if (touchAllowed) {
             if (Math.sqrt(((screenX - touchX) * (screenX - touchX)) + ((screenY - touchY) * (screenY - touchY))) > 6) {
                 gameView.createArrow(touchX, touchY, screenX, screenY);
+                return true;
+            }
+        }return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        if(touchAllowed){
+            if (Math.sqrt((screenX - touchX) * (screenX - touchX) + (screenY - touchY) * (screenY - touchY)) > 6) {
+                gameView.removeVector();
+                environment.shoot(screenX, screenY, touchX, touchY);
                 return true;
             }
         }return false;
