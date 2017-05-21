@@ -15,9 +15,17 @@ import tankRevolution.view.*;
  */
 
 public class GameHolder implements ApplicationListener {
+
+    /** The current view that is rendered in the render method */
     private Viewable view;
+
+    /** The current environment */
     private Environment environment;
+
+    /** The main controller */
     private MainController mainController;
+
+    /** The option of the last game started. */
     private Options lastGameOptions;
 
     /**
@@ -70,7 +78,9 @@ public class GameHolder implements ApplicationListener {
         setGameMode();
     }
 
-
+    /**
+     * Restarts the game with help from the last game options.
+     */
     public void restartGame(){
         TankRevolution currentGame = lastGameOptions.newGame();
         AssetsManager.getInstance().loadNewGameAssets(currentGame.getCharacterList().size(), lastGameOptions.getMapName());
