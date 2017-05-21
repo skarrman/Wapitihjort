@@ -3,14 +3,18 @@ package tankRevolution.model;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Created by antonhagermalm on 2017-04-06.
  * The logic representation of a explosion
  */
 public class Explosion {
 
-    public float x;
-    public float y;
-    public int blastRadius;
+    /** The x-cordinate of the explosion */
+    public final float x;
+
+    /** The y-coordinate of the explosion */
+    public final float y;
+
+    /** The blast radius of the explosion */
+    public final int blastRadius;
 
     public Explosion(float x, float y, int blastRadius){
     this.x = x;

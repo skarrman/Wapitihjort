@@ -30,6 +30,13 @@ public class Options {
         mapName = "Burning Desert Wolf";
     }
 
+    /**
+     * Setting up a custom game.
+     * @param numberOfPlayers The number of players in the game.
+     * @param numberOfNPCs Number of NPCs in the game.
+     * @param npcDifficulties The different NPC difficulties.
+     * @param mapName The name of the map.
+     */
     public void setUpCustom(int numberOfPlayers, int numberOfNPCs, List<NPCDifficulty> npcDifficulties, String mapName) {
         this.mapName = mapName;
         if (numberOfNPCs < numberOfPlayers) {
@@ -48,10 +55,17 @@ public class Options {
 
     }
 
+    /**
+     * @return The chosen map name.
+     */
     public String getMapName() {
         return mapName;
     }
 
+    /**
+     * Makes a defensive copy of the character list.
+     * @return The copied list.
+     */
     private List<Character> defenciveCopiedCharacterList() {
         List<Character> safeCharacters = new ArrayList<Character>();
         for (Character character : characterList) {
@@ -60,6 +74,10 @@ public class Options {
         return safeCharacters;
     }
 
+    /**
+     * Returns a new model with the current settings.
+     * @return The new game.
+     */
     public TankRevolution newGame() {
         return new TankRevolution(defenciveCopiedCharacterList());
     }
