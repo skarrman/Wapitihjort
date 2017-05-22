@@ -519,8 +519,8 @@ public class AssetsManager implements IAssetsManager{
     private void loadCustomGameMenuAssets() throws FileNotFoundException{
         if(npcOrPlayerSprites == null){
             npcOrPlayerSprites = new ArrayList<Sprite>();
-            npcOrPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NPCPicker1.png"))));
-            npcOrPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NPCPicker2.png"))));
+            npcOrPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NPCpicker1.png"))));
+            npcOrPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NPCpicker2.png"))));
         }
         if(npcDifficultySprites == null){
             npcDifficultySprites = new ArrayList<Sprite>();
