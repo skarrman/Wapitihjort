@@ -1,4 +1,4 @@
-package tankRevolution.utils;
+package tankRevolution.services;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;

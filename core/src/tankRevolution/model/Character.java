@@ -1,7 +1,7 @@
 package tankRevolution.model;
 
 
-import tankRevolution.utils.Id;
+import tankRevolution.services.Id;
 
 /**
  * Created by antonhagermalm on 2017-03-30.

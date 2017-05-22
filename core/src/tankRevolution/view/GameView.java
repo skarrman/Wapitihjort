@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
 import tankRevolution.services.AssetsManager;
-import tankRevolution.utils.Constants;
+import tankRevolution.services.Constants;
 import tankRevolution.framework.Environment;
 import tankRevolution.model.Character;
 import tankRevolution.model.Explosion;

@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import tankRevolution.model.NPCDifficulty;
 import tankRevolution.services.AssetsManager;
-import tankRevolution.utils.Constants;
-import tankRevolution.utils.Id;
+import tankRevolution.services.Constants;
+import tankRevolution.services.Id;
 import java.util.List;
 
 /**

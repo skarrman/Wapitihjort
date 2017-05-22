@@ -1,4 +1,4 @@
-package tankRevolution.utils;
+package tankRevolution.services;
 
 /**
  * Created by antonhagermalm on 2017-04-25.

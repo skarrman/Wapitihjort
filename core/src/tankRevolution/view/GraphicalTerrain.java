@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
-import tankRevolution.utils.Constants;
+import tankRevolution.services.Constants;
 
 import java.util.List;
 

@@ -6,7 +6,7 @@ import com.quailshillstudio.polygonClippingUtils.CollisionGeometry;
 import com.quailshillstudio.polygonClippingUtils.GroundFixture;
 import com.quailshillstudio.polygonClippingUtils.PolygonBox2DShape;
 import com.quailshillstudio.polygonClippingUtils.UserData;
-import tankRevolution.utils.Constants;
+import tankRevolution.services.Constants;
 
 import java.util.ArrayList;
 import java.util.List;

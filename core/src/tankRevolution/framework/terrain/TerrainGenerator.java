@@ -1,7 +1,7 @@
 package tankRevolution.framework.terrain;
 
 import tankRevolution.services.AssetsManager;
-import tankRevolution.utils.Constants;
+import tankRevolution.services.Constants;
 
 import java.util.ArrayList;
 import java.util.List;

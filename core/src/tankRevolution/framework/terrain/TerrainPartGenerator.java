@@ -1,6 +1,6 @@
 package tankRevolution.framework.terrain;
 
-import tankRevolution.utils.Constants;
+import tankRevolution.services.Constants;
 
 /**
  * Created by antonhagermalm on 2017-05-11.

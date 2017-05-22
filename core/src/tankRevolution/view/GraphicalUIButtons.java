@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Array;
 import tankRevolution.services.AssetsManager;
-import tankRevolution.utils.Constants;
+import tankRevolution.services.Constants;
 
 /**
  * Static class holding the dimension and positions of the UI buttons in the game.

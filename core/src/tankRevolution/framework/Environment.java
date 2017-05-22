@@ -96,7 +96,7 @@ public class Environment {
      * @param currentMap The name of the map being used in the game.
      */
     private void setupWorld(String currentMap) {
-        Vector2 g = new Vector2(0f, Constants.getGravity());
+        Vector2 g = new Vector2(0f, tankRevolution.services.Constants.getGravity());
         world = new World(g, true);
 
         terrainHandler = new TerrainHandler(world, currentMap);
@@ -108,7 +108,7 @@ public class Environment {
      */
     private void setupSides() {
         setupSide(0);
-        setupSide(Constants.getMapWidth() + 0);
+        setupSide(tankRevolution.services.Constants.getMapWidth() + 0);
     }
 
     /**
@@ -122,7 +122,7 @@ public class Environment {
         bodyDef.position.set(0, 0);
 
         EdgeShape wall = new EdgeShape();
-        wall.set(x, 0, x, Constants.getMapWidth() * 2);
+        wall.set(x, 0, x, tankRevolution.services.Constants.getMapWidth() * 2);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = wall;
@@ -145,7 +145,7 @@ public class Environment {
     private void addProjectile(Shootable projectile, Tank shooter, float deltaX, float deltaY) {
         //Get the projectiles initial position (above the tank).
         float x = tanks.get(shooter).getPosition().x;
-        float y = tanks.get(shooter).getPosition().y + Constants.getShootOffsetTank();
+        float y = tanks.get(shooter).getPosition().y + tankRevolution.services.Constants.getShootOffsetTank();
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -177,7 +177,7 @@ public class Environment {
      * @param tank The instance of the tank being initialized to the world.
      * @param id   The player of the tank.
      */
-    private void addTank(Tank tank, Id id) {
+    private void addTank(Tank tank, tankRevolution.services.Id id) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(getStartingPosition(id));
@@ -430,7 +430,7 @@ public class Environment {
      * @param direction 1 if moving right, -1 if moving left.
      */
     public void moveTank(int direction) {
-        getTankBody(getCurrentTank()).setLinearVelocity(direction * getCurrentTank().getEnginePower(), Constants.getGravity());
+        getTankBody(getCurrentTank()).setLinearVelocity(direction * getCurrentTank().getEnginePower(), tankRevolution.services.Constants.getGravity());
         tankRevolution.reduceFuel();
     }
 
@@ -442,7 +442,7 @@ public class Environment {
             if (!getCharacterList().get(i).getTank().isTankFalling()) {
                 tanks.get(getCharacterList().get(i).getTank()).setLinearVelocity(0, 0);
             } else {
-                tanks.get(getCharacterList().get(i).getTank()).setLinearVelocity(0, Constants.getGravity());
+                tanks.get(getCharacterList().get(i).getTank()).setLinearVelocity(0, tankRevolution.services.Constants.getGravity());
             }
         }
     }
@@ -463,7 +463,7 @@ public class Environment {
      * @param touchY  y-coordinate of the user's initial touch.
      */
     public void shoot(int screenX, int screenY, float touchX, float touchY) {
-        shoot(Constants.metersPerPixel() * (touchX - screenX), Constants.metersPerPixel() * (screenY - touchY));
+        shoot(tankRevolution.services.Constants.metersPerPixel() * (touchX - screenX), tankRevolution.services.Constants.metersPerPixel() * (screenY - touchY));
     }
 
     /**
@@ -655,8 +655,8 @@ public class Environment {
      * @return the start position as a vector.
      */
     private Vector2 getStartingPosition(int i) {
-        return new Vector2(5 + (i - 1) * ((Constants.getMapWidth() - 10) / (getCharacterList().size() - 1)),
-                Constants.getTankStartPositionY());
+        return new Vector2(5 + (i - 1) * ((tankRevolution.services.Constants.getMapWidth() - 10) / (getCharacterList().size() - 1)),
+                tankRevolution.services.Constants.getTankStartPositionY());
     }
 
     /**
@@ -664,7 +664,7 @@ public class Environment {
      * @param id the id of the tank's player.
      * @return the start position as a vector.
      */
-    private Vector2 getStartingPosition(Id id) {
+    private Vector2 getStartingPosition(tankRevolution.services.Id id) {
         switch (id) {
             case PLAYER1:
                 return getStartingPosition(1);

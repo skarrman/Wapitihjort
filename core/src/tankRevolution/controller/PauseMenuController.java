@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import tankRevolution.GameHolder;
-import tankRevolution.utils.Constants;
+import tankRevolution.services.Constants;
 
 /**
  * The controller to handle user input on the pause menu screen.

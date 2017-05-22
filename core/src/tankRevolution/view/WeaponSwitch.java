@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import tankRevolution.model.shootablePackage.AmmunitionType;
 import tankRevolution.services.AssetsManager;
-import tankRevolution.utils.Constants;
+import tankRevolution.services.Constants;
 
 /**
  * Class handling the graphic representation of the way to switch between weapons.

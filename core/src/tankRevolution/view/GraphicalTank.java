@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import tankRevolution.services.AssetsManager;
-import tankRevolution.utils.Constants;
-import tankRevolution.utils.Id;
+import tankRevolution.services.Constants;
+import tankRevolution.services.Id;
 
 
 /**

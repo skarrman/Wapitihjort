@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import tankRevolution.model.NPCDifficulty;
 import tankRevolution.services.AssetsManager;
-import tankRevolution.utils.Constants;
-import tankRevolution.utils.Id;
+import tankRevolution.services.Constants;
+import tankRevolution.services.Id;
 import java.util.List;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;

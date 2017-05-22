@@ -1,6 +1,6 @@
 package tankRevolution.model;
 
-import tankRevolution.utils.Id;
+import tankRevolution.services.Id;
 
 /**
  * Factory class to create characters.

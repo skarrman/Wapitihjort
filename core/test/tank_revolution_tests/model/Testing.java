@@ -6,7 +6,7 @@ import tankRevolution.model.*;
 import tankRevolution.model.Character;
 import tankRevolution.model.shootablePackage.AmmunitionType;
 import tankRevolution.model.shootablePackage.ProjectileFactory;
-import tankRevolution.utils.Id;
+import tankRevolution.services.Id;
 import tankRevolution.utils.Point;
 import tankRevolution.utils.Vector;
 

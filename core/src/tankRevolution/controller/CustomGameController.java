@@ -9,8 +9,8 @@ import tankRevolution.GameHolder;
 import tankRevolution.model.NPCDifficulty;
 import tankRevolution.model.Options;
 import tankRevolution.services.AssetsManager;
-import tankRevolution.utils.Constants;
-import tankRevolution.utils.Id;
+import tankRevolution.services.Constants;
+import tankRevolution.services.Id;
 import tankRevolution.view.CustomGameView;
 
 import java.util.ArrayList;

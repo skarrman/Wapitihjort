@@ -5,8 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import tankRevolution.model.NPCDifficulty;
-import tankRevolution.utils.Constants;
-import tankRevolution.utils.Id;
+import tankRevolution.services.Constants;
+import tankRevolution.services.Id;
 import tankRevolution.view.CustomGameView;
 
 /**

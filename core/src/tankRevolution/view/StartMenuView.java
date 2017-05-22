@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import tankRevolution.services.AssetsManager;
-import tankRevolution.utils.Constants;
+import tankRevolution.services.Constants;
 
 import java.util.List;
 

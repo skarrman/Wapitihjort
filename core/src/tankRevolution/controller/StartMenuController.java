@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import tankRevolution.GameHolder;
 import tankRevolution.model.Options;
-import tankRevolution.utils.Constants;
+import tankRevolution.services.Constants;
 
 
 /**

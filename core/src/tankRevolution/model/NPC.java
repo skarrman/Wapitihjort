@@ -1,7 +1,7 @@
 package tankRevolution.model;
 
-import tankRevolution.utils.Constants;
-import tankRevolution.utils.Id;
+import tankRevolution.services.Constants;
+import tankRevolution.services.Id;
 import tankRevolution.utils.Point;
 import tankRevolution.utils.Vector;
 
