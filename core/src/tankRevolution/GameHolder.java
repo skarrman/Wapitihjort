@@ -53,6 +53,7 @@ public class GameHolder implements ApplicationListener {
      */
     public void setStartMenuMode() {
         AssetsManager.getInstance().loadStartMenuAssets();
+        view.dispose();
         view = new StartMenuView();
         mainController.setStartMenuMode(this);
     }
@@ -61,6 +62,7 @@ public class GameHolder implements ApplicationListener {
      * Shows the in-game UI and connects the relevant model, view and controller.
      */
     public void setGameMode() {
+        view.dispose();
         view = new GameView(environment);
         mainController.setGameMode(environment, view, this);
     }
@@ -94,11 +96,13 @@ public class GameHolder implements ApplicationListener {
     public void setPauseMenuMode() {
         AssetsManager.getInstance().getPauseMenuTextures();
         mainController.setPauseMenuMode(this);
+        view.dispose();
         view = new PauseMenuView();
     }
 
     public void setCustomGameMode() {
         AssetsManager.getInstance().loadCustomGameAssets();
+        view.dispose();
         view = new CustomGameView();
         mainController.setCustomGameMode(this, (CustomGameView) view);
     }
