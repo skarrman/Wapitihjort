@@ -53,7 +53,8 @@ public class GameHolder implements ApplicationListener {
      */
     public void setStartMenuMode() {
         AssetsManager.getInstance().loadStartMenuAssets();
-        view.dispose();
+        if(view != null)
+            view.dispose();
         view = new StartMenuView();
         mainController.setStartMenuMode(this);
     }
