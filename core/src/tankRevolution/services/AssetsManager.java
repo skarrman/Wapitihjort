@@ -540,4 +540,93 @@ public class AssetsManager implements IAssetsManager{
         }
 
     }
+
+    public void dispose(){
+        if(spriteArrays != null) {
+            for (Array<Sprite> sprites : spriteArrays.values()) {
+                for (Sprite s : sprites) {
+                    s.getTexture().dispose();
+                }
+            }
+        }
+
+        if(startMenuTextures != null) {
+            for (Texture t : startMenuTextures) {
+                t.dispose();
+            }
+            settingsTexture.dispose();
+        }
+
+        if(pauseMenuTextures != null) {
+            for (Texture t : pauseMenuTextures) {
+                t.dispose();
+            }
+        }
+
+        if(pauseMenuButton != null)
+            pauseMenuButton.getTexture().dispose();
+
+        if(leftSwitchWeaponButton != null)
+            leftSwitchWeaponButton.getTexture();
+
+        if(rightSwitchWeaponButton != null)
+            rightSwitchWeaponButton.getTexture();
+
+
+        if(soundEffects != null) {
+            for (Sound s : soundEffects) {
+                s.dispose();
+            }
+        }
+
+        if(fonts != null) {
+            for (BitmapFont f : fonts) {
+                f.dispose();
+            }
+        }
+
+        if(leftPressedButton != null) {
+            for (Sprite s : leftPressedButton) {
+                s.getTexture().dispose();
+            }
+        }
+        if(leftNotPressedButton != null) {
+            for (Sprite s : leftNotPressedButton) {
+                s.getTexture().dispose();
+            }
+        }
+
+        if(rightPressedButton != null) {
+            for (Sprite s : rightPressedButton) {
+                s.getTexture().dispose();
+            }
+        }
+
+        if(rightNotPressedButton != null) {
+            for (Sprite s : rightNotPressedButton) {
+                s.getTexture().dispose();
+            }
+        }
+
+        if(npcOrPlayerSprites != null) {
+            for (Sprite s : npcOrPlayerSprites) {
+                s.getTexture().dispose();
+            }
+        }
+
+        if(npcDifficultySprites != null) {
+            for (Sprite s : npcDifficultySprites) {
+                s.getTexture().dispose();
+            }
+        }
+
+        if(numberOfPlayerSprites != null) {
+            for (Sprite s : numberOfPlayerSprites) {
+                s.getTexture().dispose();
+            }
+        }
+
+        if(startCustomGameButton != null)
+            startCustomGameButton.getTexture().dispose();
+    }
 }

@@ -142,6 +142,7 @@ public class GameHolder implements ApplicationListener {
      */
     @Override
     public void dispose() {
+        AssetsManager.getInstance().dispose();
         view.dispose();
     }
 }

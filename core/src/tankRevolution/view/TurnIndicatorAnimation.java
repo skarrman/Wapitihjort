@@ -43,9 +43,9 @@ public class TurnIndicatorAnimation {
     public void draw(Batch batch, Vector2 pos) {
         time += Gdx.graphics.getDeltaTime();
         TextureRegion animationFrame = new TextureRegion(animation.getKeyFrame(time, true));
-        int distanceToTank = 25;
+        int distanceToTank = 10;
         batch.draw(animationFrame, pos.x * metersToPixels - animationFrame.getRegionWidth()/2,
-                (pos.y + distanceToTank * metersToPixels) - animationFrame.getRegionHeight()/2);
+                ((pos.y + distanceToTank) * metersToPixels) - animationFrame.getRegionHeight()/2);
     }
 
     /**
