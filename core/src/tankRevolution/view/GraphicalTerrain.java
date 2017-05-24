@@ -73,7 +73,7 @@ public class GraphicalTerrain {
      */
     private  void setPoints() {
         float pixelsToMeter = Constants.pixelsPerMeter();
-        pixmap.setColor(0,1,0,0);
+        pixmap.setColor(0,0,0,0);
         pixmap.fill();
         for(Polygon polygon : polygons) {
             for (int i = 0; i < 300; i++) {
@@ -81,7 +81,7 @@ public class GraphicalTerrain {
                     float x = Constants.getMapWidth() / 300 * i;
                     float y = Constants.getMapWidth() / 300 * j;
                     if (polygon.contains(x, y)) {
-                        pixmap.setColor(0,1,0,1);
+                        pixmap.setColor(0.12f,0.569f,0.12f,1);
                         pixmap.fillCircle((int)(x * pixelsToMeter), pixmap.getHeight()-(int)(y * pixelsToMeter), (int)radius);
                     }
                 }

@@ -96,8 +96,8 @@ public class GameHolder implements ApplicationListener {
      */
     public void setPauseMenuMode() {
         AssetsManager.getInstance().getPauseMenuTextures();
+        environment.pauseGame();
         mainController.setPauseMenuMode(this);
-        view.dispose();
         view = new PauseMenuView();
     }
 

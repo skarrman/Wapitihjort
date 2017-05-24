@@ -219,6 +219,10 @@ public class Environment {
         }
     }
 
+    public void pauseGame(){
+        isTerrainChanged = true;
+    }
+
     /**
      * Returns the world of the game.
      *
