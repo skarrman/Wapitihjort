@@ -20,9 +20,7 @@ public class Tank {
     private final float density = 100;
     private final float width = 3f;
     private final float height = 2f;
-    private final float maxFuel = 100f;
     private int health = 100;
-    private final int enginePower = 100;
     private float fuel = 100;
 
     public Tank() {
@@ -31,7 +29,7 @@ public class Tank {
     }
 
     Shootable shoot(float deltaX, float deltaY) {
-        angle = (int) Math.toDegrees(Math.tan(deltaY / deltaX));
+        angle = (int) Math.toDegrees(Math.tan(deltaY / deltaX));§
         return ProjectileFactory.create(ammunitionType);
     }
 
@@ -60,7 +58,7 @@ public class Tank {
     }
 
     public int getEnginePower(){
-        return enginePower;
+        return 35;
     }
 
     void reduceFuel() {
@@ -68,7 +66,7 @@ public class Tank {
     }
 
     void resetFuel() {
-        fuel = maxFuel;
+        fuel = 100f;
     }
 
     public float getWidth() {
@@ -89,7 +87,6 @@ public class Tank {
 
     boolean hasFuel() {
         return (fuel > 0);
-
     }
 
     public boolean isTankFalling() {
