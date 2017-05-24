@@ -29,7 +29,7 @@ public class Tank {
     }
 
     Shootable shoot(float deltaX, float deltaY) {
-        angle = (int) Math.toDegrees(Math.tan(deltaY / deltaX));§
+        angle = (int) Math.toDegrees(Math.tan(deltaY / deltaX));
         return ProjectileFactory.create(ammunitionType);
     }
 
