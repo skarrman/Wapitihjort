@@ -6,7 +6,6 @@ import tankRevolution.framework.terrain.ITerrainHandler;
 import tankRevolution.model.shootablePackage.Shootable;
 
 /**
- * Created by antonhagermalm on 2017-05-04.
  * Handles collisions in the world and tells the terrainHandler if an explosion has happened.
  */
 class EnvironmentCollisions implements ContactListener {
