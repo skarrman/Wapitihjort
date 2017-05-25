@@ -87,10 +87,6 @@ public class Tank {
         return health >= 0;
     }
 
-    public Integer getAngle() {
-        return angle;
-    }
-
     boolean hasFuel() {
         return (fuel > 0);
 

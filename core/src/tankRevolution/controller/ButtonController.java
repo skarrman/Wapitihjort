@@ -14,7 +14,7 @@ import tankRevolution.view.GameView;
 /**
  * Controller class responsible for handling input from buttons around the UI
  */
-public class ButtonController {
+class ButtonController {
     private final IEnvironment environment;
     private final GameHolder gameHolder;
     private final GameView gameView;

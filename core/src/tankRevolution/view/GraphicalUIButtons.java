@@ -9,7 +9,7 @@ import tankRevolution.services.Constants;
 /**
  * Static class holding the dimension and positions of the UI buttons in the game.
  */
-public class GraphicalUIButtons {
+class GraphicalUIButtons {
     private static final Array<Sprite> leftMoveButtonPressedSprites = AssetsManager.getInstance().getLeftPressedButtonSprites();
     private static final Array<Sprite> rightMoveButtonPressedSprites = AssetsManager.getInstance().getRightPressedButtonSprites();
     private static final Array<Sprite> leftMoveButtonNotPressedSprites = AssetsManager.getInstance().getLeftNotPressedButtonSprites();

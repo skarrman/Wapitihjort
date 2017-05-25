@@ -23,43 +23,43 @@ import java.util.List;
 class CustomGameController {
 
     /** Button that represents the right arrow in the map selector */
-    private Button rightMapArrow;
+    private final Button rightMapArrow;
 
     /** Button that represents the left arrow in the map selector */
-    private Button leftMapArrow;
+    private final Button leftMapArrow;
 
     /** Button that sets the number of players to two */
-    private Button numberOfPlayersTwo;
+    private final Button numberOfPlayersTwo;
 
     /** Button that sets the number of players to three */
-    private Button numberOfPlayersThree;
+    private final Button numberOfPlayersThree;
 
     /** Button that sets the number of players to four */
-    private Button numberOfPlayersFour;
+    private final Button numberOfPlayersFour;
 
     /** The options picker that handles options for player one */
-    private PlayerOptionsPicker player1;
+    private final PlayerOptionsPicker player1;
 
     /** The options picker that handles options for player two */
-    private PlayerOptionsPicker player2;
+    private final PlayerOptionsPicker player2;
 
     /** The options picker that handles options for player three */
-    private PlayerOptionsPicker player3;
+    private final PlayerOptionsPicker player3;
 
     /** The options picker that handles options for player four */
-    private PlayerOptionsPicker player4;
+    private final PlayerOptionsPicker player4;
 
     /** Button that starts the game with the selected options */
-    private Button startGameButton;
+    private final Button startGameButton;
 
     /** The stage where all the buttons is in */
-    private Stage stage;
+    private final Stage stage;
 
     /** The index of the selected map in the map names array */
     private int selectedMap = 0;
 
     /** Array of names of all the available maps */
-    private List<String> mapNames;
+    private final List<String> mapNames;
 
     /** The amount of players. Start with value of two because it the least amout of players posible to start a game */
     private int numberOfPlayers = 2;
@@ -191,7 +191,7 @@ class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 Options options = new Options();
-                List<NPCDifficulty> npcDifficulties = new ArrayList<NPCDifficulty>();
+                List<NPCDifficulty> npcDifficulties = new ArrayList<>();
                 int numberOfNpc = 0;
                 if(player1.isNPC()){
                     numberOfNpc++;

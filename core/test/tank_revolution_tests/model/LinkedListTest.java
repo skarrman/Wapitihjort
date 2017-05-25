@@ -13,7 +13,7 @@ public class LinkedListTest {
     //Iterator<Explosion> iterator;
     int iterations;
     LinkedListTest(int iterations) {
-        list = new LinkedList<Explosion>();
+        list = new LinkedList<>();
         this.iterations = iterations;
     }
 

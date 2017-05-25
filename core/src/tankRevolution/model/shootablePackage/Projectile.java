@@ -8,10 +8,10 @@ package tankRevolution.model.shootablePackage;
 public abstract class Projectile implements Shootable {
 
     /** The radius of the Projectile (should cbe renamed to projectileRadius) */
-    private float missileRadius = 0.27f;
+    private final float missileRadius = 0.27f;
 
     /** The density of the Projectile (should cbe renamed to projectileDensity) */
-    private float missileDensity = 13.71f;
+    private final float missileDensity = 13.71f;
 
     /** The radius of the destruction caused by the projectile */
     private final int blastRadius;

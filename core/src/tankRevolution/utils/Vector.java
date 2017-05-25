@@ -5,8 +5,8 @@ package tankRevolution.utils;
  * Non-mutable version of the Vector class.
  */
 public class Vector {
-    private float deltaX;
-    private float deltaY;
+    private final float deltaX;
+    private final float deltaY;
 
     public Vector(float deltaX, float deltaY) {
         this.deltaX = deltaX;

@@ -31,7 +31,7 @@ public class Environment implements IEnvironment {
     /**
      * The logical model free from the framework.
      */
-    private TankRevolution tankRevolution;
+    private final TankRevolution tankRevolution;
 
     /**
      * The world in which all objects will live.
@@ -41,22 +41,22 @@ public class Environment implements IEnvironment {
     /**
      * The active tanks in the world and their body.
      */
-    private Map<Tank, Body> tanks;
+    private final Map<Tank, Body> tanks;
 
     /**
      * The active projectiles in the world and their body.
      */
-    private Map<Shootable, Body> projectiles;
+    private final Map<Shootable, Body> projectiles;
 
     /**
      * List of bodies pending to be destroyed.
      */
-    private List<Body> removeStack;
+    private final List<Body> removeStack;
 
     /**
      * List of current explosions.
      */
-    private List<Explosion> explosions;
+    private final List<Explosion> explosions;
 
     /**
      * TODO
@@ -82,10 +82,10 @@ public class Environment implements IEnvironment {
     public Environment(TankRevolution tankRevolution, String mapName) {
         this.tankRevolution = tankRevolution;
         this.time = System.currentTimeMillis();
-        this.tanks = new HashMap<Tank, Body>();
-        this.projectiles = new HashMap<Shootable, Body>();
-        this.removeStack = new ArrayList<Body>();
-        this.explosions = new ArrayList<Explosion>();
+        this.tanks = new HashMap<>();
+        this.projectiles = new HashMap<>();
+        this.removeStack = new ArrayList<>();
+        this.explosions = new ArrayList<>();
 
         setupWorld(mapName);
         setupTanks();
@@ -380,7 +380,7 @@ public class Environment implements IEnvironment {
 
     //TODO refactor this projectile hit method, seems like it's doing more than one thing.
     public void projectileHit(Shootable projectile) {
-        List<Tank> deadTanks = new ArrayList<Tank>();
+        List<Tank> deadTanks = new ArrayList<>();
         for (Tank t : tanks.keySet()) {
             tankRevolution.damage(projectile, t, distanceTo(t, projectile));
             if (!t.isAlive()) {
@@ -489,9 +489,9 @@ public class Environment implements IEnvironment {
      * Calculates the perfect shot and puts a random fault based on difficulty.
      */
     private void NPCDoShoot() {
-        List<Tank> tanksToNPC = new ArrayList<Tank>();
+        List<Tank> tanksToNPC = new ArrayList<>();
         tanksToNPC.addAll(tanks.keySet());
-        List<Point> positionsToNPC = new ArrayList<Point>();
+        List<Point> positionsToNPC = new ArrayList<>();
         for (Tank t : tanksToNPC) {
             float positionX = getTankX(t);
             float positionY = getTankY(t);

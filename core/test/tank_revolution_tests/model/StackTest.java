@@ -12,7 +12,7 @@ public class StackTest {
     List<Explosion> list;
     int iterations;
     StackTest(int iterations){
-        list = new Stack<Explosion>();
+        list = new Stack<>();
         this.iterations = iterations;
     }
 

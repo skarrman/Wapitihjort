@@ -5,8 +5,8 @@ package tankRevolution.utils;
  * Non-mutable version of the Point class.
  */
 public class Point {
-    private float x;
-    private float y;
+    private final float x;
+    private final float y;
 
     public Point(float x, float y) {
         this.x = x;

@@ -27,8 +27,8 @@ public class TerrainGeneratorTest {
     }*/
 
     @Test public void AddAllTest(){
-        List<Float> list = new ArrayList<Float>();
-        List<Float> expectedList = new ArrayList<Float>();
+        List<Float> list = new ArrayList<>();
+        List<Float> expectedList = new ArrayList<>();
         expectedList.add(1f);
         expectedList.add(2f);
         expectedList.add(3f);

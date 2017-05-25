@@ -13,12 +13,12 @@ public class TankRevolution {
     /**
      * list of the playing character
      */
-    private List<Character> characterList;
+    private final List<Character> characterList;
 
     /**
      * The projectile, will hold the projectile in air
      */
-    private List<Shootable> flyingProjectiles;
+    private final List<Shootable> flyingProjectiles;
 
     /**
      * The index of the current playing character
@@ -42,7 +42,7 @@ public class TankRevolution {
         this.characterList = characterList;
         gameSessionSetup();
         initializeTanks();
-        flyingProjectiles = new ArrayList<Shootable>();
+        flyingProjectiles = new ArrayList<>();
     }
 
     private void gameSessionSetup() {

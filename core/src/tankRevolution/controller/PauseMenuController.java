@@ -26,7 +26,7 @@ class PauseMenuController {
     private final Button settingsButton;
 
     /** The stage that the buttons are in */
-    private Stage stage;
+    private final Stage stage;
 
     /**
      * Initializing.

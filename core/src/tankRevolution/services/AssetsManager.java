@@ -23,7 +23,7 @@ public class AssetsManager {
     /**
      * A Map with all textureAtlases and with a String for key
      */
-    private Map<Id, Array<Sprite>> spriteArrays;
+    private final Map<Id, Array<Sprite>> spriteArrays;
 
     /**
      * the sprite for the standard projectile
@@ -99,13 +99,13 @@ public class AssetsManager {
     private Sprite startCustomGameButton;
 
     private AssetsManager(){
-        spriteArrays = new HashMap<Id, Array<Sprite>>();
+        spriteArrays = new HashMap<>();
     }
 
     /**
      * our instance
      */
-    private static AssetsManager ourInstance = new AssetsManager();
+    private final static AssetsManager ourInstance = new AssetsManager();
 
     /**
      * singleton method
@@ -264,7 +264,7 @@ public class AssetsManager {
     public void loadMapNames() {
         FileHandle fileHandle = Gdx.files.internal("maps/" + "mapNames");
         String maps = fileHandle.readString();
-        mapNames = new ArrayList<String>();
+        mapNames = new ArrayList<>();
 
         int firstIndexOfRow = 0;
 
@@ -312,7 +312,7 @@ public class AssetsManager {
      * The following methods loads the assets from the android assets folder and puts into the map or the Sprite variable
      */
     private void loadExplosionTextureAtlas() throws FileNotFoundException {
-        Array<Sprite> explosions = new Array<Sprite>();
+        Array<Sprite> explosions = new Array<>();
         for (int i = 1; i <= 3; i++) {
             explosions.add(new Sprite(new Texture(Gdx.files.internal("Explosion/Explosion" + i + ".png"))));
         }
@@ -320,25 +320,25 @@ public class AssetsManager {
     }
 
     private void loadPlayer1TankTextureAtlas() throws FileNotFoundException {
-        Array<Sprite> greenTank = new Array<Sprite>();
+        Array<Sprite> greenTank = new Array<>();
         greenTank.add(new Sprite(new Texture(Gdx.files.internal("TankBody/greentank.png"))));
         spriteArrays.put(Id.PLAYER1, greenTank);
     }
 
     private void loadPlayer2TankTextureAtlas() throws FileNotFoundException {
-        Array<Sprite> whiteTank = new Array<Sprite>();
+        Array<Sprite> whiteTank = new Array<>();
         whiteTank.add(new Sprite(new Texture(Gdx.files.internal("TankBody/whitetank.png"))));
         spriteArrays.put(Id.PLAYER2, whiteTank);
     }
 
     private void loadPlayer3TankTextureAtlas() throws FileNotFoundException {
-        Array<Sprite> yellowTank = new Array<Sprite>();
+        Array<Sprite> yellowTank = new Array<>();
         yellowTank.add(new Sprite(new Texture(Gdx.files.internal("TankBody/yellowtank.png"))));
         spriteArrays.put(Id.PLAYER3, yellowTank);
     }
 
     private void loadPlayer4TankTextureAtlas() throws FileNotFoundException {
-        Array<Sprite> blueTank = new Array<Sprite>();
+        Array<Sprite> blueTank = new Array<>();
         blueTank.add(new Sprite(new Texture(Gdx.files.internal("TankBody/bluetank.png"))));
         spriteArrays.put(Id.PLAYER4, blueTank);
     }
@@ -377,10 +377,10 @@ public class AssetsManager {
     }
 
     private void loadMoveButtonTextures() throws FileNotFoundException {
-        rightPressedButton = new Array<Sprite>();
-        leftPressedButton = new Array<Sprite>();
-        rightNotPressedButton = new Array<Sprite>();
-        leftNotPressedButton = new Array<Sprite>();
+        rightPressedButton = new Array<>();
+        leftPressedButton = new Array<>();
+        rightNotPressedButton = new Array<>();
+        leftNotPressedButton = new Array<>();
         for (int i = 0; i <= 100; i += 10) {
             rightPressedButton.add(new Sprite(new Texture(Gdx.files.internal("RightMoveButtons/right_" + i + "_pressed.png"))));
             leftPressedButton.add(new Sprite(new Texture(Gdx.files.internal("LeftMoveButtons/left_" + i + "_pressed.png"))));
@@ -402,7 +402,7 @@ public class AssetsManager {
     }
 
     private void loadStartMenuTextures() throws FileNotFoundException {
-        startMenuTextures = new ArrayList<Texture>();
+        startMenuTextures = new ArrayList<>();
         startMenuTextures.add(new Texture(Gdx.files.internal("MainMenu/QuickGame.png")));
         startMenuTextures.add(new Texture(Gdx.files.internal("MainMenu/WorldCS.png")));
         startMenuTextures.add(new Texture(Gdx.files.internal("MainMenu/CustomGame.png")));
@@ -413,7 +413,7 @@ public class AssetsManager {
     }
 
     private void loadPauseMenuTextures() throws FileNotFoundException {
-        pauseMenuTextures = new ArrayList<Texture>();
+        pauseMenuTextures = new ArrayList<>();
         pauseMenuTextures.add(new Texture(Gdx.files.internal("ResumeButton.png")));
         pauseMenuTextures.add(new Texture(Gdx.files.internal("RestartButton.png")));
         pauseMenuTextures.add(new Texture(Gdx.files.internal("MainMenuButton.png")));
@@ -425,13 +425,13 @@ public class AssetsManager {
     }
 
     private void loadSoundEffects() throws FileNotFoundException {
-        soundEffects = new ArrayList<Sound>();
+        soundEffects = new ArrayList<>();
         soundEffects.add(Gdx.audio.newSound(Gdx.files.internal("Sounds/Cannon-sound-effect.mp3")));
         soundEffects.add(Gdx.audio.newSound(Gdx.files.internal("Sounds/Boom-sound.mp3")));
     }
 
     private void loadFonts() throws FileNotFoundException {
-        fonts = new ArrayList<BitmapFont>();
+        fonts = new ArrayList<>();
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Noteworthy-Light.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = Gdx.graphics.getWidth() / 64;
@@ -518,19 +518,19 @@ public class AssetsManager {
 
     private void loadCustomGameMenuAssets() throws FileNotFoundException{
         if(npcOrPlayerSprites == null){
-            npcOrPlayerSprites = new ArrayList<Sprite>();
+            npcOrPlayerSprites = new ArrayList<>();
             npcOrPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NPCpicker1.png"))));
             npcOrPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NPCpicker2.png"))));
         }
         if(npcDifficultySprites == null){
-            npcDifficultySprites = new ArrayList<Sprite>();
+            npcDifficultySprites = new ArrayList<>();
             npcDifficultySprites.add(new Sprite(new Texture(Gdx.files.internal("NPCDifficultyPicker1.png"))));
             npcDifficultySprites.add(new Sprite(new Texture(Gdx.files.internal("NPCDifficultyPicker2.png"))));
             npcDifficultySprites.add(new Sprite(new Texture(Gdx.files.internal("NPCDifficultyPicker3.png"))));
             npcDifficultySprites.add(new Sprite(new Texture(Gdx.files.internal("NPCDifficultyPicker4.png"))));
         }
         if(numberOfPlayerSprites == null){
-            numberOfPlayerSprites = new ArrayList<Sprite>();
+            numberOfPlayerSprites = new ArrayList<>();
             numberOfPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NumberOfPlayersPicker1.png"))));
             numberOfPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NumberOfPlayersPicker2.png"))));
             numberOfPlayerSprites.add(new Sprite(new Texture(Gdx.files.internal("NumberOfPlayersPicker3.png"))));
@@ -542,11 +542,9 @@ public class AssetsManager {
     }
 
     public void dispose(){
-        if(spriteArrays != null) {
-            for (Array<Sprite> sprites : spriteArrays.values()) {
-                for (Sprite s : sprites) {
-                    s.getTexture().dispose();
-                }
+        for (Array<Sprite> sprites : spriteArrays.values()) {
+            for (Sprite s : sprites) {
+                s.getTexture().dispose();
             }
         }
 

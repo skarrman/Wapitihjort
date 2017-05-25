@@ -8,7 +8,7 @@ import tankRevolution.view.GameView;
  * Controller class responsible for handling input from when the user drags it's finger across the screen
  * to aim their shot.
  */
-public class AimController implements InputProcessor {
+class AimController implements InputProcessor {
 
     /** The x-coordinate for the initial press. */
     private float touchX;

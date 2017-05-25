@@ -11,7 +11,7 @@ public enum AmmunitionType {
     SMALL_ATOM_BOMB("Small Atom Bomb"),
     ATOM_BOMB("Atom Bomb");
 
-    private String name;
+    private final String name;
 
     AmmunitionType(String name){
         this.name = name;

@@ -25,7 +25,7 @@ public class Testing {
         Character character = CharacterFactory.newPlayer(Id.PLAYER1);
         Tank tank = new Tank();
         character.setTank(tank);
-        List<Character> characters = new ArrayList<Character>();
+        List<Character> characters = new ArrayList<>();
         characters.add(character);
         TankRevolution tankRevolution = new TankRevolution(characters);
         tankRevolution.damage(ProjectileFactory.create(AmmunitionType.MISSILE), tank, 2);
@@ -36,7 +36,7 @@ public class Testing {
         Character character = CharacterFactory.newPlayer(Id.PLAYER1);
         Tank tank = new Tank();
         character.setTank(tank);
-        List<Character> characters = new ArrayList<Character>();
+        List<Character> characters = new ArrayList<>();
         characters.add(character);
         TankRevolution tankRevolution = new TankRevolution(characters);
         tankRevolution.reduceFuel();
@@ -45,7 +45,7 @@ public class Testing {
     }
 
     @Test public void NPCTest(){
-        NPC NPC = CharacterFactory.newNPC(Id.PLAYER1, NPCDifficulty.MEDIUM);
+        NPC NPC = (NPC)CharacterFactory.newNPC(Id.PLAYER1, NPCDifficulty.MEDIUM);
         Point own = new Point(1, 1);
         Point opponent = new Point(21, 1);
         Vector vector = NPC.calculateIdealVector(own, opponent);

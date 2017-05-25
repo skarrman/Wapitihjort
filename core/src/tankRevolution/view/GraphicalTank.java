@@ -12,7 +12,7 @@ import tankRevolution.services.Id;
 /**
  * Class holding information about the graphical representation of a tank.
  */
-public class GraphicalTank {
+class GraphicalTank {
 
     /** The tanks body */
     private final Body tankBody;

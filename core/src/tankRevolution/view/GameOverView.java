@@ -13,7 +13,7 @@ import tankRevolution.services.Constants;
 /**
  * The class that handles the graphical elements that is shown when the game is over.
  */
-public class GameOverView {
+class GameOverView {
 
     /** The font that is used */
     private final BitmapFont font;

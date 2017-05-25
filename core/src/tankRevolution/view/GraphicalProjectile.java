@@ -11,7 +11,7 @@ import tankRevolution.services.Constants;
 /**
  * Handles the graphical representation of a projectile that is flying.
  */
-public class GraphicalProjectile {
+class GraphicalProjectile {
 
     /** The projectiles body */
     private final Body body;

@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Class responsible for drawing information on the screen about the tanks' health.
  */
-public class LabelDrawer {
+class LabelDrawer {
 
     /** The font that text is using */
     private final BitmapFont font;
