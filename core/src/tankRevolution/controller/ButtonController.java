@@ -6,8 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import tankRevolution.GameHolder;
+import tankRevolution.framework.IEnvironment;
 import tankRevolution.services.Constants;
-import tankRevolution.framework.Environment;
 import tankRevolution.view.GameView;
 
 
@@ -15,7 +15,7 @@ import tankRevolution.view.GameView;
  * Controller class responsible for handling input from buttons around the UI
  */
 public class ButtonController {
-    private final Environment environment;
+    private final IEnvironment environment;
     private final GameHolder gameHolder;
     private final GameView gameView;
 
@@ -42,7 +42,7 @@ public class ButtonController {
      */
     private boolean gameOverMode;
 
-    ButtonController(GameView gameView, Environment environment, GameHolder gameHolder) {
+    ButtonController(GameView gameView, IEnvironment environment, GameHolder gameHolder) {
         this.gameHolder = gameHolder;
         this.environment = environment;
         this.gameView = gameView;

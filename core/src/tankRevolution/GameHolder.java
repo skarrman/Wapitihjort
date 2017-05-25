@@ -2,10 +2,11 @@ package tankRevolution;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
+import tankRevolution.framework.Environment;
+import tankRevolution.framework.IEnvironment;
 import tankRevolution.services.AssetsManager;
 import tankRevolution.model.Options;
 import tankRevolution.controller.MainController;
-import tankRevolution.framework.Environment;
 import tankRevolution.model.TankRevolution;
 import tankRevolution.view.*;
 
@@ -20,7 +21,7 @@ public class GameHolder implements ApplicationListener {
     private Viewable view;
 
     /** The current environment */
-    private Environment environment;
+    private IEnvironment environment;
 
     /** The main controller */
     private MainController mainController;

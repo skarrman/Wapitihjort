@@ -11,9 +11,9 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
+import tankRevolution.framework.IEnvironment;
 import tankRevolution.services.AssetsManager;
 import tankRevolution.services.Constants;
-import tankRevolution.framework.Environment;
 import tankRevolution.model.Character;
 import tankRevolution.model.Explosion;
 import tankRevolution.model.shootablePackage.Shootable;
@@ -46,7 +46,7 @@ public class GameView implements Viewable {
     /**
      * The environment
      */
-    private final Environment environment;
+    private final IEnvironment environment;
 
     /**
      * An orthogonal camera
@@ -149,7 +149,7 @@ public class GameView implements Viewable {
      *
      * @param environment The current environment.
      */
-    public GameView(Environment environment) {
+    public GameView(IEnvironment environment) {
         isPressed = false;
         this.environment = environment;
         shapeRenderer = new ShapeRenderer();

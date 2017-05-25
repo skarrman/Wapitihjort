@@ -26,7 +26,7 @@ import tankRevolution.utils.Vector;
  * Model class holding everything that has to do with the framework "LibGDX"
  * Wrapper for the logical model and handles all input to it.
  */
-public class Environment {
+public class Environment implements IEnvironment {
 
     /**
      * The logical model free from the framework.
@@ -379,7 +379,7 @@ public class Environment {
      */
 
     //TODO refactor this projectile hit method, seems like it's doing more than one thing.
-    void projectileHit(Shootable projectile) {
+    public void projectileHit(Shootable projectile) {
         List<Tank> deadTanks = new ArrayList<Tank>();
         for (Tank t : tanks.keySet()) {
             tankRevolution.damage(projectile, t, distanceTo(t, projectile));
@@ -535,7 +535,7 @@ public class Environment {
     private float getTankY(Tank tank) {
         return tanks.get(tank).getPosition().y;
     }
-    
+
     /**
      * Get the position of a tank as a vector.
      * @param tank the tank

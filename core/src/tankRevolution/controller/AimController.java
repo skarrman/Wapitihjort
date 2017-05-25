@@ -1,7 +1,7 @@
 package tankRevolution.controller;
 
 import com.badlogic.gdx.InputProcessor;
-import tankRevolution.framework.Environment;
+import tankRevolution.framework.IEnvironment;
 import tankRevolution.view.GameView;
 
 /**
@@ -25,14 +25,14 @@ public class AimController implements InputProcessor {
     private final GameView gameView;
 
     /** The current environment. Necessary to be able to shoot when the drag is released. */
-    private final Environment environment;
+    private final IEnvironment environment;
 
     /**
      * Initializing.
      * @param gameView The current game view.
      * @param environment The current environment.
      */
-    AimController(GameView gameView, Environment environment) {
+    AimController(GameView gameView, IEnvironment environment) {
         touchX = 0;
         touchY = 0;
         this.gameView = gameView;

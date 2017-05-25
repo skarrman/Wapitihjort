@@ -11,10 +11,10 @@ import tankRevolution.model.shootablePackage.Shootable;
  */
 public class EnvironmentCollisions implements ContactListener {
 
-    private Environment environment;
+    private IEnvironment environment;
     private ITerrainHandler terrainHandler;
 
-    EnvironmentCollisions(Environment environment, ITerrainHandler terrainHandler) {
+    EnvironmentCollisions(IEnvironment environment, ITerrainHandler terrainHandler) {
         this.environment = environment;
         this.terrainHandler = terrainHandler;
     }

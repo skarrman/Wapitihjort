@@ -3,7 +3,7 @@ package tankRevolution.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import tankRevolution.GameHolder;
-import tankRevolution.framework.Environment;
+import tankRevolution.framework.IEnvironment;
 import tankRevolution.view.CustomGameView;
 import tankRevolution.view.GameView;
 import tankRevolution.view.Viewable;
@@ -26,7 +26,7 @@ public class MainController {
      * @param gameView      Current View
      * @param gameHolder    The GameHolder is needed to be able to pause the game.
      */
-    public void setGameMode(Environment environment, Viewable gameView, GameHolder gameHolder){
+    public void setGameMode(IEnvironment environment, Viewable gameView, GameHolder gameHolder){
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         buttonController = new ButtonController((GameView)gameView, environment, gameHolder);
         inputMultiplexer.clear();
