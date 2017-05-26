@@ -10,7 +10,7 @@ First of all, the gdx-setup.jar needs to be downloaded from here: http://libgdx.
 Now open the setup. In ”Game class” put ”GameHolder”. 
 In destination, put where you want the final project to be located. 
 In Android SDK, locate your Android SDK. 
-The rest doesn’t really matter.
+The rest doesn’t really matter
 
 Now start IntelliJ IDEA and pick ”import project” in the menu.
 Locate the libGDX project.
