@@ -59,7 +59,7 @@ public class Environment implements IEnvironment {
     private final List<Explosion> explosions;
 
     /**
-     * TODO
+     * Handler of the terrain
      */
     private ITerrainHandler terrainHandler;
 
@@ -278,7 +278,7 @@ public class Environment implements IEnvironment {
     }
 
     /**
-     * TODO refactoring
+     * Checks if a tank is out side of the map and in that case destroys it
      */
     private void tankOutsideMapCheck() {
         for (int i = 0; i < getCharacterList().size(); i++) {
@@ -291,7 +291,7 @@ public class Environment implements IEnvironment {
     }
 
     /**
-     * TODO refactoring
+     * Checks if a projectile is out side of the map and in that case destroys it
      */
     private void projectileOutsideMapCheck() {
         for (int i = 0; i < getFlyingProjectiles().size(); i++) {
@@ -321,7 +321,7 @@ public class Environment implements IEnvironment {
     }
 
     /**
-     * TODO
+     * Tells if the terrain has changed since last time it was asked
      */
     public boolean isTerrainChanged() {
         boolean value = isTerrainChanged;
@@ -349,9 +349,8 @@ public class Environment implements IEnvironment {
     }
 
     /**
-     * TODO JAKOB ERLANDSSON?
-     * @param body
-     * @param isFalling
+     * @param body The body to set
+     * @param isFalling the value of falling state
      */
     public void setTankFalling(Body body, boolean isFalling) {
         for (Tank t : tanks.keySet()) {
@@ -363,7 +362,7 @@ public class Environment implements IEnvironment {
 
 
     /**
-     * TODO Jakob Erlandsson?
+     * Sets all the tanks falling state true
      */
     private void setAllTanksFalling(){
         for (int i = 0; i < tanks.size(); i++) {
@@ -454,7 +453,6 @@ public class Environment implements IEnvironment {
     }
 
     /**
-     * TODO JAKOBERLANDSSON, IS THIS STILL NEEDED?
      * @return true if there is nothing stopping the tank from moving.
      */
     public boolean tankCanMove() {
@@ -503,7 +501,6 @@ public class Environment implements IEnvironment {
     }
 
     /**
-     * TODO
      * @return the vertices that makes up the terrain
      */
     public List<float[]> getVertices() {

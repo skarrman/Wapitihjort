@@ -64,15 +64,14 @@ public interface IEnvironment {
     void update();
 
     /**
-     * TODO
+     * Tells if the terrain has changed since last time it was asked
      */
     boolean isTerrainChanged();
 
 
     /**
-     * TODO JAKOB ERLANDSSON?
-     * @param body
-     * @param isFalling
+     * @param body The body to set
+     * @param isFalling the value of falling state
      */
     void setTankFalling(Body body, boolean isFalling);
 
@@ -82,8 +81,6 @@ public interface IEnvironment {
      *
      * @param projectile the projectile that hit something.
      */
-
-    //TODO refactor this projectile hit method, seems like it's doing more than one thing.
     void projectileHit(Shootable projectile);
 
 
@@ -100,7 +97,6 @@ public interface IEnvironment {
 
 
     /**
-     * TODO JAKOBERLANDSSON, IS THIS STILL NEEDED?
      * @return true if there is nothing stopping the tank from moving.
      */
     boolean tankCanMove();
@@ -116,7 +112,6 @@ public interface IEnvironment {
 
 
     /**
-     * TODO
      * @return the vertices that makes up the terrain
      */
     List<float[]> getVertices();
