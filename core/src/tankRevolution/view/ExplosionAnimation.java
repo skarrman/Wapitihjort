@@ -31,7 +31,7 @@ class ExplosionAnimation{
     ExplosionAnimation(Explosion explosion, float pixelsPerMeter){
         sprites = AssetsManager.getInstance().getSpriteArray(Id.EXPLOSION);
         setDimension(explosion.blastRadius, explosion.x, explosion.y, pixelsPerMeter);
-        animation = new Animation<>(1 / 30f, sprites);
+        animation = new Animation<Sprite>(1 / 30f, sprites);
         time = 0;
     }
 

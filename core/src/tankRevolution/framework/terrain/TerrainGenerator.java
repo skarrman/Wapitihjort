@@ -40,7 +40,7 @@ public class TerrainGenerator {
      * @return the first values needed in order to create a map
      */
     private static List<Float> getInitValues() {
-        List<Float> verticesList = new ArrayList<>();
+        List<Float> verticesList = new ArrayList<Float>();
 
         verticesList.add(Constants.getMapWidth() + 1);
         verticesList.add(0f);
@@ -58,7 +58,7 @@ public class TerrainGenerator {
     private static List<String> createMapStringList(String mapName) {
         AssetsManager.getInstance().loadMap(mapName);
         String mapString = AssetsManager.getInstance().getMapString();
-        List<String> mapStringList = new ArrayList<>();
+        List<String> mapStringList = new ArrayList<String>();
         int firstIndexOfRow = 0;
 
         for (int i = 0; i < mapString.length(); i++) {
@@ -85,9 +85,9 @@ public class TerrainGenerator {
      * @return a matrix of ints
      */
     private static List<List<Integer>> createMapMatrix(List<String> mapStringList) {
-        List<List<Integer>> mapMatrix = new ArrayList<>();
+        List<List<Integer>> mapMatrix = new ArrayList<List<Integer>>();
         for (int i = 0; i < mapStringList.size(); i++) {
-            mapMatrix.add(new ArrayList<>());
+            mapMatrix.add(new ArrayList<Integer>());
             int firstIndexOfInteger = 0;
             for (int j = 0; j < mapStringList.get(i).length(); j++) {
                 if (mapStringList.get(i).charAt(j) == ',') {

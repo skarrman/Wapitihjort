@@ -31,7 +31,7 @@ class TurnIndicatorAnimation {
      */
     TurnIndicatorAnimation(float metersToPixels) {
         textureAtlas = new TextureAtlas(Gdx.files.internal("CurrentPlayerArrow.txt"));
-        animation = new Animation<>(1 / 15f, textureAtlas.getRegions());
+        animation = new Animation<TextureRegion>(1 / 15f, textureAtlas.getRegions());
         this.metersToPixels = metersToPixels;
     }
 

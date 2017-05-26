@@ -157,13 +157,13 @@ public class GameView implements Viewable {
         setUpTankHashMap();
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         createDebugger();
-        explosionAnimations = new ArrayList<>();
+        explosionAnimations = new ArrayList<ExplosionAnimation>();
         turnIndicatorAnimation = new TurnIndicatorAnimation(Constants.pixelsPerMeter());
         labelDrawer = new LabelDrawer();
         gameOverView = new GameOverView();
         shotSound = AssetsManager.getInstance().getSoundEffects().get(0);
         explosionSound = AssetsManager.getInstance().getSoundEffects().get(1);
-        projectileHashMap = new HashMap<>();
+        projectileHashMap = new HashMap<Shootable, GraphicalProjectile>();
         weaponSwitch = new WeaponSwitch();
         background = new Sprite(new Texture(Gdx.files.internal("background.png")));
         background.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -380,7 +380,7 @@ public class GameView implements Viewable {
      * Pairing characters with graphical tanks in a map.
      */
     private void setUpTankHashMap() {
-        characterTankHashMap = new HashMap<>();
+        characterTankHashMap = new HashMap<Character, GraphicalTank>();
         for (Character c : environment.getCharacterList()) {
             GraphicalTank graphicalTank = new GraphicalTank(environment.getTankBody(c.getTank()), c.getId(),
                     c.getTank().getWidth(), c.getTank().getHeight());
@@ -405,7 +405,7 @@ public class GameView implements Viewable {
      */
     private void checkCharacterList() {
         if (characterTankHashMap.size() > environment.getCharacterList().size()) {
-            HashMap<Character, GraphicalTank> tempMap = new HashMap<>();
+            HashMap<Character, GraphicalTank> tempMap = new HashMap<Character, GraphicalTank>();
             for (Character c : environment.getCharacterList()) {
                 tempMap.put(c, characterTankHashMap.get(c));
             }
@@ -419,7 +419,7 @@ public class GameView implements Viewable {
      */
     private void checkShootableList() {
         if (projectileHashMap.size() > environment.getFlyingProjectiles().size()) {
-            HashMap<Shootable, GraphicalProjectile> tempMap = new HashMap<>();
+            HashMap<Shootable, GraphicalProjectile> tempMap = new HashMap<Shootable, GraphicalProjectile>();
             for (Shootable s : environment.getFlyingProjectiles()) {
                 tempMap.put(s, projectileHashMap.get(s));
             }

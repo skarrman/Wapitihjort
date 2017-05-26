@@ -191,7 +191,7 @@ class CustomGameController {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 Options options = new Options();
-                List<NPCDifficulty> npcDifficulties = new ArrayList<>();
+                List<NPCDifficulty> npcDifficulties = new ArrayList<NPCDifficulty>();
                 int numberOfNpc = 0;
                 if(player1.isNPC()){
                     numberOfNpc++;

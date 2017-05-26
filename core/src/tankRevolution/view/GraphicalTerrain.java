@@ -34,7 +34,7 @@ class GraphicalTerrain {
     GraphicalTerrain(){
         ShapeRenderer shapeRenderer = new ShapeRenderer();
         shapeRenderer.setColor(0,1,0,1);
-        polygons = new Array<>();
+        polygons = new Array<Polygon>();
         pixmap = new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
         setPoints();
     }

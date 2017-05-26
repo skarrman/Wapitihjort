@@ -21,7 +21,7 @@ public class Options {
      * For a quick setup
      */
     public Options() {
-        characterList = new ArrayList<>();
+        characterList = new ArrayList<Character>();
     }
 
     public void setupQuick() {
@@ -67,7 +67,7 @@ public class Options {
      * @return The copied list.
      */
     private List<Character> defenciveCopiedCharacterList() {
-        List<Character> safeCharacters = new ArrayList<>();
+        List<Character> safeCharacters = new ArrayList<Character>();
         for (Character character : characterList) {
             safeCharacters.add(CharacterFactory.defenciveCopyCharacter(character));
         }

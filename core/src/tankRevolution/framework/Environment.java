@@ -82,10 +82,10 @@ public class Environment implements IEnvironment {
     public Environment(TankRevolution tankRevolution, String mapName) {
         this.tankRevolution = tankRevolution;
         this.time = System.currentTimeMillis();
-        this.tanks = new HashMap<>();
-        this.projectiles = new HashMap<>();
-        this.removeStack = new ArrayList<>();
-        this.explosions = new ArrayList<>();
+        this.tanks = new HashMap<Tank, Body>();
+        this.projectiles = new HashMap<Shootable, Body>();
+        this.removeStack = new ArrayList<Body>();
+        this.explosions = new ArrayList<Explosion>();
 
         setupWorld(mapName);
         setupTanks();
@@ -380,7 +380,7 @@ public class Environment implements IEnvironment {
 
     //TODO refactor this projectile hit method, seems like it's doing more than one thing.
     public void projectileHit(Shootable projectile) {
-        List<Tank> deadTanks = new ArrayList<>();
+        List<Tank> deadTanks = new ArrayList<Tank>();
         for (Tank t : tanks.keySet()) {
             tankRevolution.damage(projectile, t, distanceTo(t, projectile));
             if (!t.isAlive()) {
@@ -489,9 +489,9 @@ public class Environment implements IEnvironment {
      * Calculates the perfect shot and puts a random fault based on difficulty.
      */
     private void NPCDoShoot() {
-        List<Tank> tanksToNPC = new ArrayList<>();
+        List<Tank> tanksToNPC = new ArrayList<Tank>();
         tanksToNPC.addAll(tanks.keySet());
-        List<Point> positionsToNPC = new ArrayList<>();
+        List<Point> positionsToNPC = new ArrayList<Point>();
         for (Tank t : tanksToNPC) {
             float positionX = getTankX(t);
             float positionY = getTankY(t);

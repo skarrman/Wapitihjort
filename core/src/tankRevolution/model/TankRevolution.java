@@ -42,7 +42,7 @@ public class TankRevolution {
         this.characterList = characterList;
         gameSessionSetup();
         initializeTanks();
-        flyingProjectiles = new ArrayList<>();
+        flyingProjectiles = new ArrayList<Shootable>();
     }
 
     private void gameSessionSetup() {
